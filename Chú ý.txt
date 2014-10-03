@@ -1,0 +1,3 @@
+﻿MỌI NGƯỜI KHÔNG ĐƯỢC PHÉP THÊM | XÓA | SỬA TẠI THƯ MỤC CHỨA FILE NÀY!!!
+
+ĐƯỢC PHÉP LÀM VIỆC TRONG THƯ MỤC 'DOCUMENT' VÀ 'TRUNK'
