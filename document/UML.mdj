@@ -263,6 +263,8 @@
 								"$ref": "AAAAAAFJWxCCHRq8gt0="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -517,6 +519,8 @@
 								"$ref": "AAAAAAFJWxGu9Rr5nTs="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -908,6 +912,8 @@
 								"$ref": "AAAAAAFJWxLfZRs6ND0="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -1299,6 +1305,8 @@
 								"$ref": "AAAAAAFJWxOT3Bt2BSo="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -1553,6 +1561,8 @@
 								"$ref": "AAAAAAFJWxST2xvYsM8="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -1807,6 +1817,8 @@
 								"$ref": "AAAAAAFJWxjSvRwdzCI="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -2061,6 +2073,8 @@
 								"$ref": "AAAAAAFJWxj8whxYFDI="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -2315,6 +2329,8 @@
 								"$ref": "AAAAAAFJWxmKORzn6qY="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -2569,6 +2585,8 @@
 								"$ref": "AAAAAAFJWxmwMh0f1Vc="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -2823,6 +2841,8 @@
 								"$ref": "AAAAAAFJWxnAaR1F4eo="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -3077,6 +3097,8 @@
 								"$ref": "AAAAAAFJWxngqh1suZw="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -3331,6 +3353,8 @@
 								"$ref": "AAAAAAFJWxoiuR2Sjlk="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -3585,6 +3609,8 @@
 								"$ref": "AAAAAAFJWxpRwB27X90="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -4524,6 +4550,8 @@
 								"$ref": "AAAAAAFJWxtbeR7WhSc="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -4778,6 +4806,8 @@
 								"$ref": "AAAAAAFJWxxwTx+aZ7o="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -5032,6 +5062,8 @@
 								"$ref": "AAAAAAFJWxyLuB/A8zo="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -5286,6 +5318,8 @@
 								"$ref": "AAAAAAFJWxywtx/8vmY="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -6088,6 +6122,8 @@
 								"$ref": "AAAAAAFJWx1YByBs30Y="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -6342,6 +6378,8 @@
 								"$ref": "AAAAAAFJWx5xjiDJK9c="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -6596,6 +6634,8 @@
 								"$ref": "AAAAAAFJWx6BviDvwOY="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -7124,6 +7164,8 @@
 								"$ref": "AAAAAAFJWx7BYCFN/fs="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -7378,6 +7420,8 @@
 								"$ref": "AAAAAAFJWx+gHyF0Y3I="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -7632,6 +7676,8 @@
 								"$ref": "AAAAAAFJWx/GbiGaA3U="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -8297,6 +8343,8 @@
 								"$ref": "AAAAAAFJWyCDhyH1Zcg="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -8688,6 +8736,8 @@
 								"$ref": "AAAAAAFJWyRLZCJUCq0="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -8942,6 +8992,8 @@
 								"$ref": "AAAAAAFJWyZGtSMe7WA="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -9196,6 +9248,8 @@
 								"$ref": "AAAAAAFJWyaB4yOAZ08="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -10546,6 +10600,8 @@
 								"$ref": "AAAAAAFJWyd19CReczM="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -11480,6 +11536,8 @@
 								"$ref": "AAAAAAFJWyxcGDFkBUQ="
 							},
 							"wordWrap": false,
+							"suppressAttributes": null,
+							"suppressOperations": null,
 							"showMultiplicity": true,
 							"showOperationSignature": true,
 							"attributeCompartment": {
@@ -11872,19 +11930,6 @@
 							"visibility": "public"
 						}
 					],
-					"visibility": "public",
-					"isAbstract": false,
-					"isFinalSpecification": false,
-					"isLeaf": false,
-					"isActive": false
-				},
-				{
-					"_type": "UMLClass",
-					"_id": "AAAAAAFJWxkomRyPMr0=",
-					"_parent": {
-						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
-					},
-					"name": "Object",
 					"visibility": "public",
 					"isAbstract": false,
 					"isFinalSpecification": false,
@@ -12433,19 +12478,6 @@
 							"visibility": "public"
 						}
 					],
-					"visibility": "public",
-					"isAbstract": false,
-					"isFinalSpecification": false,
-					"isLeaf": false,
-					"isActive": false
-				},
-				{
-					"_type": "UMLClass",
-					"_id": "AAAAAAFJWyS/wiJ31HI=",
-					"_parent": {
-						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
-					},
-					"name": "Menu",
 					"visibility": "public",
 					"isAbstract": false,
 					"isFinalSpecification": false,
