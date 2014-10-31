@@ -3,7 +3,7 @@ package org.xetang.manager;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.xetang.tank.Tank;
 
-public class TankManager  implements IUpdateHandler{
+public class TankManager implements IUpdateHandler{
 
 	private static TankManager mInstance;
 	
