@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
+encoding//src/org/xetang/controller/Bot.java=UTF-8
+encoding//src/org/xetang/controller/Console.java=UTF-8
+encoding//src/org/xetang/controller/Controller.java=UTF-8
 encoding//src/org/xetang/controller/IGameController.java=UTF-8
 encoding//src/org/xetang/main/MainActivity.java=UTF-8
 encoding//src/org/xetang/manager/GameControllerManager.java=UTF-8
@@ -6,4 +9,9 @@ encoding//src/org/xetang/manager/GameManager.java=UTF-8
 encoding//src/org/xetang/manager/GameMapManager.java=UTF-8
 encoding//src/org/xetang/map/Item.java=UTF-8
 encoding//src/org/xetang/map/Map.java=UTF-8
+encoding//src/org/xetang/map/MapObject.java=UTF-8
+encoding//src/org/xetang/menu/MenuItem.java=UTF-8
+encoding//src/org/xetang/root/Frame.java=UTF-8
+encoding//src/org/xetang/root/GameScene.java=UTF-8
+encoding//src/org/xetang/root/MainMenuScene.java=UTF-8
 encoding//src/org/xetang/tank/Tank.java=UTF-8
