@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.andengine.entity.sprite.TiledSprite;
+import org.xetang.manager.GameControllerManager;
+import org.xetang.manager.GameManager;
 import org.xetang.root.GameEntity;
 
 /**
@@ -29,6 +31,7 @@ public class Console extends GameEntity {
 	private void createAllButton() {
 		// TODO Auto-generated method stub
 		//VD: _playerTank.onLeft();
+		GameControllerManager.setOnController(_playerTank);
 	}
 
 	
