@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OBJECT_INFO>
+    <OBJECT>
+        <ID>0</ID>
+        <NAME>Eagle</NAME>
+        <TEXTURE>gfx/map/object/eagle.png</TEXTURE>
+    </OBJECT>
+    <OBJECT>
+        <ID>1</ID>
+        <NAME>BrickWall</NAME>
+        <TEXTURE>gfx/map/object/brickwall.png</TEXTURE>
+    </OBJECT>
+    <OBJECT>
+        <ID>2</ID>
+        <NAME>SteelWall</NAME>
+        <TEXTURE>gfx/map/object/steelwall.png</TEXTURE>
+    </OBJECT>
+    <OBJECT>
+        <ID>3</ID>
+        <NAME>Bush</NAME>
+        <TEXTURE>gfx/map/object/bush.png</TEXTURE>
+    </OBJECT>
+    <OBJECT>
+        <ID>4</ID>
+        <NAME>Water</NAME>
+        <TEXTURE>gfx/map/object/water.png</TEXTURE>
+    </OBJECT>
+    <OBJECT>
+        <ID>5</ID>
+        <NAME>Bullet</NAME>
+        <TEXTURE>gfx/map/object/bullet.png</TEXTURE>
+    </OBJECT>
+</OBJECT_INFO>
