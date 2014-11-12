@@ -1,29 +1,45 @@
 package org.xetang.manager;
 
+import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
-import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
-import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.xetang.main.MainActivity;
+import org.xetang.map.MapObjectFactory;
+import org.xetang.map.model.XMLLoader;
 
 import android.content.res.AssetManager;
-
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 public class GameManager {
 
 	public static final String TANK_TAG = "XeTang"; // Dùng để debug
 
+	public static final int CAMERA_WIDTH = 1080;
+	public static final int CAMERA_HEIGHT = CAMERA_WIDTH / 10 * 6;
+
+	public static final int MAP_WIDTH = 832;
+	public static final int MAP_HEIGHT = MAP_WIDTH / 4 * 3;
+
+	public static final int CAMERA_X = -(CAMERA_WIDTH - MAP_WIDTH) / 2;
+	public static final int CAMERA_Y = -(CAMERA_HEIGHT - MAP_HEIGHT) / 2;
+
+	public static final int LARGE_CELL_WIDTH = MAP_WIDTH / 13;
+	public static final int LARGE_CELL_HEIGHT = LARGE_CELL_WIDTH / 4 * 3;
+	public static final int SMALL_CELL_WIDTH = LARGE_CELL_WIDTH / 2;
+	public static final int SMALL_CELL_HEIGHT = SMALL_CELL_WIDTH / 4 * 3;
+
+	public static final int BORDER_WIDTH = 2;
+
 	public enum Direction {
 		Up, Right, Down, Left
 	}
 
+	public static MainActivity Activity;
 	public static Camera Camera;
 	public static Scene Scene;
+	public static Engine Engine;
 	public static TextureManager TextureManager;
 	public static AssetManager AssetManager;
 	public static MainActivity Context;
@@ -49,23 +65,10 @@ public class GameManager {
 		// ...
 
 		// fake
-		mStage = 2;
+		mStage = 1;
 		mPlayTimes = 2;
 		mHighestScore = 1000;
 	}
-
-	// public static void newGame() {
-	// GameMapManager.loadMapData(1);
-	// TankManager.createPlayerTank();
-	// TankManager.generateOpponentTank(4);
-	// GameControllerManager.setupControls();
-	//
-	// }
-	//
-	// public static void createScene() {
-	// createWalls();
-	// GameManager.newGame();
-	// }
 
 	public static void loadResource() {
 		// GameMapManager.loadResource();
@@ -73,38 +76,8 @@ public class GameManager {
 		// GameItemManager.loadResource();
 		// GameControllerManager.loadResource();
 
-	}
-
-	private static void createWalls() {
-		final VertexBufferObjectManager vertexBufferObjectManager = GameManager.VertexBufferObject;
-		final Rectangle ground = new Rectangle(0, 420 - 2, 420, 2,
-				vertexBufferObjectManager);
-		final Rectangle roof = new Rectangle(0, 0, 420, 2,
-				vertexBufferObjectManager);
-		final Rectangle left = new Rectangle(0, 0, 2, 420,
-				vertexBufferObjectManager);
-		final Rectangle right = new Rectangle(420 - 2, 0, 2, 420,
-				vertexBufferObjectManager);
-		// final Rectangle shelf = new Rectangle(300, 200, 100, 2,
-		// vertexBufferObjectManager);
-
-		final FixtureDef wallFixtureDef = PhysicsFactory.createFixtureDef(0,
-				0.5f, 0.5f);
-		PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, ground,
-				BodyType.StaticBody, wallFixtureDef);
-		PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, roof,
-				BodyType.StaticBody, wallFixtureDef);
-		PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, left,
-				BodyType.StaticBody, wallFixtureDef);
-		PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, right,
-				BodyType.StaticBody, wallFixtureDef);
-		// PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, shelf,
-		// BodyType.StaticBody, wallFixtureDef);
-
-		GameManager.Scene.attachChild(ground);
-		GameManager.Scene.attachChild(roof);
-		GameManager.Scene.attachChild(left);
-		GameManager.Scene.attachChild(right);
+		XMLLoader.loadAllParameters();
+		MapObjectFactory.initAllObjects();
 	}
 
 	/*
@@ -115,7 +88,7 @@ public class GameManager {
 		 * Xử lý Scene cũ
 		 */
 
-		GameManager.Context.setScene(newScene);
+		GameManager.Scene = newScene;
 	}
 
 	public static int getCurrentStage() {

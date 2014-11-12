@@ -1,15 +1,21 @@
 package org.xetang.manager;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.xetang.controller.Bot;
 import org.xetang.map.Map;
-import org.xetang.map.MapObject;
+import org.xetang.map.model.StageDTO;
+import org.xetang.map.model.XMLLoader;
 import org.xetang.root.Frame;
 import org.xetang.root.GameScene;
+import org.xetang.tank.BigMom;
+import org.xetang.tank.GlassCannon;
+import org.xetang.tank.Normal;
+import org.xetang.tank.Racer;
 import org.xetang.tank.Tank;
 
 public class GameMapManager implements IUpdateHandler {
@@ -28,15 +34,15 @@ public class GameMapManager implements IUpdateHandler {
 
 	public GameMapManager(GameScene gameScene, int iCurrentStage) {
 		GameManager.CurrentMapManager = this; // Thiết lập toàn cục
-
 		_gameScene = gameScene;
-		_map = new Map(iCurrentStage);
-		_frame = new Frame(iCurrentStage);
-
-		createAllBots();
 
 		loadMapData(iCurrentStage);
 		initMapData();
+
+		_frame = new Frame(iCurrentStage);
+		_gameScene.attachChild(_frame);
+
+		createAllBots();
 	}
 
 	private void createAllBots() {
@@ -47,23 +53,55 @@ public class GameMapManager implements IUpdateHandler {
 		}
 	}
 
-	/*
-	 * Đọc dữ liệu cần thiết cho các biến trong MapManager
-	 */
 	private void loadMapData(int iCurrentStage) {
-		// TODO Auto-generated method stub
+		StageDTO stage = XMLLoader.getStage(iCurrentStage);
+
+		_map = new Map(iCurrentStage, stage);
+		_gameScene.attachChild(_map);
+
+		loadMapTanks(stage);
+	}
+
+	private void loadMapTanks(StageDTO stage) {
+
+		loadPlayerTanks(stage.getLives());
+		loadEnermyTanks(stage.getTanksNameQueue());
 
 	}
 
+	private void loadPlayerTanks(int lives) {
+		
+		_totalPlayerTanks = new LinkedList<Tank>();
+		for (int i = 0; i < lives; i++) {
+			_totalPlayerTanks.add(new Normal());
+		}
+
+	}
+
+	private void loadEnermyTanks(List<String> tanksNameQueue) {
+
+		Tank tank = null;
+
+		_totalEnermyTanks = new LinkedList<Tank>();
+		for (int i = 0; i < tanksNameQueue.size(); i++) {
+			if (tanksNameQueue.get(i).equals("Normal")) {
+				tank = new Normal();
+			} else if (tanksNameQueue.get(i).equals("Racer")) {
+				tank = new Racer();
+			} else if (tanksNameQueue.get(i).equals("GlassCannon")) {
+				tank = new GlassCannon();
+			} else if (tanksNameQueue.get(i).equals("BigMom")) {
+				tank = new BigMom();
+			}
+
+			_totalEnermyTanks.add(tank);
+		}
+	}
+
 	/*
-	 * Khởi tạo các biến cục bộ
-	 * Danh sách xe tăng:
-	 * 		_totalEnermyTanks
-	 * 		_totalPlayerTanks
-	 * Số lượng xe tăng tối đa trên bản đồ:
-	 * 		maxAvaiableEnermyTank
-	 * 		maxAvaiablePlayerTank
-	 * Và các biến khác
+	 * Khởi tạo các biến cục bộ Danh sách xe tăng: _totalEnermyTanks
+	 * _totalPlayerTanks Số lượng xe tăng tối đa trên bản đồ:
+	 * maxAvaiableEnermyTank maxAvaiablePlayerTank Và các biến khác
 	 */
 	private void initMapData() {
 		// TODO Auto-generated method stub
@@ -83,25 +121,25 @@ public class GameMapManager implements IUpdateHandler {
 	 * ĂN ĐI KU
 	 */
 	private void updateCollision(float pSecondsElapsed) {
-		MapObject[][] matrix = _map.getMapMatrix();
-		int height = matrix.length;
-		int width = matrix[0].length;
-		int allCells = height * width;
-		
-		for (int i=0; i<allCells-1; i++) {
-			MapObject l = matrix[i/width][i%width];
-			
-			for (int j=i+1; j<allCells; j++) {
-				MapObject r = matrix[j/width][j%width];
-				if (!l.isStatic() || !r.isStatic()) {
-					/*
-					 * Xét va chạm giữa 2 vật thể
-					 * Xử lý theo kịch bản game
-					 */
-				}
-			}
-		}
-		
+		// MapObject[][] matrix = _map.getMapMatrix();
+		// int height = matrix.length;
+		// int width = matrix[0].length;
+		// int allCells = height * width;
+		//
+		// for (int i=0; i<allCells-1; i++) {
+		// MapObject l = matrix[i/width][i%width];
+		//
+		// for (int j=i+1; j<allCells; j++) {
+		// MapObject r = matrix[j/width][j%width];
+		// //if (!l.isStatic() || !r.isStatic()) {
+		// /*
+		// * Xét va chạm giữa 2 vật thể
+		// * Xử lý theo kịch bản game
+		// */
+		// //}
+		// }
+		// }
+
 	}
 
 	private void updateTanksAndBots() {
@@ -164,39 +202,3 @@ public class GameMapManager implements IUpdateHandler {
 	}
 
 }
-//
-// private static GameMapManager mInstance;
-//
-// public static Map CurrentMap;
-// private static Dictionary<String, TiledTextureRegion> mResources;
-//
-//
-// static{
-// mResources = new Hashtable<String, TiledTextureRegion>();
-// }
-//
-// private GameMapManager(){
-//
-// }
-//
-// public static GameMapManager getInstance(){
-// if(mInstance==null)
-// mInstance = new GameMapManager();
-// return mInstance;
-// }
-//
-// public static void loadResource() {
-// // Tải các tài nguyên liên quan đến bản đồ, vd: gạch, đại bàng, nước, ...
-// // Tham khảo cách load tài nguyên ở class GameControllerManager
-//
-// }
-//
-//
-// public static void loadMapData(int mStage) {
-// //Tải màn chơi mà người dùng đang chơi dở dang
-// GameMapManager.CurrentMap = new Map();
-// GameMapManager.CurrentMap.loadMapData(mStage);
-// }
-//
-//
-// }
