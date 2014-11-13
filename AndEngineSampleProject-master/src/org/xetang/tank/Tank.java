@@ -86,7 +86,7 @@ public class Tank extends GameEntity implements IUpdateHandler, IGameController 
 	    	// TODO Auto-generated method stub
 		  	float distinct = tankSprite.getX() - speed;
 		  	for (float i = tankSprite.getX(); i >= tankSprite.getX() - speed ; i--) {
-				if(_map.CheckPosition(i, tankSprite.getY())){
+				if(_map.isPointValid(i, tankSprite.getY())){
 					distinct = i+1;
 					break;
 				}
@@ -102,7 +102,7 @@ public class Tank extends GameEntity implements IUpdateHandler, IGameController 
 	    	// TODO Auto-generated method stub
 	    	float distinct = tankSprite.getX() + speed;
 		  	for (float i = tankSprite.getX(); i <= tankSprite.getX() + speed ; i++) {
-				if(_map.CheckPosition(i, tankSprite.getY())){
+				if(_map.isPointValid(i, tankSprite.getY())){
 					distinct = i-1;
 					break;
 				}
@@ -119,7 +119,7 @@ public class Tank extends GameEntity implements IUpdateHandler, IGameController 
 	    	// TODO Auto-generated method stub
 	    	float distinct = tankSprite.getY() - speed;
 		  	for (float i = tankSprite.getY(); i >= tankSprite.getY() - speed ; i--) {
-				if(_map.CheckPosition(tankSprite.getX(), i)){
+				if(_map.isPointValid(tankSprite.getX(), i)){
 					distinct = i+1;
 					break;
 				}
@@ -134,7 +134,7 @@ public class Tank extends GameEntity implements IUpdateHandler, IGameController 
 	    	// TODO Auto-generated method stub
 	    	float distinct = tankSprite.getY() + speed;
 		  	for (float i = tankSprite.getY(); i <= tankSprite.getY() + speed ; i++) {
-				if(_map.CheckPosition(tankSprite.getX(), i)){
+				if(_map.isPointValid(tankSprite.getX(), i)){
 					distinct = i-1;
 					break;
 				}
