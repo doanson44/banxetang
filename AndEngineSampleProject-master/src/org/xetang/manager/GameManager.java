@@ -1,7 +1,15 @@
 package org.xetang.manager;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
+import org.andengine.opengl.font.FontManager;
+import org.andengine.audio.music.*;
+import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
@@ -13,11 +21,17 @@ import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
+import org.andengine.opengl.texture.region.BaseTextureRegion;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import org.andengine.util.color.Color;
 import org.xetang.main.MainActivity;
+import org.xetang.map.MapObjectFactory;
+import org.xetang.map.model.XMLLoader;
+import org.xetang.root.GameScene;
+import org.xetang.root.MainMenuScene;
 
 import android.content.res.AssetManager;
 
@@ -57,10 +71,26 @@ public class GameManager {
 	public static VertexBufferObjectManager VertexBufferObject;
 	public static PhysicsWorld PhysicsWorld = new PhysicsWorld(new Vector2(0,
 			0), false);
+/**
+	 * @editor: Nhân Bạch
+	 * @date: 13/11/2014
+	 * @brief: Thêm 1 số biến phục vụ cho việc làm MENU 
+	 */
+	public static FontManager FontManager;
+	public static MusicManager MusicManager;
+	static Hashtable<String, BaseTextureRegion> Textures;
+	static Hashtable<String, Font> Fonts;
+	static Hashtable<String, Music> Musics;
+	public static boolean IsBackgroundSound = true;
+	public static boolean IsEffectSound = true;
+	public static List<Scene> ListScene = new ArrayList<Scene>();
+	public static Engine Engine;
+
+	/**********************/
 
 	public static GameMapManager CurrentMapManager;
 
-	static Hashtable<String, TiledTextureRegion> Textures;
+
 	public static int mStage; // Màn chơi hiện tại
 	public static int mPlayTimes; // Số lần chơi game, mỗi khi gameover tính 1
 									// lần
@@ -78,7 +108,7 @@ public class GameManager {
 		// ...
 
 		// fake
-		mStage = 2;
+		mStage = 1;
 		mPlayTimes = 2;
 		mHighestScore = 1000;
 	}
@@ -97,12 +127,24 @@ public class GameManager {
 	// }
 
 	public static void loadResource() {
-		// GameMapManager.loadResource();
-		// TankManager.loadResouceAllTank();
-		// GameItemManager.loadResource();
-		// GameControllerManager.loadResource();
+		Textures = new Hashtable<String, BaseTextureRegion>();
+		Musics = new Hashtable<String, Music>();
+		Fonts = new Hashtable<String, Font>();
 		
-		Textures = new Hashtable<String, TiledTextureRegion>();
+		// Load Fonts
+		loadFonts();
+
+		// load Musics
+		loadMusics();
+		
+		//load Textures
+		loadTextures();	
+		
+		GameControllerManager.loadResource();
+		
+		XMLLoader.loadAllParameters();
+		MapObjectFactory.initAllObjects();
+
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		mBitmapTexture = new BitmapTextureAtlas(GameManager.TextureManager, 15, 105, TextureOptions.DEFAULT);
 
@@ -134,6 +176,9 @@ public class GameManager {
 		Textures.put("Star", star);
 		Textures.put("Tank", tank);
 		Textures.put("Player1", player1);
+		
+		ListScene.add(new MainMenuScene());
+		ListScene.add(new GameScene());
 
 	}
 
@@ -172,21 +217,80 @@ public class GameManager {
 	/*
 	 * ĂN ĐI KU
 	 */
-	public static void SwitchToScene(Scene currentScene, Scene newScene) {
+	public static void SwitchToScene(int index) {
 		/*
 		 * Xử lý Scene cũ
 		 */
-
-		GameManager.Context.setScene(newScene);
+		if(index >=0 && index < ListScene.size() && GameManager.Engine.getScene() != ListScene.get(index)){
+			GameManager.Engine.setScene(ListScene.get(index));
+			GameManager.Scene = ListScene.get(index);
+			if(index==0)
+				((MainMenuScene)GameManager.Scene).onSwitched();
+			else
+				((GameScene)GameManager.Scene).onSwitched();
+		}
 	}
 
 	public static int getCurrentStage() {
 		return mStage;
 	}
 
-	public static TiledTextureRegion TextureRegion(String key) {
-		// TODO Auto-generated method stub
+/**
+	 * @editor: Nhân Bạch
+	 * @date: 13/11/2014
+	 * @brief: Thêm 1 số hàm phục vụ cho việc làm MENU 
+	 */
+	private static void loadTextures() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
+		BitmapTextureAtlas atlas = new BitmapTextureAtlas(GameManager.TextureManager, 100, 50, TextureOptions.BILINEAR);
+		TiledTextureRegion t = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(atlas, GameManager.AssetManager, "sound.png",0 ,0, 2, 1);
+		Textures.put("sound", t);
+		atlas.load();
+	}
 
+	private static void loadMusics() {
+		try {
+			MusicFactory.setAssetBasePath("music/");
+			Music m;
+			m = MusicFactory.createMusicFromAsset(GameManager.MusicManager,
+					GameManager.Context, "menu.mp3");
+			Musics.put("menu", m);
+			m = MusicFactory.createMusicFromAsset(GameManager.MusicManager,
+					GameManager.Context, "blop.mp3");
+			Musics.put("blop", m);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void loadFonts() {
+		FontFactory.setAssetBasePath("font/");
+		Font f = FontFactory.createFromAsset(GameManager.FontManager,
+				GameManager.TextureManager, 256, 256,
+				TextureOptions.BILINEAR_PREMULTIPLYALPHA,
+				GameManager.AssetManager, "font1.ttf", 64f, true,
+				Color.WHITE_ABGR_PACKED_INT);
+		Fonts.put("font1", f);
+		f = FontFactory.createFromAsset(GameManager.FontManager,
+				GameManager.TextureManager,
+				(int) GameManager.Camera.getWidth(),
+				(int) GameManager.Camera.getHeight(),
+				TextureOptions.BILINEAR_PREMULTIPLYALPHA,
+				GameManager.AssetManager, "font2.ttf", 24f, true,
+				Color.WHITE_ABGR_PACKED_INT);
+		Fonts.put("font2", f);
+	}
+	
+	public static BaseTextureRegion getTexture(String key) {
 		return Textures.get(key);
 	}
+
+	public static Music getMusic(String key) {
+		return Musics.get(key);
+	}
+
+	public static Font getFont(String key) {
+		return Fonts.get(key);
+	}
+	/**********************/
 }

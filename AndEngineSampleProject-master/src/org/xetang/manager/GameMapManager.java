@@ -73,7 +73,7 @@ public class GameMapManager implements IUpdateHandler {
 		
 		_totalPlayerTanks = new LinkedList<Tank>();
 		for (int i = 0; i < lives; i++) {
-			_totalPlayerTanks.add(new Normal());
+			_totalPlayerTanks.add(new Normal(0, 0, _map));
 		}
 
 	}
@@ -85,13 +85,13 @@ public class GameMapManager implements IUpdateHandler {
 		_totalEnermyTanks = new LinkedList<Tank>();
 		for (int i = 0; i < tanksNameQueue.size(); i++) {
 			if (tanksNameQueue.get(i).equals("Normal")) {
-				tank = new Normal();
+				tank = new Normal(0, 0, _map);
 			} else if (tanksNameQueue.get(i).equals("Racer")) {
-				tank = new Racer();
+				tank = new Racer(0, 0, _map);
 			} else if (tanksNameQueue.get(i).equals("GlassCannon")) {
-				tank = new GlassCannon();
+				tank = new GlassCannon(0, 0, _map);
 			} else if (tanksNameQueue.get(i).equals("BigMom")) {
-				tank = new BigMom();
+				tank = new BigMom(0, 0, _map);
 			}
 
 			_totalEnermyTanks.add(tank);

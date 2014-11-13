@@ -35,6 +35,7 @@ public class Item {
 	{
 		_map = map;
 		mSprite = new TiledSprite(GetRandomPx(), GetRandomPy(),region, GameManager.VertexBufferObject);
+		mSprite.setSize(64, 64);
 		CreateBody();
 	}
 	

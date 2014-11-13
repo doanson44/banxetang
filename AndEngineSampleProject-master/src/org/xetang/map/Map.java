@@ -21,9 +21,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
  */
 public class Map extends GameEntity {
 
-	List<Item> mItems;
-	List<Tank> mEnermyTanks;
-	List<Tank> mPlayerTanks;
+	List<Item> mItems = new ArrayList<Item>();
+	List<Tank> mEnermyTanks = new ArrayList<Tank>();
+	List<Tank> mPlayerTanks = new ArrayList<Tank>();
 	List<Item> mItemRemoves = new ArrayList<Item>(); 	// danh sÃƒÆ’Ã‚Â¡ch cÃƒÆ’Ã‚Â¡c item cÃƒÂ¡Ã‚ÂºÃ‚Â§n phÃƒÂ¡Ã‚ÂºÃ‚Â£i remove sau 1 vÃƒÆ’Ã‚Â²ng for
 
 	int mICurrentStage; // ChÃƒÂ¡Ã‚Â»Ã¢â‚¬Â° sÃƒÂ¡Ã‚Â»Ã¢â‚¬Ëœ cÃƒÂ¡Ã‚Â»Ã‚Â§a mÃƒÆ’Ã‚Â n chÃƒâ€ Ã‚Â¡i
@@ -52,7 +52,7 @@ public class Map extends GameEntity {
 		for (Item ite : mItems) {			
 			this.attachChild(ite.GetSprite());
 		}
-		/*
+		
 		List<StageObjectDTO> objects = stage.getObjects();
 
 		StageObjectDTO stageObject;
@@ -69,7 +69,7 @@ public class Map extends GameEntity {
 				attachBlock(objectsBlock);
 			}
 		}
-*/
+
 	}
 
 	private void attachBlock(MapObjectBlockDTO objectsBlock) {
@@ -90,21 +90,21 @@ public class Map extends GameEntity {
 				GameManager.MAP_HEIGHT, GameManager.MAP_WIDTH
 						+ GameManager.BORDER_WIDTH * 2,
 				GameManager.BORDER_WIDTH,
-				GameManager.Activity.getVertexBufferObjectManager());
+				GameManager.Context.getVertexBufferObjectManager());
 
 		Rectangle left = new Rectangle(-GameManager.BORDER_WIDTH, 0,
 				GameManager.BORDER_WIDTH, GameManager.MAP_HEIGHT,
-				GameManager.Activity.getVertexBufferObjectManager());
+				GameManager.Context.getVertexBufferObjectManager());
 
 		Rectangle roof = new Rectangle(-GameManager.BORDER_WIDTH,
 				-GameManager.BORDER_WIDTH, GameManager.MAP_WIDTH
 						+ GameManager.BORDER_WIDTH * 2,
 				GameManager.BORDER_WIDTH,
-				GameManager.Activity.getVertexBufferObjectManager());
+				GameManager.Context.getVertexBufferObjectManager());
 
 		Rectangle right = new Rectangle(GameManager.MAP_WIDTH, 0,
 				GameManager.BORDER_WIDTH, GameManager.MAP_HEIGHT,
-				GameManager.Activity.getVertexBufferObjectManager());
+				GameManager.Context.getVertexBufferObjectManager());
 
 		FixtureDef borderFixtureDef = PhysicsFactory.createFixtureDef(1f, 0f,
 				0f);

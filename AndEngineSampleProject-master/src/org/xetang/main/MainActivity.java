@@ -23,6 +23,7 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.debug.Debug;
 import org.xetang.manager.GameManager;
+import org.xetang.root.GameScene;
 import org.xetang.root.MainMenuScene;
 
 import android.widget.Toast;
@@ -90,10 +91,13 @@ public class MainActivity extends SimpleBaseGameActivity implements
 		Toast.makeText(this, "Touch the screen to add objects.",
 				Toast.LENGTH_LONG).show();
 
-		this.mCamera = new Camera(-190, -30, CAMERA_WIDTH, CAMERA_HEIGHT);
+		this.mCamera = new Camera(GameManager.CAMERA_X, GameManager.CAMERA_Y, GameManager.CAMERA_WIDTH, GameManager.CAMERA_HEIGHT);
 
-		return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED,
+		EngineOptions options = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED,
 				new FillResolutionPolicy(), this.mCamera);
+		options.getAudioOptions().setNeedsMusic(true);
+		options.getAudioOptions().setNeedsSound(true);
+		return options;
 	}
 
 	@Override
@@ -115,12 +119,16 @@ public class MainActivity extends SimpleBaseGameActivity implements
 //				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
 //						"face_hexagon_tiled.png", 0, 96, 2, 1); // 64x32
 //		this.mBitmapTextureAtlas.load();
-
+		
+		GameManager.Engine = this.mEngine;
 		GameManager.Camera = this.mCamera;
 		GameManager.TextureManager = this.getTextureManager();
 		GameManager.AssetManager = this.getAssets();
 		GameManager.Context = this;
 		GameManager.VertexBufferObject = this.getVertexBufferObjectManager();
+		GameManager.VertexBufferObject = this.getVertexBufferObjectManager();
+		GameManager.FontManager = this.getFontManager();
+		GameManager.MusicManager = this.getMusicManager();
 
 		GameManager.loadResource();
 
@@ -143,7 +151,7 @@ public class MainActivity extends SimpleBaseGameActivity implements
 	public Scene onCreateScene() {
 		this.mEngine.registerUpdateHandler(new FPSLogger());
 
-		this.mScene = new MainMenuScene();
+		GameManager.SwitchToScene(0);
 		
 		/*
 		this.mScene.setBackground(new Background(0, 0, 0));
@@ -154,10 +162,10 @@ public class MainActivity extends SimpleBaseGameActivity implements
 		this.mScene.registerUpdateHandler(this.mPhysicsWorld);*/
 
 		// Thiết lập biến toàn cục
-		GameManager.Scene = this.mScene;
-		GameManager.PhysicsWorld = this.mPhysicsWorld;
+		//GameManager.Scene = this.mScene;
+		//GameManager.PhysicsWorld = this.mPhysicsWorld;
 
-		return this.mScene;
+		return GameManager.Scene;
 	}
 
 	@Override
@@ -342,8 +350,14 @@ public class MainActivity extends SimpleBaseGameActivity implements
 	}
 
 	
-	public void setScene(Scene scene) {
-		this.mScene = scene;
+	
+	@Override
+	public void onBackPressed() {
+		if(GameManager.Scene != GameManager.ListScene.get(0)){
+			GameManager.SwitchToScene(0);
+			return;
+		}
+		super.onBackPressed();
 	}
 
 	// ===========================================================

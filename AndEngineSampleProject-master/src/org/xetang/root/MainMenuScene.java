@@ -37,6 +37,7 @@ import com.badlogic.gdx.utils.Array;
 
 import android.R.menu;
 import android.graphics.Typeface;
+import android.media.CamcorderProfile;
 import android.text.style.TypefaceSpan;
 
 /**
@@ -57,6 +58,7 @@ public class MainMenuScene extends Scene  {
 		createMainMenu();
 		initHudOptions();
 		initHudAbout();
+		
 	}
 
 	private void initHudAbout() {	
@@ -150,7 +152,7 @@ public class MainMenuScene extends Scene  {
 		
 		//Background sound
 		Text t = new Text(0, 0, f, "Background", GameManager.VertexBufferObject);
-		t.setPosition(GameManager.CAMERA_WIDTH/2 - t.getWidth()/2 - 25, 200);
+		t.setPosition(GameManager.Camera.getWidth()/2 - t.getWidth()/2 - 25, 200);
 		_hudOptions.attachChild(t);
 		TiledSprite sprite = new TiledSprite(t.getX() + t.getWidth() + 20, t.getY() - (50 - t.getHeight())/2, (ITiledTextureRegion) GameManager.getTexture("sound"), GameManager.VertexBufferObject){
 			@Override
@@ -161,7 +163,7 @@ public class MainMenuScene extends Scene  {
 					this.setCurrentTileIndex((this.getCurrentTileIndex()+1)%2);
 					GameManager.IsBackgroundSound = this.getCurrentTileIndex() == 0;
 					if(GameManager.IsBackgroundSound)
-						playMusic("menu", true);
+						playMusic();
 					else
 						stopMusic();
 				}
@@ -173,7 +175,7 @@ public class MainMenuScene extends Scene  {
 		
 		//Effect sound
 		t = new Text(0, 0, f, "Effect", GameManager.VertexBufferObject);
-		t.setPosition(GameManager.CAMERA_WIDTH/2 - t.getWidth()/2 - 25, 270);
+		t.setPosition(GameManager.Camera.getWidth()/2 - t.getWidth()/2 - 25, 270);
 		_hudOptions.attachChild(t);
 		sprite = new TiledSprite(t.getX() + t.getWidth() + 20, t.getY() - (50 - t.getHeight())/2, (ITiledTextureRegion) GameManager.getTexture("sound"), GameManager.VertexBufferObject){
 			@Override
@@ -211,7 +213,7 @@ public class MainMenuScene extends Scene  {
 				return true;
 			}
 		};
-		t.setPosition(GameManager.CAMERA_WIDTH/2 - t.getWidth()/2, 350);
+		t.setPosition(GameManager.Camera.getWidth()/2 - t.getWidth()/2, 350);
 		_hudOptions.registerTouchArea(t);
 		_hudOptions.attachChild(t);
 
@@ -221,7 +223,7 @@ public class MainMenuScene extends Scene  {
 		Font f = GameManager.getFont("font1");
 		f.load();
 		Text t = new Text(0, 0, f, "option", GameManager.VertexBufferObject);
-		t.setPosition(GameManager.CAMERA_WIDTH/2 - t.getWidth()/2, 50);
+		t.setPosition(GameManager.Camera.getWidth()/2 - t.getWidth()/2, 50);
 		//t.setScaleCenter(1.5f, 1.5f);
 		
 		_hudOptions.attachChild(t);
@@ -230,16 +232,16 @@ public class MainMenuScene extends Scene  {
 
 	private void createMainMenu() {
 		createTitle();
-		playMusic("menu", true);
+		playMusic();
 		createMenuItem();
 		attachMenuItem();
 		GameManager.Camera.setHUD(_hudMain);
 	}
 
-	private void playMusic(String nameSound, boolean bIsLoop ) {
+	private void playMusic( ) {
 		if(!GameManager.IsBackgroundSound) return;
-		background = GameManager.getMusic(nameSound);
-		background.setLooping(bIsLoop);
+		background = GameManager.getMusic("menu");
+		background.setLooping(true);
 		background.play();
 	
 	}
@@ -299,7 +301,9 @@ public class MainMenuScene extends Scene  {
 		switch (menuItem.getId()) {
 		case 1: //new game	
 			stopMusic();
-			GameManager.SwitchToScene(this, new GameScene());
+			GameManager.Camera.setHUD(null);
+			GameManager.SwitchToScene(1);
+			
 		break;
 		
 		case 2: //options
@@ -327,6 +331,12 @@ public class MainMenuScene extends Scene  {
 
 	private void stopMusic() {
 		GameManager.getMusic("menu").pause();
+		
+	}
+
+	public void onSwitched() {
+		GameManager.Camera.setHUD(_hudMain);
+		playMusic();
 		
 	}
 

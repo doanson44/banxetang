@@ -30,7 +30,7 @@ public abstract class MapObject extends GameEntity {
 
 		_sprite = new Sprite(object.getX(), object.getY(),
 				object._sprite.getTextureRegion(),
-				GameManager.Activity.getVertexBufferObjectManager());
+				GameManager.VertexBufferObject);
 		_sprite.setSize(object._sprite.getWidth(), object._sprite.getHeight());
 		attachChild(_sprite);
 
@@ -58,7 +58,7 @@ public abstract class MapObject extends GameEntity {
 			float posX, float posY) {
 
 		_sprite = new TiledSprite(posX, posY, objectTextureRegion,
-				GameManager.Activity.getVertexBufferObjectManager());
+				GameManager.VertexBufferObject);
 		_sprite.setSize(CellWidth, CellHeight);
 	}
 
