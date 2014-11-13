@@ -2,6 +2,7 @@ package org.xetang.map;
 
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
+import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.GameMapManager;
 
@@ -15,7 +16,7 @@ public class Bomb extends Item {
      * 
      */
     public Bomb(Map map) {
-    	super(GameManager.TextureRegion("Bomb"), map);
+    	super((TiledTextureRegion) GameManager.getTexture("Bomb"), map);
     }
     
     @Override

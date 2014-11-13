@@ -37,9 +37,10 @@ public class Bullet extends MapObject {
 
 	public Bullet(Tank tank, float posX, float posY) {
 
-		this(posX, posY);
-		setTank(tank);
+		this(posX, posY); setTank(tank);
 	}
+
+
 
 
 	@Override
@@ -47,7 +48,7 @@ public class Bullet extends MapObject {
 			float posX, float posY) {
 
 		_sprite = new TiledSprite(posX, posY, objectTextureRegion,
-				GameManager.Activity.getVertexBufferObjectManager());
+				GameManager.Context.getVertexBufferObjectManager());
 		_sprite.setScale(CellWidth / _sprite.getWidth());
 	}
 

@@ -51,19 +51,22 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	private TiledTextureRegion mBoxFaceTextureRegion;
 
 	private void createBackground() {
+		
+		
 		setBackground(new Background(Color.BLACK));
 
 		this.mBitmapTextureAtlas = new BitmapTextureAtlas(
-				GameManager.Activity.getTextureManager(), 64, 32,
+				GameManager.Context.getTextureManager(), 64, 32,
 				TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 
-		/* TextureRegions. */
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("");
 		this.mBoxFaceTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas,
-						GameManager.Activity, "gfx/face_box_tiled.png", 0, 0,
+						GameManager.Context, "gfx/face_box_tiled.png", 0, 0,
 						2, 1); // 64x32
-		GameManager.Engine.getTextureManager().loadTexture(
+		GameManager.TextureManager.loadTexture(
 				this.mBitmapTextureAtlas);
+		
 
 	}
 
@@ -104,7 +107,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 
 		face = new AnimatedSprite(pSceneTouchEvent.getX(),
 				pSceneTouchEvent.getY(), this.mBoxFaceTextureRegion,
-				GameManager.Activity.getVertexBufferObjectManager());
+				GameManager.Context.getVertexBufferObjectManager());
 		body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, face,
 				BodyType.DynamicBody,
 				PhysicsFactory.createFixtureDef(1, 0.5f, 0.5f));
@@ -121,5 +124,10 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 		GameManager.Scene.attachChild(obj);
 
 		return true;
+	}
+
+	public void onSwitched() {
+		_console = new Console(_mapManager.getPlayerTank());
+		
 	}
 }

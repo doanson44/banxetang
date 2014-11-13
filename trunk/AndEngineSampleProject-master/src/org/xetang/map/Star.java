@@ -1,6 +1,7 @@
 package org.xetang.map;
 
 import org.andengine.entity.sprite.TiledSprite;
+import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
 
 
@@ -14,7 +15,7 @@ public class Star extends Item {
      * 
      */
     public Star(Map map) {
-    	super(GameManager.TextureRegion("Star"), map);    
+    	super((TiledTextureRegion) GameManager.getTexture("Star"), map);    
     	}
 
     @Override

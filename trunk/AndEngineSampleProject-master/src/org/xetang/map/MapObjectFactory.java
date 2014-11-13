@@ -69,7 +69,7 @@ public class MapObjectFactory {
 
 	private static void initObjectsTexture() {
 		_bitmapTextureAtlas = new BitmapTextureAtlas(
-				GameManager.Activity.getTextureManager(),
+				GameManager.Context.getTextureManager(),
 				GameManager.LARGE_CELL_WIDTH, ALL_TEXTURES_HEIGHT,
 				TextureOptions.BILINEAR);
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("");
@@ -80,7 +80,7 @@ public class MapObjectFactory {
 				.getTextures();
 		_eagleTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture, 0,
+						GameManager.Context.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
 		yTexturePos = GameManager.LARGE_CELL_WIDTH
@@ -89,7 +89,7 @@ public class MapObjectFactory {
 				.getTextures();
 		_brickWallTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture, 0,
+						GameManager.Context.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
 		yTexturePos = GameManager.LARGE_CELL_WIDTH
@@ -98,7 +98,7 @@ public class MapObjectFactory {
 				.getTextures();
 		_steelWallTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture, 0,
+						GameManager.Context.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
 		yTexturePos = GameManager.LARGE_CELL_WIDTH * ObjectType.Bush.ordinal();
@@ -106,7 +106,7 @@ public class MapObjectFactory {
 				.getTextures();
 		_bushTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture, 0,
+						GameManager.Context.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
 		yTexturePos = GameManager.LARGE_CELL_WIDTH * ObjectType.Water.ordinal();
@@ -114,7 +114,7 @@ public class MapObjectFactory {
 				.getTextures();
 		_waterTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture, 0,
+						GameManager.Context.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
 		yTexturePos = GameManager.LARGE_CELL_WIDTH
@@ -123,7 +123,7 @@ public class MapObjectFactory {
 				.getTextures();
 		_bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture, 0,
+						GameManager.Context.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
 		_bitmapTextureAtlas.load();

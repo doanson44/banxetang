@@ -31,6 +31,7 @@ public class Console extends GameEntity {
 	private void createAllButton() {
 		// TODO Auto-generated method stub
 		//VD: _playerTank.onLeft();
+		GameControllerManager.setupControls();
 		GameControllerManager.setOnController(_playerTank);
 	}
 

@@ -38,19 +38,19 @@ public class GameControllerManager {
 		
 		// 4 nút di chuyển
 		BitmapTextureAtlas textureAtlasMove = new BitmapTextureAtlas(
-				GameManager.TextureManager, 32*3, 32*3);
+				GameManager.TextureManager, 32, 32*4);
 		TiledTextureRegion textureUp = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(textureAtlas, GameManager.AssetManager,
-						"up_button_32.png", 112, (int) (GameManager.Camera.getHeight() - 176), 2, 1);
+				.createTiledFromAsset(textureAtlasMove, GameManager.AssetManager,
+						"up_button_32.png", 0,0, 1, 1);
 		TiledTextureRegion textureDown = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(textureAtlas, GameManager.AssetManager,
-						"down_button_32.png", 112, (int) (GameManager.Camera.getHeight() - 176), 2, 3);
+				.createTiledFromAsset(textureAtlasMove, GameManager.AssetManager,
+						"down_button_32.png", 0,32,1, 1);
 		TiledTextureRegion textureLeft = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(textureAtlas, GameManager.AssetManager,
-						"left_button_32.png", 112, (int) (GameManager.Camera.getHeight() - 176), 1, 2);
+				.createTiledFromAsset(textureAtlasMove, GameManager.AssetManager,
+						"left_button_32.png", 0,64, 1, 1);
 		TiledTextureRegion textureRight = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(textureAtlas, GameManager.AssetManager,
-						"right_button_32.png", 112, (int) (GameManager.Camera.getHeight() - 176), 3, 2);
+				.createTiledFromAsset(textureAtlasMove, GameManager.AssetManager,
+						"right_button_32.png", 0,96, 1, 1);
 		
 		
 		
@@ -73,7 +73,7 @@ public class GameControllerManager {
 		HUD hud = new HUD(); // Hộp chứa các nút
 
 		// Nút bắn đạn
-		TiledSprite fireSprite = new TiledSprite(673,
+		TiledSprite fireSprite = new TiledSprite(GameManager.Camera.getWidth()-128,
 				GameManager.Camera.getHeight() - 128,
 				(TiledTextureRegion) mResources.get("fire button"),
 				GameManager.VertexBufferObject) {
@@ -96,9 +96,9 @@ public class GameControllerManager {
 		hud.attachChild(fireSprite);
 
 		// Nút lên
-		TiledSprite forwardSprite = new TiledSprite(144,
-				GameManager.Camera.getHeight() - 176,
-				(TiledTextureRegion) mResources.get("forward button"),
+		TiledSprite forwardSprite = new TiledSprite(64,
+				(int) (GameManager.Camera.getHeight() - 172),
+				 mResources.get("forward button"),
 				GameManager.VertexBufferObject) {
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 					float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -117,9 +117,9 @@ public class GameControllerManager {
 		hud.attachChild(forwardSprite);
 
 		// Nút xuống
-		TiledSprite backwardSprite = new TiledSprite(144,
-				GameManager.Camera.getHeight() - 112,
-				(TiledTextureRegion) mResources.get("backward button"),
+		TiledSprite backwardSprite = new TiledSprite(64, 
+				(int) (GameManager.Camera.getHeight() - 112),
+				 mResources.get("backward button"),
 				GameManager.VertexBufferObject) {
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 					float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -138,9 +138,9 @@ public class GameControllerManager {
 		hud.attachChild(backwardSprite);
 
 		// Nút trái
-		TiledSprite leftSprite = new TiledSprite(112,
+		TiledSprite leftSprite = new TiledSprite(32,
 				GameManager.Camera.getHeight() - 144,
-				(TiledTextureRegion) mResources.get("left button"),
+				 mResources.get("left button"),
 				GameManager.VertexBufferObject) {
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 					float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -159,9 +159,9 @@ public class GameControllerManager {
 		hud.attachChild(leftSprite);
 
 		// Nút phải
-		TiledSprite rightSprite = new TiledSprite(176,
+		TiledSprite rightSprite = new TiledSprite(96,
 				GameManager.Camera.getHeight() - 144,
-				(TiledTextureRegion) mResources.get("right button"),
+				 mResources.get("right button"),
 				GameManager.VertexBufferObject) {
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 					float pTouchAreaLocalX, float pTouchAreaLocalY) {
