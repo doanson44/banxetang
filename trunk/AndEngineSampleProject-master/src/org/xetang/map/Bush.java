@@ -1,5 +1,6 @@
 package org.xetang.map;
 
+
 public class Bush extends MapObject {
 
 	public Bush(Bush bush) {
@@ -13,13 +14,17 @@ public class Bush extends MapObject {
 	}
 
 	@Override
-	public ObjectType getType() {
-		return ObjectType.Bush;
-	}
-
-	@Override
 	public MapObject clone() {
 		return new Bush(this);
 	}
 
+	@Override
+	public void doContact(IMapObject object) {
+		
+	}
+
+	@Override
+	public ObjectType getType() {
+		return ObjectType.Bush;
+	}
 }

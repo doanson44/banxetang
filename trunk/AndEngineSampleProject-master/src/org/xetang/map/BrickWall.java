@@ -1,5 +1,8 @@
 package org.xetang.map;
 
+import org.andengine.util.debug.Debug;
+import org.xetang.map.helper.DestroyHelper;
+
 public class BrickWall extends Wall {
 
 	public BrickWall(BrickWall brickWall) {
@@ -13,12 +16,25 @@ public class BrickWall extends Wall {
 	}
 
 	@Override
-	public ObjectType getType() {
-		return ObjectType.BrickWall;
+	public MapObject clone() {
+		return new BrickWall(this);
 	}
 
 	@Override
-	public MapObject clone() {
-		return new BrickWall(this);
+	public void doContact(IMapObject object) {
+		try {
+			if (object.getType() == ObjectType.Bullet) {
+				_sprite.setVisible(false);
+				_body.getFixtureList().get(0).setSensor(true);
+				DestroyHelper.add(this);
+			}
+		} catch (Exception e) {
+			Debug.d("Collsion", "Nothing to contact!");
+		}
+	}
+
+	@Override
+	public ObjectType getType() {
+		return ObjectType.BrickWall;
 	}
 }

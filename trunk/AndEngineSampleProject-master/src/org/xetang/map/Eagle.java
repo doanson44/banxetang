@@ -1,5 +1,7 @@
 package org.xetang.map;
 
+import org.andengine.util.debug.Debug;
+
 public class Eagle extends MapObject {
 
 	public Eagle(Eagle water) {
@@ -13,13 +15,23 @@ public class Eagle extends MapObject {
 	}
 
 	@Override
-	public ObjectType getType() {
-		return ObjectType.Eagle;
-	}
-
-	@Override
 	public MapObject clone() {
 		return new Eagle(this);
 	}
 
+	@Override
+	public void doContact(IMapObject object) {
+		try {
+			if (object.getType() == ObjectType.Bullet) {
+				//Đổi sprite
+			}
+		} catch (Exception e) {
+			Debug.d("Collsion", "Nothing to contact!");
+		}
+	}
+
+	@Override
+	public ObjectType getType() {
+		return ObjectType.Eagle;
+	}
 }

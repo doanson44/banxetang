@@ -132,22 +132,22 @@
                         <HEIGHT>14</HEIGHT>
                     </AREA>
                     <AREA>
-                        <X>11</X>
+                        <X>12</X>
                         <Y>23</Y>
-                        <WIDTH>8</WIDTH>
+                        <WIDTH>4</WIDTH>
                         <HEIGHT>2</HEIGHT>
                     </AREA>
                     <AREA>
                         <X>11</X>
-                        <Y>24</Y>
+                        <Y>23</Y>
                         <WIDTH>2</WIDTH>
-                        <HEIGHT>4</HEIGHT>
+                        <HEIGHT>6</HEIGHT>
                     </AREA>
                     <AREA>
                         <X>14</X>
-                        <Y>24</Y>
+                        <Y>23</Y>
                         <WIDTH>2</WIDTH>
-                        <HEIGHT>4</HEIGHT>
+                        <HEIGHT>6</HEIGHT>
                     </AREA>
                 </OBJECT>
                 <OBJECT>

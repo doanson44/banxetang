@@ -1,33 +1,23 @@
 package org.xetang.root;
 
+import org.andengine.entity.IEntity;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
-import org.andengine.entity.sprite.AnimatedSprite;
-import org.andengine.extension.physics.box2d.PhysicsConnector;
-import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
-import org.andengine.opengl.texture.TextureOptions;
-import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
-import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
-import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.color.Color;
 import org.xetang.controller.Console;
 import org.xetang.manager.GameManager;
+import org.xetang.manager.GameManager.Direction;
 import org.xetang.manager.GameMapManager;
 import org.xetang.map.Bullet;
-import org.xetang.map.MapObject;
+import org.xetang.map.IBullet;
 
 import android.hardware.SensorManager;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
-/**
- * 
- */
 public class GameScene extends Scene implements IOnSceneTouchListener {
 
 	GameMapManager _mapManager;
@@ -47,13 +37,12 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 		createPhysics();
 	}
 
-	private BitmapTextureAtlas mBitmapTextureAtlas;
-	private TiledTextureRegion mBoxFaceTextureRegion;
-
 	private void createBackground() {
 		
 		
 		setBackground(new Background(Color.BLACK));
+<<<<<<< .mine
+=======
 
 		this.mBitmapTextureAtlas = new BitmapTextureAtlas(
 				GameManager.Context.getTextureManager(), 64, 32,
@@ -68,11 +57,12 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 				this.mBitmapTextureAtlas);
 		
 
+>>>>>>> .r33
 	}
 
 	private void createPhysics() {
 		setOnSceneTouchListener(this);
-
+		
 		GameManager.PhysicsWorld = new PhysicsWorld(new Vector2(0,
 				SensorManager.GRAVITY_EARTH), false);
 
@@ -96,12 +86,16 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 
 	}
 
+	int count = 0;
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if (!pSceneTouchEvent.isActionDown()) {
 			return false;
 		}
 
+<<<<<<< .mine
+		IBullet bullet = new Bullet(pSceneTouchEvent.getX(),
+=======
 		final AnimatedSprite face;
 		final Body body;
 
@@ -119,10 +113,13 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 				face, body, true, true));
 
 		MapObject obj = new Bullet(pSceneTouchEvent.getX(),
+>>>>>>> .r33
 				pSceneTouchEvent.getY());
-		obj.putToWorld();
-		GameManager.Scene.attachChild(obj);
-
+		bullet.readyToFire(Direction.values()[count % 4]);
+		bullet.beFired();
+		GameManager.Scene.attachChild((IEntity) bullet);
+		++count;
+		
 		return true;
 	}
 

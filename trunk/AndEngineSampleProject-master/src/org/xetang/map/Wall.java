@@ -16,4 +16,8 @@ public abstract class Wall extends MapObject {
 		super(objectFixtureDef, objectTextureRegion, piecePerMap, posX, posY);
 	}
 
+	@Override
+	public IMapObject clone() {
+		return null;
+	}
 }

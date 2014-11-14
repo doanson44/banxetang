@@ -1,5 +1,7 @@
 package org.xetang.map;
 
+import org.andengine.util.debug.Debug;
+
 public class SteelWall extends Wall {
 
 	public SteelWall(SteelWall steelWall) {
@@ -13,12 +15,27 @@ public class SteelWall extends Wall {
 	}
 
 	@Override
-	public ObjectType getType() {
-		return ObjectType.SteelWall;
+	public MapObject clone() {
+		return new SteelWall(this);
 	}
 
 	@Override
-	public MapObject clone() {
-		return new SteelWall(this);
+	public void doContact(IMapObject object) {
+		try {
+			if (object.getType() == ObjectType.Bullet) {
+//				 if (Loại xe tăng đủ mạnh) {
+//					_sprite.setVisible(false);
+//					_body.getFixtureList().get(0).setSensor(true);
+//					 DestroyHelper.add(this);
+//				 }
+			}
+		} catch (Exception e) {
+			Debug.d("Collsion", "Nothing to contact!");
+		}
+	}
+
+	@Override
+	public ObjectType getType() {
+		return ObjectType.SteelWall;
 	}
 }

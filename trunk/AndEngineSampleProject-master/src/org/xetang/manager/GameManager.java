@@ -1,22 +1,25 @@
 package org.xetang.manager;
 
+<<<<<<< .mine
+import org.andengine.engine.Engine;
+=======
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+>>>>>>> .r33
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.font.FontManager;
 import org.andengine.audio.music.*;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
-import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.sprite.TiledSprite;
-import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.opengl.texture.TextureManager;
+<<<<<<< .mine
+=======
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
@@ -25,52 +28,64 @@ import org.andengine.opengl.texture.region.BaseTextureRegion;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
+>>>>>>> .r33
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.color.Color;
 import org.xetang.main.MainActivity;
+<<<<<<< .mine
+import org.xetang.map.MapObjectFactory;
+import org.xetang.map.model.XMLLoader;
+=======
 import org.xetang.map.MapObjectFactory;
 import org.xetang.map.model.XMLLoader;
 import org.xetang.root.GameScene;
 import org.xetang.root.MainMenuScene;
+>>>>>>> .r33
 
 import android.content.res.AssetManager;
-
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 public class GameManager {
 
 	public static final String TANK_TAG = "XeTang"; // Dùng để debug
 
-	public enum Direction {
-		Up, Right, Down, Left
-	}
 	public static final int CAMERA_WIDTH = 1080;
 	public static final int CAMERA_HEIGHT = CAMERA_WIDTH / 10 * 6;
 
-	public static final int MAP_WIDTH = 832;
-	public static final int MAP_HEIGHT = MAP_WIDTH / 4 * 3;
+	public static final float BORDER_WIDTH = 3f;
 
-	public static final int CAMERA_X = -(CAMERA_WIDTH - MAP_WIDTH) / 2;
-	public static final int CAMERA_Y = -(CAMERA_HEIGHT - MAP_HEIGHT) / 2;
+	public static final float MAP_RATIO = 1f;
+	public static final float MAP_HEIGHT = CAMERA_HEIGHT - BORDER_WIDTH * 4;
+	public static final float MAP_WIDTH = (int) (MAP_HEIGHT * MAP_RATIO);
 
-	public static final int LARGE_CELL_WIDTH = MAP_WIDTH / 13;
-	public static final int LARGE_CELL_HEIGHT = LARGE_CELL_WIDTH / 4 * 3;
-	public static final int SMALL_CELL_WIDTH = LARGE_CELL_WIDTH / 2;
-	public static final int SMALL_CELL_HEIGHT = SMALL_CELL_WIDTH / 4 * 3;
+	public static final float CAMERA_X = -(CAMERA_WIDTH - MAP_WIDTH) / 2;
+	public static final float CAMERA_Y = -(CAMERA_HEIGHT - MAP_HEIGHT) / 2;
 
-	public static final int BORDER_WIDTH = 2;
+	public static final float LARGE_CELL_WIDTH = MAP_WIDTH / 13;
+	public static final float LARGE_CELL_HEIGHT = MAP_HEIGHT / 13;
+	public static final float SMALL_CELL_WIDTH = LARGE_CELL_WIDTH / 2;
+	public static final float SMALL_CELL_HEIGHT = LARGE_CELL_HEIGHT / 2;
 
-	public static BitmapTextureAtlas mBitmapTexture;
+	public static final int PIXEL_PER_METER = 32; 
+	
+	public static final float NORMAL_BULLET_SPPED_WIDTH = MAP_WIDTH / PIXEL_PER_METER / 2;
+	public static final float NORMAL_BULLET_SPPED_HEIGHT = MAP_HEIGHT / PIXEL_PER_METER / 2;
+
+	public static final float FAST_BULLET_SPPED_WIDTH = NORMAL_BULLET_SPPED_WIDTH * 2;
+	public static final float FAST_BULLET_SPPED_HEIGHT = NORMAL_BULLET_SPPED_HEIGHT * 2;
+
+	public enum Direction {
+		Up, Right, Down, Left
+	}
+
+	public static MainActivity Activity;
 	public static Camera Camera;
 	public static Scene Scene;
+	public static Engine Engine;
 	public static TextureManager TextureManager;
 	public static AssetManager AssetManager;
 	public static MainActivity Context;
 	public static VertexBufferObjectManager VertexBufferObject;
-	public static PhysicsWorld PhysicsWorld = new PhysicsWorld(new Vector2(0,
-			0), false);
+	public static PhysicsWorld PhysicsWorld;
 /**
 	 * @editor: Nhân Bạch
 	 * @date: 13/11/2014
@@ -90,7 +105,11 @@ public class GameManager {
 
 	public static GameMapManager CurrentMapManager;
 
+<<<<<<< .mine
+	public static boolean PlaceOnScreenControlsAtDifferentVerticalLocations = false;
+=======
 
+>>>>>>> .r33
 	public static int mStage; // Màn chơi hiện tại
 	public static int mPlayTimes; // Số lần chơi game, mỗi khi gameover tính 1
 									// lần
@@ -113,23 +132,12 @@ public class GameManager {
 		mHighestScore = 1000;
 	}
 
-	// public static void newGame() {
-	// GameMapManager.loadMapData(1);
-	// TankManager.createPlayerTank();
-	// TankManager.generateOpponentTank(4);
-	// GameControllerManager.setupControls();
-	//
-	// }
-	//
-	// public static void createScene() {
-	// createWalls();
-	// GameManager.newGame();
-	// }
-
 	public static void loadResource() {
 		Textures = new Hashtable<String, BaseTextureRegion>();
 		Musics = new Hashtable<String, Music>();
 		Fonts = new Hashtable<String, Font>();
+<<<<<<< .mine
+=======
 		
 		// Load Fonts
 		loadFonts();
@@ -147,7 +155,12 @@ public class GameManager {
 
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		mBitmapTexture = new BitmapTextureAtlas(GameManager.TextureManager, 15, 105, TextureOptions.DEFAULT);
+>>>>>>> .r33
 
+<<<<<<< .mine
+		XMLLoader.loadAllParameters();
+		MapObjectFactory.initAllObjects();
+=======
 		TiledTextureRegion bomb = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(mBitmapTexture,Context,
 					"item/bomb.png", 0, 0,1, 1);
@@ -180,38 +193,7 @@ public class GameManager {
 		ListScene.add(new MainMenuScene());
 		ListScene.add(new GameScene());
 
-	}
-
-	private static void createWalls() {
-		final VertexBufferObjectManager vertexBufferObjectManager = GameManager.VertexBufferObject;
-		final Rectangle ground = new Rectangle(0, 420 - 2, 420, 2,
-				vertexBufferObjectManager);
-		final Rectangle roof = new Rectangle(0, 0, 420, 2,
-				vertexBufferObjectManager);
-		final Rectangle left = new Rectangle(0, 0, 2, 420,
-				vertexBufferObjectManager);
-		final Rectangle right = new Rectangle(420 - 2, 0, 2, 420,
-				vertexBufferObjectManager);
-		// final Rectangle shelf = new Rectangle(300, 200, 100, 2,
-		// vertexBufferObjectManager);
-
-		final FixtureDef wallFixtureDef = PhysicsFactory.createFixtureDef(0,
-				0.5f, 0.5f);
-		PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, ground,
-				BodyType.StaticBody, wallFixtureDef);
-		PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, roof,
-				BodyType.StaticBody, wallFixtureDef);
-		PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, left,
-				BodyType.StaticBody, wallFixtureDef);
-		PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, right,
-				BodyType.StaticBody, wallFixtureDef);
-		// PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, shelf,
-		// BodyType.StaticBody, wallFixtureDef);
-
-		GameManager.Scene.attachChild(ground);
-		GameManager.Scene.attachChild(roof);
-		GameManager.Scene.attachChild(left);
-		GameManager.Scene.attachChild(right);
+>>>>>>> .r33
 	}
 
 	/*
@@ -221,6 +203,10 @@ public class GameManager {
 		/*
 		 * Xử lý Scene cũ
 		 */
+<<<<<<< .mine
+
+		GameManager.Scene = newScene;
+=======
 		if(index >=0 && index < ListScene.size() && GameManager.Engine.getScene() != ListScene.get(index)){
 			GameManager.Engine.setScene(ListScene.get(index));
 			GameManager.Scene = ListScene.get(index);
@@ -229,11 +215,14 @@ public class GameManager {
 			else
 				((GameScene)GameManager.Scene).onSwitched();
 		}
+>>>>>>> .r33
 	}
 
 	public static int getCurrentStage() {
 		return mStage;
 	}
+<<<<<<< .mine
+=======
 
 /**
 	 * @editor: Nhân Bạch
@@ -284,6 +273,7 @@ public class GameManager {
 	public static BaseTextureRegion getTexture(String key) {
 		return Textures.get(key);
 	}
+>>>>>>> .r33
 
 	public static Music getMusic(String key) {
 		return Musics.get(key);
