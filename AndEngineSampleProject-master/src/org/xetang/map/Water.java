@@ -13,13 +13,17 @@ public class Water extends MapObject {
 	}
 
 	@Override
-	public ObjectType getType() {
-		return ObjectType.Water;
-	}
-
-	@Override
 	public MapObject clone() {
 		return new Water(this);
 	}
 
+	@Override
+	public void doContact(IMapObject object) {
+		
+	}
+
+	@Override
+	public ObjectType getType() {
+		return ObjectType.Water;
+	}
 }

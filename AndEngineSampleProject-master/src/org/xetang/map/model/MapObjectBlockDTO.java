@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.xetang.manager.GameManager;
-import org.xetang.map.MapObject;
+import org.xetang.map.IMapObject;
 
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.util.Pair;
 
 public class MapObjectBlockDTO {
-	private List<MapObject> _objectsBlock;
+	private List<IMapObject> _objectsBlock;
 	private PointF _rootPosition;
 	private int CellWidth, CellHeight;
 
@@ -23,7 +23,7 @@ public class MapObjectBlockDTO {
 
 	public MapObjectBlockDTO(int cellWidth, int cellHeight,
 			Pair<Point, Point> posAndSize) {
-		_objectsBlock = new ArrayList<MapObject>(posAndSize.second.x
+		_objectsBlock = new ArrayList<IMapObject>(posAndSize.second.x
 				* posAndSize.second.y);
 		CellWidth = cellWidth;
 		CellHeight = cellHeight;
@@ -32,7 +32,7 @@ public class MapObjectBlockDTO {
 				* posAndSize.first.y);
 	}
 
-	public void add(MapObject mapObject, int row, int col) {
+	public void add(IMapObject mapObject, int row, int col) {
 		mapObject.setPosition(_rootPosition.x + CellWidth * col,
 				_rootPosition.y + CellHeight * row);
 		_objectsBlock.add(mapObject);
@@ -47,7 +47,7 @@ public class MapObjectBlockDTO {
 		_rootPosition = new PointF(posX, posY);
 	}
 
-	public List<MapObject> getObjectsBlock() {
+	public List<IMapObject> getObjectsBlock() {
 		return _objectsBlock;
 	}
 }

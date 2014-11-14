@@ -11,34 +11,34 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
-public abstract class MapObject extends GameEntity {
+public abstract class MapObject extends GameEntity implements IMapObject {
 
 	public enum ObjectType {
 		Eagle, BrickWall, SteelWall, Bush, Water, Bullet
 	};
 
-	public int CellWidth;
-	public int CellHeight;
+	protected float _cellWidth;
+	protected float _cellHeight;
+
+	protected boolean _alive = true;
 
 	protected Sprite _sprite = null;
 	protected Body _body = null;
 	protected FixtureDef _objectFixtureDef = null;
 
-	public MapObject(MapObject object) {
-		CellHeight = object.CellHeight;
-		CellWidth = object.CellWidth;
+	public MapObject(IMapObject object) {
+		_cellWidth = object.getCellWidth();
+		_cellHeight = object.getCellHeight();
 
 		_sprite = new Sprite(object.getX(), object.getY(),
-				object._sprite.getTextureRegion(),
+				object.getSprite().getTextureRegion(),
 				GameManager.VertexBufferObject);
-		_sprite.setSize(object._sprite.getWidth(), object._sprite.getHeight());
+		_sprite.setSize(object.getSprite().getWidth(), object.getSprite().getHeight());
 		attachChild(_sprite);
 
-		_objectFixtureDef = object._objectFixtureDef;
+		_objectFixtureDef = object.getObjectFixtureDef();
 		_body = null;
 	}
-
-	public abstract MapObject clone();
 
 	public MapObject(FixtureDef objectFixtureDef,
 			TiledTextureRegion objectTextureRegion, int piecePerMap,
@@ -46,26 +46,30 @@ public abstract class MapObject extends GameEntity {
 
 		// setX(posX);
 		// setY(posY);
-		CellWidth = GameManager.MAP_WIDTH / piecePerMap;
-		CellHeight = CellWidth / 4 * 3;
+		_cellWidth = GameManager.MAP_WIDTH / piecePerMap;
+		_cellHeight = GameManager.MAP_HEIGHT / piecePerMap;
 		_objectFixtureDef = objectFixtureDef;
 
 		createSprite(objectTextureRegion, posX, posY);
 		attachChild(_sprite);
 	}
 
+	public abstract IMapObject clone();
+	
 	protected void createSprite(TiledTextureRegion objectTextureRegion,
 			float posX, float posY) {
 
 		_sprite = new TiledSprite(posX, posY, objectTextureRegion,
 				GameManager.VertexBufferObject);
-		_sprite.setSize(CellWidth, CellHeight);
+		_sprite.setSize(_cellWidth, _cellHeight);
 	}
 
 	protected void createBody() {
 
 		_body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, _sprite,
 				BodyType.StaticBody, _objectFixtureDef);
+
+		_body.setUserData(this);
 	}
 
 	public void putToWorld() {
@@ -104,21 +108,31 @@ public abstract class MapObject extends GameEntity {
 		setPosition(_sprite.getX() + x, _sprite.getY() + y);
 	}
 
-	public Sprite getSprite() {
-		return _sprite;
+	public float getCellWidth() {
+		return _cellWidth;
 	}
 
-	public void setSprite(Sprite sprite) {
-		this._sprite = sprite;
+	public float getCellHeight() {
+		return _cellHeight;
+	}
+	
+	public synchronized boolean isAlive() {
+		return _alive;
+	}
+
+	public synchronized void setAlive(boolean alive) {
+		this._alive = alive;
+	}
+
+	public Sprite getSprite() {
+		return _sprite;
 	}
 
 	public Body getBody() {
 		return _body;
 	}
 
-	public void setBody(Body body) {
-		this._body = body;
+	public FixtureDef getObjectFixtureDef() {
+		return _objectFixtureDef;
 	}
-
-	public abstract ObjectType getType();
 }

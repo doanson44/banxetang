@@ -18,14 +18,15 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 public class MapObjectFactory {
 
+	public static final int MAX_RESOURCE_BITMAP_WIDTH = 64;
+	public static final int MAX_RESOURCE_BITMAP_HEIGHT = 64;
+
 	public static final int EAGLE_CELL_PER_MAP = 13;
 	public static final int BRICK_WALL_CELL_PER_MAP = 52;
 	public static final int STEEL_WALL_CELL_PER_MAP = 26;
 	public static final int BUSH_CELL_PER_MAP = 13;
 	public static final int WATER_CELL_PER_MAP = 13;
 	public static final int BULLET_CELL_PER_MAP = 65;
-	public static final int ALL_TEXTURES_HEIGHT = GameManager.LARGE_CELL_WIDTH
-			* ObjectType.values().length;
 
 	public static final float BULLET_DENSITY = 0.5f;
 	public static final float BULLET_ELASTICITY = 0.5f;
@@ -44,7 +45,7 @@ public class MapObjectFactory {
 
 	public static final short GROUP_DEFAULT = 0;
 
-	private static SparseArray<MapObject> _objectsArray = new SparseArray<MapObject>();
+	private static SparseArray<IMapObject> _objectsArray = new SparseArray<IMapObject>();
 
 	protected static BitmapTextureAtlas _bitmapTextureAtlas;
 	protected static TiledTextureRegion _eagleTextureRegion;
@@ -70,11 +71,11 @@ public class MapObjectFactory {
 	private static void initObjectsTexture() {
 		_bitmapTextureAtlas = new BitmapTextureAtlas(
 				GameManager.Context.getTextureManager(),
-				GameManager.LARGE_CELL_WIDTH, ALL_TEXTURES_HEIGHT,
-				TextureOptions.BILINEAR);
+				MAX_RESOURCE_BITMAP_WIDTH, MAX_RESOURCE_BITMAP_HEIGHT
+						* ObjectType.values().length, TextureOptions.BILINEAR);
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("");
 
-		int yTexturePos = GameManager.LARGE_CELL_WIDTH
+		int yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT
 				* ObjectType.Eagle.ordinal();
 		String strTexture = XMLLoader.getObject(ObjectType.Eagle.ordinal())
 				.getTextures();
@@ -83,7 +84,7 @@ public class MapObjectFactory {
 						GameManager.Context.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
-		yTexturePos = GameManager.LARGE_CELL_WIDTH
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT
 				* ObjectType.BrickWall.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.BrickWall.ordinal())
 				.getTextures();
@@ -92,7 +93,7 @@ public class MapObjectFactory {
 						GameManager.Context.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
-		yTexturePos = GameManager.LARGE_CELL_WIDTH
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT
 				* ObjectType.SteelWall.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.SteelWall.ordinal())
 				.getTextures();
@@ -101,7 +102,7 @@ public class MapObjectFactory {
 						GameManager.Context.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
-		yTexturePos = GameManager.LARGE_CELL_WIDTH * ObjectType.Bush.ordinal();
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Bush.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.Bush.ordinal())
 				.getTextures();
 		_bushTextureRegion = BitmapTextureAtlasTextureRegionFactory
@@ -109,7 +110,7 @@ public class MapObjectFactory {
 						GameManager.Context.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
-		yTexturePos = GameManager.LARGE_CELL_WIDTH * ObjectType.Water.ordinal();
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Water.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.Water.ordinal())
 				.getTextures();
 		_waterTextureRegion = BitmapTextureAtlasTextureRegionFactory
@@ -117,8 +118,7 @@ public class MapObjectFactory {
 						GameManager.Context.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
-		yTexturePos = GameManager.LARGE_CELL_WIDTH
-				* ObjectType.Bullet.ordinal();
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Bullet.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.Bullet.ordinal())
 				.getTextures();
 		_bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
@@ -163,14 +163,14 @@ public class MapObjectFactory {
 		_bitmapTextureAtlas.unload();
 	}
 
-	public static MapObject createObject(ObjectType type) {
+	public static IMapObject createObject(ObjectType type) {
 		return _objectsArray.get(type.ordinal()).clone();
 	}
 
 	public static MapObjectBlockDTO createObjectBlock(ObjectType type,
 			Pair<Point, Point> posAndSize) {
 
-		MapObject object = createObject(type);
+		IMapObject object = createObject(type);
 		MapObjectBlockDTO objectsBlock = new MapObjectBlockDTO((int) object
 				.getSprite().getWidth(), (int) object.getSprite().getHeight(),
 				posAndSize);

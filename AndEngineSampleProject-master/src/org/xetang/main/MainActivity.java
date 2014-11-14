@@ -1,100 +1,89 @@
 package org.xetang.main;
 
-import static org.andengine.extension.physics.box2d.util.constants.PhysicsConstants.PIXEL_TO_METER_RATIO_DEFAULT;
-
+import org.andengine.engine.Engine;
+import org.andengine.engine.LimitedFPSEngine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
-import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.shape.IAreaShape;
-import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.util.FPSLogger;
-import org.andengine.extension.physics.box2d.PhysicsConnector;
-import org.andengine.extension.physics.box2d.PhysicsFactory;
-import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.sensor.acceleration.AccelerationData;
 import org.andengine.input.sensor.acceleration.IAccelerationListener;
-import org.andengine.input.touch.TouchEvent;
-import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
-import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
-import org.andengine.opengl.texture.region.TiledTextureRegion;
+import org.andengine.input.touch.controller.MultiTouch;
+import org.andengine.input.touch.controller.MultiTouchController;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
-import org.andengine.util.debug.Debug;
 import org.xetang.manager.GameManager;
+<<<<<<< .mine
+import org.xetang.map.MapObjectFactory;
+import org.xetang.root.GameScene;
+=======
 import org.xetang.root.GameScene;
 import org.xetang.root.MainMenuScene;
+>>>>>>> .r33
 
 import android.widget.Toast;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-
-/**
- * (c) 2010 Nicolas Gramlich (c) 2011 Zynga
- *
- * @author Nicolas Gramlich
- * @since 18:47:08 - 19.03.2010
- */
-
-// RealMayo: THIS PROJECT IS SIMPLY THE CODE TAKEN FROM PhysicsExample.java FROM
-// THE AndEngineExamples
-
 public class MainActivity extends SimpleBaseGameActivity implements
-		IAccelerationListener, IOnSceneTouchListener {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+		IAccelerationListener {
 
-	// default
-	private static final int CAMERA_WIDTH = 800;
-	private static final int CAMERA_HEIGHT = 480;
+	@Override
+	public Engine onCreateEngine(EngineOptions pEngineOptions) {
 
-	private static final FixtureDef FIXTURE_DEF = PhysicsFactory
-			.createFixtureDef(1, 0.5f, 0.5f);
+		Engine engine = new LimitedFPSEngine(pEngineOptions, 60);
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+		try {
+			if (MultiTouch.isSupported(this)) {
+				engine.setTouchController(new MultiTouchController());
+				if (MultiTouch.isSupportedDistinct(this)) {
+					Toast.makeText(
+							this,
+							"MultiTouch detected --> Both controls will work properly!",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					GameManager.PlaceOnScreenControlsAtDifferentVerticalLocations = true;
+					Toast.makeText(
+							this,
+							"MultiTouch detected, but your device has problems distinguishing between fingers.\n\nControls are placed at different vertical locations.",
+							Toast.LENGTH_LONG).show();
+				}
+			} else {
+				Toast.makeText(
+						this,
+						"Sorry your device does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.",
+						Toast.LENGTH_LONG).show();
+			}
+		} catch (Exception e) {
+			Toast.makeText(
+					this,
+					"Sorry your Android Version does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.",
+					Toast.LENGTH_LONG).show();
+		}
 
-	private BitmapTextureAtlas mBitmapTextureAtlas;
-
-	private TiledTextureRegion mBoxFaceTextureRegion;
-	private TiledTextureRegion mCircleFaceTextureRegion;
-	private TiledTextureRegion mTriangleFaceTextureRegion;
-	private TiledTextureRegion mHexagonFaceTextureRegion;
-
-	private Scene mScene;
-	private Camera mCamera;
-
-	private PhysicsWorld mPhysicsWorld;
-	private int mFaceCount = 0;
-
-	// ===========================================================
-	// Constructors
-	// ===========================================================
-
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
-
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+		return engine;
+	}
 
 	@Override
 	public EngineOptions onCreateEngineOptions() {
-		Toast.makeText(this, "Touch the screen to add objects.",
-				Toast.LENGTH_LONG).show();
 
+<<<<<<< .mine
+		GameManager.Camera = new Camera(GameManager.CAMERA_X,
+				GameManager.CAMERA_Y, GameManager.CAMERA_WIDTH,
+				GameManager.CAMERA_HEIGHT);
+=======
 		this.mCamera = new Camera(GameManager.CAMERA_X, GameManager.CAMERA_Y, GameManager.CAMERA_WIDTH, GameManager.CAMERA_HEIGHT);
+>>>>>>> .r33
 
+<<<<<<< .mine
+		EngineOptions engineOptions = new EngineOptions(true,
+				ScreenOrientation.LANDSCAPE_FIXED, new FillResolutionPolicy(),
+				GameManager.Camera);
+
+		return engineOptions;
+=======
 		EngineOptions options = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED,
 				new FillResolutionPolicy(), this.mCamera);
+>>>>>>> .r33
 		options.getAudioOptions().setNeedsMusic(true);
 		options.getAudioOptions().setNeedsSound(true);
 		return options;
@@ -102,8 +91,11 @@ public class MainActivity extends SimpleBaseGameActivity implements
 
 	@Override
 	public void onCreateResources() {
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 
+<<<<<<< .mine
+		GameManager.Activity = this;
+		GameManager.Engine = this.mEngine;
+=======
 //		this.mBitmapTextureAtlas = new BitmapTextureAtlas(
 //				this.getTextureManager(), 64, 128, TextureOptions.BILINEAR);
 //		this.mBoxFaceTextureRegion = BitmapTextureAtlasTextureRegionFactory
@@ -122,6 +114,7 @@ public class MainActivity extends SimpleBaseGameActivity implements
 		
 		GameManager.Engine = this.mEngine;
 		GameManager.Camera = this.mCamera;
+>>>>>>> .r33
 		GameManager.TextureManager = this.getTextureManager();
 		GameManager.AssetManager = this.getAssets();
 		GameManager.Context = this;
@@ -131,26 +124,15 @@ public class MainActivity extends SimpleBaseGameActivity implements
 		GameManager.MusicManager = this.getMusicManager();
 
 		GameManager.loadResource();
-
 	}
 
-	TiledTextureRegion mTankTextureRegion;
-//
-//	private void loadResource() {
-//		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("tank/");
-//		this.mBitmapTextureAtlas = new BitmapTextureAtlas(
-//				this.getTextureManager(), 32, 32);
-//
-//		this.mTankTextureRegion = BitmapTextureAtlasTextureRegionFactory
-//				.createTiledFromAsset(this.mBitmapTextureAtlas,
-//						this.getAssets(), "tank_north_32.png", 0, 0, 1, 1);
-//		this.mBitmapTextureAtlas.load();
-//	}
-
 	@Override
-	public Scene onCreateScene() {
-		this.mEngine.registerUpdateHandler(new FPSLogger());
+	public void onDestroyResources() throws Exception {
+		MapObjectFactory.unloadAll();
 
+<<<<<<< .mine
+		super.onDestroyResources();
+=======
 		GameManager.SwitchToScene(0);
 		
 		/*
@@ -166,20 +148,16 @@ public class MainActivity extends SimpleBaseGameActivity implements
 		//GameManager.PhysicsWorld = this.mPhysicsWorld;
 
 		return GameManager.Scene;
+>>>>>>> .r33
 	}
 
 	@Override
-	public boolean onSceneTouchEvent(final Scene pScene,
-			final TouchEvent pSceneTouchEvent) {
-		if (this.mPhysicsWorld != null) {
-			if (pSceneTouchEvent.isActionDown()) {
-				this.addFace(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
+	public Scene onCreateScene() {
+		this.mEngine.registerUpdateHandler(new FPSLogger());
 
-				return true;
-			}
+		GameManager.Scene = new GameScene();
 
-		}
-		return false;
+		return GameManager.Scene;
 	}
 
 	@Override
@@ -209,6 +187,8 @@ public class MainActivity extends SimpleBaseGameActivity implements
 
 		this.disableAccelerationSensor();
 	}
+<<<<<<< .mine
+=======
 
 	// ===========================================================
 	// Methods
@@ -363,4 +343,5 @@ public class MainActivity extends SimpleBaseGameActivity implements
 	// ===========================================================
 	// Inner and Anonymous Classes
 	// ===========================================================
+>>>>>>> .r33
 }
