@@ -46,7 +46,7 @@ public class DestroyHelper implements IUpdateHandler {
 					object.getBody().setActive(false);
 					GameManager.PhysicsWorld.destroyBody(object.getBody());
 
-					GameManager.Activity.runOnUpdateThread(new Runnable() {
+					GameManager.Context.runOnUpdateThread(new Runnable() {
 
 						@Override
 						public void run() {
@@ -86,7 +86,7 @@ public class DestroyHelper implements IUpdateHandler {
 			return;
 		}
 
-		GameManager.Activity.runOnUpdateThread(_removalCore);
+		GameManager.Context.runOnUpdateThread(_removalCore);
 	}
 
 	@Override
