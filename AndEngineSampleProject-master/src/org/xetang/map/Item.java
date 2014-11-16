@@ -2,7 +2,6 @@ package org.xetang.map;
 
 import java.util.Random;
 
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
@@ -13,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 import android.util.Log;
-import android.widget.Toast;
 
 
 

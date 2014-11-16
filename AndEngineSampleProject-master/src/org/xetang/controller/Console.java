@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.andengine.entity.sprite.TiledSprite;
 import org.xetang.manager.GameControllerManager;
-import org.xetang.manager.GameManager;
 import org.xetang.root.GameEntity;
 
 /**

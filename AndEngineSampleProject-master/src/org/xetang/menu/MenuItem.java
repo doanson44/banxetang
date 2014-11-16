@@ -7,7 +7,6 @@ import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.util.color.Color;
-import org.andengine.util.debug.Debug;
 import org.xetang.manager.GameManager;
 import org.xetang.root.MainMenuScene;
 import org.xetang.root.MenuEntity;

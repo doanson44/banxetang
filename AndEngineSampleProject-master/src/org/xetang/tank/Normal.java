@@ -1,12 +1,8 @@
 package org.xetang.tank;
 
-import org.andengine.entity.modifier.MoveXModifier;
-import org.andengine.entity.modifier.MoveYModifier;
-import org.andengine.entity.sprite.AnimatedSprite;
-import org.andengine.entity.sprite.TiledSprite;
+
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
-import org.xetang.manager.GameMapManager;
 import org.xetang.map.Map;
 
 

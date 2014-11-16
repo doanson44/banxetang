@@ -1,7 +1,5 @@
 package org.xetang.map;
 
-import org.andengine.entity.sprite.Sprite;
-import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
 

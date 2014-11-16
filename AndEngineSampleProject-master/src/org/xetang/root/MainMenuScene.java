@@ -5,40 +5,26 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.prefs.Preferences;
 
-import junit.framework.Assert;
 
 import org.andengine.audio.music.Music;
-import org.andengine.audio.music.MusicFactory;
 import org.andengine.engine.camera.hud.HUD;
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.TiledSprite;
-import org.andengine.entity.text.AutoWrap;
 import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
-import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.color.Color;
-import org.andengine.util.debug.Debug;
-import org.andengine.util.debug.Debug.DebugLevel;
 import org.xetang.manager.GameManager;
-import org.xetang.manager.GameMapManager;
 import org.xetang.menu.MenuItem;
 
-import com.badlogic.gdx.utils.Array;
 
-import android.R.menu;
-import android.graphics.Typeface;
-import android.media.CamcorderProfile;
-import android.text.style.TypefaceSpan;
+
 
 /**
  * 
@@ -302,7 +288,7 @@ public class MainMenuScene extends Scene  {
 		case 1: //new game	
 			stopMusic();
 			GameManager.Camera.setHUD(null);
-			GameManager.SwitchToScene(1);
+			GameManager.SwitchToScene("");
 			
 		break;
 		

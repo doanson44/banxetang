@@ -1,46 +1,38 @@
 package org.xetang.manager;
 
-<<<<<<< .mine
-import org.andengine.engine.Engine;
-=======
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
 
->>>>>>> .r33
+import org.andengine.engine.Engine;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Hashtable;
+
+
+
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.font.FontManager;
 import org.andengine.audio.music.*;
-import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.Scene;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.opengl.texture.TextureManager;
-<<<<<<< .mine
-=======
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
-import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
 import org.andengine.opengl.texture.region.BaseTextureRegion;
-import org.andengine.opengl.texture.region.ITextureRegion;
-import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
->>>>>>> .r33
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.color.Color;
 import org.xetang.main.MainActivity;
-<<<<<<< .mine
 import org.xetang.map.MapObjectFactory;
 import org.xetang.map.model.XMLLoader;
-=======
-import org.xetang.map.MapObjectFactory;
-import org.xetang.map.model.XMLLoader;
+
+
 import org.xetang.root.GameScene;
 import org.xetang.root.MainMenuScene;
->>>>>>> .r33
+
+
 
 import android.content.res.AssetManager;
 
@@ -80,7 +72,6 @@ public class GameManager {
 	public static MainActivity Activity;
 	public static Camera Camera;
 	public static Scene Scene;
-	public static Engine Engine;
 	public static TextureManager TextureManager;
 	public static AssetManager AssetManager;
 	public static MainActivity Context;
@@ -98,18 +89,16 @@ public class GameManager {
 	static Hashtable<String, Music> Musics;
 	public static boolean IsBackgroundSound = true;
 	public static boolean IsEffectSound = true;
-	public static List<Scene> ListScene = new ArrayList<Scene>();
+	public static HashMap<String, Scene> ListScene = new HashMap<String, Scene>();
 	public static Engine Engine;
+	public static int mReachedStage;
 
 	/**********************/
 
 	public static GameMapManager CurrentMapManager;
 
-<<<<<<< .mine
 	public static boolean PlaceOnScreenControlsAtDifferentVerticalLocations = false;
-=======
 
->>>>>>> .r33
 	public static int mStage; // Màn chơi hiện tại
 	public static int mPlayTimes; // Số lần chơi game, mỗi khi gameover tính 1
 									// lần
@@ -117,7 +106,8 @@ public class GameManager {
 	public static int mLifeLeft; // Số mạng còn lại của người chơi
 
 	static {
-		mStage = 1;
+		mStage = 2;
+		mReachedStage = 2;
 		mPlayTimes = 0;
 		mHighestScore = 0;
 	}
@@ -127,7 +117,7 @@ public class GameManager {
 		// ...
 
 		// fake
-		mStage = 1;
+		mStage = GameManager.Context.getIntent().getIntExtra("stage", 1);;
 		mPlayTimes = 2;
 		mHighestScore = 1000;
 	}
@@ -136,8 +126,7 @@ public class GameManager {
 		Textures = new Hashtable<String, BaseTextureRegion>();
 		Musics = new Hashtable<String, Music>();
 		Fonts = new Hashtable<String, Font>();
-<<<<<<< .mine
-=======
+
 		
 		// Load Fonts
 		loadFonts();
@@ -154,13 +143,10 @@ public class GameManager {
 		MapObjectFactory.initAllObjects();
 
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-		mBitmapTexture = new BitmapTextureAtlas(GameManager.TextureManager, 15, 105, TextureOptions.DEFAULT);
->>>>>>> .r33
+		BitmapTextureAtlas mBitmapTexture = new BitmapTextureAtlas(GameManager.TextureManager, 15, 105, TextureOptions.DEFAULT);
 
-<<<<<<< .mine
-		XMLLoader.loadAllParameters();
-		MapObjectFactory.initAllObjects();
-=======
+
+
 		TiledTextureRegion bomb = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(mBitmapTexture,Context,
 					"item/bomb.png", 0, 0,1, 1);
@@ -190,39 +176,33 @@ public class GameManager {
 		Textures.put("Tank", tank);
 		Textures.put("Player1", player1);
 		
-		ListScene.add(new MainMenuScene());
-		ListScene.add(new GameScene());
+		ListScene.put("game", new GameScene());
 
->>>>>>> .r33
+
 	}
 
 	/*
 	 * ĂN ĐI KU
 	 */
-	public static void SwitchToScene(int index) {
+	public static void SwitchToScene(String name) {
 		/*
 		 * Xử lý Scene cũ
 		 */
-<<<<<<< .mine
+		//cheat
 
-		GameManager.Scene = newScene;
-=======
-		if(index >=0 && index < ListScene.size() && GameManager.Engine.getScene() != ListScene.get(index)){
-			GameManager.Engine.setScene(ListScene.get(index));
-			GameManager.Scene = ListScene.get(index);
-			if(index==0)
+		if(ListScene.containsKey(name) && GameManager.Engine.getScene() != ListScene.get(name)){
+			GameManager.Engine.setScene(ListScene.get(name));
+			GameManager.Scene = ListScene.get(name);
+			if(name == "mainmenu")
 				((MainMenuScene)GameManager.Scene).onSwitched();
-			else
+			else if(name == "game")
 				((GameScene)GameManager.Scene).onSwitched();
 		}
->>>>>>> .r33
 	}
 
 	public static int getCurrentStage() {
 		return mStage;
 	}
-<<<<<<< .mine
-=======
 
 /**
 	 * @editor: Nhân Bạch
@@ -273,7 +253,6 @@ public class GameManager {
 	public static BaseTextureRegion getTexture(String key) {
 		return Textures.get(key);
 	}
->>>>>>> .r33
 
 	public static Music getMusic(String key) {
 		return Musics.get(key);

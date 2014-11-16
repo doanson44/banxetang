@@ -3,21 +3,17 @@ package org.xetang.tank;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.modifier.MoveXModifier;
 import org.andengine.entity.modifier.MoveYModifier;
-import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
-import org.xetang.controller.Bot;
 import org.xetang.controller.Controller;
 import org.xetang.controller.IGameController;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.TankManager;
 import org.xetang.map.Bullet;
 import org.xetang.map.Map;
-import org.xetang.map.MapObject;
 import org.xetang.root.GameEntity;
 
-import android.R.bool;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
