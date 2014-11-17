@@ -1,7 +1,7 @@
 package org.xetang.map;
 
-import org.andengine.entity.sprite.Sprite;
-import org.xetang.map.MapObject.ObjectType;
+import org.andengine.entity.sprite.TiledSprite;
+import org.xetang.map.MapObjectFactory.ObjectType;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -30,12 +30,12 @@ public interface IMapObject {
 
 	public void setAlive(boolean alive);
 
-	public Sprite getSprite();
+	public TiledSprite getSprite();
 
 	public Body getBody();
 	
 	public FixtureDef getObjectFixtureDef();
-
+	
 	public abstract void doContact(IMapObject object);
 
 	public abstract ObjectType getType();

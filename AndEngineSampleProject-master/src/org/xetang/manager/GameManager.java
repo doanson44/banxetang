@@ -40,8 +40,11 @@ public class GameManager {
 
 	public static final String TANK_TAG = "XeTang"; // Dùng để debug
 
-	public static final int CAMERA_WIDTH = 1080;
+	public static final int CAMERA_WIDTH = 1060;
 	public static final int CAMERA_HEIGHT = CAMERA_WIDTH / 10 * 6;
+
+	public static final int MAP_GRID_WIDTH = 13;
+	public static final int MAP_GRID_HEIGHT = 13;
 
 	public static final float BORDER_WIDTH = 3f;
 
@@ -52,18 +55,10 @@ public class GameManager {
 	public static final float CAMERA_X = -(CAMERA_WIDTH - MAP_WIDTH) / 2;
 	public static final float CAMERA_Y = -(CAMERA_HEIGHT - MAP_HEIGHT) / 2;
 
-	public static final float LARGE_CELL_WIDTH = MAP_WIDTH / 13;
-	public static final float LARGE_CELL_HEIGHT = MAP_HEIGHT / 13;
+	public static final float LARGE_CELL_WIDTH = MAP_WIDTH / MAP_GRID_WIDTH;
+	public static final float LARGE_CELL_HEIGHT = MAP_HEIGHT / MAP_GRID_HEIGHT;
 	public static final float SMALL_CELL_WIDTH = LARGE_CELL_WIDTH / 2;
 	public static final float SMALL_CELL_HEIGHT = LARGE_CELL_HEIGHT / 2;
-
-	public static final int PIXEL_PER_METER = 32; 
-	
-	public static final float NORMAL_BULLET_SPPED_WIDTH = MAP_WIDTH / PIXEL_PER_METER / 2;
-	public static final float NORMAL_BULLET_SPPED_HEIGHT = MAP_HEIGHT / PIXEL_PER_METER / 2;
-
-	public static final float FAST_BULLET_SPPED_WIDTH = NORMAL_BULLET_SPPED_WIDTH * 2;
-	public static final float FAST_BULLET_SPPED_HEIGHT = NORMAL_BULLET_SPPED_HEIGHT * 2;
 
 	public enum Direction {
 		Up, Right, Down, Left
@@ -117,7 +112,7 @@ public class GameManager {
 		// ...
 
 		// fake
-		mStage = GameManager.Context.getIntent().getIntExtra("stage", 1);;
+		mStage = GameManager.Context.getIntent().getIntExtra("stage", 1);
 		mPlayTimes = 2;
 		mHighestScore = 1000;
 	}

@@ -3,12 +3,14 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.andengine.entity.Entity;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.util.debug.Debug;
 import org.xetang.manager.GameManager;
-import org.xetang.map.MapObject.ObjectType;
+import org.xetang.map.MapObjectFactory.ObjectType;
+import org.xetang.map.helper.DecideHelpder;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.model.MapObjectBlockDTO;
 import org.xetang.map.model.StageDTO;
@@ -23,9 +25,6 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
-/**
- * 
- */
 public class Map extends GameEntity {
 
 	List<Item> mItems = new ArrayList<Item>();
@@ -33,17 +32,42 @@ public class Map extends GameEntity {
 	List<Tank> mPlayerTanks = new ArrayList<Tank>();
 	int mICurrentStage; // Chỉ số của màn chơi
 
+	Entity _layerBase;
+	Entity _layerBullet;
+	Entity _layerBush;
+	Entity _layerBlast;
+
 	public Map(int iCurrentStage, StageDTO stage) {
 		mICurrentStage = iCurrentStage;
 
+		initLayers();
 		loadMapData(stage);
 		createBorders();
-		createContactListener();
+		createListeners();
+	}
+
+	private void initLayers() {
+		_layerBase = new Entity();
+		_layerBase.setZIndex(MapObjectFactory.Z_INDEX_DEFAULT);
+		attachChild(_layerBase);
+
+		_layerBullet = new Entity();
+		_layerBullet.setZIndex(MapObjectFactory.Z_INDEX_BULLET);
+		attachChild(_layerBullet);
+
+		_layerBush = new Entity();
+		_layerBush.setZIndex(MapObjectFactory.Z_INDEX_BUSH);
+		attachChild(_layerBush);
+
+		_layerBlast = new Entity();
+		_layerBlast.setZIndex(MapObjectFactory.Z_INDEX_BLAST);
+		attachChild(_layerBlast);
+
+		sortChildren(true);
 	}
 
 	public void loadMapData(StageDTO stage) {
-
-
+	
 		// demo phan item
 		mItems.add(new TankItem(this));
 		mItems.add(new Bomb(this));
@@ -54,7 +78,6 @@ public class Map extends GameEntity {
 		for (Item ite : mItems) {			
 			this.attachChild(ite.GetSprite());
 		}
-		
 
 		List<StageObjectDTO> objects = stage.getObjects();
 
@@ -72,7 +95,6 @@ public class Map extends GameEntity {
 				attachBlock(objectsBlock);
 			}
 		}
-
 	}
 
 	private void attachBlock(MapObjectBlockDTO objectsBlock) {
@@ -84,7 +106,16 @@ public class Map extends GameEntity {
 
 			object.transform(getX(), getY());
 			object.putToWorld();
-			attachChild((IEntity) object);
+
+			attachToLayer(object);
+		}
+	}
+
+	private void attachToLayer(IMapObject object) {
+		if (object.getType() != ObjectType.Bush) {
+			_layerBase.attachChild((IEntity) object);
+		} else {
+			_layerBush.attachChild((IEntity) object);
 		}
 	}
 
@@ -93,21 +124,21 @@ public class Map extends GameEntity {
 				GameManager.MAP_HEIGHT, GameManager.MAP_WIDTH
 						+ GameManager.BORDER_WIDTH * 2,
 				GameManager.BORDER_WIDTH,
-				GameManager.Context.getVertexBufferObjectManager());
+				GameManager.Activity.getVertexBufferObjectManager());
 
 		Rectangle left = new Rectangle(-GameManager.BORDER_WIDTH, 0,
 				GameManager.BORDER_WIDTH, GameManager.MAP_HEIGHT,
-				GameManager.Context.getVertexBufferObjectManager());
+				GameManager.Activity.getVertexBufferObjectManager());
 
 		Rectangle roof = new Rectangle(-GameManager.BORDER_WIDTH,
 				-GameManager.BORDER_WIDTH, GameManager.MAP_WIDTH
 						+ GameManager.BORDER_WIDTH * 2,
 				GameManager.BORDER_WIDTH,
-				GameManager.Context.getVertexBufferObjectManager());
+				GameManager.Activity.getVertexBufferObjectManager());
 
 		Rectangle right = new Rectangle(GameManager.MAP_WIDTH, 0,
 				GameManager.BORDER_WIDTH, GameManager.MAP_HEIGHT,
-				GameManager.Context.getVertexBufferObjectManager());
+				GameManager.Activity.getVertexBufferObjectManager());
 
 		FixtureDef borderFixtureDef = PhysicsFactory.createFixtureDef(1f, 0f,
 				0f);
@@ -127,7 +158,7 @@ public class Map extends GameEntity {
 		attachChild(right);
 	}
 
-	private void createContactListener() {
+	private void createListeners() {
 
 		GameManager.Engine.registerUpdateHandler(DestroyHelper.getInstance());
 
@@ -135,19 +166,17 @@ public class Map extends GameEntity {
 
 			@Override
 			public void beginContact(Contact contact) {
-				// TODO Auto-generated method stub
 
-			}
-
-			@Override
-			public void endContact(Contact contact) {
-
-				MapObject objectA = null;
-				MapObject objectB = null;
+				IMapObject objectA = null;
+				IMapObject objectB = null;
 
 				try {
 					objectA = (MapObject) contact.getFixtureA().getBody()
 							.getUserData();
+
+					if (!DecideHelpder.canCollide(objectA)) {
+						return;
+					}
 				} catch (Exception e) {
 					Debug.d("Collison", "Collide with something else!");
 				}
@@ -155,6 +184,10 @@ public class Map extends GameEntity {
 				try {
 					objectB = (MapObject) contact.getFixtureB().getBody()
 							.getUserData();
+
+					if (!DecideHelpder.canCollide(objectA)) {
+						return;
+					}
 				} catch (Exception e) {
 					Debug.d("Collison", "Collide with something else!");
 				}
@@ -166,6 +199,12 @@ public class Map extends GameEntity {
 				if (objectB != null) {
 					objectB.doContact(objectA);
 				}
+			}
+
+			@Override
+			public void endContact(Contact contact) {
+				// TODO Auto-generated method stub
+
 			}
 
 			/*
@@ -260,4 +299,8 @@ public class Map extends GameEntity {
 		
 	}
 
+	// Dành cho test
+	public void addBullet(IBullet bullet) {
+		_layerBullet.attachChild((IEntity) bullet);
+	}
 }

@@ -19,7 +19,7 @@ import android.util.SparseArray;
 public class XMLLoader {
 	final private static String STAGE_FILE = "data/map/stages.xml";
 	final private static String OBJECT_FILE = "data/map/objects.xml";
-	
+
 	private static SparseArray<StageDTO> _stagesArray;
 	private static SparseArray<ObjectDTO> _objectsArray;
 
@@ -56,7 +56,7 @@ public class XMLLoader {
 				stage = new StageDTO();
 				stage.setId(Integer.parseInt(stageNode
 						.getElementsByTagName("ID").item(0).getTextContent()));
-				
+
 				stage.setLives(Integer.parseInt(stageNode
 						.getElementsByTagName("LIVE").item(0).getTextContent()));
 
@@ -93,8 +93,8 @@ public class XMLLoader {
 				object.setId(Integer.parseInt(objectNode
 						.getElementsByTagName("ID").item(0).getTextContent()));
 
-				object.setAreas(loadObjectAreas(objectNode
-						.getElementsByTagName("AREA")));
+				object.setAreas(loadObjectAreas(object.getId(),
+						objectNode.getElementsByTagName("AREA")));
 
 				objects.add(object);
 			}
@@ -106,11 +106,16 @@ public class XMLLoader {
 		return objects;
 	}
 
-	private static List<Pair<Point, Point>> loadObjectAreas(
+	private static List<Pair<Point, Point>> loadObjectAreas(int objectID,
 			NodeList areasNodeList) {
 		List<Pair<Point, Point>> areas = new ArrayList<Pair<Point, Point>>(
 				areasNodeList.getLength());
 		Element areaNode;
+
+		/*
+		 * Để dành cải tiến cho việc đồng bộ thông số cell khi tạo MAP
+		 */
+		int objectsPerCell = 1;// = CalcHelper.getObjectsPerCell(objectID);
 
 		try {
 			for (int i = 0; i < areasNodeList.getLength(); i++) {
@@ -122,9 +127,11 @@ public class XMLLoader {
 						.getElementsByTagName("Y").item(0).getTextContent())),
 						new Point(Integer.parseInt(areaNode
 								.getElementsByTagName("WIDTH").item(0)
-								.getTextContent()), Integer.parseInt(areaNode
+								.getTextContent())
+								* objectsPerCell, Integer.parseInt(areaNode
 								.getElementsByTagName("HEIGHT").item(0)
-								.getTextContent()))));
+								.getTextContent())
+								* objectsPerCell)));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -165,7 +172,8 @@ public class XMLLoader {
 			ele.normalize(); // Chuẩn hóa!?
 
 			NodeList objectsNoteList = ele.getElementsByTagName("OBJECT");
-			_objectsArray = new SparseArray<ObjectDTO>(objectsNoteList.getLength());
+			_objectsArray = new SparseArray<ObjectDTO>(
+					objectsNoteList.getLength());
 
 			Element objectNode;
 			ObjectDTO object;

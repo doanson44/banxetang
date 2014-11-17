@@ -1,6 +1,6 @@
 package org.xetang.map;
 
-import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.Entity;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
@@ -13,54 +13,56 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 public abstract class MapObject extends GameEntity implements IMapObject {
 
-	public enum ObjectType {
-		Eagle, BrickWall, SteelWall, Bush, Water, Bullet
-	};
-
 	protected float _cellWidth;
 	protected float _cellHeight;
 
 	protected boolean _alive = true;
 
-	protected Sprite _sprite = null;
+	protected TiledSprite _sprite = null;
 	protected Body _body = null;
 	protected FixtureDef _objectFixtureDef = null;
 
 	public MapObject(IMapObject object) {
 		_cellWidth = object.getCellWidth();
 		_cellHeight = object.getCellHeight();
-
-		_sprite = new Sprite(object.getX(), object.getY(),
-				object.getSprite().getTextureRegion(),
-				GameManager.VertexBufferObject);
-		_sprite.setSize(object.getSprite().getWidth(), object.getSprite().getHeight());
-		attachChild(_sprite);
-
 		_objectFixtureDef = object.getObjectFixtureDef();
 		_body = null;
+
+		this.setZIndex(((Entity) object).getZIndex());
 	}
 
 	public MapObject(FixtureDef objectFixtureDef,
 			TiledTextureRegion objectTextureRegion, int piecePerMap,
 			float posX, float posY) {
+		this(objectFixtureDef, objectTextureRegion, piecePerMap, posX, posY,
+				MapObjectFactory.Z_INDEX_DEFAULT);
+	}
 
+	public MapObject(FixtureDef objectFixtureDef,
+			TiledTextureRegion objectTextureRegion, int piecePerMap,
+			float posX, float posY, int zIndex) {
+
+		if (objectFixtureDef != null) {
+			_objectFixtureDef = objectFixtureDef;
+		}
+		
 		// setX(posX);
 		// setY(posY);
 		_cellWidth = GameManager.MAP_WIDTH / piecePerMap;
 		_cellHeight = GameManager.MAP_HEIGHT / piecePerMap;
-		_objectFixtureDef = objectFixtureDef;
 
 		createSprite(objectTextureRegion, posX, posY);
+		this.setZIndex(zIndex);
 		attachChild(_sprite);
 	}
 
 	public abstract IMapObject clone();
-	
+
 	protected void createSprite(TiledTextureRegion objectTextureRegion,
 			float posX, float posY) {
 
 		_sprite = new TiledSprite(posX, posY, objectTextureRegion,
-				GameManager.VertexBufferObject);
+				GameManager.Activity.getVertexBufferObjectManager());
 		_sprite.setSize(_cellWidth, _cellHeight);
 	}
 
@@ -90,10 +92,6 @@ public abstract class MapObject extends GameEntity implements IMapObject {
 		// setX(posX);
 		// setY(posY);
 		_sprite.setPosition(posX, posY);
-
-		if (_body != null) {
-			_body.setTransform(posX, posY, _body.getAngle());
-		}
 	}
 
 	public float getX() {
@@ -115,7 +113,7 @@ public abstract class MapObject extends GameEntity implements IMapObject {
 	public float getCellHeight() {
 		return _cellHeight;
 	}
-	
+
 	public synchronized boolean isAlive() {
 		return _alive;
 	}
@@ -124,7 +122,7 @@ public abstract class MapObject extends GameEntity implements IMapObject {
 		this._alive = alive;
 	}
 
-	public Sprite getSprite() {
+	public TiledSprite getSprite() {
 		return _sprite;
 	}
 

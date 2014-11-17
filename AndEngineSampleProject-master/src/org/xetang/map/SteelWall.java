@@ -1,11 +1,21 @@
 package org.xetang.map;
 
-import org.andengine.util.debug.Debug;
+import org.andengine.entity.sprite.TiledSprite;
+import org.xetang.manager.GameManager;
+import org.xetang.map.MapObjectFactory.ObjectType;
 
 public class SteelWall extends Wall {
 
 	public SteelWall(SteelWall steelWall) {
 		super(steelWall);
+
+		_sprite = new TiledSprite(steelWall.getX(), steelWall.getY(), steelWall
+				.getSprite().getTiledTextureRegion(),
+				GameManager.Activity.getVertexBufferObjectManager());
+		_sprite.setSize(steelWall.getSprite().getWidth(), steelWall.getSprite()
+				.getHeight());
+
+		attachChild(_sprite);
 	}
 
 	public SteelWall(float posX, float posY) {
@@ -21,17 +31,16 @@ public class SteelWall extends Wall {
 
 	@Override
 	public void doContact(IMapObject object) {
-		try {
-			if (object.getType() == ObjectType.Bullet) {
-//				 if (Loại xe tăng đủ mạnh) {
-//					_sprite.setVisible(false);
-//					_body.getFixtureList().get(0).setSensor(true);
-//					 DestroyHelper.add(this);
-//				 }
-			}
-		} catch (Exception e) {
-			Debug.d("Collsion", "Nothing to contact!");
-		}
+//		try {
+//			if (object.getType() == ObjectType.Bullet
+//					&& DecideHelpder.canDestroy(this, (IBullet) object)) {
+//				_sprite.setVisible(false);
+//				_body.getFixtureList().get(0).setSensor(true);
+//				// DestroyHelper.add(this);
+//			}
+//		} catch (Exception e) {
+//			Debug.d("Collsion", "Nothing to contact!");
+//		}
 	}
 
 	@Override

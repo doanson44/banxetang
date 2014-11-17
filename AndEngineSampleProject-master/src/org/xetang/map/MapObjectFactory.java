@@ -1,12 +1,16 @@
 package org.xetang.map;
 
+import org.andengine.entity.sprite.AnimatedSprite;
+import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
+import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
-import org.xetang.map.MapObject.ObjectType;
+import org.xetang.map.helper.CalcHelper;
+import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.model.MapObjectBlockDTO;
 import org.xetang.map.model.XMLLoader;
 
@@ -14,23 +18,33 @@ import android.graphics.Point;
 import android.util.Pair;
 import android.util.SparseArray;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 public class MapObjectFactory {
 
-	public static final int MAX_RESOURCE_BITMAP_WIDTH = 64;
-	public static final int MAX_RESOURCE_BITMAP_HEIGHT = 64;
+	public enum ObjectType {
+		Eagle, BrickWall, SteelWall, Bush, Water, Bullet, Blast, Explosion, SlowBullet, FastBullet
+	};
 
-	public static final int EAGLE_CELL_PER_MAP = 13;
-	public static final int BRICK_WALL_CELL_PER_MAP = 52;
-	public static final int STEEL_WALL_CELL_PER_MAP = 26;
-	public static final int BUSH_CELL_PER_MAP = 13;
-	public static final int WATER_CELL_PER_MAP = 13;
-	public static final int BULLET_CELL_PER_MAP = 65;
+	public static final int MAX_RESOURCE_BITMAP_WIDTH = 384;
+	public static final int MAX_RESOURCE_BITMAP_HEIGHT = 512;
+
+	public static final int EAGLE_CELL_PER_MAP = (int) (GameManager.MAP_HEIGHT / GameManager.LARGE_CELL_HEIGHT);
+	public static final int BRICK_WALL_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 4;
+	public static final int STEEL_WALL_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 2;
+	public static final int BUSH_CELL_PER_MAP = EAGLE_CELL_PER_MAP;
+	public static final int WATER_CELL_PER_MAP = EAGLE_CELL_PER_MAP;
+	public static final int BULLET_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 5;
+	public static final int BLAST_CELL_PER_MAP = (int) (EAGLE_CELL_PER_MAP / 1.5f);
+	public static final int EXPLOSION_CELL_PER_MAP = EAGLE_CELL_PER_MAP / 3;
 
 	public static final float BULLET_DENSITY = 0.5f;
-	public static final float BULLET_ELASTICITY = 0.5f;
+	public static final float BULLET_ELASTICITY = 0f;
 	public static final float BULLET_FRICTION = 1f;
+
+	public static final int BLAST_ANIMATE = 45;
+	public static final int EXPLOSION_ANIMATE = 85;
 
 	public static final short CATEGORYBIT_DEFAULT = 1;
 	public static final short CATEGORYBIT_WATER = 2;
@@ -45,32 +59,68 @@ public class MapObjectFactory {
 
 	public static final short GROUP_DEFAULT = 0;
 
+	public static final int Z_INDEX_DEFAULT = 0;
+	public static final int Z_INDEX_BUSH = 10;
+	public static final int Z_INDEX_BULLET = 5;
+	public static final int Z_INDEX_BLAST = 15;
+	public static final int Z_INDEX_EXPLOSION = 20;
+
+	public static final Vector2 NORMAL_BULLET_SPPED = new Vector2(
+			GameManager.MAP_WIDTH
+					/ PhysicsConnector.PIXEL_TO_METER_RATIO_DEFAULT,
+			GameManager.MAP_HEIGHT
+					/ PhysicsConnector.PIXEL_TO_METER_RATIO_DEFAULT);
+	public static final Vector2 SLOW_BULLET_SPPED = NORMAL_BULLET_SPPED.cpy()
+			.div(2f);
+	public static final Vector2 FAST_BULLET_SPPED = NORMAL_BULLET_SPPED.cpy()
+			.mul(2f);
+
+	public static final float BLOW_RADIUS_RATIO_WIDTH = 2 / 8f;
+	public static final float BLOW_RADIUS_RATIO_DEPTH = 0f;
+	public static final Vector2 NORMAL_BULLET_BLOW_RADIUS = new Vector2(
+			CalcHelper.pixels2Meters(GameManager.LARGE_CELL_WIDTH
+					* BLOW_RADIUS_RATIO_WIDTH),
+			CalcHelper.pixels2Meters(GameManager.LARGE_CELL_HEIGHT
+					* BLOW_RADIUS_RATIO_DEPTH));
+	public static final Vector2 SLOW_BULLET_BLOW_RADIUS = NORMAL_BULLET_BLOW_RADIUS
+			.cpy();
+	public static final Vector2 FAST_BULLET_BLOW_RADIUS = new Vector2(
+			CalcHelper.pixels2Meters(GameManager.LARGE_CELL_WIDTH
+					* BLOW_RADIUS_RATIO_WIDTH),
+			CalcHelper.pixels2Meters(GameManager.LARGE_CELL_HEIGHT
+					* BLOW_RADIUS_RATIO_WIDTH));
+
 	private static SparseArray<IMapObject> _objectsArray = new SparseArray<IMapObject>();
 
-	protected static BitmapTextureAtlas _bitmapTextureAtlas;
-	protected static TiledTextureRegion _eagleTextureRegion;
-	protected static TiledTextureRegion _brickWallTextureRegion;
-	protected static TiledTextureRegion _steelWallTextureRegion;
-	protected static TiledTextureRegion _bushTextureRegion;
-	protected static TiledTextureRegion _waterTextureRegion;
-	protected static TiledTextureRegion _bulletTextureRegion;
-	protected static FixtureDef _eagleFixtureDef;
-	protected static FixtureDef _brickWallFixtureDef;
-	protected static FixtureDef _steelWallFixtureDef;
-	protected static FixtureDef _bushFixtureDef;
-	protected static FixtureDef _waterFixtureDef;
-	protected static FixtureDef _bulletFixtureDef;
+	private static BitmapTextureAtlas _bitmapTextureAtlas;
+	private static TiledTextureRegion _eagleTextureRegion;
+	private static TiledTextureRegion _brickWallTextureRegion;
+	private static TiledTextureRegion _steelWallTextureRegion;
+	private static TiledTextureRegion _bushTextureRegion;
+	private static TiledTextureRegion _waterTextureRegion;
+	private static TiledTextureRegion _bulletTextureRegion;
+	private static TiledTextureRegion _blastTextureRegion;
+	private static TiledTextureRegion _explosionTextureRegion;
+	private static FixtureDef _eagleFixtureDef;
+	private static FixtureDef _brickWallFixtureDef;
+	private static FixtureDef _steelWallFixtureDef;
+	// private static FixtureDef _bushFixtureDef;
+	private static FixtureDef _waterFixtureDef;
+	private static FixtureDef _bulletFixtureDef;
+
+	private static IAnimationListener _blowUpListener;
 
 	public static void initAllObjects() {
 
 		initObjectsTexture();
 		initObjectsFixture();
 		createObjectsArray();
+		createObjectsListener();
 	}
 
 	private static void initObjectsTexture() {
 		_bitmapTextureAtlas = new BitmapTextureAtlas(
-				GameManager.Context.getTextureManager(),
+				GameManager.Activity.getTextureManager(),
 				MAX_RESOURCE_BITMAP_WIDTH, MAX_RESOURCE_BITMAP_HEIGHT
 						* ObjectType.values().length, TextureOptions.BILINEAR);
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("");
@@ -81,8 +131,8 @@ public class MapObjectFactory {
 				.getTextures();
 		_eagleTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Context.getAssets(), strTexture, 0,
-						yTexturePos, 1, 1);
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 2, 1);
 
 		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT
 				* ObjectType.BrickWall.ordinal();
@@ -90,7 +140,7 @@ public class MapObjectFactory {
 				.getTextures();
 		_brickWallTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Context.getAssets(), strTexture, 0,
+						GameManager.Activity.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
 		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT
@@ -99,7 +149,7 @@ public class MapObjectFactory {
 				.getTextures();
 		_steelWallTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Context.getAssets(), strTexture, 0,
+						GameManager.Activity.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
 		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Bush.ordinal();
@@ -107,7 +157,7 @@ public class MapObjectFactory {
 				.getTextures();
 		_bushTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Context.getAssets(), strTexture, 0,
+						GameManager.Activity.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
 		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Water.ordinal();
@@ -115,7 +165,7 @@ public class MapObjectFactory {
 				.getTextures();
 		_waterTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Context.getAssets(), strTexture, 0,
+						GameManager.Activity.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
 		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Bullet.ordinal();
@@ -123,8 +173,25 @@ public class MapObjectFactory {
 				.getTextures();
 		_bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Context.getAssets(), strTexture, 0,
+						GameManager.Activity.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
+
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Blast.ordinal();
+		strTexture = XMLLoader.getObject(ObjectType.Blast.ordinal())
+				.getTextures();
+		_blastTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(_bitmapTextureAtlas,
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 3, 4);
+
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT
+				* ObjectType.Explosion.ordinal();
+		strTexture = XMLLoader.getObject(ObjectType.Explosion.ordinal())
+				.getTextures();
+		_explosionTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(_bitmapTextureAtlas,
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 3, 4);
 
 		_bitmapTextureAtlas.load();
 	}
@@ -140,7 +207,7 @@ public class MapObjectFactory {
 		_steelWallFixtureDef = PhysicsFactory.createFixtureDef(1f, 0f, 0f,
 				false, CATEGORYBIT_DEFAULT, MASKBITS_DEFAULT, GROUP_DEFAULT);
 
-		_bushFixtureDef = PhysicsFactory.createFixtureDef(0f, 0f, 0f, true);
+		// _bushFixtureDef = PhysicsFactory.createFixtureDef(0f, 0f, 0f, true);
 
 		_waterFixtureDef = PhysicsFactory.createFixtureDef(1f, 0f, 0f, false,
 				CATEGORYBIT_WATER, MASKBITS_WATER, GROUP_DEFAULT);
@@ -151,12 +218,62 @@ public class MapObjectFactory {
 	}
 
 	private static void createObjectsArray() {
-		_objectsArray.put(ObjectType.Eagle.ordinal(), new Eagle(0, 0));
-		_objectsArray.put(ObjectType.BrickWall.ordinal(), new BrickWall(0, 0));
-		_objectsArray.put(ObjectType.SteelWall.ordinal(), new SteelWall(0, 0));
-		_objectsArray.put(ObjectType.Bush.ordinal(), new Bush(0, 0));
-		_objectsArray.put(ObjectType.Water.ordinal(), new Water(0, 0));
-		_objectsArray.put(ObjectType.Bullet.ordinal(), new Bullet(0, 0));
+		_objectsArray.put(ObjectType.Eagle.ordinal(), new Eagle(0f, 0f));
+		_objectsArray
+				.put(ObjectType.BrickWall.ordinal(), new BrickWall(0f, 0f));
+		_objectsArray
+				.put(ObjectType.SteelWall.ordinal(), new SteelWall(0f, 0f));
+		_objectsArray.put(ObjectType.Bush.ordinal(), new Bush(0f, 0f));
+		_objectsArray.put(ObjectType.Water.ordinal(), new Water(0f, 0f));
+		_objectsArray.put(ObjectType.Blast.ordinal(), new Blast(0f, 0f));
+		_objectsArray
+				.put(ObjectType.Explosion.ordinal(), new Explosion(0f, 0f));
+
+		createAllBullets();
+	}
+
+	private static void createAllBullets() {
+		IBullet bullet = new Bullet(0f, 0f);
+		_objectsArray.put(ObjectType.Bullet.ordinal(), bullet);
+
+		bullet = new Bullet(0f, 0f);
+		bullet.initSpecification(SLOW_BULLET_SPPED, SLOW_BULLET_BLOW_RADIUS);
+		_objectsArray.put(ObjectType.SlowBullet.ordinal(), bullet);
+
+		bullet = new Bullet(0f, 0f);
+		bullet.initSpecification(FAST_BULLET_SPPED, FAST_BULLET_BLOW_RADIUS);
+		_objectsArray.put(ObjectType.FastBullet.ordinal(), bullet);
+	}
+
+	private static void createObjectsListener() {
+		_blowUpListener = new IAnimationListener() {
+
+			@Override
+			public void onAnimationStarted(AnimatedSprite pAnimatedSprite,
+					int pInitialLoopCount) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
+					int pRemainingLoopCount, int pInitialLoopCount) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite,
+					int pOldFrameIndex, int pNewFrameIndex) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
+				DestroyHelper.add((IMapObject) pAnimatedSprite.getParent());
+			}
+		};
 	}
 
 	public static void unloadAll() {
@@ -164,7 +281,15 @@ public class MapObjectFactory {
 	}
 
 	public static IMapObject createObject(ObjectType type) {
-		return _objectsArray.get(type.ordinal()).clone();
+		return createObject(type, 0, 0);
+	}
+
+	public static IMapObject createObject(ObjectType type, float posX,
+			float posY) {
+		IMapObject object = _objectsArray.get(type.ordinal()).clone();
+		object.setPosition(posX, posY);
+
+		return object;
 	}
 
 	public static MapObjectBlockDTO createObjectBlock(ObjectType type,
@@ -212,6 +337,14 @@ public class MapObjectFactory {
 		return _bulletTextureRegion;
 	}
 
+	public static TiledTextureRegion getBlastTextureRegion() {
+		return _blastTextureRegion;
+	}
+
+	public static TiledTextureRegion getExplosionTextureRegion() {
+		return _explosionTextureRegion;
+	}
+
 	public static FixtureDef getEagleFixtureDef() {
 		return _eagleFixtureDef;
 	}
@@ -224,9 +357,9 @@ public class MapObjectFactory {
 		return _steelWallFixtureDef;
 	}
 
-	public static FixtureDef getBushFixtureDef() {
-		return _bushFixtureDef;
-	}
+	// public static FixtureDef getBushFixtureDef() {
+	// return _bushFixtureDef;
+	// }
 
 	public static FixtureDef getWaterFixtureDef() {
 		return _waterFixtureDef;
@@ -234,5 +367,9 @@ public class MapObjectFactory {
 
 	public static FixtureDef getBulletFixtureDef() {
 		return _bulletFixtureDef;
+	}
+
+	public static IAnimationListener getBlowUpListener() {
+		return _blowUpListener;
 	}
 }

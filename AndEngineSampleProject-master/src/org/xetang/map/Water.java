@@ -1,9 +1,21 @@
 package org.xetang.map;
 
+import org.andengine.entity.sprite.TiledSprite;
+import org.xetang.manager.GameManager;
+import org.xetang.map.MapObjectFactory.ObjectType;
+
 public class Water extends MapObject {
 
 	public Water(Water water) {
 		super(water);
+
+		_sprite = new TiledSprite(water.getX(), water.getY(), water.getSprite()
+				.getTiledTextureRegion(),
+				GameManager.Activity.getVertexBufferObjectManager());
+		_sprite.setSize(water.getSprite().getWidth(), water.getSprite()
+				.getHeight());
+		
+		attachChild(_sprite);
 	}
 
 	public Water(float posX, float posY) {
@@ -19,7 +31,7 @@ public class Water extends MapObject {
 
 	@Override
 	public void doContact(IMapObject object) {
-		
+
 	}
 
 	@Override
