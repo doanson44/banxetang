@@ -7,6 +7,8 @@ import java.util.Queue;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.xetang.controller.Bot;
+import org.xetang.map.IBlowUp;
+import org.xetang.map.IBullet;
 import org.xetang.map.Map;
 import org.xetang.map.model.StageDTO;
 import org.xetang.map.model.XMLLoader;
@@ -112,7 +114,6 @@ public class GameMapManager implements IUpdateHandler {
 	public void onUpdate(float pSecondsElapsed) {
 		_frame.update(_map.getTotalEnermyTanks().size());
 
-		updateCollision(pSecondsElapsed);
 		updateTanksAndBots();
 		updateWinLose();
 	}
@@ -179,5 +180,9 @@ public class GameMapManager implements IUpdateHandler {
 	// Dành cho test
 	public void addBullet(IBullet bullet) {
 		_map.addBullet(bullet);
+	}
+
+	public void addBlast(IBlowUp blast) {
+		_map.addBlowUp(blast);
 	}
 }

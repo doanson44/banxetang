@@ -1,6 +1,7 @@
 ﻿package org.xetang.map;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.andengine.entity.Entity;
@@ -302,5 +303,9 @@ public class Map extends GameEntity {
 	// Dành cho test
 	public void addBullet(IBullet bullet) {
 		_layerBullet.attachChild((IEntity) bullet);
+	}
+
+	public void addBlowUp(IBlowUp blast) {
+		_layerBlast.attachChild((IEntity) blast);
 	}
 }
