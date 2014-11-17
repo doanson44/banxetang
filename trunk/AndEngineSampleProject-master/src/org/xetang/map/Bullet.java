@@ -4,13 +4,12 @@ import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
-import org.andengine.util.math.MathConstants;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.GameManager.Direction;
+import org.xetang.map.MapObjectFactory.ObjectType;
+import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.tank.Tank;
-
-import android.graphics.Point;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -18,19 +17,38 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 public class Bullet extends MapObject implements IBullet {
 
 	Tank _tank;
-	int _speed; // pixel/s
-	Point _position;
 	Direction _direction;
-	int _damage;
+	Vector2 _speed;
+	Vector2 _blowRadius;
+	Vector2 _topPointUnit = new Vector2();
 
 	public Bullet(Bullet bullet) {
 		super(bullet);
+
+		_tank = bullet._tank;
+		_direction = bullet._direction;
+		_speed = bullet._speed;
+		_blowRadius = bullet._blowRadius;
+		_topPointUnit = bullet._topPointUnit;
+
+		_sprite = new TiledSprite(bullet.getX(), bullet.getY(), bullet
+				.getSprite().getTiledTextureRegion(),
+				GameManager.Activity.getVertexBufferObjectManager());
+		_sprite.setScale(bullet.getSprite().getScaleX(), bullet.getSprite().getScaleY());
+//		_sprite.setSize(bullet.getSprite().getWidth(), bullet.getSprite()
+//				.getHeight());
+
+		attachChild(_sprite);
 	}
 
 	public Bullet(float posX, float posY) {
 		super(MapObjectFactory.getBulletFixtureDef(), MapObjectFactory
 				.getBulletTextureRegion(),
-				MapObjectFactory.BULLET_CELL_PER_MAP, posX, posY);
+				MapObjectFactory.BULLET_CELL_PER_MAP, posX, posY,
+				MapObjectFactory.Z_INDEX_BULLET);
+
+		initSpecification(MapObjectFactory.NORMAL_BULLET_SPPED,
+				MapObjectFactory.NORMAL_BULLET_BLOW_RADIUS);
 
 		_cellWidth = GameManager.MAP_WIDTH
 				/ MapObjectFactory.BULLET_CELL_PER_MAP;
@@ -40,7 +58,8 @@ public class Bullet extends MapObject implements IBullet {
 
 	public Bullet(Tank tank, float posX, float posY) {
 
-		this(posX, posY); setTank(tank);
+		this(posX, posY);
+		setTank(tank);
 	}
 
 	@Override
@@ -48,14 +67,12 @@ public class Bullet extends MapObject implements IBullet {
 		return new Bullet(this);
 	}
 
-
-
 	@Override
 	protected void createSprite(TiledTextureRegion objectTextureRegion,
 			float posX, float posY) {
 
 		_sprite = new TiledSprite(posX, posY, objectTextureRegion,
-				GameManager.Context.getVertexBufferObjectManager());
+				GameManager.Activity.getVertexBufferObjectManager());
 		_sprite.setScale(_cellWidth / _sprite.getWidth());
 	}
 
@@ -74,21 +91,58 @@ public class Bullet extends MapObject implements IBullet {
 				_sprite, _body, true, true));
 	}
 
+	@Override
+	public void doContact(IMapObject object) {
+		
+		Vector2 topPoint = getTopPoint();
+
+		IBlowUp blast = (IBlowUp) MapObjectFactory.createObject(
+				ObjectType.Blast, topPoint.x, topPoint.y);
+		blast.setOwnObject(this);
+		blast.setTargetObject(object);
+		blast.blowUpAtHere();
+
+		GameManager.CurrentMapManager.addBlast(blast);
+
+		_sprite.setVisible(false);
+		_body.setLinearVelocity(0f, 0f);
+		DestroyHelper.add(this);
+	}
+
+	@Override
+	public ObjectType getType() {
+		return ObjectType.Bullet;
+	}
+
+	@Override
+	public void initSpecification(Vector2 speed, Vector2 blowRadius) {
+		_speed = speed;
+		_blowRadius = blowRadius;
+	}
+
 	public void setTank(Tank tank) {
 		_tank = tank;
+	}
+
+	public Direction getDirection() {
+		return _direction;
+	}
+	
+	@Override
+	public Vector2 getBlowRadius() {
+		return _blowRadius;
+	}
+
+	@Override
+	public Vector2 getTopPointUnit() {
+		return _topPointUnit;
 	}
 
 	@Override
 	public void readyToFire(Direction direction) {
 
-		float rotationValue = direction.ordinal() * MathConstants.PI_HALF
-				* MathConstants.RAD_TO_DEG;
-
-		_sprite.setRotation(rotationValue);
-		// _sprite.setRotationCenter(0.5f, 0.5f);
-		// _sprite.setRotationCenterX(rotationValue);
-		// _sprite.setRotationCenterY(rotationValue);
 		_direction = direction;
+		_sprite.setRotation(CalcHelper.direction2Degrees(direction));
 	}
 
 	@Override
@@ -100,23 +154,23 @@ public class Bullet extends MapObject implements IBullet {
 
 		switch (_direction) {
 		case Up:
-			speedVector2 = new Vector2(0f,
-					-GameManager.NORMAL_BULLET_SPPED_HEIGHT);
+			speedVector2 = new Vector2(0f, -_speed.y);
+			_topPointUnit.set(0f, -_cellHeight / 2);
 			break;
 
 		case Right:
-			speedVector2 = new Vector2(GameManager.NORMAL_BULLET_SPPED_WIDTH,
-					0f);
+			speedVector2 = new Vector2(_speed.x, 0f);
+			_topPointUnit.set(_cellWidth / 2, 0f);
 			break;
 
 		case Down:
-			speedVector2 = new Vector2(0f,
-					GameManager.NORMAL_BULLET_SPPED_HEIGHT);
+			speedVector2 = new Vector2(0f, _speed.y);
+			_topPointUnit.set(0f, _cellHeight / 2);
 			break;
 
 		case Left:
-			speedVector2 = new Vector2(-GameManager.NORMAL_BULLET_SPPED_WIDTH,
-					0f);
+			speedVector2 = new Vector2(-_speed.x, 0f);
+			_topPointUnit.set(-_cellWidth / 2, 0f);
 			break;
 
 		default:
@@ -134,14 +188,11 @@ public class Bullet extends MapObject implements IBullet {
 	}
 
 	@Override
-	public void doContact(IMapObject object) {
-		_sprite.setVisible(false);
-		_body.setLinearVelocity(0f, 0f);
-		DestroyHelper.add(this);
+	public Vector2 getTopPoint() {
+		float[] coord = _sprite.getSceneCenterCoordinates();
+
+		return new Vector2(coord[0] + _topPointUnit.x, coord[1]
+				+ _topPointUnit.y);
 	}
 
-	@Override
-	public ObjectType getType() {
-		return ObjectType.Bullet;
-	}
 }

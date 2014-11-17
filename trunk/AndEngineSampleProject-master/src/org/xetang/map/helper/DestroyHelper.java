@@ -4,28 +4,43 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.entity.Entity;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.xetang.manager.GameManager;
-import org.xetang.map.MapObject;
+import org.xetang.map.IMapObject;
 
 public class DestroyHelper implements IUpdateHandler {
 
 	private static DestroyHelper _instance = null;
 
-	protected DestroyHelper() {
+	public static DestroyHelper getInstance() {
+		if (_instance == null) {
+			_instance = new DestroyHelper();
+		}
+
+		return _instance;
+	}
+
+	private static boolean _isRemoving = false;
+
+	private static Runnable _removalCore;
+
+	private static Queue<IMapObject> _destroyQueue = new LinkedList<IMapObject>();
+
+	private DestroyHelper() {
 
 		_removalCore = new Runnable() {
 
 			@Override
 			public void run() {
 
-				doRemoving(true);
+				doRemove(true);
 
 				PhysicsConnector connector;
 				while (!_destroyQueue.isEmpty()) {
 
-					final MapObject object;
+					final IMapObject object;
 					final Sprite sprite;
 
 					object = _destroyQueue.peek();
@@ -43,15 +58,17 @@ public class DestroyHelper implements IUpdateHandler {
 								.unregisterPhysicsConnector(connector);
 					}
 
-					object.getBody().setActive(false);
-					GameManager.PhysicsWorld.destroyBody(object.getBody());
+					if (object.getBody() != null) {
+						object.getBody().setActive(false);
+						GameManager.PhysicsWorld.destroyBody(object.getBody());
+					}
 
-					GameManager.Context.runOnUpdateThread(new Runnable() {
+					GameManager.Activity.runOnUpdateThread(new Runnable() {
 
 						@Override
 						public void run() {
-							object.detachSelf();
-							object.dispose();
+							((Entity) object).detachSelf();
+							((Entity) object).dispose();
 							sprite.detachSelf();
 							sprite.dispose();
 						}
@@ -60,24 +77,10 @@ public class DestroyHelper implements IUpdateHandler {
 					_destroyQueue.poll();
 				}
 
-				doRemoving(false);
+				doRemove(false);
 			}
 		};
 	}
-
-	public static DestroyHelper getInstance() {
-		if (_instance == null) {
-			_instance = new DestroyHelper();
-		}
-
-		return _instance;
-	}
-
-	private static boolean _isRemoving = false;
-
-	private static Runnable _removalCore;
-
-	private static Queue<MapObject> _destroyQueue = new LinkedList<MapObject>();
 
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
@@ -86,7 +89,7 @@ public class DestroyHelper implements IUpdateHandler {
 			return;
 		}
 
-		GameManager.Context.runOnUpdateThread(_removalCore);
+		GameManager.Activity.runOnUpdateThread(_removalCore);
 	}
 
 	@Override
@@ -99,12 +102,11 @@ public class DestroyHelper implements IUpdateHandler {
 		return _isRemoving;
 	}
 
-	public static synchronized void doRemoving(boolean remove) {
+	public static synchronized void doRemove(boolean remove) {
 		DestroyHelper._isRemoving = remove;
 	}
 
-	public static void add(MapObject object) {
-
+	public static synchronized void add(IMapObject object) {
 		if (!_destroyQueue.contains(object) && object.isAlive()) {
 			_destroyQueue.add(object);
 		}

@@ -117,31 +117,6 @@ public class GameMapManager implements IUpdateHandler {
 		updateWinLose();
 	}
 
-	/*
-	 * ĂN ĐI KU
-	 */
-	private void updateCollision(float pSecondsElapsed) {
-		// MapObject[][] matrix = _map.getMapMatrix();
-		// int height = matrix.length;
-		// int width = matrix[0].length;
-		// int allCells = height * width;
-		//
-		// for (int i=0; i<allCells-1; i++) {
-		// MapObject l = matrix[i/width][i%width];
-		//
-		// for (int j=i+1; j<allCells; j++) {
-		// MapObject r = matrix[j/width][j%width];
-		// //if (!l.isStatic() || !r.isStatic()) {
-		// /*
-		// * Xét va chạm giữa 2 vật thể
-		// * Xử lý theo kịch bản game
-		// */
-		// //}
-		// }
-		// }
-
-	}
-
 	private void updateTanksAndBots() {
 		List<Tank> tanks = _map.getTotalEnermyTanks();
 
@@ -201,4 +176,8 @@ public class GameMapManager implements IUpdateHandler {
 		return _totalPlayerTanks.peek();
 	}
 
+	// Dành cho test
+	public void addBullet(IBullet bullet) {
+		_map.addBullet(bullet);
+	}
 }

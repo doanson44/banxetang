@@ -1,11 +1,22 @@
 package org.xetang.map;
 
+import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.util.debug.Debug;
+import org.xetang.manager.GameManager;
+import org.xetang.map.MapObjectFactory.ObjectType;
 
 public class Eagle extends MapObject {
 
-	public Eagle(Eagle water) {
-		super(water);
+	public Eagle(Eagle eagle) {
+		super(eagle);
+
+		_sprite = new TiledSprite(eagle.getX(), eagle.getY(), eagle.getSprite()
+				.getTiledTextureRegion(),
+				GameManager.Activity.getVertexBufferObjectManager());
+		_sprite.setSize(eagle.getSprite().getWidth(), eagle.getSprite()
+				.getHeight());
+		
+		attachChild(_sprite);
 	}
 
 	public Eagle(float posX, float posY) {
@@ -15,7 +26,7 @@ public class Eagle extends MapObject {
 	}
 
 	@Override
-	public MapObject clone() {
+	public IMapObject clone() {
 		return new Eagle(this);
 	}
 
@@ -23,7 +34,8 @@ public class Eagle extends MapObject {
 	public void doContact(IMapObject object) {
 		try {
 			if (object.getType() == ObjectType.Bullet) {
-				//Đổi sprite
+				TiledSprite x = (TiledSprite) _sprite;
+				x.setCurrentTileIndex(1);
 			}
 		} catch (Exception e) {
 			Debug.d("Collsion", "Nothing to contact!");
