@@ -24,7 +24,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 public class MapObjectFactory {
 
 	public enum ObjectType {
-		Eagle, BrickWall, SteelWall, Bush, Water, Bullet, Blast, Explosion, SlowBullet, FastBullet
+		Eagle, BrickWall, SteelWall, Bush, Water, Bullet, Blast, Explosion, SlowBullet, FastBullet,
+		Bomb,Clock, Helmet, Shovel, Star, TankItem, PlayerTank
 	};
 
 	public static final int MAX_RESOURCE_BITMAP_WIDTH = 384;

@@ -140,7 +140,7 @@ public class MainActivity extends SimpleBaseGameActivity implements
 		GameManager.VertexBufferObject = this.getVertexBufferObjectManager();
 		GameManager.FontManager = this.getFontManager();
 		GameManager.MusicManager = this.getMusicManager();
-
+		GameManager.Activity = this;
 	
 		GameManager.loadResource();
 

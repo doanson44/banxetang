@@ -167,8 +167,8 @@ public class GameControllerManager {
 					float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				if (pSceneTouchEvent.isActionUp()) {
 					Debug.d(GameManager.TANK_TAG, "right được nhấn"); // debug
-					if (mController != null)
-						mController.onRight();
+					if (GameControllerManager.mController != null)
+						GameControllerManager.mController.onRight();
 
 				}
 

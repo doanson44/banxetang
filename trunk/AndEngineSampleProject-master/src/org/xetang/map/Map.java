@@ -28,6 +28,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 public class Map extends GameEntity {
 
 	List<Item> mItems = new ArrayList<Item>();
+	List<Item> mItemRemove = new ArrayList<Item>();
 	List<Tank> mEnermyTanks = new ArrayList<Tank>();
 	List<Tank> mPlayerTanks = new ArrayList<Tank>();
 	int mICurrentStage; // Chỉ số của màn chơi
@@ -234,6 +235,29 @@ public class Map extends GameEntity {
 		GameManager.PhysicsWorld.setContactListener(contactListener);
 	}
 
+	public void Update (float pSecondsElapsed){
+		
+		UpdateItem(pSecondsElapsed);
+		
+		
+	}
+
+	private void UpdateItem(float pSecondsElapsed) {
+		for (Item item : mItems) {
+			if(item.isAlive())
+				item.update(pSecondsElapsed);	
+			else{
+				mItemRemove.add(item);
+				this.detachChild(item.GetSprite());
+			}
+		}
+		for (Item item : mItemRemove) {
+		
+			mItems.remove(item);
+		}
+		mItemRemove.clear();
+	}
+	
 	public boolean isPointValid(float x, float y) {
 		// Kiểm tra xem điểm(x,y) hiện tại thuộc ô nào của bản đồ,
 		// và ô đó xe tăng có thể đi vào?
@@ -276,4 +300,25 @@ public class Map extends GameEntity {
 	public void addBlast(IBlowUp blast) {
 		_layerBlast.attachChild((IEntity) blast);
 	}
+
+	public void MakeStoneWallFortress() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void DestroyAllEnermy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void FreezeTime() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void AddExtraLife() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
