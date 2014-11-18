@@ -5,6 +5,7 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
 import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.helper.BlastQueryCallback;
+import org.xetang.map.helper.CalcHelper;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -58,11 +59,15 @@ public class Blast extends BlowUp {
 
 		Vector2 bulletCenter = bullet.getBody().getWorldCenter();
 		Vector2 targetCenter = _targetObject.getBody().getWorldCenter();
-
+		Vector2 targetInsideRadius = new Vector2(
+				CalcHelper.pixels2Meters(_targetObject.getCellWidth() / 2
+						- GameManager.MAP_WIDTH
+						/ MapObjectFactory.TINY_CELL_PER_MAP),
+				CalcHelper.pixels2Meters(_targetObject.getCellHeight() / 2
+						- GameManager.MAP_HEIGHT
+						/ MapObjectFactory.TINY_CELL_PER_MAP));
 		Vector2 blastRadius = bullet.getBlowRadius();
-//		blastRadius.rotate(360 - CalcHelper.direction2Degrees(bullet
-//				.getDirection()));
-		
+
 		Vector2 leftBound = null;
 		Vector2 rightBound = null;
 
@@ -71,33 +76,33 @@ public class Blast extends BlowUp {
 		case Up:
 
 			leftBound = new Vector2(bulletCenter.x - blastRadius.x,
-					targetCenter.y - blastRadius.y);
+					targetCenter.y + targetInsideRadius.y - blastRadius.y);
 			rightBound = new Vector2(bulletCenter.x + blastRadius.x,
-					targetCenter.y);
+					targetCenter.y + targetInsideRadius.y);
 			break;
 
 		case Down:
 
 			leftBound = new Vector2(bulletCenter.x - blastRadius.x,
-					targetCenter.y);
+					targetCenter.y - targetInsideRadius.y);
 			rightBound = new Vector2(bulletCenter.x + blastRadius.x,
-					targetCenter.y + blastRadius.y);
+					targetCenter.y - targetInsideRadius.y + blastRadius.y);
 			break;
 
 		case Left:
 
-			leftBound = new Vector2(targetCenter.x - blastRadius.y,
-					bulletCenter.y - blastRadius.x);
-			rightBound = new Vector2(targetCenter.x,
+			leftBound = new Vector2(targetCenter.x + targetInsideRadius.x
+					- blastRadius.y, bulletCenter.y - blastRadius.x);
+			rightBound = new Vector2(targetCenter.x + targetInsideRadius.x,
 					bulletCenter.y + blastRadius.x);
 			break;
 
 		case Right:
 
-			leftBound = new Vector2(targetCenter.x,
+			leftBound = new Vector2(targetCenter.x - targetInsideRadius.x,
 					bulletCenter.y - blastRadius.x);
-			rightBound = new Vector2(targetCenter.x + blastRadius.y,
-					bulletCenter.y + blastRadius.x);
+			rightBound = new Vector2(targetCenter.x - targetInsideRadius.x
+					+ blastRadius.y, bulletCenter.y + blastRadius.x);
 			break;
 
 		default:
@@ -105,17 +110,16 @@ public class Blast extends BlowUp {
 		}
 
 		/*
-		 * Dùng để debug
-		 * Hiện phạm vi nổ của đạn
+		 * Dùng để debug hiện phạm vi nổ của đạn
 		 */
-//		Rectangle rec = new Rectangle(leftBound.x * 32, leftBound.y * 32,
-//				(rightBound.x - leftBound.x) * 32,
-//				(rightBound.y - leftBound.y) * 32,
-//				GameManager.VertexBufferObject);
-//
-//		rec.setAlpha(0.25f);
-//
-//		GameManager.Scene.attachChild(rec);
+		// Rectangle rec = new Rectangle(leftBound.x * 32, leftBound.y * 32,
+		// (rightBound.x - leftBound.x) * 32,
+		// (rightBound.y - leftBound.y) * 32,
+		// GameManager.VertexBufferObject);
+		//
+		// rec.setAlpha(0.25f);
+		//
+		// GameManager.Scene.attachChild(rec);
 
 		_inRangeBodies.setBullet((IBullet) _ownObject);
 		GameManager.PhysicsWorld.QueryAABB(_inRangeBodies, leftBound.x,

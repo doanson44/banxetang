@@ -7,9 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 
 public interface IBullet extends IMapObject {
 	
-	public void initSpecification(Vector2 speed, Vector2 blowRadius);
+	public void initSpecification(int damage, Vector2 speed, Vector2 blowRadius);
 	
 	public void setTank(Tank tank);
+	
+	public int getDamage();
 	
 	public Direction getDirection();
 	

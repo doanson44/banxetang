@@ -2,6 +2,7 @@ package org.xetang.map.helper;
 
 import org.xetang.map.IBullet;
 import org.xetang.map.IMapObject;
+import org.xetang.map.MapObjectFactory;
 import org.xetang.map.MapObjectFactory.ObjectType;
 
 public class DecideHelpder {
@@ -33,9 +34,10 @@ public class DecideHelpder {
 
 		switch (object.getType()) {
 		case SteelWall:
-			if (bullet.getType() != ObjectType.FastBullet)
+			if (bullet.getDamage() != MapObjectFactory.FAST_BULLET_DAMAGE) {
 				return false;
-			
+			}
+
 			break;
 		default:
 			break;

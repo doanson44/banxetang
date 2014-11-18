@@ -1,7 +1,6 @@
 ﻿package org.xetang.map;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.andengine.entity.Entity;
@@ -68,17 +67,6 @@ public class Map extends GameEntity {
 	}
 
 	public void loadMapData(StageDTO stage) {
-	
-		// demo phan item
-		mItems.add(new TankItem(this));
-		mItems.add(new Bomb(this));
-		mItems.add(new Clock(this));
-		mItems.add(new Helmet(this));
-		mItems.add(new Shovel(this));
-		
-		for (Item ite : mItems) {			
-			this.attachChild(ite.GetSprite());
-		}
 
 		List<StageObjectDTO> objects = stage.getObjects();
 
@@ -280,32 +268,12 @@ public class Map extends GameEntity {
 		return true; // dummy
 	}
 
-	public void AddExtraLife() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void FreezeTime() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void DestroyAllEnermy() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void MakeStoneWallFortress() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	// Dành cho test
 	public void addBullet(IBullet bullet) {
 		_layerBullet.attachChild((IEntity) bullet);
 	}
 
-	public void addBlowUp(IBlowUp blast) {
+	public void addBlast(IBlowUp blast) {
 		_layerBlast.attachChild((IEntity) blast);
 	}
 }
