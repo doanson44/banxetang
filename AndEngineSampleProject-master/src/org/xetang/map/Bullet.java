@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 public class Bullet extends MapObject implements IBullet {
 
 	Tank _tank;
+	int _damage;
 	Direction _direction;
 	Vector2 _speed;
 	Vector2 _blowRadius;
@@ -26,6 +27,7 @@ public class Bullet extends MapObject implements IBullet {
 		super(bullet);
 
 		_tank = bullet._tank;
+		_damage = bullet._damage;
 		_direction = bullet._direction;
 		_speed = bullet._speed;
 		_blowRadius = bullet._blowRadius;
@@ -34,9 +36,10 @@ public class Bullet extends MapObject implements IBullet {
 		_sprite = new TiledSprite(bullet.getX(), bullet.getY(), bullet
 				.getSprite().getTiledTextureRegion(),
 				GameManager.Activity.getVertexBufferObjectManager());
-		_sprite.setScale(bullet.getSprite().getScaleX(), bullet.getSprite().getScaleY());
-//		_sprite.setSize(bullet.getSprite().getWidth(), bullet.getSprite()
-//				.getHeight());
+		_sprite.setScale(bullet.getSprite().getScaleX(), bullet.getSprite()
+				.getScaleY());
+		// _sprite.setSize(bullet.getSprite().getWidth(), bullet.getSprite()
+		// .getHeight());
 
 		attachChild(_sprite);
 	}
@@ -47,7 +50,8 @@ public class Bullet extends MapObject implements IBullet {
 				MapObjectFactory.BULLET_CELL_PER_MAP, posX, posY,
 				MapObjectFactory.Z_INDEX_BULLET);
 
-		initSpecification(MapObjectFactory.NORMAL_BULLET_SPPED,
+		initSpecification(MapObjectFactory.NORMAL_BULLET_DAMAGE,
+				MapObjectFactory.NORMAL_BULLET_SPEED,
 				MapObjectFactory.NORMAL_BULLET_BLOW_RADIUS);
 
 		_cellWidth = GameManager.MAP_WIDTH
@@ -93,7 +97,7 @@ public class Bullet extends MapObject implements IBullet {
 
 	@Override
 	public void doContact(IMapObject object) {
-		
+
 		Vector2 topPoint = getTopPoint();
 
 		IBlowUp blast = (IBlowUp) MapObjectFactory.createObject(
@@ -115,7 +119,8 @@ public class Bullet extends MapObject implements IBullet {
 	}
 
 	@Override
-	public void initSpecification(Vector2 speed, Vector2 blowRadius) {
+	public void initSpecification(int damage, Vector2 speed, Vector2 blowRadius) {
+		_damage = damage;
 		_speed = speed;
 		_blowRadius = blowRadius;
 	}
@@ -124,10 +129,14 @@ public class Bullet extends MapObject implements IBullet {
 		_tank = tank;
 	}
 
+	public int getDamage() {
+		return _damage;
+	}
+
 	public Direction getDirection() {
 		return _direction;
 	}
-	
+
 	@Override
 	public Vector2 getBlowRadius() {
 		return _blowRadius;

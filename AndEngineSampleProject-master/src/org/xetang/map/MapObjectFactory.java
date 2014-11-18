@@ -38,6 +38,7 @@ public class MapObjectFactory {
 	public static final int BULLET_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 5;
 	public static final int BLAST_CELL_PER_MAP = (int) (EAGLE_CELL_PER_MAP / 1.5f);
 	public static final int EXPLOSION_CELL_PER_MAP = EAGLE_CELL_PER_MAP / 3;
+	public static final int TINY_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 8;
 
 	public static final float BULLET_DENSITY = 0.5f;
 	public static final float BULLET_ELASTICITY = 0f;
@@ -65,14 +66,18 @@ public class MapObjectFactory {
 	public static final int Z_INDEX_BLAST = 15;
 	public static final int Z_INDEX_EXPLOSION = 20;
 
-	public static final Vector2 NORMAL_BULLET_SPPED = new Vector2(
+	public static final int SLOW_BULLET_DAMAGE = 1;
+	public static final int NORMAL_BULLET_DAMAGE = 1;
+	public static final int FAST_BULLET_DAMAGE = 2;
+
+	public static final Vector2 NORMAL_BULLET_SPEED = new Vector2(
 			GameManager.MAP_WIDTH
 					/ PhysicsConnector.PIXEL_TO_METER_RATIO_DEFAULT,
 			GameManager.MAP_HEIGHT
 					/ PhysicsConnector.PIXEL_TO_METER_RATIO_DEFAULT);
-	public static final Vector2 SLOW_BULLET_SPPED = NORMAL_BULLET_SPPED.cpy()
+	public static final Vector2 SLOW_BULLET_SPEED = NORMAL_BULLET_SPEED.cpy()
 			.div(2f);
-	public static final Vector2 FAST_BULLET_SPPED = NORMAL_BULLET_SPPED.cpy()
+	public static final Vector2 FAST_BULLET_SPEED = NORMAL_BULLET_SPEED.cpy()
 			.mul(2f);
 
 	public static final float BLOW_RADIUS_RATIO_WIDTH = 2 / 8f;
@@ -237,11 +242,13 @@ public class MapObjectFactory {
 		_objectsArray.put(ObjectType.Bullet.ordinal(), bullet);
 
 		bullet = new Bullet(0f, 0f);
-		bullet.initSpecification(SLOW_BULLET_SPPED, SLOW_BULLET_BLOW_RADIUS);
+		bullet.initSpecification(SLOW_BULLET_DAMAGE, SLOW_BULLET_SPEED,
+				SLOW_BULLET_BLOW_RADIUS);
 		_objectsArray.put(ObjectType.SlowBullet.ordinal(), bullet);
 
 		bullet = new Bullet(0f, 0f);
-		bullet.initSpecification(FAST_BULLET_SPPED, FAST_BULLET_BLOW_RADIUS);
+		bullet.initSpecification(FAST_BULLET_DAMAGE, FAST_BULLET_SPEED,
+				FAST_BULLET_BLOW_RADIUS);
 		_objectsArray.put(ObjectType.FastBullet.ordinal(), bullet);
 	}
 
