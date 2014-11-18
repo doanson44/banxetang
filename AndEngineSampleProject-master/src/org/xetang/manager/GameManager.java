@@ -112,7 +112,7 @@ public class GameManager {
 		// ...
 
 		// fake
-		mStage = GameManager.Context.getIntent().getIntExtra("stage", 1);
+		mStage = GameManager.Context.getIntent().getIntExtra("stage", 1);;
 		mPlayTimes = 2;
 		mHighestScore = 1000;
 	}
@@ -138,7 +138,7 @@ public class GameManager {
 		MapObjectFactory.initAllObjects();
 
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-		BitmapTextureAtlas mBitmapTexture = new BitmapTextureAtlas(GameManager.TextureManager, 15, 105, TextureOptions.DEFAULT);
+		BitmapTextureAtlas mBitmapTexture = new BitmapTextureAtlas(GameManager.TextureManager, 52, 364, TextureOptions.DEFAULT);
 
 
 
@@ -146,19 +146,19 @@ public class GameManager {
 				.createTiledFromAsset(mBitmapTexture,Context,
 					"item/bomb.png", 0, 0,1, 1);
 
-		TiledTextureRegion tank = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/tank.png", 0, 15,1,1);
-		TiledTextureRegion clock = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/clock.png",0,30, 1,1);
-		TiledTextureRegion gun = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/gun.png", 0, 45,1,1);
-		TiledTextureRegion hat = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/helmet.png", 0, 60,1,1);
+		TiledTextureRegion tank = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/tank.png", 0, 52,1,1);
+		TiledTextureRegion clock = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/clock.png",0,104, 1,1);
+		TiledTextureRegion gun = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/gun.png", 0, 156,1,1);
+		TiledTextureRegion hat = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/helmet.png", 0, 208,1,1);
 
-		TiledTextureRegion shovel = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/shovel.png", 0, 75,1,1);
-		TiledTextureRegion star = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/star.png", 0, 90,1,1);
+		TiledTextureRegion shovel = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/shovel.png", 0, 260,1,1);
+		TiledTextureRegion star = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/star.png", 0, 312,1,1);
 		mBitmapTexture.load();
 
 		
-		BitmapTextureAtlas playerTExtureAtlas = new BitmapTextureAtlas(GameManager.TextureManager, 60, 15, TextureOptions.DEFAULT);
+		BitmapTextureAtlas playerTExtureAtlas = new BitmapTextureAtlas(GameManager.TextureManager, 52, 52, TextureOptions.DEFAULT);
 		
-		TiledTextureRegion player1 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerTExtureAtlas, Context, "Player1/player1.png", 0, 0,4,1);
+		TiledTextureRegion player1 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerTExtureAtlas, Context, "Player1/normal.png", 0, 0,1,1);
 		
 		playerTExtureAtlas.load();
 		
