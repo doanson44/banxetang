@@ -27,16 +27,21 @@
     </OBJECT>
     <OBJECT>
         <ID>5</ID>
+        <NAME>Ice</NAME>
+        <TEXTURE>gfx/map/object/ice.png</TEXTURE>
+    </OBJECT>
+    <OBJECT>
+        <ID>6</ID>
         <NAME>Bullet</NAME>
         <TEXTURE>gfx/map/object/bullet.png</TEXTURE>
     </OBJECT>
     <OBJECT>
-        <ID>6</ID>
+        <ID>7</ID>
         <NAME>Blast</NAME>
         <TEXTURE>gfx/map/object/blast.png</TEXTURE>
     </OBJECT>
     <OBJECT>
-        <ID>7</ID>
+        <ID>8</ID>
         <NAME>Explosion</NAME>
         <TEXTURE>gfx/map/object/blast.png</TEXTURE>
     </OBJECT>
