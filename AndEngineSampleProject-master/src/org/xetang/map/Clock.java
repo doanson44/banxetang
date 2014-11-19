@@ -16,7 +16,7 @@ public class Clock extends Item {
      * 
      */
     public Clock(Map map) {
-    	super((TiledTextureRegion) GameManager.getTexture("Clock"), map);
+    	super((TiledTextureRegion) MapObjectFactory2.getTexture("Clock"), map);
     }
     
     @Override

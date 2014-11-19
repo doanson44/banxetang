@@ -68,6 +68,22 @@ public class Map extends GameEntity {
 
 	public void loadMapData(StageDTO stage) {
 
+		Item bomb = new Bomb(this);
+		Item clock = new Clock(this);
+		Item Helmet = new Helmet(this);
+		Item shovel = new Shovel(this);
+		Item clock2 = new Clock(this);
+		
+		mItems.add(bomb);
+		mItems.add(clock);
+		mItems.add(Helmet);
+		mItems.add(shovel);
+		mItems.add(clock2);
+		
+		for (Item item : mItems) {
+			this.attachChild(item.getSprite());
+		}
+		
 		List<StageObjectDTO> objects = stage.getObjects();
 
 		StageObjectDTO stageObject;
@@ -228,7 +244,7 @@ public class Map extends GameEntity {
 
 	public void Update(float pSecondsElapsed) {
 
-		// UpdateItem(pSecondsElapsed);
+		UpdateItem(pSecondsElapsed);
 	}
 
 	private void UpdateItem(float pSecondsElapsed) {
@@ -296,6 +312,7 @@ public class Map extends GameEntity {
 
 	}
 
+
 	public void DestroyAllEnermy() {
 		// TODO Auto-generated method stub
 
@@ -306,8 +323,9 @@ public class Map extends GameEntity {
 
 	}
 
-	public void AddExtraLife() {
+	public void addBlowUp(IBlowUp blast) {
 		// TODO Auto-generated method stub
-
+		_layerBlast.attachChild((IEntity)blast);
 	}
+
 }

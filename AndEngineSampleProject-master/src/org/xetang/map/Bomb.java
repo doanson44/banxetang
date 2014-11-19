@@ -16,7 +16,7 @@ public class Bomb extends Item {
      * 
      */
     public Bomb(Map map) {
-    	super((TiledTextureRegion) GameManager.getTexture("Bomb"), map);
+    	super((TiledTextureRegion) MapObjectFactory2.getTexture("Bomb"), map);
     }
     
     @Override

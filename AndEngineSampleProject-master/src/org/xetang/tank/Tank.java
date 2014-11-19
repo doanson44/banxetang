@@ -1,7 +1,7 @@
 package org.xetang.tank;
 
-import org.andengine.entity.modifier.MoveXModifier;
-import org.andengine.entity.modifier.MoveYModifier;
+
+
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -24,13 +24,16 @@ import android.util.Log;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Transform;
 
 
 /**
  * 
  */
+
 public class Tank extends GameEntity implements IGameController, IMapObject {
 
+	float DEGTORAD  = 0.0174532925199432957f;
 	Controller mController;
 	
 	Bullet 	mBullet;
@@ -43,7 +46,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 	Map _map;
 	TiledSprite tankSprite;
 	int pX, pY;				
-	int speed;				// tốc độ của xe tăng
+	float speed;				// tốc độ của xe tăng
 	ObjectType _type;
 	FixtureDef _ObjectFixtureDef;
 	float _distinctMove = 10;
@@ -72,7 +75,10 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 
 	protected void CreateBody (){
 		_body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, tankSprite,
-				BodyType.StaticBody,_ObjectFixtureDef);
+				BodyType.DynamicBody,_ObjectFixtureDef);
+		_body.setGravityScale(0);
+		_body.setFixedRotation(true);
+		_body.setUserData(this);
 		GameManager.PhysicsWorld.registerPhysicsConnector(new PhysicsConnector(
 				tankSprite, _body, true, true));
 		
@@ -92,25 +98,22 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 	  @Override
 	    public void onLeft() {
 	    	// TODO Auto-generated method stub
-		  	float distinct = tankSprite.getX() - _distinctMove;
-		  	for (float i = tankSprite.getX(); i >= tankSprite.getX() - speed ; i--) {
-				if(_map.isPointValid(i, tankSprite.getY())){
-					distinct = i+1;
-					break;
-				}
-					
-			}
-	    	MoveXModifier modifier = new MoveXModifier(speed, tankSprite.getX(), distinct);
-	    	tankSprite.registerEntityModifier(modifier);
+		  	mDirection = Direction.Left;
+		  	
+		  	SetTranform(90);
+		  	_body.setLinearVelocity(-speed, 0);
 	    }
 
 	// di chuyển qua phải
 	    @Override
 	    public void onRight() {
 	    	// TODO Auto-generated method stub
-		  	Log.i("right", "right");
-	    	MoveXModifier modifier = new MoveXModifier(speed, tankSprite.getX(), tankSprite.getX() + _distinctMove);
-	    	tankSprite.registerEntityModifier(modifier);
+			mDirection = Direction.Right;
+			
+			SetTranform(270);
+			
+			//tankSprite.setCurrentTileIndex(2);
+		  	_body.setLinearVelocity(speed, 0);
 	    }
 	    
 	    
@@ -118,33 +121,26 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 	    @Override
 	    public void onForward() {
 	    	// TODO Auto-generated method stub
-	    	float distinct = tankSprite.getY() - _distinctMove;
-		  	for (float i = tankSprite.getY(); i >= tankSprite.getY() - speed ; i--) {
-				if(_map.isPointValid(tankSprite.getX(), i)){
-					distinct = i+1;
-					break;
-				}
-			}
-	    	MoveYModifier modifier = new MoveYModifier(speed, tankSprite.getY(), distinct);
-	    	tankSprite.registerEntityModifier(modifier);
+			mDirection = Direction.Up;
+			SetTranform(180);
+	    	_body.setLinearVelocity(0, -speed);
 	    }
 	   
 	    /// di chuyển qua xuống
 	    @Override
 	    public void onBackward() {
 	    	// TODO Auto-generated method stub
-	    	float distinct = tankSprite.getY() + _distinctMove;
-		  	for (float i = tankSprite.getY(); i <= tankSprite.getY() + speed ; i++) {
-				if(_map.isPointValid(tankSprite.getX(), i)){
-					distinct = i-1;
-					break;
-				}
-			}
-	    	MoveYModifier modifier = new MoveYModifier(speed, tankSprite.getY(),distinct);
-	    	tankSprite.registerEntityModifier(modifier);
+	    	mDirection = Direction.Down;
+	    	//tankSprite.setCurrentTileIndex(0);
+	    	_body.setTransform(_body.getTransform().getPosition(), 0 * DEGTORAD);
+	    	_body.setLinearVelocity(0, speed);
 	    }
 
 
+	public void SetTranform(float degree){
+		_body.setTransform(_body.getTransform().getPosition(), 0);
+		_body.setTransform(_body.getTransform().getPosition(), degree * DEGTORAD);
+	}
 	
 	@Override
 	public void onFire() {
@@ -239,13 +235,19 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 	@Override
 	public ObjectType getType() {
 		// TODO Auto-generated method stub
-		return null;
+		return ObjectType.PlayerTank;
 	}
 	
 	public void SetType(ObjectType type) {
 		_type = type;
 	}
 
+	public float GetX(){
+		return _body.getTransform().getPosition().x;
+	}
 	
+	public float GetY(){
+		return _body.getTransform().getPosition().y;
+	}
 
 }

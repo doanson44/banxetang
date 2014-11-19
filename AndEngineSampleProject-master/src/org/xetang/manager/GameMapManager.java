@@ -56,10 +56,8 @@ public class GameMapManager implements IUpdateHandler {
 
 	private void loadMapData(int iCurrentStage) {
 		StageDTO stage = XMLLoader.getStage(iCurrentStage);
-
 		stage.setLives(maxAvaiablePlayerTank);
 		_map = new Map(iCurrentStage, stage);
-
 		_gameScene.attachChild(_map);
 
 		loadMapTanks(stage);
