@@ -1,6 +1,8 @@
 package org.xetang.main;
 
 
+import org.nhom7.battlecity.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -38,7 +40,7 @@ public class SplashActivity extends Activity implements OnCompletionListener {
 		
 		
 		this.setContentView(view);
-		String path = "android.resource://"+  getPackageName() + "/" + com.example.andengine.sample.R.raw.intro;
+		String path = "android.resource://"+  getPackageName() + "/" + R.raw.intro;
 		view.setVideoPath(path);
 		
 		view.setOnCompletionListener(this);

@@ -18,7 +18,7 @@ import org.xetang.map.MapObjectFactory;
 
 import android.widget.Toast;
 
-public class MainActivity extends SimpleBaseGameActivity implements
+public class GameActivity extends SimpleBaseGameActivity implements
 		IAccelerationListener {
 
 	@Override

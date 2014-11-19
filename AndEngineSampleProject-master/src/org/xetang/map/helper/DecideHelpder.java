@@ -3,27 +3,22 @@ package org.xetang.map.helper;
 import org.xetang.map.IBullet;
 import org.xetang.map.IMapObject;
 import org.xetang.map.MapObjectFactory;
-import org.xetang.map.MapObjectFactory.ObjectType;
 
 public class DecideHelpder {
 
-	public static boolean canCollide(IMapObject object) {
+	public static boolean canDestroy(IMapObject object) {
 
-		if (object.getType() == ObjectType.Water) {
+		switch (object.getType()) {
+		case Eagle:
+		case Water:
+		case Ice:
 			return false;
+
+		default:
+			break;
 		}
 
 		return true;
-	}
-
-	public static boolean canDestroy(IMapObject object) {
-
-		if (object.getType() != ObjectType.Water
-				&& object.getType() != ObjectType.Eagle) {
-			return true;
-		}
-
-		return false;
 	}
 
 	public static boolean canDestroy(IMapObject object, IBullet bullet) {

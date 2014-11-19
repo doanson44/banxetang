@@ -35,6 +35,7 @@ public class MapObjectFactory {
 	public static final int STEEL_WALL_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 2;
 	public static final int BUSH_CELL_PER_MAP = EAGLE_CELL_PER_MAP;
 	public static final int WATER_CELL_PER_MAP = EAGLE_CELL_PER_MAP;
+	public static final int ICE_CELL_PER_MAP = EAGLE_CELL_PER_MAP;
 	public static final int BULLET_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 5;
 	public static final int BLAST_CELL_PER_MAP = (int) (EAGLE_CELL_PER_MAP / 1.5f);
 	public static final int EXPLOSION_CELL_PER_MAP = EAGLE_CELL_PER_MAP / 3;
@@ -176,6 +177,14 @@ public class MapObjectFactory {
 						GameManager.Activity.getAssets(), strTexture, 0,
 						yTexturePos, 1, 1);
 
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Ice.ordinal();
+		strTexture = XMLLoader.getObject(ObjectType.Ice.ordinal())
+				.getTextures();
+		_iceTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(_bitmapTextureAtlas,
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 1, 1);
+
 		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Bullet.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.Bullet.ordinal())
 				.getTextures();
@@ -219,6 +228,8 @@ public class MapObjectFactory {
 
 		_waterFixtureDef = PhysicsFactory.createFixtureDef(1f, 0f, 0f, false,
 				CATEGORYBIT_WATER, MASKBITS_WATER, GROUP_DEFAULT);
+		
+		_iceFixtureDef = PhysicsFactory.createFixtureDef(0f, 0f, 0f, true);
 
 		_bulletFixtureDef = PhysicsFactory.createFixtureDef(BULLET_DENSITY,
 				BULLET_ELASTICITY, BULLET_FRICTION, false, CATEGORYBIT_BULLET,
@@ -233,6 +244,7 @@ public class MapObjectFactory {
 				.put(ObjectType.SteelWall.ordinal(), new SteelWall(0f, 0f));
 		_objectsArray.put(ObjectType.Bush.ordinal(), new Bush(0f, 0f));
 		_objectsArray.put(ObjectType.Water.ordinal(), new Water(0f, 0f));
+		_objectsArray.put(ObjectType.Ice.ordinal(), new Ice(0f, 0f));
 		_objectsArray.put(ObjectType.Blast.ordinal(), new Blast(0f, 0f));
 		_objectsArray
 				.put(ObjectType.Explosion.ordinal(), new Explosion(0f, 0f));
@@ -343,6 +355,10 @@ public class MapObjectFactory {
 		return _waterTextureRegion;
 	}
 
+	public static TiledTextureRegion getIceTextureRegion() {
+		return _iceTextureRegion;
+	}
+
 	public static TiledTextureRegion getBulletTextureRegion() {
 		return _bulletTextureRegion;
 	}
@@ -373,6 +389,10 @@ public class MapObjectFactory {
 
 	public static FixtureDef getWaterFixtureDef() {
 		return _waterFixtureDef;
+	}
+
+	public static FixtureDef getIceFixtureDef() {
+		return _iceFixtureDef;
 	}
 
 	public static FixtureDef getBulletFixtureDef() {

@@ -7,11 +7,9 @@ import org.andengine.entity.Entity;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
-import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.util.debug.Debug;
 import org.xetang.manager.GameManager;
 import org.xetang.map.MapObjectFactory.ObjectType;
-import org.xetang.map.helper.DecideHelpder;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.model.MapObjectBlockDTO;
 import org.xetang.map.model.StageDTO;
@@ -142,14 +140,12 @@ public class Map extends GameEntity {
 				BodyType.StaticBody, borderFixtureDef);
 		PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, right,
 				BodyType.StaticBody, borderFixtureDef);
-		
+
 		attachChild(ground);
 		attachChild(left);
 		attachChild(roof);
 		attachChild(right);
 	}
-
-	BitmapTextureAtlas _bitmapTextureAtlas;
 
 	private void createListeners() {
 
@@ -166,10 +162,6 @@ public class Map extends GameEntity {
 				try {
 					objectA = (MapObject) contact.getFixtureA().getBody()
 							.getUserData();
-
-					if (!DecideHelpder.canCollide(objectA)) {
-						return;
-					}
 				} catch (Exception e) {
 					Debug.d("Collison", "Collide with something else!");
 				}
@@ -177,10 +169,6 @@ public class Map extends GameEntity {
 				try {
 					objectB = (MapObject) contact.getFixtureB().getBody()
 							.getUserData();
-
-					if (!DecideHelpder.canCollide(objectA)) {
-						return;
-					}
 				} catch (Exception e) {
 					Debug.d("Collison", "Collide with something else!");
 				}
