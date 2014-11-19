@@ -16,7 +16,7 @@ public class Helmet extends Item {
      * 
      */
     public Helmet(Map map) {
-    	super((TiledTextureRegion) GameManager.getTexture("Helmet"), map);
+    	super((TiledTextureRegion) MapObjectFactory2.getTexture("Helmet"), map);
 
     }
     

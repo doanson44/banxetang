@@ -16,7 +16,7 @@ public class Star extends Item {
      * 
      */
     public Star(Map map) {
-    	super((TiledTextureRegion) GameManager.getTexture("Star"), map);    
+    	super((TiledTextureRegion) MapObjectFactory2.getTexture("Star"), map);    
     	}
 
     @Override

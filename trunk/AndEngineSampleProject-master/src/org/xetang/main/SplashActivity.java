@@ -1,6 +1,5 @@
 package org.xetang.main;
 
-
 import org.nhom7.battlecity.R;
 
 import android.app.Activity;

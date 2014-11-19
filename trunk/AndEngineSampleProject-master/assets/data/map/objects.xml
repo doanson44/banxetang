@@ -35,7 +35,7 @@
         <NAME>Bullet</NAME>
         <TEXTURE>gfx/map/object/bullet.png</TEXTURE>
     </OBJECT>
-    <OBJECT>
+        <OBJECT>
         <ID>7</ID>
         <NAME>Blast</NAME>
         <TEXTURE>gfx/map/object/blast.png</TEXTURE>

@@ -15,7 +15,7 @@ public class Shovel extends Item {
      * 
      */
     public Shovel(Map map) {
-    	super((TiledTextureRegion) GameManager.getTexture("Shovel"), map);
+    	super((TiledTextureRegion) MapObjectFactory2.getTexture("Shovel"), map);
     }
 
     @Override

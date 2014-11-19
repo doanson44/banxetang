@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
+import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
@@ -66,6 +67,9 @@ public class Item implements IMapObject {
 		_body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, _sprite,
 				BodyType.StaticBody, PhysicsFactory
 				.createFixtureDef(0, 0, 0,true));
+		_body.setUserData(this);
+		GameManager.PhysicsWorld.registerPhysicsConnector(new PhysicsConnector(
+				_sprite, _body, true, true));
 	
 	}
 	
