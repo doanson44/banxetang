@@ -39,7 +39,6 @@ public class GameMapManager implements IUpdateHandler {
 		_gameScene = gameScene;
 
 		loadMapData(iCurrentStage);
-		initMapData();
 
 		_frame = new Frame(iCurrentStage);
 		_gameScene.attachChild(_frame);
@@ -74,7 +73,7 @@ public class GameMapManager implements IUpdateHandler {
 	}
 
 	private void loadPlayerTanks(int lives) {
-		
+
 		_totalPlayerTanks = new LinkedList<Tank>();
 		for (int i = 0; i < lives; i++) {
 			Tank tank = new Normal(0, 0, _map);
@@ -104,49 +103,13 @@ public class GameMapManager implements IUpdateHandler {
 		}
 	}
 
-	/*
-	 * Khởi tạo các biến cục bộ Danh sách xe tăng: _totalEnermyTanks
-	 * _totalPlayerTanks Số lượng xe tăng tối đa trên bản đồ:
-	 * maxAvaiableEnermyTank maxAvaiablePlayerTank Và các biến khác
-	 */
-	private void initMapData() {
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
 		_frame.update(_map.getTotalEnermyTanks().size());
 
 		_map.Update(pSecondsElapsed);
-//		updateCollision(pSecondsElapsed);
-	//	updateTanksAndBots();
-//		updateWinLose();
-	}
-
-	/*
-	 * ĂN ĐI KU
-	 */
-	private void updateCollision(float pSecondsElapsed) {
-		// MapObject[][] matrix = _map.getMapMatrix();
-		// int height = matrix.length;
-		// int width = matrix[0].length;
-		// int allCells = height * width;
-		//
-		// for (int i=0; i<allCells-1; i++) {
-		// MapObject l = matrix[i/width][i%width];
-		//
-		// for (int j=i+1; j<allCells; j++) {
-		// MapObject r = matrix[j/width][j%width];
-		// //if (!l.isStatic() || !r.isStatic()) {
-		// /*
-		// * Xét va chạm giữa 2 vật thể
-		// * Xử lý theo kịch bản game
-		// */
-		// //}
-		// }
-		// }
-
+		// updateTanksAndBots();
+		// updateWinLose();
 	}
 
 	private void updateTanksAndBots() {
@@ -213,6 +176,6 @@ public class GameMapManager implements IUpdateHandler {
 	}
 
 	public void addBlast(IBlowUp blast) {
-	//	_map.addBlowUp(blast);
+		_map.addBlast(blast);
 	}
 }

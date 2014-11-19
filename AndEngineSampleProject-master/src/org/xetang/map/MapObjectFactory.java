@@ -24,8 +24,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 public class MapObjectFactory {
 
 	public enum ObjectType {
-		Eagle, BrickWall, SteelWall, Bush, Water, Bullet, Blast, Explosion, SlowBullet, FastBullet,
-		Bomb,Clock, Helmet, Shovel, Star, TankItem, PlayerTank
+		Eagle, BrickWall, SteelWall, Bush, Water, Ice, Bullet, Blast, Explosion, SlowBullet, FastBullet, Bomb, Clock, Helmet, Shovel, Star, TankItem, PlayerTank
 	};
 
 	public static final int MAX_RESOURCE_BITMAP_WIDTH = 384;
@@ -104,6 +103,7 @@ public class MapObjectFactory {
 	private static TiledTextureRegion _steelWallTextureRegion;
 	private static TiledTextureRegion _bushTextureRegion;
 	private static TiledTextureRegion _waterTextureRegion;
+	private static TiledTextureRegion _iceTextureRegion;
 	private static TiledTextureRegion _bulletTextureRegion;
 	private static TiledTextureRegion _blastTextureRegion;
 	private static TiledTextureRegion _explosionTextureRegion;
@@ -112,6 +112,7 @@ public class MapObjectFactory {
 	private static FixtureDef _steelWallFixtureDef;
 	// private static FixtureDef _bushFixtureDef;
 	private static FixtureDef _waterFixtureDef;
+	private static FixtureDef _iceFixtureDef;
 	private static FixtureDef _bulletFixtureDef;
 
 	private static IAnimationListener _blowUpListener;
@@ -128,7 +129,8 @@ public class MapObjectFactory {
 		_bitmapTextureAtlas = new BitmapTextureAtlas(
 				GameManager.Activity.getTextureManager(),
 				MAX_RESOURCE_BITMAP_WIDTH, MAX_RESOURCE_BITMAP_HEIGHT
-						* ObjectType.values().length, TextureOptions.BILINEAR);
+						* (ObjectType.Explosion.ordinal() + 1),
+				TextureOptions.BILINEAR);
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("");
 
 		int yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT
@@ -285,7 +287,7 @@ public class MapObjectFactory {
 	}
 
 	public static void unloadAll() {
-		_bitmapTextureAtlas.unload();
+		// _bitmapTextureAtlas.unload();
 	}
 
 	public static IMapObject createObject(ObjectType type) {

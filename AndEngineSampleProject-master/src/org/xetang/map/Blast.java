@@ -110,7 +110,7 @@ public class Blast extends BlowUp {
 		}
 
 		/*
-		 * Dùng để debug hiện phạm vi nổ của đạn
+		 * Dùng để debug, hiển thị phạm vi nổ của đạn
 		 */
 		// Rectangle rec = new Rectangle(leftBound.x * 32, leftBound.y * 32,
 		// (rightBound.x - leftBound.x) * 32,

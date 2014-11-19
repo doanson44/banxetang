@@ -132,10 +132,10 @@ public class GameManager {
 		//load Textures
 		loadTextures();	
 		
-		GameControllerManager.loadResource();
-		
 		XMLLoader.loadAllParameters();
 		MapObjectFactory.initAllObjects();
+		
+		GameControllerManager.loadResource();
 
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		BitmapTextureAtlas mBitmapTexture = new BitmapTextureAtlas(GameManager.TextureManager, 52, 364, TextureOptions.DEFAULT);

@@ -106,7 +106,7 @@ public class Bullet extends MapObject implements IBullet {
 		blast.setTargetObject(object);
 		blast.blowUpAtHere();
 
-	//	GameManager.CurrentMapManager.addBlast(blast);
+		GameManager.CurrentMapManager.addBlast(blast);
 
 		_sprite.setVisible(false);
 		_body.setLinearVelocity(0f, 0f);
