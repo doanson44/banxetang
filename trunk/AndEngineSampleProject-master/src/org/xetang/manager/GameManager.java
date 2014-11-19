@@ -24,7 +24,7 @@ import org.andengine.opengl.texture.region.BaseTextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.color.Color;
-import org.xetang.main.MainActivity;
+import org.xetang.main.GameActivity;
 import org.xetang.map.MapObjectFactory;
 import org.xetang.map.model.XMLLoader;
 
@@ -64,12 +64,12 @@ public class GameManager {
 		Up, Right, Down, Left
 	}
 
-	public static MainActivity Activity;
+	public static GameActivity Activity;
 	public static Camera Camera;
 	public static Scene Scene;
 	public static TextureManager TextureManager;
 	public static AssetManager AssetManager;
-	public static MainActivity Context;
+	public static GameActivity Context;
 	public static VertexBufferObjectManager VertexBufferObject;
 	public static PhysicsWorld PhysicsWorld;
 /**

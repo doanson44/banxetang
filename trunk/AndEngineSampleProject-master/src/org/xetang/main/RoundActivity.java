@@ -203,7 +203,7 @@ public class RoundActivity extends Activity implements OnClickListener {
 		if(view.getTag() instanceof Round){
 			Round round =  (Round) view.getTag();
 			if(round.Index > GameManager.mReachedStage) return;
-			Intent i = new Intent(this, MainActivity.class);
+			Intent i = new Intent(this, GameActivity.class);
 			
 			i.putExtra("stage", round.Index);
 			startActivityForResult(i, 1);

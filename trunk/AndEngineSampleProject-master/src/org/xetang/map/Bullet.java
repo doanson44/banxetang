@@ -98,6 +98,10 @@ public class Bullet extends MapObject implements IBullet {
 	@Override
 	public void doContact(IMapObject object) {
 
+		if (object != null && object.getObjectFixtureDef().isSensor) {
+			return;
+		}
+
 		Vector2 topPoint = getTopPoint();
 
 		IBlowUp blast = (IBlowUp) MapObjectFactory.createObject(
