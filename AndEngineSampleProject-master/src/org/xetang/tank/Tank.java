@@ -1,9 +1,7 @@
 package org.xetang.tank;
 
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.modifier.MoveXModifier;
 import org.andengine.entity.modifier.MoveYModifier;
-import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -20,7 +18,6 @@ import org.xetang.map.Map;
 import org.xetang.map.MapObject;
 import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.root.GameEntity;
-
 
 import android.util.Log;
 

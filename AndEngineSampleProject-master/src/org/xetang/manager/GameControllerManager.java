@@ -25,7 +25,7 @@ public class GameControllerManager {
 		// ...
 
 		// Ví dụ mẫu, load nút Fire
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("controller/");
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/controller/");
 		BitmapTextureAtlas textureAtlas = new BitmapTextureAtlas(
 				GameManager.TextureManager, 64, 64);
 		TiledTextureRegion texture = BitmapTextureAtlasTextureRegionFactory

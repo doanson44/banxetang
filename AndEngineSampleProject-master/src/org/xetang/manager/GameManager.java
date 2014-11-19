@@ -1,13 +1,10 @@
 package org.xetang.manager;
 
-
 import org.andengine.engine.Engine;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Hashtable;
-
-
 
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
@@ -28,11 +25,8 @@ import org.xetang.main.GameActivity;
 import org.xetang.map.MapObjectFactory;
 import org.xetang.map.model.XMLLoader;
 
-
 import org.xetang.root.GameScene;
 import org.xetang.root.MainMenuScene;
-
-
 
 import android.content.res.AssetManager;
 
@@ -72,10 +66,10 @@ public class GameManager {
 	public static GameActivity Context;
 	public static VertexBufferObjectManager VertexBufferObject;
 	public static PhysicsWorld PhysicsWorld;
-/**
+	/**
 	 * @editor: Nhân Bạch
 	 * @date: 13/11/2014
-	 * @brief: Thêm 1 số biến phục vụ cho việc làm MENU 
+	 * @brief: Thêm 1 số biến phục vụ cho việc làm MENU
 	 */
 	public static FontManager FontManager;
 	public static MusicManager MusicManager;
@@ -112,7 +106,8 @@ public class GameManager {
 		// ...
 
 		// fake
-		mStage = GameManager.Context.getIntent().getIntExtra("stage", 1);;
+		mStage = GameManager.Context.getIntent().getIntExtra("stage", 1);
+		;
 		mPlayTimes = 2;
 		mHighestScore = 1000;
 	}
@@ -122,46 +117,59 @@ public class GameManager {
 		Musics = new Hashtable<String, Music>();
 		Fonts = new Hashtable<String, Font>();
 
-		
 		// Load Fonts
 		loadFonts();
 
 		// load Musics
 		loadMusics();
-		
-		//load Textures
-		loadTextures();	
-		
+
+		// load Textures
+		loadTextures();
+
 		XMLLoader.loadAllParameters();
 		MapObjectFactory.initAllObjects();
-		
+
 		GameControllerManager.loadResource();
 
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-		BitmapTextureAtlas mBitmapTexture = new BitmapTextureAtlas(GameManager.TextureManager, 52, 364, TextureOptions.DEFAULT);
-
-
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/map/item/");
+		BitmapTextureAtlas mBitmapTexture = new BitmapTextureAtlas(
+				GameManager.TextureManager, 52, 364, TextureOptions.DEFAULT);
 
 		TiledTextureRegion bomb = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(mBitmapTexture,Context,
-					"item/bomb.png", 0, 0,1, 1);
+				.createTiledFromAsset(mBitmapTexture, Context, "bomb.png",
+						0, 0, 1, 1);
 
-		TiledTextureRegion tank = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/tank.png", 0, 52,1,1);
-		TiledTextureRegion clock = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/clock.png",0,104, 1,1);
-		TiledTextureRegion gun = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/gun.png", 0, 156,1,1);
-		TiledTextureRegion hat = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/helmet.png", 0, 208,1,1);
+		TiledTextureRegion tank = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context, "tank.png",
+						0, 52, 1, 1);
+		TiledTextureRegion clock = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context,
+						"clock.png", 0, 104, 1, 1);
+		TiledTextureRegion gun = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context, "gun.png",
+						0, 156, 1, 1);
+		TiledTextureRegion hat = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context,
+						"helmet.png", 0, 208, 1, 1);
 
-		TiledTextureRegion shovel = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/shovel.png", 0, 260,1,1);
-		TiledTextureRegion star = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTexture, Context, "item/star.png", 0, 312,1,1);
+		TiledTextureRegion shovel = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context,
+						"shovel.png", 0, 260, 1, 1);
+		TiledTextureRegion star = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context, "star.png",
+						0, 312, 1, 1);
 		mBitmapTexture.load();
 
-		
-		BitmapTextureAtlas playerTExtureAtlas = new BitmapTextureAtlas(GameManager.TextureManager, 52, 52, TextureOptions.DEFAULT);
-		
-		TiledTextureRegion player1 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerTExtureAtlas, Context, "Player1/normal.png", 0, 0,1,1);
-		
+		BitmapTextureAtlas playerTExtureAtlas = new BitmapTextureAtlas(
+				GameManager.TextureManager, 52, 52, TextureOptions.DEFAULT);
+
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		TiledTextureRegion player1 = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(playerTExtureAtlas, Context,
+						"Player1/normal.png", 0, 0, 1, 1);
+
 		playerTExtureAtlas.load();
-		
+
 		Textures.put("Bomb", bomb);
 		Textures.put("Clock", clock);
 		Textures.put("Gun", gun);
@@ -170,9 +178,8 @@ public class GameManager {
 		Textures.put("Star", star);
 		Textures.put("Tank", tank);
 		Textures.put("Player1", player1);
-		
-		ListScene.put("game", new GameScene());
 
+		ListScene.put("game", new GameScene());
 
 	}
 
@@ -183,15 +190,16 @@ public class GameManager {
 		/*
 		 * Xử lý Scene cũ
 		 */
-		//cheat
+		// cheat
 
-		if(ListScene.containsKey(name) && GameManager.Engine.getScene() != ListScene.get(name)){
+		if (ListScene.containsKey(name)
+				&& GameManager.Engine.getScene() != ListScene.get(name)) {
 			GameManager.Engine.setScene(ListScene.get(name));
 			GameManager.Scene = ListScene.get(name);
-			if(name == "mainmenu")
-				((MainMenuScene)GameManager.Scene).onSwitched();
-			else if(name == "game")
-				((GameScene)GameManager.Scene).onSwitched();
+			if (name == "mainmenu")
+				((MainMenuScene) GameManager.Scene).onSwitched();
+			else if (name == "game")
+				((GameScene) GameManager.Scene).onSwitched();
 		}
 	}
 
@@ -199,22 +207,25 @@ public class GameManager {
 		return mStage;
 	}
 
-/**
+	/**
 	 * @editor: Nhân Bạch
 	 * @date: 13/11/2014
-	 * @brief: Thêm 1 số hàm phục vụ cho việc làm MENU 
+	 * @brief: Thêm 1 số hàm phục vụ cho việc làm MENU
 	 */
 	private static void loadTextures() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
-		BitmapTextureAtlas atlas = new BitmapTextureAtlas(GameManager.TextureManager, 100, 50, TextureOptions.BILINEAR);
-		TiledTextureRegion t = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(atlas, GameManager.AssetManager, "sound.png",0 ,0, 2, 1);
+		BitmapTextureAtlas atlas = new BitmapTextureAtlas(
+				GameManager.TextureManager, 100, 50, TextureOptions.BILINEAR);
+		TiledTextureRegion t = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(atlas, GameManager.AssetManager,
+						"sound.png", 0, 0, 2, 1);
 		Textures.put("sound", t);
 		atlas.load();
 	}
 
 	private static void loadMusics() {
 		try {
-			MusicFactory.setAssetBasePath("music/");
+			MusicFactory.setAssetBasePath("sfx/");
 			Music m;
 			m = MusicFactory.createMusicFromAsset(GameManager.MusicManager,
 					GameManager.Context, "menu.mp3");
@@ -244,7 +255,7 @@ public class GameManager {
 				Color.WHITE_ABGR_PACKED_INT);
 		Fonts.put("font2", f);
 	}
-	
+
 	public static BaseTextureRegion getTexture(String key) {
 		return Textures.get(key);
 	}
