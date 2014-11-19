@@ -323,7 +323,7 @@ public class MainMenuScene extends Scene  {
 	public void onSwitched() {
 		GameManager.Camera.setHUD(_hudMain);
 		playMusic();
-		
+
 	}
 
 }
