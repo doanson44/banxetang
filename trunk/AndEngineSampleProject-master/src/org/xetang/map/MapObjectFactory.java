@@ -98,7 +98,11 @@ public class MapObjectFactory {
 
 	private static SparseArray<IMapObject> _objectsArray = new SparseArray<IMapObject>();
 
+	/**
+	 * Bitmap lưu texture của tất cả các đối tượng
+	 */
 	private static BitmapTextureAtlas _bitmapTextureAtlas;
+	
 	private static TiledTextureRegion _eagleTextureRegion;
 	private static TiledTextureRegion _brickWallTextureRegion;
 	private static TiledTextureRegion _steelWallTextureRegion;
@@ -108,6 +112,7 @@ public class MapObjectFactory {
 	private static TiledTextureRegion _bulletTextureRegion;
 	private static TiledTextureRegion _blastTextureRegion;
 	private static TiledTextureRegion _explosionTextureRegion;
+	
 	private static FixtureDef _eagleFixtureDef;
 	private static FixtureDef _brickWallFixtureDef;
 	private static FixtureDef _steelWallFixtureDef;
@@ -125,7 +130,7 @@ public class MapObjectFactory {
 		createObjectsArray();
 		createObjectsListener();
 	}
-
+	
 	private static void initObjectsTexture() {
 		_bitmapTextureAtlas = new BitmapTextureAtlas(
 				GameManager.Activity.getTextureManager(),
@@ -252,6 +257,9 @@ public class MapObjectFactory {
 		createAllBullets();
 	}
 
+	/**
+	 * Khởi tạo các loại Bullet có trong trò chơi
+	 */	
 	private static void createAllBullets() {
 		IBullet bullet = new Bullet(0f, 0f);
 		_objectsArray.put(ObjectType.Bullet.ordinal(), bullet);
@@ -268,6 +276,10 @@ public class MapObjectFactory {
 	}
 
 	private static void createObjectsListener() {
+		
+		/*
+		 * Nổ xong thì hủy đối tượng BlowUp (tan theo mây khói)
+		 */
 		_blowUpListener = new IAnimationListener() {
 
 			@Override
@@ -298,22 +310,41 @@ public class MapObjectFactory {
 		};
 	}
 
+	/**
+	 * Hủy toàn bộ Resource trong Factory
+	 */
 	public static void unloadAll() {
-		// _bitmapTextureAtlas.unload();
+		_bitmapTextureAtlas.unload();
 	}
 
+	/**
+	 * Tạo một đối tượng mới
+	 * @param type : Loại đối tượng (trong <code>GameManager.ObjectType</code>)
+	 * @return Một đối tượng mới cùng loại
+	 */
 	public static IMapObject createObject(ObjectType type) {
 		return createObject(type, 0, 0);
 	}
 
+
+	/**
+	 * Tạo một đối tượng mới tại tọa độ tương ứng
+	 * @param type : Loại đối tượng (trong <code>GameManager.ObjectType</code>)
+	 * @return Một đối tượng mới cùng loại tại tọa độ tương ứng
+	 */
 	public static IMapObject createObject(ObjectType type, float posX,
 			float posY) {
 		IMapObject object = _objectsArray.get(type.ordinal()).clone();
 		object.setPosition(posX, posY);
-
 		return object;
 	}
 
+	/**
+	 * Tạo một khối các dối tượng cùng loại
+	 * @param type : Loại đối tượng (trong <code>GameManager.ObjectType</code>)
+	 * @param posAndSize : Cặp <b>tọa độ</b> và <b>vị trí</b> của khối đối tượng
+	 * @return Một khối đối tượng đã được khởi tạo
+	 */
 	public static MapObjectBlockDTO createObjectBlock(ObjectType type,
 			Pair<Point, Point> posAndSize) {
 

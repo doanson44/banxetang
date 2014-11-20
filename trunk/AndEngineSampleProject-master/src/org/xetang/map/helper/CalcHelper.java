@@ -1,16 +1,20 @@
 package org.xetang.map.helper;
 
 import org.andengine.extension.physics.box2d.PhysicsConnector;
-import org.andengine.util.math.MathConstants;
 import org.xetang.manager.GameManager.Direction;
 import org.xetang.map.MapObjectFactory.ObjectType;
 
 import com.badlogic.gdx.math.Vector2;
 
 public class CalcHelper {
-	
+
+	public static final float PI_IN_DEG = 180;
+	public static final float PI_HALF_IN_DEG = PI_IN_DEG / 2;
+	public static final float PI_TWICE_IN_DEG = PI_IN_DEG * 2;
+
 	/*
-	 * Để dành cải tiến cho việc đồng bộ thông số cell khi tạo MAP
+	 * Ä�á»ƒ dÃ nh cáº£i tiáº¿n cho viá»‡c Ä‘á»“ng bá»™ thÃ´ng sá»‘ cell khi
+	 * táº¡o MAP
 	 */
 	public static int getObjectsPerCell(int objectID) {
 		switch (ObjectType.values()[objectID]) {
@@ -28,8 +32,16 @@ public class CalcHelper {
 	}
 
 	public static float direction2Degrees(Direction direction) {
-		return direction.ordinal() * MathConstants.PI_HALF
-				* MathConstants.RAD_TO_DEG;
+		return direction2Degrees(direction, false);
+	}
+
+	public static float direction2Degrees(Direction direction,
+			boolean isCounterClockwise) {
+		if (!isCounterClockwise) {
+			return direction.ordinal() * PI_HALF_IN_DEG;
+		}
+
+		return PI_TWICE_IN_DEG - direction.ordinal() * PI_HALF_IN_DEG;
 	}
 
 	public static float pixels2Meters(float pixels) {
