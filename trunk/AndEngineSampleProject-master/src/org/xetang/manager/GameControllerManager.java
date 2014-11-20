@@ -102,10 +102,16 @@ public class GameControllerManager {
 				GameManager.VertexBufferObject) {
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 					float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionUp()) {
-					Debug.d(GameManager.TANK_TAG, "up được nhấn"); // debug
+				if (pSceneTouchEvent.isActionDown()) {
+				//	Debug.d(GameManager.TANK_TAG, "up được nhấn"); // debug
 					if (mController != null)
 						mController.onForward();
+
+				}
+				if (pSceneTouchEvent.isActionUp()) {
+				//	Debug.d(GameManager.TANK_TAG, "up được thả"); // debug
+					if (mController != null)
+						mController.onCancelMove();
 
 				}
 
@@ -123,10 +129,16 @@ public class GameControllerManager {
 				GameManager.VertexBufferObject) {
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 					float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionUp()) {
-					Debug.d(GameManager.TANK_TAG, "down được nhấn"); // debug
+				if (pSceneTouchEvent.isActionDown()) {
+				//	Debug.d(GameManager.TANK_TAG, "down được nhấn"); // debug
 					if (mController != null)
 						mController.onBackward();
+
+				}
+				if (pSceneTouchEvent.isActionUp()) {
+				//	Debug.d(GameManager.TANK_TAG, "down được thả"); // debug
+					if (mController != null)
+						mController.onCancelMove();
 
 				}
 
@@ -144,13 +156,18 @@ public class GameControllerManager {
 				GameManager.VertexBufferObject) {
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 					float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionUp()) {
-					Debug.d(GameManager.TANK_TAG, "left được nhấn"); // debug
+				if (pSceneTouchEvent.isActionDown()) {
+				//	Debug.d(GameManager.TANK_TAG, "left được nhấn"); // debug
 					if (mController != null)
 						mController.onLeft();
 
 				}
+				if (pSceneTouchEvent.isActionUp()) {
+				//	Debug.d(GameManager.TANK_TAG, "left được thả"); // debug
+					if (mController != null)
+						mController.onCancelMove();
 
+				}
 				return true;
 			};
 		};
@@ -165,10 +182,16 @@ public class GameControllerManager {
 				GameManager.VertexBufferObject) {
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 					float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionUp()) {
-					Debug.d(GameManager.TANK_TAG, "right được nhấn"); // debug
+				if (pSceneTouchEvent.isActionDown()) {
+			//		Debug.d(GameManager.TANK_TAG, "right được nhấn"); // debug
 					if (GameControllerManager.mController != null)
 						GameControllerManager.mController.onRight();
+
+				}
+				if (pSceneTouchEvent.isActionUp()) {
+		//			Debug.d(GameManager.TANK_TAG, "right được thả"); // debug
+					if (mController != null)
+						mController.onCancelMove();
 
 				}
 

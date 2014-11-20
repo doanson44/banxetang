@@ -50,7 +50,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 	ObjectType _type;
 	FixtureDef _ObjectFixtureDef;
 	float _distinctMove = 10;
-	public boolean isAlive() {
+	public synchronized boolean isAlive() {
 		return mIsAlive;
 	}
 	
@@ -68,6 +68,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 		_map = map;
 		TankManager.register(this);
     	tankSprite = new TiledSprite(px, py, region, GameManager.VertexBufferObject);
+    	mDirection = Direction.Down;
     	_ObjectFixtureDef =  PhysicsFactory
 				.createFixtureDef(1, 0, 0);
     	CreateBody();
@@ -135,7 +136,12 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 	    	_body.setTransform(_body.getTransform().getPosition(), 0 * DEGTORAD);
 	    	_body.setLinearVelocity(0, speed);
 	    }
-
+		@Override
+		public void onCancelMove() {
+			// TODO Auto-generated method stub
+			_body.setLinearVelocity(0, 0);
+		}
+		
 
 	public void SetTranform(float degree){
 		_body.setTransform(_body.getTransform().getPosition(), 0);
@@ -199,15 +205,14 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 	}
 
 	@Override
-	public void setAlive(boolean alive) {
-		// TODO Auto-generated method stub
-		
+	public synchronized void setAlive(boolean alive) {
+		mIsAlive = alive;
 	}
 
 	@Override
 	public TiledSprite getSprite() {
 		// TODO Auto-generated method stub
-		return null;
+		return tankSprite;
 	}
 
 	@Override
@@ -249,5 +254,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 	public float GetY(){
 		return _body.getTransform().getPosition().y;
 	}
+
+
 
 }

@@ -66,7 +66,7 @@ public class GameMapManager implements IUpdateHandler {
 	private void loadMapTanks(StageDTO stage) {
 
 		loadPlayerTanks(stage.getLives());
-		loadEnermyTanks(stage.getTanksNameQueue());
+	//	loadEnermyTanks(stage.getTanksNameQueue());
 
 	}
 
