@@ -14,7 +14,6 @@ import org.andengine.input.touch.controller.MultiTouch;
 import org.andengine.input.touch.controller.MultiTouchController;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.xetang.manager.GameManager;
-import org.xetang.map.MapObjectFactory;
 
 import android.widget.Toast;
 
@@ -24,8 +23,14 @@ public class GameActivity extends SimpleBaseGameActivity implements
 	@Override
 	public Engine onCreateEngine(EngineOptions pEngineOptions) {
 
+		/*
+		 * Tạo Engine duy trì FPS ở mức 60
+		 */
 		Engine engine = new LimitedFPSEngine(pEngineOptions, 60);
 
+		/*
+		 * Nhận diện thoại người dùng có hỗ trợ cảm ứng đa điểm hay khong ?
+		 */
 		try {
 			if (MultiTouch.isSupported(this)) {
 				engine.setTouchController(new MultiTouchController());
@@ -60,13 +65,21 @@ public class GameActivity extends SimpleBaseGameActivity implements
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 
+		/*
+		 * Tạo Camera với thông số hằng đặt trong GameManager.java
+		 */
 		GameManager.Camera = new Camera(GameManager.CAMERA_X,
 				GameManager.CAMERA_Y, GameManager.CAMERA_WIDTH,
 				GameManager.CAMERA_HEIGHT);
 
+		/*
+		 * Tùy chỉnh Engine với: -- Fullscreen: Đầy màn hình -- Hướng màn hình
+		 * ngang -- Độ phân giải game khớp với màn hình -- Camra của trò chơi
+		 */
 		EngineOptions engineOptions = new EngineOptions(true,
 				ScreenOrientation.LANDSCAPE_FIXED, new FillResolutionPolicy(),
 				GameManager.Camera);
+		//**********
 
 		engineOptions.getAudioOptions().setNeedsMusic(true);
 		engineOptions.getAudioOptions().setNeedsSound(true);
@@ -77,6 +90,10 @@ public class GameActivity extends SimpleBaseGameActivity implements
 	@Override
 	public void onCreateResources() {
 
+		/*
+		 * Gán toàn bộ những thuộc tính lên trên làm biến toàn cục Để dễ dàng
+		 * truy cập trong toàn bộ trò chơi
+		 */
 		GameManager.Activity = this;
 		GameManager.Engine = this.mEngine;
 		GameManager.TextureManager = this.getTextureManager();
@@ -86,13 +103,13 @@ public class GameActivity extends SimpleBaseGameActivity implements
 		GameManager.VertexBufferObject = this.getVertexBufferObjectManager();
 		GameManager.FontManager = this.getFontManager();
 		GameManager.MusicManager = this.getMusicManager();
-
+		
 		GameManager.loadResource();
 	}
 
 	@Override
 	public void onDestroyResources() throws Exception {
-		MapObjectFactory.unloadAll();
+		GameManager.unloadResource();
 
 		super.onDestroyResources();
 	}
@@ -101,7 +118,10 @@ public class GameActivity extends SimpleBaseGameActivity implements
 	public Scene onCreateScene() {
 		this.mEngine.registerUpdateHandler(new FPSLogger());
 
-		GameManager.SwitchToScene("game");
+		/*
+		 * Chuyển cảnh qua GameScene
+		 */
+		GameManager.switchToScene("game");
 
 		return GameManager.Scene;
 	}

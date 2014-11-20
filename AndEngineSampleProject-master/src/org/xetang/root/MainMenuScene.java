@@ -288,7 +288,7 @@ public class MainMenuScene extends Scene  {
 		case 1: //new game	
 			stopMusic();
 			GameManager.Camera.setHUD(null);
-			GameManager.SwitchToScene("");
+			GameManager.switchToScene("");
 			
 		break;
 		

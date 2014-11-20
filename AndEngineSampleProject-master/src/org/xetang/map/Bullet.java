@@ -102,6 +102,13 @@ public class Bullet extends MapObject implements IBullet {
 			return;
 		}
 
+		doBlast(object);
+		_sprite.setVisible(false);
+		_body.setLinearVelocity(0f, 0f);
+		DestroyHelper.add(this);
+	}
+
+	private void doBlast(IMapObject object) {
 		Vector2 topPoint = getTopPoint();
 
 		IBlowUp blast = (IBlowUp) MapObjectFactory.createObject(
@@ -111,10 +118,6 @@ public class Bullet extends MapObject implements IBullet {
 		blast.blowUpAtHere();
 
 		GameManager.CurrentMapManager.addBlast(blast);
-
-		_sprite.setVisible(false);
-		_body.setLinearVelocity(0f, 0f);
-		DestroyHelper.add(this);
 	}
 
 	@Override
@@ -147,11 +150,6 @@ public class Bullet extends MapObject implements IBullet {
 	}
 
 	@Override
-	public Vector2 getTopPointUnit() {
-		return _topPointUnit;
-	}
-
-	@Override
 	public void readyToFire(Direction direction) {
 
 		_direction = direction;
@@ -163,32 +161,43 @@ public class Bullet extends MapObject implements IBullet {
 
 		// if (loại xe tăng gì)
 
-		Vector2 speedVector2 = null;
-
-		switch (_direction) {
-		case Up:
+		Vector2 speedVector2;
+		if (_direction.ordinal() % 2 == 0) { // Up or Down
 			speedVector2 = new Vector2(0f, -_speed.y);
 			_topPointUnit.set(0f, -_cellHeight / 2);
-			break;
 
-		case Right:
-			speedVector2 = new Vector2(_speed.x, 0f);
-			_topPointUnit.set(_cellWidth / 2, 0f);
-			break;
-
-		case Down:
-			speedVector2 = new Vector2(0f, _speed.y);
-			_topPointUnit.set(0f, _cellHeight / 2);
-			break;
-
-		case Left:
-			speedVector2 = new Vector2(-_speed.x, 0f);
-			_topPointUnit.set(-_cellWidth / 2, 0f);
-			break;
-
-		default:
-			break;
+		} else { // Left or Right
+			speedVector2 = new Vector2(0f, -_speed.x);
+			_topPointUnit.set(0f, -_cellWidth / 2);
 		}
+
+		speedVector2.rotate(CalcHelper.direction2Degrees(_direction));
+		_topPointUnit.rotate(CalcHelper.direction2Degrees(_direction));
+
+		// switch (_direction) {
+		// case Up:
+		// speedVector2 = new Vector2(0f, -_speed.y);
+		// _topPointUnit.set(0f, -_cellHeight / 2);
+		// break;
+		//
+		// case Right:
+		// speedVector2 = new Vector2(_speed.x, 0f);
+		// _topPointUnit.set(_cellWidth / 2, 0f);
+		// break;
+		//
+		// case Down:
+		// speedVector2 = new Vector2(0f, _speed.y);
+		// _topPointUnit.set(0f, _cellHeight / 2);
+		// break;
+		//
+		// case Left:
+		// speedVector2 = new Vector2(-_speed.x, 0f);
+		// _topPointUnit.set(-_cellWidth / 2, 0f);
+		// break;
+		//
+		// default:
+		// break;
+		// }
 
 		beFired(speedVector2);
 	}
