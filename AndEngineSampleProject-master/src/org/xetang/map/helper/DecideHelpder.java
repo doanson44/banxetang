@@ -12,6 +12,12 @@ public class DecideHelpder {
 		case Eagle:
 		case Water:
 		case Ice:
+		case Bomb:
+		case Clock:
+		case Helmet:
+		case Shovel:
+		case Star:
+		case TankItem:
 			return false;
 
 		default:

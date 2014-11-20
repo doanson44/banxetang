@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Bullet extends MapObject implements IBullet {
 
-	Tank _tank;
+	IMapObject _tank;
 	int _damage;
 	Direction _direction;
 	Vector2 _speed;
@@ -98,7 +98,8 @@ public class Bullet extends MapObject implements IBullet {
 	@Override
 	public void doContact(IMapObject object) {
 
-		if (object != null && object.getObjectFixtureDef().isSensor) {
+		if (object == _tank
+				|| (object != null && object.getObjectFixtureDef().isSensor)) {
 			return;
 		}
 
@@ -118,6 +119,7 @@ public class Bullet extends MapObject implements IBullet {
 		blast.blowUpAtHere();
 
 		GameManager.CurrentMapManager.addBlast(blast);
+
 	}
 
 	@Override

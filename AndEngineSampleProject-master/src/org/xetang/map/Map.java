@@ -176,14 +176,14 @@ public class Map extends GameEntity {
 				IMapObject objectB = null;
 
 				try {
-					objectA = (MapObject) contact.getFixtureA().getBody()
+					objectA = (IMapObject) contact.getFixtureA().getBody()
 							.getUserData();
 				} catch (Exception e) {
 					Debug.d("Collison", "Collide with something else!");
 				}
 
 				try {
-					objectB = (MapObject) contact.getFixtureB().getBody()
+					objectB = (IMapObject) contact.getFixtureB().getBody()
 							.getUserData();
 				} catch (Exception e) {
 					Debug.d("Collison", "Collide with something else!");

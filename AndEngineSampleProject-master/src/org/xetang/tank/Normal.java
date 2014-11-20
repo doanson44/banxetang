@@ -30,26 +30,25 @@ public class Normal extends Tank {
     @Override
     public void onFire() {
     	// TODO Auto-generated method stub
-    	super.onFire();
     	float bPosX = 0 , bPosY = 0;
-    	
+    	float distinct = 1;
     	Vector2 x = new Vector2(tankSprite.getX(),tankSprite.getY());
     	switch (mDirection) {
 		case Down:
 			bPosX = x.x + tankSprite.getHeight()/2;
-			bPosY = x.y + tankSprite.getHeight();
+			bPosY = x.y + tankSprite.getHeight() + distinct;
 			break;
 		case Left:
-			bPosX = x.x;
+			bPosX = x.x - distinct;
 			bPosY = x.y + tankSprite.getWidth()/2;
 			break;
 		case Right:
-			bPosX = x.x +  tankSprite.getWidth() ;
+			bPosX = x.x +  tankSprite.getWidth() + distinct;
 			bPosY = x.y + tankSprite.getWidth()/2;
 			break;
 		case Up:
 			bPosX = x.x + tankSprite.getWidth()/2;
-			bPosY = x.y;
+			bPosY = x.y - distinct;
 			break;
 		default:
 			break;
