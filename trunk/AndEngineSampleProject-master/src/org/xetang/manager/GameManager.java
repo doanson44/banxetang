@@ -1,24 +1,24 @@
 package org.xetang.manager;
 
-import org.andengine.engine.Engine;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Hashtable;
 
-import org.andengine.opengl.font.Font;
-import org.andengine.opengl.font.FontFactory;
-import org.andengine.opengl.font.FontManager;
-import org.andengine.audio.music.*;
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
+import org.andengine.audio.music.MusicManager;
+import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.Scene;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
+import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.BaseTextureRegion;
-import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.color.Color;
@@ -26,7 +26,6 @@ import org.xetang.main.GameActivity;
 import org.xetang.map.MapObjectFactory;
 import org.xetang.map.MapObjectFactory2;
 import org.xetang.map.model.XMLLoader;
-
 import org.xetang.root.GameScene;
 import org.xetang.root.MainMenuScene;
 
@@ -103,18 +102,22 @@ public class GameManager {
 		mHighestScore = 0;
 	}
 
+	/**
+	 * Load toàn bộ thông tin của trò chơi
+	 */
 	public static void loadGameData() {
 		// Load thông tin màn chơi hiện tại
 		// ...
 
 		// fake
-
-
-		mStage = GameManager.Context.getIntent().getIntExtra("stage", 1);;
+		mStage = GameManager.Context.getIntent().getIntExtra("stage", 1);
 		mPlayTimes = 2;
 		mHighestScore = 1000;
 	}
 
+	/**
+	 * Khởi tạo Resource cho toàn bộ trò chơi
+	 */
 	public static void loadResource() {
 		Textures = new Hashtable<String, BaseTextureRegion>();
 		Musics = new Hashtable<String, Music>();
@@ -135,14 +138,77 @@ public class GameManager {
 
 		GameControllerManager.loadResource();
 
+		BitmapTextureAtlasTextureRegionFactory
+				.setAssetBasePath("gfx/map/item/");
+		BitmapTextureAtlas mBitmapTexture = new BitmapTextureAtlas(
+				GameManager.TextureManager, 52, 364, TextureOptions.DEFAULT);
+
+		TiledTextureRegion bomb = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context, "bomb.png", 0,
+						0, 1, 1);
+
+		TiledTextureRegion tank = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context, "tank.png", 0,
+						52, 1, 1);
+		TiledTextureRegion clock = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context, "clock.png", 0,
+						104, 1, 1);
+		TiledTextureRegion gun = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context, "gun.png", 0,
+						156, 1, 1);
+		TiledTextureRegion hat = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context, "helmet.png", 0,
+						208, 1, 1);
+
+		TiledTextureRegion shovel = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context, "shovel.png", 0,
+						260, 1, 1);
+		TiledTextureRegion star = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(mBitmapTexture, Context, "star.png", 0,
+						312, 1, 1);
+		mBitmapTexture.load();
+
+		BitmapTextureAtlas playerTExtureAtlas = new BitmapTextureAtlas(
+				GameManager.TextureManager, 52, 52, TextureOptions.DEFAULT);
+
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		TiledTextureRegion player1 = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(playerTExtureAtlas, Context,
+						"Player1/normal.png", 0, 0, 1, 1);
+
+		playerTExtureAtlas.load();
+
+		Textures.put("Bomb", bomb);
+		Textures.put("Clock", clock);
+		Textures.put("Gun", gun);
+		Textures.put("Helmet", hat);
+		Textures.put("Shovel", shovel);
+		Textures.put("Star", star);
+		Textures.put("Tank", tank);
+		Textures.put("Player1", player1);
+
 		ListScene.put("game", new GameScene());
 
 	}
 
+	/**
+	 * Hủy toàn bộ Resource của trò chơi
+	 */
+	public static void unloadResource() {
+
+		MapObjectFactory.unloadAll();
+	}
+
+	/**
+	 * Đổi cảnh trong game
+	 * 
+	 * @param name
+	 *            : Tên cảnh
+	 */
 	/*
 	 * ĂN ĐI KU
 	 */
-	public static void SwitchToScene(String name) {
+	public static void switchToScene(String name) {
 		/*
 		 * Xử lý Scene cũ
 		 */
