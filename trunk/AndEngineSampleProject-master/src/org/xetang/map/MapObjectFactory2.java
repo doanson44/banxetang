@@ -46,14 +46,17 @@ public class MapObjectFactory2 {
 		
 		// Load Tank
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-		BitmapTextureAtlas playerTExtureAtlas = new BitmapTextureAtlas(GameManager.TextureManager, 161, 40, TextureOptions.DEFAULT);
-		
-		TiledTextureRegion player1 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerTExtureAtlas, context, "Player1/normal.png", 0, 0,4,1);
-		
+		BitmapTextureAtlas playerTExtureAtlas = new BitmapTextureAtlas(GameManager.TextureManager, 50, 50, TextureOptions.DEFAULT);
+		TiledTextureRegion player1 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerTExtureAtlas, context, "Player1/normal.png", 0, 0,1,1);
 		playerTExtureAtlas.load();
-		
-
 		Textures.put("Player1", player1);
+		
+		// Load Vong bao ve 
+		BitmapTextureAtlas protectionTExtureAtlas = new BitmapTextureAtlas(GameManager.TextureManager, 100, 50, TextureOptions.DEFAULT);
+		TiledTextureRegion protection = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(protectionTExtureAtlas, context, "protection/protection.png", 0, 0,2,1);
+		protectionTExtureAtlas.load();
+		
+		Textures.put("Protection", protection);
 	}
 	
 	public static BaseTextureRegion getTexture(String key) {

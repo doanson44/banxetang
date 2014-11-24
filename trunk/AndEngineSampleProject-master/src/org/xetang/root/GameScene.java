@@ -30,6 +30,8 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 		int iCurrentStage = GameManager.getCurrentStage();
 		_mapManager = new GameMapManager(this, iCurrentStage);
 		_console = new Console(_mapManager.getPlayerTank());
+		
+		registerUpdateHandler(_mapManager);
 	}
 
 	private void initScene() {

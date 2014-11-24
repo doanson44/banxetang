@@ -58,6 +58,7 @@ public class GameMapManager implements IUpdateHandler {
 		StageDTO stage = XMLLoader.getStage(iCurrentStage);
 		stage.setLives(maxAvaiablePlayerTank);
 		_map = new Map(iCurrentStage, stage);
+		
 		_gameScene.attachChild(_map);
 
 		loadMapTanks(stage);
@@ -76,6 +77,7 @@ public class GameMapManager implements IUpdateHandler {
 		for (int i = 0; i < lives; i++) {
 			Tank tank = new Normal(0, 0, _map);
 			_totalPlayerTanks.add(tank);
+			_map.addPlayerTank(tank);
 			_map.attachChild(tank.GetCurrentSprite());
 		}
 
@@ -106,8 +108,8 @@ public class GameMapManager implements IUpdateHandler {
 		_frame.update(_map.getTotalEnermyTanks().size());
 
 		_map.Update(pSecondsElapsed);
-		// updateTanksAndBots();
-		// updateWinLose();
+	//	 updateTanksAndBots();
+	//	 updateWinLose();
 	}
 
 	private void updateTanksAndBots() {
