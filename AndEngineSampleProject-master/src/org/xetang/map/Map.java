@@ -3,6 +3,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.Entity;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.primitive.Rectangle;
@@ -24,19 +25,19 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
-public class Map extends GameEntity {
+public class Map extends GameEntity implements IUpdateHandler {
 
 	List<Item> mItems = new ArrayList<Item>();
 	List<Item> mItemRemove = new ArrayList<Item>();
 	List<Tank> mEnermyTanks = new ArrayList<Tank>();
 	List<Tank> mPlayerTanks = new ArrayList<Tank>();
 	int mICurrentStage; // Chỉ số của màn chơi
-
+	
 	Entity _layerBase;
 	Entity _layerBullet;
 	Entity _layerBush;
 	Entity _layerBlast;
-
+	
 	public Map(int iCurrentStage, StageDTO stage) {
 		mICurrentStage = iCurrentStage;
 
@@ -242,9 +243,11 @@ public class Map extends GameEntity {
 		GameManager.PhysicsWorld.setContactListener(contactListener);
 	}
 
+	
 	public void Update(float pSecondsElapsed) {
 
 		UpdateItem(pSecondsElapsed);
+		UpdatePlayerTank(pSecondsElapsed);
 	}
 
 	private void UpdateItem(float pSecondsElapsed) {
@@ -253,16 +256,21 @@ public class Map extends GameEntity {
 				item.update(pSecondsElapsed);
 			else {
 				mItemRemove.add(item);
-				this.detachChild(item.GetSprite());
 			}
 		}
 		for (Item item : mItemRemove) {
-
+			DestroyHelper.add(item);
 			mItems.remove(item);
 		}
 		mItemRemove.clear();
 	}
 
+	private void UpdatePlayerTank(float pSecondsElapsed){
+		for (Tank tank : mPlayerTanks) {
+			tank.Update(pSecondsElapsed);
+		}
+	}
+	
 	public boolean isPointValid(float x, float y) {
 		// Kiểm tra xem điểm(x,y) hiện tại thuộc ô nào của bản đồ,
 		// và ô đó xe tăng có thể đi vào?
@@ -281,6 +289,13 @@ public class Map extends GameEntity {
 		return mEnermyTanks;
 	}
 
+	public void addItem(Item item) {
+		mItems.add(item);
+	}
+	
+	public void addPlayerTank(Tank playerTank){
+		mPlayerTanks.add(playerTank);
+	}
 	public void addEnermyTank(Tank enermyTank) {
 		mEnermyTanks.add(enermyTank);
 	}
@@ -309,18 +324,23 @@ public class Map extends GameEntity {
 
 	public void MakeStoneWallFortress() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 
 	public void DestroyAllEnermy() {
 		// TODO Auto-generated method stub
-
+		for (Tank tank : mPlayerTanks) {
+			tank.killSelf();
+		}
+		mPlayerTanks.clear();
 	}
 
 	public void FreezeTime() {
 		// TODO Auto-generated method stub
-
+		for (Tank tank : mEnermyTanks) {
+			tank.FreezeSelf();
+		}
 	}
 
 	public void addBlowUp(IBlowUp blast) {

@@ -138,54 +138,6 @@ public class GameManager {
 
 		GameControllerManager.loadResource();
 
-		BitmapTextureAtlasTextureRegionFactory
-				.setAssetBasePath("gfx/map/item/");
-		BitmapTextureAtlas mBitmapTexture = new BitmapTextureAtlas(
-				GameManager.TextureManager, 52, 364, TextureOptions.DEFAULT);
-
-		TiledTextureRegion bomb = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(mBitmapTexture, Context, "bomb.png", 0,
-						0, 1, 1);
-
-		TiledTextureRegion tank = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(mBitmapTexture, Context, "tank.png", 0,
-						52, 1, 1);
-		TiledTextureRegion clock = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(mBitmapTexture, Context, "clock.png", 0,
-						104, 1, 1);
-		TiledTextureRegion gun = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(mBitmapTexture, Context, "gun.png", 0,
-						156, 1, 1);
-		TiledTextureRegion hat = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(mBitmapTexture, Context, "helmet.png", 0,
-						208, 1, 1);
-
-		TiledTextureRegion shovel = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(mBitmapTexture, Context, "shovel.png", 0,
-						260, 1, 1);
-		TiledTextureRegion star = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(mBitmapTexture, Context, "star.png", 0,
-						312, 1, 1);
-		mBitmapTexture.load();
-
-		BitmapTextureAtlas playerTExtureAtlas = new BitmapTextureAtlas(
-				GameManager.TextureManager, 52, 52, TextureOptions.DEFAULT);
-
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-		TiledTextureRegion player1 = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(playerTExtureAtlas, Context,
-						"Player1/normal.png", 0, 0, 1, 1);
-
-		playerTExtureAtlas.load();
-
-		Textures.put("Bomb", bomb);
-		Textures.put("Clock", clock);
-		Textures.put("Gun", gun);
-		Textures.put("Helmet", hat);
-		Textures.put("Shovel", shovel);
-		Textures.put("Star", star);
-		Textures.put("Tank", tank);
-		Textures.put("Player1", player1);
 
 		ListScene.put("game", new GameScene());
 

@@ -99,7 +99,7 @@ public class MapObjectFactory {
 	private static SparseArray<IMapObject> _objectsArray = new SparseArray<IMapObject>();
 
 	/**
-	 * Bitmap lưu texture của tất cả các đối tượng
+	 * Bitmap lÆ°u texture cá»§a táº¥t cáº£ cÃ¡c Ä‘á»‘i tÆ°á»£ng
 	 */
 	private static BitmapTextureAtlas _bitmapTextureAtlas;
 	
@@ -258,7 +258,7 @@ public class MapObjectFactory {
 	}
 
 	/**
-	 * Khởi tạo các loại Bullet có trong trò chơi
+	 * Khá»Ÿi táº¡o cÃ¡c loáº¡i Bullet cÃ³ trong trÃ² chÆ¡i
 	 */	
 	private static void createAllBullets() {
 		IBullet bullet = new Bullet(0f, 0f);
@@ -278,7 +278,7 @@ public class MapObjectFactory {
 	private static void createObjectsListener() {
 		
 		/*
-		 * Nổ xong thì hủy đối tượng BlowUp (tan theo mây khói)
+		 * Ná»• xong thÃ¬ há»§y Ä‘á»‘i tÆ°á»£ng BlowUp (tan theo mÃ¢y khÃ³i)
 		 */
 		_blowUpListener = new IAnimationListener() {
 
@@ -311,16 +311,16 @@ public class MapObjectFactory {
 	}
 
 	/**
-	 * Hủy toàn bộ Resource trong Factory
+	 * Há»§y toÃ n bá»™ Resource trong Factory
 	 */
 	public static void unloadAll() {
 		_bitmapTextureAtlas.unload();
 	}
 
 	/**
-	 * Tạo một đối tượng mới
-	 * @param type : Loại đối tượng (trong <code>GameManager.ObjectType</code>)
-	 * @return Một đối tượng mới cùng loại
+	 * Táº¡o má»™t Ä‘á»‘i tÆ°á»£ng má»›i
+	 * @param type : Loáº¡i Ä‘á»‘i tÆ°á»£ng (trong <code>GameManager.ObjectType</code>)
+	 * @return Má»™t Ä‘á»‘i tÆ°á»£ng má»›i cÃ¹ng loáº¡i
 	 */
 	public static IMapObject createObject(ObjectType type) {
 		return createObject(type, 0, 0);
@@ -328,9 +328,9 @@ public class MapObjectFactory {
 
 
 	/**
-	 * Tạo một đối tượng mới tại tọa độ tương ứng
-	 * @param type : Loại đối tượng (trong <code>GameManager.ObjectType</code>)
-	 * @return Một đối tượng mới cùng loại tại tọa độ tương ứng
+	 * Táº¡o má»™t Ä‘á»‘i tÆ°á»£ng má»›i táº¡i tá»�a Ä‘á»™ tÆ°Æ¡ng á»©ng
+	 * @param type : Loáº¡i Ä‘á»‘i tÆ°á»£ng (trong <code>GameManager.ObjectType</code>)
+	 * @return Má»™t Ä‘á»‘i tÆ°á»£ng má»›i cÃ¹ng loáº¡i táº¡i tá»�a Ä‘á»™ tÆ°Æ¡ng á»©ng
 	 */
 	public static IMapObject createObject(ObjectType type, float posX,
 			float posY) {
@@ -340,10 +340,10 @@ public class MapObjectFactory {
 	}
 
 	/**
-	 * Tạo một khối các dối tượng cùng loại
-	 * @param type : Loại đối tượng (trong <code>GameManager.ObjectType</code>)
-	 * @param posAndSize : Cặp <b>tọa độ</b> và <b>vị trí</b> của khối đối tượng
-	 * @return Một khối đối tượng đã được khởi tạo
+	 * Táº¡o má»™t khá»‘i cÃ¡c dá»‘i tÆ°á»£ng cÃ¹ng loáº¡i
+	 * @param type : Loáº¡i Ä‘á»‘i tÆ°á»£ng (trong <code>GameManager.ObjectType</code>)
+	 * @param posAndSize : Cáº·p <b>tá»�a Ä‘á»™</b> vÃ  <b>vá»‹ trÃ­</b> cá»§a khá»‘i Ä‘á»‘i tÆ°á»£ng
+	 * @return Má»™t khá»‘i Ä‘á»‘i tÆ°á»£ng Ä‘Ã£ Ä‘Æ°á»£c khá»Ÿi táº¡o
 	 */
 	public static MapObjectBlockDTO createObjectBlock(ObjectType type,
 			Pair<Point, Point> posAndSize) {

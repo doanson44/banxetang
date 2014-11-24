@@ -3,7 +3,6 @@ package org.xetang.tank;
 
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
-import org.xetang.manager.GameManager.Direction;
 import org.xetang.map.Bullet;
 import org.xetang.map.IBullet;
 import org.xetang.map.Map;
@@ -25,41 +24,16 @@ public class Normal extends Tank {
     public Normal(int px, int py, Map map) {
     	super(px, py,map,(TiledTextureRegion) MapObjectFactory2.getTexture("Player1"));
     	this.speed = 3f;
+    	_maxNumberBullet = 1;
     }
     
     @Override
     public void onFire() {
     	// TODO Auto-generated method stub
-    	float bPosX = 0 , bPosY = 0;
-    	float distinct = 1;
-    	Vector2 x = new Vector2(tankSprite.getX(),tankSprite.getY());
-    	switch (mDirection) {
-		case Down:
-			bPosX = x.x + tankSprite.getHeight()/2;
-			bPosY = x.y + tankSprite.getHeight() + distinct;
-			break;
-		case Left:
-			bPosX = x.x - distinct;
-			bPosY = x.y + tankSprite.getWidth()/2;
-			break;
-		case Right:
-			bPosX = x.x +  tankSprite.getWidth() + distinct;
-			bPosY = x.y + tankSprite.getWidth()/2;
-			break;
-		case Up:
-			bPosX = x.x + tankSprite.getWidth()/2;
-			bPosY = x.y - distinct;
-			break;
-		default:
-			break;
-		}
+    	super.onFire();
+    	CreateBullet(ObjectType.Bullet, bPosX, bPosY);
     	
-		IBullet bullet = (IBullet) MapObjectFactory.createObject(
-				ObjectType.Bullet, bPosX,bPosY);
-		bullet.setTank(this);
-		bullet.readyToFire(mDirection);
-		bullet.beFired();
-		GameManager.CurrentMapManager.addBullet(bullet);
+		
     }
   
 }

@@ -2,6 +2,7 @@ package org.xetang.map;
 
 import java.util.Random;
 
+import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -17,7 +18,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 /**
  * 
  */
-public class Item implements IMapObject {
+public class Item implements IMapObject, IUpdateHandler {
 	Tank _mOwner = null; // Xe tăng nhặt đc vật phẩm này
 	int type;
 	int _TimeSurvive = 0;
@@ -79,12 +80,15 @@ public class Item implements IMapObject {
 			if (_SecPerFrame > 1) {
 				_SecPerFrame = 0;
 				_TimeSurvive++;
-				DestroySprite();
 				// Log.i("Time Surive", String.valueOf(_TimeSurvive));
 			}
 			if (_mOwner != null) {
 				_TimeAffect++;
 				affect();
+			}
+			if ((_TimeSurvive > 10 && _mOwner == null) || _TimeAffect > 5){
+				_isAlive = false;
+				DestroyItem();
 			}
 		}
 	}
@@ -104,9 +108,9 @@ public class Item implements IMapObject {
 	}
 
 	// hàm xóa sprite khi quá 10s mà không có xe tăng nào lấy
-	public void DestroySprite() {
-		if ((_TimeSurvive > 10 && _mOwner == null) || _TimeAffect > 5)
-			_isAlive = false;
+	public void DestroyItem() {
+			_sprite.detachSelf();
+			GameManager.PhysicsWorld.destroyBody(_body);
 	}
 
 	public MapObject clone() {
@@ -209,5 +213,17 @@ public class Item implements IMapObject {
 	public ObjectType getType() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void onUpdate(float pSecondsElapsed) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
 }
