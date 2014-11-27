@@ -25,17 +25,7 @@ public class Star extends Item {
     	_mOwner.PowerUp();
     }
     
-    @Override
-    public void doContact(IMapObject object) {
-    	// TODO Auto-generated method stub
-    	try {
-			if (object.getType() == ObjectType.PlayerTank) {
-				affect();
-			}
-		} catch (Exception e) {
-			Debug.d("Collsion", "Nothing to contact!");
-		}
-    }
+
     @Override
     public ObjectType getType() {
     	// TODO Auto-generated method stub
