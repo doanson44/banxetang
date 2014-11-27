@@ -56,7 +56,7 @@ public class GameManager {
 	public static final float SMALL_CELL_HEIGHT = LARGE_CELL_HEIGHT / 2;
 
 	public enum Direction {
-		Up, Right, Down, Left
+		Up, Right, Down, Left, None
 	}
 
 	public static GameActivity Activity;
