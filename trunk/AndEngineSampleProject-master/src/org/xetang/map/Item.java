@@ -7,9 +7,14 @@ import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
+import org.andengine.util.debug.Debug;
 import org.xetang.manager.GameManager;
 import org.xetang.map.MapObjectFactory.ObjectType;
+import org.xetang.map.helper.DestroyHelper;
+import org.xetang.root.GameEntity;
 import org.xetang.tank.Tank;
+
+import android.util.Log;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -18,7 +23,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 /**
  * 
  */
-public class Item implements IMapObject, IUpdateHandler {
+public class Item extends GameEntity implements IMapObject {
 	Tank _mOwner = null; // Xe tăng nhặt đc vật phẩm này
 	int type;
 	int _TimeSurvive = 0;
@@ -38,6 +43,7 @@ public class Item implements IMapObject, IUpdateHandler {
 		_sprite = new TiledSprite(GetRandomPx(), GetRandomPy(), region,
 				GameManager.VertexBufferObject);
 		_sprite.setSize(_CellWidth, _CellHeight);
+		_isAlive = true;
 		CreateBody();
 		setAlive(true);
 	}
@@ -74,7 +80,6 @@ public class Item implements IMapObject, IUpdateHandler {
 
 	public void update(float pSecondsElapsed) {
 		// TODO Auto-generated method stub
-		if (_sprite != null) {
 			Animate();
 			_SecPerFrame += pSecondsElapsed;
 			if (_SecPerFrame > 1) {
@@ -84,13 +89,12 @@ public class Item implements IMapObject, IUpdateHandler {
 			}
 			if (_mOwner != null) {
 				_TimeAffect++;
-				affect();
+				Log.i("shield",String.valueOf(_TimeAffect));
 			}
-			if ((_TimeSurvive > 10 && _mOwner == null) || _TimeAffect > 5){
-				_isAlive = false;
-				DestroyItem();
+			if (isAlive() && ((_TimeSurvive > 10 && _mOwner == null) || _TimeAffect > 5)){
+			//	DestroyAffect();
+			//	DestroyHelper.add(this);
 			}
-		}
 	}
 
 	Boolean flag = false;
@@ -113,6 +117,9 @@ public class Item implements IMapObject, IUpdateHandler {
 			GameManager.PhysicsWorld.destroyBody(_body);
 	}
 
+	public void DestroyAffect(){
+		
+	}
 	public MapObject clone() {
 		return null;
 	}
@@ -206,7 +213,18 @@ public class Item implements IMapObject, IUpdateHandler {
 	@Override
 	public void doContact(IMapObject object) {
 		// TODO Auto-generated method stub
-
+    	try {
+    		Debug.d("Collsion", object.getType().name());
+			if (object.getType() == ObjectType.PlayerTank) {
+				
+				_mOwner = (Tank)object;
+				affect();
+				DestroyHelper.add(this);
+				
+			}
+		} catch (Exception e) {
+			Debug.d("Collsion", "Nothing to contact!");
+		}
 	}
 
 	@Override
@@ -215,11 +233,7 @@ public class Item implements IMapObject, IUpdateHandler {
 		return null;
 	}
 
-	@Override
-	public void onUpdate(float pSecondsElapsed) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void reset() {

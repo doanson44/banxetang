@@ -261,7 +261,6 @@ public class Map extends GameEntity implements IUpdateHandler {
 			}
 		}
 		for (Item item : mItemRemove) {
-			DestroyHelper.add(item);
 			mItems.remove(item);
 		}
 		mItemRemove.clear();

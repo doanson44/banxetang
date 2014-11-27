@@ -24,20 +24,9 @@ public class Bomb extends Item {
     	// TODO Auto-generated method stub
     	
     	// Ham pha huy tat ca xe tang dich 
-    	_map.DestroyAllEnermy();
+    	//_map.DestroyAllEnermy();
     }
     
-    @Override
-    public void doContact(IMapObject object) {
-    	// TODO Auto-generated method stub
-    	try {
-			if (object.getType() == ObjectType.PlayerTank) {
-				affect();
-			}
-		} catch (Exception e) {
-			Debug.d("Collsion", "Nothing to contact!");
-		}
-    }
     @Override
     public ObjectType getType() {
     	// TODO Auto-generated method stub

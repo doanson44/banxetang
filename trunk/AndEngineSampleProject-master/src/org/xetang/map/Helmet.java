@@ -28,15 +28,10 @@ public class Helmet extends Item {
     }
     
     @Override
-    public void doContact(IMapObject object) {
+    public void DestroyAffect() {
     	// TODO Auto-generated method stub
-    	try {
-			if (object.getType() == ObjectType.PlayerTank) {
-				affect();
-			}
-		} catch (Exception e) {
-			Debug.d("Collsion", "Nothing to contact!");
-		}
+    	if(_mOwner != null)
+    	_mOwner.getShield().KillSelf();
     }
     @Override
     public ObjectType getType() {
