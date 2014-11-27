@@ -6,5 +6,5 @@ public interface IGameController {
 	public void onForward(); //Sự kiện khi bấm nút đi thẳng
 	public void onBackward(); //Sự kiện khi bấm nút đi lùi
 	public void onFire(); //Sự kiện khi bấm nút bắn
-	public void onCancelMove(); // Sự kiện khi thả nút bắn
+	public void onIdle(); // Sự kiện khi thả nút bắn
 }

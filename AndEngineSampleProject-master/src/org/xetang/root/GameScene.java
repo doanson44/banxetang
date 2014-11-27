@@ -6,6 +6,7 @@ import org.andengine.entity.scene.background.Background;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.color.Color;
+import org.andengine.util.debug.Debug;
 import org.xetang.controller.Console;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.GameManager.Direction;

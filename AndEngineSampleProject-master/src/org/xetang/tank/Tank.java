@@ -160,7 +160,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 
 	    }
 		@Override
-		public void onCancelMove() {
+		public void onIdle() {
 			// TODO Auto-generated method stub
 			_body.setLinearVelocity(0, 0);
 
