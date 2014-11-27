@@ -87,9 +87,9 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
     	tankSprite = new TiledSprite(px, py, region, GameManager.VertexBufferObject);
     	mDirection = Direction.Down;
     	_ObjectFixtureDef =  PhysicsFactory
-				.createFixtureDef(1, 0, 0);
-    	CreateBody();
+				.createFixtureDef(0.5f, 0, 0);
     	CreateShield();
+    	CreateBody();
 	}
 
 	protected void CreateBody (){
@@ -100,7 +100,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 		_body.setUserData(this);
 		GameManager.PhysicsWorld.registerPhysicsConnector(new PhysicsConnector(
 				tankSprite, _body, true, true));
-		
+		this.attachChild(tankSprite);
 	}
 	
 	public void setController(Controller controller){
@@ -121,8 +121,8 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 		  	
 		  	SetTranform(90);
 		  	_body.setLinearVelocity(-speed, 0);
-		  	if(_shield.IsAlive())
-		  		_shield.SetShieldVelocity(-speed, 0);
+		  //	if(_shield.IsAlive())
+		  		//_shield.SetShieldVelocity(-speed, 0);
 	    }
 
 	// di chuyển qua phải
@@ -135,8 +135,8 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 			
 			//tankSprite.setCurrentTileIndex(2);
 		  	_body.setLinearVelocity(speed, 0);
-		  	if(_shield.IsAlive())
-		  		_shield.SetShieldVelocity(speed, 0);
+		  //	if(_shield.IsAlive())
+		  	//	_shield.SetShieldVelocity(speed, 0);
 	    }
 	    
 	    
@@ -147,8 +147,8 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 			mDirection = Direction.Up;
 			SetTranform(180);
 	    	_body.setLinearVelocity(0, -speed);
-		  	if(_shield.IsAlive())
-		  		_shield.SetShieldVelocity(0,-speed);
+		 // 	if(_shield.IsAlive())
+		//  		_shield.SetShieldVelocity(0,-speed);
 	    }
 	   
 	    /// di chuyển qua xuống
@@ -159,15 +159,15 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 	    	//tankSprite.setCurrentTileIndex(0);
 	    	_body.setTransform(_body.getTransform().getPosition(), 0 * DEGTORAD);
 	    	_body.setLinearVelocity(0, speed);
-		  	if(_shield.IsAlive())
-		  		_shield.SetShieldVelocity(0,speed);
+		  	//if(_shield.IsAlive())
+		  		//_shield.SetShieldVelocity(0,speed);
 	    }
 		@Override
 		public void onCancelMove() {
 			// TODO Auto-generated method stub
 			_body.setLinearVelocity(0, 0);
-		  	if(_shield.IsAlive())
-		  		_shield.SetShieldVelocity(0,0);
+		//  	if(_shield.IsAlive())
+		  //		_shield.SetShieldVelocity(0,0);
 		}
 		
 
@@ -182,6 +182,8 @@ public class Tank extends GameEntity implements IGameController, IMapObject {
 			if(!bullet.isAlive())
 				mBullet.remove(bullet);
 		}
+	_shield.GetSprite().setX(tankSprite.getX());
+	_shield.GetSprite().setY(tankSprite.getY());
 		if(mIsFreeze > 0){
 			_SecPerFrame += pSecondsElapsed;
 			if(_SecPerFrame > 1){

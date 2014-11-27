@@ -16,7 +16,7 @@ public class BigMom extends Tank {
      */
     public BigMom(int px, int py, Map map) {
     	
-    	super(px, py, map, (TiledTextureRegion) MapObjectFactory2.getTexture("Player1"));
+    	super(px, py, map, (TiledTextureRegion) MapObjectFactory2.getTexture("Bigmom"));
     }
 
 }

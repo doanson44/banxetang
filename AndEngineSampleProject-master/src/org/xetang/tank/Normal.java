@@ -31,9 +31,7 @@ public class Normal extends Tank {
     public void onFire() {
     	// TODO Auto-generated method stub
     	super.onFire();
-    	CreateBullet(ObjectType.Bullet, bPosX, bPosY);
-    	
-		
+    	CreateBullet(ObjectType.Bullet, bPosX, bPosY);	
     }
   
 }

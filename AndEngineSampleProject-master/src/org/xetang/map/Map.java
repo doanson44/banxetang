@@ -16,6 +16,7 @@ import org.xetang.map.model.MapObjectBlockDTO;
 import org.xetang.map.model.StageDTO;
 import org.xetang.map.model.StageObjectDTO;
 import org.xetang.root.GameEntity;
+import org.xetang.tank.BigMom;
 import org.xetang.tank.Tank;
 
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -80,6 +81,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 		mItems.add(Helmet);
 		mItems.add(shovel);
 		mItems.add(clock2);
+		
 		
 		for (Item item : mItems) {
 			this.attachChild(item.getSprite());

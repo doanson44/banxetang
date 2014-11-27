@@ -56,7 +56,16 @@ public class MapObjectFactory2 {
 		TiledTextureRegion protection = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(protectionTExtureAtlas, context, "protection/protection.png", 0, 0,2,1);
 		protectionTExtureAtlas.load();
 		
+		// Load Vong BigMom 
+		BitmapTextureAtlas BigMomAlas = new BitmapTextureAtlas(GameManager.TextureManager, 45, 45, TextureOptions.DEFAULT);
+		TiledTextureRegion BigmomRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(BigMomAlas, 
+				context, "tank/bigmom.png", 0, 0,1,1);
+		BigMomAlas.load();
+				
+				
+		
 		Textures.put("Protection", protection);
+		Textures.put("Bigmom", BigmomRegion);
 	}
 	
 	public static BaseTextureRegion getTexture(String key) {

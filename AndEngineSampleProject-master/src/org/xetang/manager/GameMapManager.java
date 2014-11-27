@@ -78,7 +78,7 @@ public class GameMapManager implements IUpdateHandler {
 			Tank tank = new Normal(0, 0, _map);
 			_totalPlayerTanks.add(tank);
 			_map.addPlayerTank(tank);
-			_map.attachChild(tank.GetCurrentSprite());
+			_map.attachChild(tank);
 		}
 
 	}
