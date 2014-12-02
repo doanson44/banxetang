@@ -8,6 +8,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.color.Color;
 import org.andengine.util.debug.Debug;
 import org.xetang.controller.Console;
+import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.GameManager.Direction;
 import org.xetang.manager.GameMapManager;
@@ -32,7 +33,9 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 		_mapManager = new GameMapManager(this, iCurrentStage);
 		_console = new Console(_mapManager.getPlayerTank());
 		
+	
 		registerUpdateHandler(_mapManager);
+		registerUpdateHandler(GameItemManager.getInstance());
 	}
 
 	private void initScene() {

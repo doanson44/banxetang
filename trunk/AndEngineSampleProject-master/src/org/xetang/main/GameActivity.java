@@ -89,7 +89,7 @@ public class GameActivity extends SimpleBaseGameActivity implements
 
 	@Override
 	public void onCreateResources() {
-
+		
 		/*
 		 * Gán toàn bộ những thuộc tính lên trên làm biến toàn cục Để dễ dàng
 		 * truy cập trong toàn bộ trò chơi
@@ -143,7 +143,6 @@ public class GameActivity extends SimpleBaseGameActivity implements
 	@Override
 	public void onResumeGame() {
 		super.onResumeGame();
-
 		this.enableAccelerationSensor(this);
 	}
 

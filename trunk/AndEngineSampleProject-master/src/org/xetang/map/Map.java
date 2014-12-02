@@ -9,8 +9,11 @@ import org.andengine.entity.IEntity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.util.debug.Debug;
+import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
 import org.xetang.map.MapObjectFactory.ObjectType;
+import org.xetang.map.helper.CalcHelper;
+import org.xetang.map.helper.ChangeWallCallBack;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.model.MapObjectBlockDTO;
 import org.xetang.map.model.StageDTO;
@@ -19,6 +22,7 @@ import org.xetang.root.GameEntity;
 import org.xetang.tank.BigMom;
 import org.xetang.tank.Tank;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -28,8 +32,6 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 public class Map extends GameEntity implements IUpdateHandler {
 
-	List<Item> mItems = new ArrayList<Item>();
-	List<Item> mItemRemove = new ArrayList<Item>();
 	List<Tank> mEnermyTanks = new ArrayList<Tank>();
 	List<Tank> mPlayerTanks = new ArrayList<Tank>();
 	int mICurrentStage; // Chỉ số của màn chơi
@@ -38,7 +40,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 	Entity _layerBullet;
 	Entity _layerBush;
 	Entity _layerBlast;
-	
+	RightMenu _RightMenu;
 	public Map(int iCurrentStage, StageDTO stage) {
 		mICurrentStage = iCurrentStage;
 
@@ -69,23 +71,11 @@ public class Map extends GameEntity implements IUpdateHandler {
 	}
 
 	public void loadMapData(StageDTO stage) {
-
-		Item bomb = new Bomb(this);
-		Item clock = new Clock(this);
-		Item Helmet = new Helmet(this);
-		Item shovel = new Shovel(this);
-		Item clock2 = new Clock(this);
 		
-		mItems.add(bomb);
-		mItems.add(clock);
-		mItems.add(Helmet);
-		mItems.add(shovel);
-		mItems.add(clock2);
-		
-		
-		for (Item item : mItems) {
-			this.attachChild(item.getSprite());
-		}
+	//	this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.Bomb));
+	//	this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.Clock));
+		this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.Shovel));
+	//	this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.TankItem));
 		
 		List<StageObjectDTO> objects = stage.getObjects();
 
@@ -166,6 +156,12 @@ public class Map extends GameEntity implements IUpdateHandler {
 		attachChild(right);
 	}
 
+	public void InitRightMenu(int TotalEnermytank){
+		_RightMenu = new RightMenu(GameManager.MAP_WIDTH + 20, 20, this,10);
+		
+		attachChild(_RightMenu);
+		_RightMenu.RemoveLastItem();
+	}
 	private void createListeners() {
 
 		GameManager.Engine.registerUpdateHandler(DestroyHelper.getInstance());
@@ -247,24 +243,10 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 	
 	public void Update(float pSecondsElapsed) {
-
-		UpdateItem(pSecondsElapsed);
 		UpdatePlayerTank(pSecondsElapsed);
 	}
 
-	private void UpdateItem(float pSecondsElapsed) {
-		for (Item item : mItems) {
-			if (item.isAlive())
-				item.update(pSecondsElapsed);
-			else {
-				mItemRemove.add(item);
-			}
-		}
-		for (Item item : mItemRemove) {
-			mItems.remove(item);
-		}
-		mItemRemove.clear();
-	}
+	
 
 	private void UpdatePlayerTank(float pSecondsElapsed){
 		for (Tank tank : mPlayerTanks) {
@@ -286,14 +268,14 @@ public class Map extends GameEntity implements IUpdateHandler {
 		return new int[] { 0, 0 };
 	}
 
-	public List<Tank> getTotalEnermyTanks() {
+	public List<Tank> getEnermyTanks() {
 		return mEnermyTanks;
 	}
-
-	public void addItem(Item item) {
-		mItems.add(item);
-	}
 	
+	public List<Tank> getPlayerTanks() {
+		return mPlayerTanks;
+	}
+
 	public void addPlayerTank(Tank playerTank){
 		mPlayerTanks.add(playerTank);
 	}
@@ -322,27 +304,8 @@ public class Map extends GameEntity implements IUpdateHandler {
 	public void addBlast(IBlowUp blast) {
 		_layerBlast.attachChild((IEntity) blast);
 	}
+ 
 
-	public void MakeStoneWallFortress() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void DestroyAllEnermy() {
-		// TODO Auto-generated method stub
-		for (Tank tank : mPlayerTanks) {
-			tank.killSelf();
-		}
-		mPlayerTanks.clear();
-	}
-
-	public void FreezeTime() {
-		// TODO Auto-generated method stub
-		for (Tank tank : mEnermyTanks) {
-			tank.FreezeSelf();
-		}
-	}
 
 	public void addBlowUp(IBlowUp blast) {
 		// TODO Auto-generated method stub

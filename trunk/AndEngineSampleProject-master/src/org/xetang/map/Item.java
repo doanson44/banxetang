@@ -3,6 +3,7 @@ package org.xetang.map;
 import java.util.Random;
 
 import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.entity.IEntity;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -28,6 +29,10 @@ public class Item extends GameEntity implements IMapObject {
 	int type;
 	int _TimeSurvive = 0;
 	int _TimeAffect = 0;
+	
+	static int _TotalTimeAffect = 7;
+	static int _ToatalTimeSurvive = 10;
+	
 	float _SecPerFrame = 0;
 	float _alpha = 1;
 	public static int _CellWidth = 52;
@@ -36,14 +41,16 @@ public class Item extends GameEntity implements IMapObject {
 	public TiledSprite _sprite = null;
 	Body _body;
 	boolean _isAlive = false;
+	boolean _isActive = false;
 	FixtureDef _fixtureDef;
 
 	public Item(TiledTextureRegion region, Map map) {
 		_map = map;
-		_sprite = new TiledSprite(GetRandomPx(), GetRandomPy(), region,
+		_sprite = new TiledSprite(0, 50, region,
 				GameManager.VertexBufferObject);
 		_sprite.setSize(_CellWidth, _CellHeight);
 		_isAlive = true;
+		this.attachChild(_sprite);
 		CreateBody();
 		setAlive(true);
 	}
@@ -79,21 +86,25 @@ public class Item extends GameEntity implements IMapObject {
 	}
 
 	public void update(float pSecondsElapsed) {
-		// TODO Auto-generated method stub
+		
 			Animate();
 			_SecPerFrame += pSecondsElapsed;
 			if (_SecPerFrame > 1) {
 				_SecPerFrame = 0;
 				_TimeSurvive++;
+				if (_mOwner != null) {
+					_TimeAffect++;
+				}
 				// Log.i("Time Surive", String.valueOf(_TimeSurvive));
 			}
-			if (_mOwner != null) {
-				_TimeAffect++;
-				Log.i("shield",String.valueOf(_TimeAffect));
+
+			if (_TimeSurvive > _ToatalTimeSurvive && _mOwner == null){
+				DestroyHelper.add(this);
 			}
-			if (isAlive() && ((_TimeSurvive > 10 && _mOwner == null) || _TimeAffect > 5)){
-			//	DestroyAffect();
-			//	DestroyHelper.add(this);
+			if(_TimeAffect > _TotalTimeAffect){
+				setAlive(false);
+				DestroyAffect();
+				DestroyHelper.add(this);
 			}
 	}
 
@@ -101,20 +112,14 @@ public class Item extends GameEntity implements IMapObject {
 
 	public void Animate() {
 		if (_TimeSurvive > 4 && !flag || _alpha >= 1) {
-			_alpha -= 0.01f;
+			_alpha -= 0.08f;
 			flag = false;
 		}
 		if (_alpha < 0.4 || flag) {
 			flag = true;
-			_alpha += 0.01f;
+			_alpha += 0.08f;
 		}
 		_sprite.setAlpha(_alpha);
-	}
-
-	// hàm xóa sprite khi quá 10s mà không có xe tăng nào lấy
-	public void DestroyItem() {
-			_sprite.detachSelf();
-			GameManager.PhysicsWorld.destroyBody(_body);
 	}
 
 	public void DestroyAffect(){
@@ -215,13 +220,14 @@ public class Item extends GameEntity implements IMapObject {
 		// TODO Auto-generated method stub
     	try {
     		Debug.d("Collsion", object.getType().name());
-			if (object.getType() == ObjectType.PlayerTank) {
+			if (object.getType() == ObjectType.PlayerTank && !_isActive) {
 				
 				_mOwner = (Tank)object;
 				affect();
-				DestroyHelper.add(this);
-				
-			}
+				_isActive = true;
+
+				_sprite.detachSelf();
+								}
 		} catch (Exception e) {
 			Debug.d("Collsion", "Nothing to contact!");
 		}

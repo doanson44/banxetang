@@ -56,16 +56,21 @@ public class MapObjectFactory2 {
 		TiledTextureRegion protection = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(protectionTExtureAtlas, context, "protection/protection.png", 0, 0,2,1);
 		protectionTExtureAtlas.load();
 		
-		// Load Vong BigMom 
-		BitmapTextureAtlas BigMomAlas = new BitmapTextureAtlas(GameManager.TextureManager, 45, 45, TextureOptions.DEFAULT);
-		TiledTextureRegion BigmomRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(BigMomAlas, 
-				context, "tank/bigmom.png", 0, 0,1,1);
-		BigMomAlas.load();
-				
-				
-		
 		Textures.put("Protection", protection);
-		Textures.put("Bigmom", BigmomRegion);
+		
+		// Load icon right Menu
+		BitmapTextureAtlas RightMenuAtlas = new BitmapTextureAtlas(GameManager.TextureManager, 64*4, 64, TextureOptions.DEFAULT);
+		TiledTextureRegion Enermytank = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(RightMenuAtlas, context, "RightMenu/enermytank.png", 0, 0,1,1);
+		TiledTextureRegion Flag = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(RightMenuAtlas, context, "RightMenu/enermytank.png", 64, 0,1,1);
+		TiledTextureRegion ip = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(RightMenuAtlas, context, "RightMenu/enermytank.png", 64*2, 0,1,1);
+		TiledTextureRegion LifeIcon = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(RightMenuAtlas, context, "RightMenu/LifeIcon.png", 64*3, 0,1,1);
+		RightMenuAtlas.load();
+		
+	
+		Textures.put("Enermytank", Enermytank);
+		Textures.put("Flag", Flag);
+		Textures.put("IP", ip);
+		Textures.put("LifeIcon", LifeIcon);
 	}
 	
 	public static BaseTextureRegion getTexture(String key) {
