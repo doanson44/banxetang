@@ -23,6 +23,7 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.color.Color;
 import org.xetang.main.GameActivity;
+import org.xetang.map.Map;
 import org.xetang.map.MapObjectFactory;
 import org.xetang.map.MapObjectFactory2;
 import org.xetang.map.model.XMLLoader;
@@ -86,7 +87,8 @@ public class GameManager {
 	/**********************/
 
 	public static GameMapManager CurrentMapManager;
-
+	public static Map		CurrentMap;
+	
 	public static boolean PlaceOnScreenControlsAtDifferentVerticalLocations = false;
 
 	public static int mStage; // Màn chơi hiện tại
@@ -214,20 +216,22 @@ public class GameManager {
 
 	private static void loadFonts() {
 		FontFactory.setAssetBasePath("font/");
-		Font f = FontFactory.createFromAsset(GameManager.FontManager,
+		Font font1 = FontFactory.createFromAsset(GameManager.FontManager,
 				GameManager.TextureManager, 256, 256,
 				TextureOptions.BILINEAR_PREMULTIPLYALPHA,
 				GameManager.AssetManager, "font1.ttf", 64f, true,
 				Color.WHITE_ABGR_PACKED_INT);
-		Fonts.put("font1", f);
-		f = FontFactory.createFromAsset(GameManager.FontManager,
+		font1.load();
+		Fonts.put("font1", font1);
+		Font font2 = FontFactory.createFromAsset(GameManager.FontManager,
 				GameManager.TextureManager,
 				(int) GameManager.Camera.getWidth(),
 				(int) GameManager.Camera.getHeight(),
 				TextureOptions.BILINEAR_PREMULTIPLYALPHA,
 				GameManager.AssetManager, "font2.ttf", 24f, true,
 				Color.WHITE_ABGR_PACKED_INT);
-		Fonts.put("font2", f);
+		font2.load();
+		Fonts.put("font2", font2);
 	}
 
 

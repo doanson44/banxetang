@@ -27,18 +27,8 @@ public class MapObjectFactory {
 		Eagle, BrickWall, SteelWall, Bush, Water, Ice, Bullet, Blast, Explosion, SlowBullet, FastBullet, Bomb, Clock, Helmet, Shovel, Star, TankItem, PlayerTank
 	};
 
-	public static final int MAX_RESOURCE_BITMAP_WIDTH = 768;
-	public static final int MAX_RESOURCE_BITMAP_HEIGHT = 576;
-
-	private static final Point EAGLE_TEXTURE_POS = new Point(0, 0);
-	private static final Point BRICKWALL_TEXTURE_POS = new Point(352, 0);
-	private static final Point STEELWALL_TEXTURE_POS = new Point(320, 0);
-	private static final Point BUSH_TEXTURE_POS = new Point(128, 0);
-	private static final Point WATER_TEXTURE_POS = new Point(192, 0);
-	private static final Point ICE_TEXTURE_POS = new Point(256, 0);
-	private static final Point BULLET_TEXTURE_POS = new Point(368, 0);
-	private static final Point BLAST_TEXTURE_POS = new Point(0, 64);
-	private static final Point EXPLOSION_TEXTURE_POS = new Point(384, 64);
+	public static final int MAX_RESOURCE_BITMAP_WIDTH = 384;
+	public static final int MAX_RESOURCE_BITMAP_HEIGHT = 512;
 
 	public static final int EAGLE_CELL_PER_MAP = (int) (GameManager.MAP_HEIGHT / GameManager.LARGE_CELL_HEIGHT);
 	public static final int BRICK_WALL_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 4;
@@ -112,7 +102,7 @@ public class MapObjectFactory {
 	 * Bitmap lÆ°u texture cá»§a táº¥t cáº£ cÃ¡c Ä‘á»‘i tÆ°á»£ng
 	 */
 	private static BitmapTextureAtlas _bitmapTextureAtlas;
-
+	
 	private static TiledTextureRegion _eagleTextureRegion;
 	private static TiledTextureRegion _brickWallTextureRegion;
 	private static TiledTextureRegion _steelWallTextureRegion;
@@ -122,7 +112,7 @@ public class MapObjectFactory {
 	private static TiledTextureRegion _bulletTextureRegion;
 	private static TiledTextureRegion _blastTextureRegion;
 	private static TiledTextureRegion _explosionTextureRegion;
-
+	
 	private static FixtureDef _eagleFixtureDef;
 	private static FixtureDef _brickWallFixtureDef;
 	private static FixtureDef _steelWallFixtureDef;
@@ -140,77 +130,90 @@ public class MapObjectFactory {
 		createObjectsArray();
 		createObjectsListener();
 	}
-
+	
 	private static void initObjectsTexture() {
-
 		_bitmapTextureAtlas = new BitmapTextureAtlas(
 				GameManager.Activity.getTextureManager(),
-				MAX_RESOURCE_BITMAP_WIDTH, MAX_RESOURCE_BITMAP_HEIGHT,
+				MAX_RESOURCE_BITMAP_WIDTH, MAX_RESOURCE_BITMAP_HEIGHT
+						* (ObjectType.Explosion.ordinal() + 1),
 				TextureOptions.BILINEAR);
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("");
 
+		int yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT
+				* ObjectType.Eagle.ordinal();
 		String strTexture = XMLLoader.getObject(ObjectType.Eagle.ordinal())
 				.getTextures();
 		_eagleTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture,
-						EAGLE_TEXTURE_POS.x, EAGLE_TEXTURE_POS.y, 2, 1);
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 2, 1);
 
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT
+				* ObjectType.BrickWall.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.BrickWall.ordinal())
 				.getTextures();
 		_brickWallTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture,
-						BRICKWALL_TEXTURE_POS.x, BRICKWALL_TEXTURE_POS.y, 1, 1);
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 1, 1);
 
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT
+				* ObjectType.SteelWall.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.SteelWall.ordinal())
 				.getTextures();
 		_steelWallTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture,
-						STEELWALL_TEXTURE_POS.x, STEELWALL_TEXTURE_POS.y, 1, 1);
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 1, 1);
 
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Bush.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.Bush.ordinal())
 				.getTextures();
 		_bushTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture,
-						BUSH_TEXTURE_POS.x, BUSH_TEXTURE_POS.y, 1, 1);
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 1, 1);
 
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Water.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.Water.ordinal())
 				.getTextures();
 		_waterTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture,
-						WATER_TEXTURE_POS.x, WATER_TEXTURE_POS.y, 1, 1);
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 1, 1);
 
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Ice.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.Ice.ordinal())
 				.getTextures();
 		_iceTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture,
-						ICE_TEXTURE_POS.x, ICE_TEXTURE_POS.y, 1, 1);
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 1, 1);
 
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Bullet.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.Bullet.ordinal())
 				.getTextures();
 		_bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture,
-						BULLET_TEXTURE_POS.x, BULLET_TEXTURE_POS.y, 1, 1);
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 1, 1);
 
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT * ObjectType.Blast.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.Blast.ordinal())
 				.getTextures();
 		_blastTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture,
-						BLAST_TEXTURE_POS.x, BLAST_TEXTURE_POS.y, 3, 4);
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 3, 4);
 
+		yTexturePos = MAX_RESOURCE_BITMAP_HEIGHT
+				* ObjectType.Explosion.ordinal();
 		strTexture = XMLLoader.getObject(ObjectType.Explosion.ordinal())
 				.getTextures();
 		_explosionTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
-						GameManager.Activity.getAssets(), strTexture,
-						EXPLOSION_TEXTURE_POS.x, EXPLOSION_TEXTURE_POS.y, 3, 4);
+						GameManager.Activity.getAssets(), strTexture, 0,
+						yTexturePos, 3, 4);
 
 		_bitmapTextureAtlas.load();
 	}
@@ -230,7 +233,7 @@ public class MapObjectFactory {
 
 		_waterFixtureDef = PhysicsFactory.createFixtureDef(1f, 0f, 0f, false,
 				CATEGORYBIT_WATER, MASKBITS_WATER, GROUP_DEFAULT);
-
+		
 		_iceFixtureDef = PhysicsFactory.createFixtureDef(0f, 0f, 0f, true);
 
 		_bulletFixtureDef = PhysicsFactory.createFixtureDef(BULLET_DENSITY,
@@ -256,7 +259,7 @@ public class MapObjectFactory {
 
 	/**
 	 * Khá»Ÿi táº¡o cÃ¡c loáº¡i Bullet cÃ³ trong trÃ² chÆ¡i
-	 */
+	 */	
 	private static void createAllBullets() {
 		IBullet bullet = new Bullet(0f, 0f);
 		_objectsArray.put(ObjectType.Bullet.ordinal(), bullet);
@@ -273,7 +276,7 @@ public class MapObjectFactory {
 	}
 
 	private static void createObjectsListener() {
-
+		
 		/*
 		 * Ná»• xong thÃ¬ há»§y Ä‘á»‘i tÆ°á»£ng BlowUp (tan theo mÃ¢y khÃ³i)
 		 */
@@ -316,24 +319,18 @@ public class MapObjectFactory {
 
 	/**
 	 * Táº¡o má»™t Ä‘á»‘i tÆ°á»£ng má»›i
-	 * 
-	 * @param type
-	 *            : Loáº¡i Ä‘á»‘i tÆ°á»£ng (trong
-	 *            <code>GameManager.ObjectType</code>)
+	 * @param type : Loáº¡i Ä‘á»‘i tÆ°á»£ng (trong <code>GameManager.ObjectType</code>)
 	 * @return Má»™t Ä‘á»‘i tÆ°á»£ng má»›i cÃ¹ng loáº¡i
 	 */
 	public static IMapObject createObject(ObjectType type) {
 		return createObject(type, 0, 0);
 	}
 
+
 	/**
 	 * Táº¡o má»™t Ä‘á»‘i tÆ°á»£ng má»›i táº¡i tá»�a Ä‘á»™ tÆ°Æ¡ng á»©ng
-	 * 
-	 * @param type
-	 *            : Loáº¡i Ä‘á»‘i tÆ°á»£ng (trong
-	 *            <code>GameManager.ObjectType</code>)
-	 * @return Má»™t Ä‘á»‘i tÆ°á»£ng má»›i cÃ¹ng loáº¡i táº¡i tá»�a Ä‘á»™
-	 *         tÆ°Æ¡ng á»©ng
+	 * @param type : Loáº¡i Ä‘á»‘i tÆ°á»£ng (trong <code>GameManager.ObjectType</code>)
+	 * @return Má»™t Ä‘á»‘i tÆ°á»£ng má»›i cÃ¹ng loáº¡i táº¡i tá»�a Ä‘á»™ tÆ°Æ¡ng á»©ng
 	 */
 	public static IMapObject createObject(ObjectType type, float posX,
 			float posY) {
@@ -344,13 +341,8 @@ public class MapObjectFactory {
 
 	/**
 	 * Táº¡o má»™t khá»‘i cÃ¡c dá»‘i tÆ°á»£ng cÃ¹ng loáº¡i
-	 * 
-	 * @param type
-	 *            : Loáº¡i Ä‘á»‘i tÆ°á»£ng (trong
-	 *            <code>GameManager.ObjectType</code>)
-	 * @param posAndSize
-	 *            : Cáº·p <b>tá»�a Ä‘á»™</b> vÃ  <b>vá»‹ trÃ­</b> cá»§a khá»‘i
-	 *            Ä‘á»‘i tÆ°á»£ng
+	 * @param type : Loáº¡i Ä‘á»‘i tÆ°á»£ng (trong <code>GameManager.ObjectType</code>)
+	 * @param posAndSize : Cáº·p <b>tá»�a Ä‘á»™</b> vÃ  <b>vá»‹ trÃ­</b> cá»§a khá»‘i Ä‘á»‘i tÆ°á»£ng
 	 * @return Má»™t khá»‘i Ä‘á»‘i tÆ°á»£ng Ä‘Ã£ Ä‘Æ°á»£c khá»Ÿi táº¡o
 	 */
 	public static MapObjectBlockDTO createObjectBlock(ObjectType type,

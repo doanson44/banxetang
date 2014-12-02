@@ -19,7 +19,6 @@ import org.xetang.controller.IGameController;
 import com.badlogic.gdx.math.Vector2;
 
 import android.graphics.Point;
-import android.provider.Telephony.Mms;
 
 public class GameControllerManager {
 	static IGameController mController;
@@ -37,7 +36,7 @@ public class GameControllerManager {
 		// ...
 
 		// Ví dụ mẫu, load nút Fire
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/controller/");
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("controller/");
 		BitmapTextureAtlas textureAtlas = new BitmapTextureAtlas(
 				GameManager.TextureManager, 64, 64);
 		TiledTextureRegion texture = BitmapTextureAtlasTextureRegionFactory

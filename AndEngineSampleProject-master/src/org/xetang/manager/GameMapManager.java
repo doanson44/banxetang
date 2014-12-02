@@ -23,10 +23,10 @@ import org.xetang.tank.Tank;
 public class GameMapManager implements IUpdateHandler {
 
 	GameScene _gameScene;
-	Map _map;
+	public static Map _map;
 	Frame _frame;
 	Queue<Tank> _totalEnermyTanks; // tổng số xe tăng địch còn lại
-	Queue<Tank> _totalPlayerTanks; // tổng số xe tăng player còn lại (hiện tại
+	Queue<Tank> _totalPlayerTanks ; // tổng số xe tăng player còn lại (hiện tại
 									// chỉ là 1)
 
 	int maxAvaiableEnermyTank = 4;
@@ -59,9 +59,11 @@ public class GameMapManager implements IUpdateHandler {
 		stage.setLives(maxAvaiablePlayerTank);
 		_map = new Map(iCurrentStage, stage);
 		
+		GameManager.CurrentMap = _map;
 		_gameScene.attachChild(_map);
 
 		loadMapTanks(stage);
+		_map.InitRightMenu(10);	
 	}
 
 	private void loadMapTanks(StageDTO stage) {
@@ -105,7 +107,7 @@ public class GameMapManager implements IUpdateHandler {
 
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
-		_frame.update(_map.getTotalEnermyTanks().size());
+		_frame.update(_map.getEnermyTanks().size());
 
 		_map.Update(pSecondsElapsed);
 	//	 updateTanksAndBots();
@@ -113,7 +115,7 @@ public class GameMapManager implements IUpdateHandler {
 	}
 
 	private void updateTanksAndBots() {
-		List<Tank> tanks = _map.getTotalEnermyTanks();
+		List<Tank> tanks = _map.getEnermyTanks();
 
 		if (tanks.size() < maxAvaiableEnermyTank
 				&& _totalEnermyTanks.size() > 0) {
@@ -135,7 +137,7 @@ public class GameMapManager implements IUpdateHandler {
 
 	private void updateWinLose() {
 
-		if (_map.getTotalEnermyTanks().size() <= 0
+		if (_map.getEnermyTanks().size() <= 0
 				&& _totalEnermyTanks.size() <= 0) {
 			/*
 			 * Là thắng
@@ -170,6 +172,12 @@ public class GameMapManager implements IUpdateHandler {
 	public Tank getPlayerTank() {
 		return _totalPlayerTanks.peek();
 	}
+	public int getTotalPlayerTank(){
+		return _totalPlayerTanks.size();
+	}
+	public void AddNewLifeForTank(){
+		
+	}
 
 	public void addBullet(IBullet bullet) {
 		_map.addBullet(bullet);
@@ -178,4 +186,5 @@ public class GameMapManager implements IUpdateHandler {
 	public void addBlast(IBlowUp blast) {
 		_map.addBlast(blast);
 	}
+	
 }
