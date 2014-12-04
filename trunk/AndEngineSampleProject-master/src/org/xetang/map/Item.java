@@ -9,6 +9,7 @@ import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.debug.Debug;
+import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
 import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.helper.DestroyHelper;
@@ -46,7 +47,7 @@ public class Item extends GameEntity implements IMapObject {
 
 	public Item(TiledTextureRegion region, Map map) {
 		_map = map;
-		_sprite = new TiledSprite(0, 50, region,
+		_sprite = new TiledSprite(0, 11*GameManager.LARGE_CELL_HEIGHT, region,
 				GameManager.VertexBufferObject);
 		_sprite.setSize(_CellWidth, _CellHeight);
 		_isAlive = true;
@@ -102,7 +103,6 @@ public class Item extends GameEntity implements IMapObject {
 				DestroyHelper.add(this);
 			}
 			if(_TimeAffect > _TotalTimeAffect){
-				setAlive(false);
 				DestroyAffect();
 				DestroyHelper.add(this);
 			}

@@ -23,21 +23,19 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 public class Shield extends GameEntity {
 
 	protected AnimatedSprite	_shield;
-	protected Map				_map;
 	protected boolean			_isAlive = false;
-	public Shield(float px, float py, Map map){
+	public Shield(float px, float py){
 		_shield = new AnimatedSprite(px, py
 				, (ITiledTextureRegion) MapObjectFactory2.getTexture("Protection"),GameManager.VertexBufferObject);
 		_shield.animate(200);
-		_map = map;
 		this.attachChild(_shield);
-		_map.attachChild(this);
+		GameManager.CurrentMap.attachChild(this);
 		_isAlive = true;
 	}
 	
 	
 	public void KillSelf() {
-		_map.detachChild(this);
+		GameManager.CurrentMap.detachChild(this);
 		_isAlive = false;
 	}
 

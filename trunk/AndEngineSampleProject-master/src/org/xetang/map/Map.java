@@ -35,12 +35,13 @@ public class Map extends GameEntity implements IUpdateHandler {
 	List<Tank> mEnermyTanks = new ArrayList<Tank>();
 	List<Tank> mPlayerTanks = new ArrayList<Tank>();
 	int mICurrentStage; // Chỉ số của màn chơi
-	
+
 	Entity _layerBase;
 	Entity _layerBullet;
 	Entity _layerBush;
 	Entity _layerBlast;
 	RightMenu _RightMenu;
+
 	public Map(int iCurrentStage, StageDTO stage) {
 		mICurrentStage = iCurrentStage;
 
@@ -71,12 +72,13 @@ public class Map extends GameEntity implements IUpdateHandler {
 	}
 
 	public void loadMapData(StageDTO stage) {
-		
-	//	this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.Bomb));
-	//	this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.Clock));
-		this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.Shovel));
-	//	this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.TankItem));
-		
+
+		// this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.Bomb));
+		// this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.Clock));
+		this.attachChild(GameItemManager.getInstance().CreateItem(
+				ObjectType.Shovel));
+		// this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.TankItem));
+
 		List<StageObjectDTO> objects = stage.getObjects();
 
 		StageObjectDTO stageObject;
@@ -156,12 +158,13 @@ public class Map extends GameEntity implements IUpdateHandler {
 		attachChild(right);
 	}
 
-	public void InitRightMenu(int TotalEnermytank){
-		_RightMenu = new RightMenu(GameManager.MAP_WIDTH + 20, 20, this,10);
-		
+	public void InitRightMenu(int TotalEnermytank) {
+		_RightMenu = new RightMenu(GameManager.MAP_WIDTH + 20, 20, this, 10);
+
 		attachChild(_RightMenu);
 		_RightMenu.RemoveLastItem();
 	}
+
 	private void createListeners() {
 
 		GameManager.Engine.registerUpdateHandler(DestroyHelper.getInstance());
@@ -241,19 +244,19 @@ public class Map extends GameEntity implements IUpdateHandler {
 		GameManager.PhysicsWorld.setContactListener(contactListener);
 	}
 
-	
 	public void Update(float pSecondsElapsed) {
-		UpdatePlayerTank(pSecondsElapsed);
+		UpdateTank(pSecondsElapsed);
 	}
 
-	
-
-	private void UpdatePlayerTank(float pSecondsElapsed){
+	private void UpdateTank(float pSecondsElapsed) {
 		for (Tank tank : mPlayerTanks) {
 			tank.Update(pSecondsElapsed);
 		}
+		for (Tank tank : mEnermyTanks) {
+			tank.Update(pSecondsElapsed);
+		}
 	}
-	
+
 	public boolean isPointValid(float x, float y) {
 		// Kiểm tra xem điểm(x,y) hiện tại thuộc ô nào của bản đồ,
 		// và ô đó xe tăng có thể đi vào?
@@ -271,16 +274,28 @@ public class Map extends GameEntity implements IUpdateHandler {
 	public List<Tank> getEnermyTanks() {
 		return mEnermyTanks;
 	}
-	
+
 	public List<Tank> getPlayerTanks() {
 		return mPlayerTanks;
 	}
 
-	public void addPlayerTank(Tank playerTank){
-		mPlayerTanks.add(playerTank);
+	public void RemoveEnermyTank(Tank tank) {
+		mEnermyTanks.remove(tank);
 	}
+
+	public void RemovePlayerTank(Tank tank) {
+		// TODO Auto-generated method stub
+		mPlayerTanks.remove(tank);
+	}
+
+	public void addPlayerTank(Tank playerTank) {
+		mPlayerTanks.add(playerTank);
+		this.attachChild(playerTank);
+	}
+
 	public void addEnermyTank(Tank enermyTank) {
 		mEnermyTanks.add(enermyTank);
+		this.attachChild(enermyTank);
 	}
 
 	public int getTotalPlayerTanks() {
@@ -296,20 +311,20 @@ public class Map extends GameEntity implements IUpdateHandler {
 	}
 
 	// Dành cho test
+	public void addConstruction(IMapObject object) {
+		// TODO Auto-generated method stub
+		_layerBlast.attachChild((IEntity) object);
+	}
+
+	// Dành cho test
 	public void addBullet(IBullet bullet) {
 		_layerBullet.attachChild((IEntity) bullet);
 	}
 
 	// Dành cho test
-	public void addBlast(IBlowUp blast) {
-		_layerBlast.attachChild((IEntity) blast);
-	}
- 
-
-
 	public void addBlowUp(IBlowUp blast) {
 		// TODO Auto-generated method stub
-		_layerBlast.attachChild((IEntity)blast);
+		_layerBlast.attachChild((IEntity) blast);
 	}
 
 }

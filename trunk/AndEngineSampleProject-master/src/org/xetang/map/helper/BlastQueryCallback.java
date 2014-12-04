@@ -3,8 +3,10 @@ package org.xetang.map.helper;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.xetang.map.Bullet;
 import org.xetang.map.IBullet;
 import org.xetang.map.IMapObject;
+import org.xetang.map.MapObjectFactory.ObjectType;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.QueryCallback;
@@ -19,7 +21,9 @@ public class BlastQueryCallback implements QueryCallback {
 		IMapObject object = (IMapObject) fixture.getBody().getUserData();
 
 		if (object != null && !_inRangeBodies.contains(object)
-				&& DecideHelpder.canDestroy(object, _ownBullet)) {
+				&& DecideHelpder.canDestroy(object, _ownBullet)
+				&& object.getType() != ObjectType.PlayerTank
+				&& object.getType() != ObjectType.EnermyTank) {
 			object.getSprite().setVisible(true);
 			_inRangeBodies.add(object);
 		}

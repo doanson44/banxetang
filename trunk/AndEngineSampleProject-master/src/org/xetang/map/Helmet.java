@@ -31,7 +31,7 @@ public class Helmet extends Item {
     public void DestroyAffect() {
     	// TODO Auto-generated method stub
     	if(_mOwner != null)
-    	_mOwner.getShield().KillSelf();
+    		_mOwner.DestroyShield();
     }
     @Override
     public ObjectType getType() {

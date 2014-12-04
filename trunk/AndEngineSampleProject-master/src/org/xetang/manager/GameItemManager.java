@@ -9,39 +9,40 @@ import org.xetang.map.Clock;
 import org.xetang.map.Helmet;
 import org.xetang.map.IMapObject;
 import org.xetang.map.Item;
-import org.xetang.map.Map;
 import org.xetang.map.MapObjectFactory;
 import org.xetang.map.MapObjectFactory.ObjectType;
-import org.xetang.map.helper.CalcHelper;
-import org.xetang.map.helper.ChangeWallCallBack;
 import org.xetang.map.Shovel;
 import org.xetang.map.Star;
 import org.xetang.map.TankItem;
+import org.xetang.map.helper.CalcHelper;
+import org.xetang.map.helper.ChangeWallCallBack;
+import org.xetang.map.helper.DestroyHelper;
+import org.xetang.map.model.MapObjectBlockDTO;
 import org.xetang.tank.Tank;
 
-import android.telephony.CellLocation;
+import android.graphics.Point;
+import android.util.Pair;
 
 public class GameItemManager implements IUpdateHandler {
 
 	private static GameItemManager mInstance;
 	public ArrayList<Item> mItems = new ArrayList<Item>();
 	public ArrayList<Item> mItemRemove = new ArrayList<Item>();
-	
-	private GameItemManager(){
-		
+
+	private GameItemManager() {
+
 	}
-	
-	public static GameItemManager getInstance(){
-		if(mInstance==null)
+
+	public static GameItemManager getInstance() {
+		if (mInstance == null)
 			mInstance = new GameItemManager();
-		
+
 		return mInstance;
 	}
-	
-	
-	public Item CreateItem( ObjectType type){
+
+	public Item CreateItem(ObjectType type) {
 		Item item = null;
-		
+
 		switch (type) {
 		case Bomb:
 			item = new Bomb(GameManager.CurrentMap);
@@ -67,10 +68,10 @@ public class GameItemManager implements IUpdateHandler {
 		mItems.add(item);
 		return item;
 	}
-	
+
 	public static void loadResource() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -82,8 +83,9 @@ public class GameItemManager implements IUpdateHandler {
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	private void UpdateItem(float pSecondsElapsed) {
 		for (Item item : mItems) {
 			if (item.isAlive())
@@ -97,51 +99,92 @@ public class GameItemManager implements IUpdateHandler {
 		}
 		mItemRemove.clear();
 	}
-	
-	public void RemoveWall(){
+
+	public void RemoveWall() {
 		ChangeWallCallBack callback = new ChangeWallCallBack();
 		float HeightCell = GameManager.LARGE_CELL_HEIGHT;
 		float WidthCell = GameManager.LARGE_CELL_WIDTH;
-		
-		float pLowerX = CalcHelper.pixels2Meters(5 * WidthCell + WidthCell/2) ;
-		float pLowerY = CalcHelper.pixels2Meters(11 * HeightCell + HeightCell/2) ;
-		float pUpperX = CalcHelper.pixels2Meters(7 * WidthCell + WidthCell/2) ;
-		float pUpperY = CalcHelper.pixels2Meters(13 * HeightCell) ;
-		
-		GameManager.PhysicsWorld.QueryAABB(callback, pLowerX, pLowerY, pUpperX, pUpperY);
+
+		float pLowerX = CalcHelper.pixels2Meters(5 * WidthCell + WidthCell / 2);
+		float pLowerY = CalcHelper.pixels2Meters(11 * HeightCell + HeightCell
+				/ 2);
+		float pUpperX = CalcHelper.pixels2Meters(7 * WidthCell + WidthCell / 2);
+		float pUpperY = CalcHelper.pixels2Meters(13 * HeightCell);
+
+		GameManager.PhysicsWorld.QueryAABB(callback, pLowerX, pLowerY, pUpperX,
+				pUpperY);
 	}
+
 	public void MakeSteelWallFortress() {
 		// TODO Auto-generated method stub
 		RemoveWall();
 		CreateWall(ObjectType.SteelWall);
-		
+
 	}
 
-	public void RetrieveOldWallFortress(){
+	public void RetrieveOldWallFortress() {
 		RemoveWall();
 		CreateWall(ObjectType.BrickWall);
 	}
-	public void CreateWall(ObjectType type){
+
+	public void CreateWall(ObjectType type) {
 		float HeightCell = GameManager.LARGE_CELL_HEIGHT;
-	//	CreateWall(type, 11 *HeightCell/2 , 23 * HeightCell/2);
-	//	CreateWall(type, 11 *HeightCell/2 , 24 * HeightCell/2);
-	//	CreateWall(type, 11 *HeightCell/2 , 25 * HeightCell/2);
-	//	CreateWall(type, 14 *HeightCell/2 , 23 * HeightCell/2);
-	//	CreateWall(type, 14 *HeightCell/2 , 24 * HeightCell/2);
-	//	CreateWall(type, 14 *HeightCell/2 , 25 * HeightCell/2);
-	//	CreateWall(type, 12 *HeightCell/2 , 23 * HeightCell/2);
-	//	CreateWall(type, 13 *HeightCell/2 , 23 * HeightCell/2);
+		if (type == ObjectType.SteelWall) {
+			CreateWall(type, 11 * HeightCell / 2, 23 * HeightCell / 2);
+			CreateWall(type, 11 * HeightCell / 2, 24 * HeightCell / 2);
+			CreateWall(type, 11 * HeightCell / 2, 25 * HeightCell / 2);
+			CreateWall(type, 14 * HeightCell / 2, 23 * HeightCell / 2);
+			CreateWall(type, 14 * HeightCell / 2, 24 * HeightCell / 2);
+			CreateWall(type, 14 * HeightCell / 2, 25 * HeightCell / 2);
+			CreateWall(type, 12 * HeightCell / 2, 23 * HeightCell / 2);
+			CreateWall(type, 13 * HeightCell / 2, 23 * HeightCell / 2);
+		} else {
+			MapObjectBlockDTO block1 = MapObjectFactory.createObjectBlock(type,
+					new Pair<Point, Point>(new Point(12, 23), new Point(4, 2)));
+			MapObjectBlockDTO block2 = MapObjectFactory.createObjectBlock(type,
+					new Pair<Point, Point>(new Point(11, 23), new Point(2, 6)));
+			MapObjectBlockDTO block3 = MapObjectFactory.createObjectBlock(type,
+					new Pair<Point, Point>(new Point(14, 23), new Point(2, 6)));
+			CreateWall(block1);
+			CreateWall(block2);
+			CreateWall(block3);
+		}
+
 	}
-	
-	public void CreateWall(ObjectType type, float px, float py){
-		IMapObject wall = MapObjectFactory.createObject(type, 0, 0);
-		wall.putToWorld();
-		GameManager.CurrentMap.attachChild((IEntity) wall);
+
+	public void CreateWall(final ObjectType type, final float px, final float py) {
+		Runnable runable = new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				IMapObject wall = MapObjectFactory.createObject(type, px, py);
+				wall.putToWorld();
+				GameManager.CurrentMap.attachChild((IEntity) wall);
+			}
+		};
+		GameManager.Activity.runOnUpdateThread(runable);
 	}
+
+	public void CreateWall(MapObjectBlockDTO block) {
+		for (final IMapObject object : block.getObjectsBlock()) {
+			Runnable runable = new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					object.putToWorld();
+					GameManager.CurrentMap.attachChild((IEntity) object);
+				}
+			};
+			GameManager.Activity.runOnUpdateThread(runable);
+		}
+	}
+
 	public void DestroyAllEnermy() {
 		// TODO Auto-generated method stub
 		for (Tank tank : GameManager.CurrentMap.getPlayerTanks()) {
-			tank.killSelf();
+			tank.KillSelf();
 		}
 		GameManager.CurrentMap.getPlayerTanks().clear();
 	}
@@ -152,6 +195,5 @@ public class GameItemManager implements IUpdateHandler {
 			tank.FreezeSelf();
 		}
 	}
-
 
 }

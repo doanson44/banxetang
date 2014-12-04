@@ -81,15 +81,6 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 			return false;
 		}
 
-		IBullet bullet = (IBullet) MapObjectFactory.createObject(
-				ObjectType.Bullet, pSceneTouchEvent.getX(),
-				pSceneTouchEvent.getY());
-		bullet.readyToFire(Direction.values()[count % 4]);
-		bullet.beFired();
-		GameManager.CurrentMapManager.addBullet(bullet);
-
-		++count;
-
 		return true;
 	}
 
