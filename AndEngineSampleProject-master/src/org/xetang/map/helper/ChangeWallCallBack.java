@@ -1,9 +1,6 @@
 package org.xetang.map.helper;
 
-import org.andengine.entity.IEntity;
-import org.xetang.manager.GameMapManager;
 import org.xetang.map.IMapObject;
-import org.xetang.map.MapObjectFactory;
 import org.xetang.map.MapObjectFactory.ObjectType;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
