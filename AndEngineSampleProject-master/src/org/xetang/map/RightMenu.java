@@ -6,7 +6,6 @@ import org.andengine.entity.text.Text;
 import org.xetang.manager.GameManager;
 import org.xetang.root.GameEntity;
 
-import android.renderscript.Font;
 
 public class RightMenu extends GameEntity {
 

@@ -18,9 +18,15 @@ public class BigMom extends Tank {
      */
     public BigMom(float px, float py) {
     	
-    	super(px, py, (TiledTextureRegion) MapObjectFactory2.getTexture("Bigmom"));
+    	super(px, py, (TiledTextureRegion) MapObjectFactory2.getTexture("EnemyBigMom"));
     	this.SetType(ObjectType.EnermyTank);
     	this.SetTankType(TankType.BigMom);
+    	
+    	this.speed = 2f;
+    	_maxNumberBullet = 2; 
+    	this.SetTankType(TankType.Normal);
+    	this.point = 400;
+    	this.hp = 4;
     }
 
 }

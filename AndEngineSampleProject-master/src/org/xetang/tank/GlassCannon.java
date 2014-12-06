@@ -18,9 +18,15 @@ public class GlassCannon extends Tank {
      */
 	 public GlassCannon(float px, float py) {
 	    	
-	    	super(px, py,(TiledTextureRegion) MapObjectFactory2.getTexture("Player1"));
+	    	super(px, py,(TiledTextureRegion) MapObjectFactory2.getTexture("EnemyGlassCannon"));
 	    	this.SetType(ObjectType.EnermyTank);
 	    	this.SetTankType(TankType.GlassCannon);
+	    	
+	    	this.speed = 2f;
+	    	_maxNumberBullet = 3; 
+	    	this.SetTankType(TankType.Normal);
+	    	this.point = 300;
+	    	this.hp = 1;
 	 }
 
 }

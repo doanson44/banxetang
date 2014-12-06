@@ -60,13 +60,14 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	Direction mDirection; // Hướng của xe tăng
 	int mLevel; // Cấp độ của xe tăng
 	boolean mIsAlive;
-
+	int hp; // máu của xe tăng
+	int point; // điểm đạt đc khi giết xe tank
 	int mIsFreeze = 0;
 	int _SecPerFrame = 0;
 	Body _body;
 
 	Shield _shield;
-	TiledSprite tankSprite;
+	AnimatedSprite tankSprite;
 	float speed; // tốc độ của xe tăng
 	TankType _TankType;
 	ObjectType _objecType;
@@ -84,7 +85,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	public Tank(float px, float py, TiledTextureRegion region) {
 		// mBullet = new Bullet(this);
 		TankManager.register(this);
-		tankSprite = new TiledSprite(px, py, region,
+		tankSprite = new AnimatedSprite(px, py, region,
 				GameManager.VertexBufferObject);
 		tankSprite.setSize(GameManager.LARGE_CELL_WIDTH - GameManager.MAP_WIDTH
 				/ MapObjectFactory.TINY_CELL_PER_MAP,

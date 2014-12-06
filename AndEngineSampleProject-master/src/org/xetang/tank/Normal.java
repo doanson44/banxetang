@@ -23,11 +23,13 @@ public class Normal extends Tank {
      * 
      */
     public Normal(float px, float py) {
-    	super(px, py,(TiledTextureRegion) MapObjectFactory2.getTexture("Player1"));
+    	super(px, py,(TiledTextureRegion) MapObjectFactory2.getTexture("EnemyNormal"));
 
-    	this.speed = 3f;
+    	this.speed = 1f;
     	_maxNumberBullet = 1;
     	this.SetTankType(TankType.Normal);
+    	this.point = 100;
+    	this.hp = 1;
     }
     
     @Override
