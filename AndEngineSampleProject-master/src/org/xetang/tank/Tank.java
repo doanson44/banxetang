@@ -62,6 +62,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	boolean mIsAlive;
 	int hp; // máu của xe tăng
 	int point; // điểm đạt đc khi giết xe tank
+	int isTankBonus; // tank có rớt item hay không, rớt = 1.
 	int mIsFreeze = 0;
 	int _SecPerFrame = 0;
 	Body _body;
