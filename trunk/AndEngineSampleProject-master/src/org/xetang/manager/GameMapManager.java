@@ -9,18 +9,13 @@ import org.andengine.engine.handler.IUpdateHandler;
 import org.xetang.controller.Bot;
 import org.xetang.map.IBlowUp;
 import org.xetang.map.IBullet;
+import org.xetang.map.Item;
 import org.xetang.map.Map;
-import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.MapObjectFactory.TankType;
 import org.xetang.map.model.StageDTO;
 import org.xetang.map.model.XMLLoader;
 import org.xetang.root.Frame;
-import org.xetang.root.GameEntity;
 import org.xetang.root.GameScene;
-import org.xetang.tank.BigMom;
-import org.xetang.tank.GlassCannon;
-import org.xetang.tank.Normal;
-import org.xetang.tank.Racer;
 import org.xetang.tank.Tank;
 
 public class GameMapManager  implements IUpdateHandler {
@@ -32,6 +27,7 @@ public class GameMapManager  implements IUpdateHandler {
 	Queue<Tank> _totalPlayerTanks ; // tổng số xe tăng player còn lại (hiện tại
 									// chỉ là 1)
 
+	List<Item> _totalItemGet = new ArrayList<Item>();
 	int maxAvaiableEnermyTank = 4;
 	int maxAvaiablePlayerTank = 1;
 
@@ -105,7 +101,7 @@ public class GameMapManager  implements IUpdateHandler {
 			}
 
 			_totalEnermyTanks.add(tank);
-		}*/
+		}
 		
 		tank = TankManager.CreateEnermytank(TankType.Normal,1);
 		_totalEnermyTanks.add(tank);
@@ -114,7 +110,8 @@ public class GameMapManager  implements IUpdateHandler {
 		_totalEnermyTanks.add(tank);
 		
 		tank = TankManager.CreateEnermytank(TankType.Normal,3);
-		_totalEnermyTanks.add(tank);
+		_totalEnermyTanks.add(tank);*/
+		
 	}
 
 	@Override
@@ -170,10 +167,8 @@ public class GameMapManager  implements IUpdateHandler {
 
 	private void addEnermyTankToMap() {
 		Tank tank = _totalEnermyTanks.poll();
-		Bot bot = new Bot(tank);
 		_map.addEnermyTank(tank);
 
-		_bots.add(bot);
 	}
 
 	@Override
@@ -182,11 +177,21 @@ public class GameMapManager  implements IUpdateHandler {
 
 	}
 
+	public void AddBot (Bot bot){
+		_bots.add(bot);
+	}
 	public Tank getPlayerTank() {
 		return _totalPlayerTanks.peek();
 	}
 	public int getTotalPlayerTank(){
 		return _totalPlayerTanks.size();
+	}
+	
+	public void AddItem (Item item){
+		_totalItemGet.add(item);
+	}
+	public List<Item> GetTotalItem(){
+		return _totalItemGet;
 	}
 	public void AddNewLifeForTank(){
 		

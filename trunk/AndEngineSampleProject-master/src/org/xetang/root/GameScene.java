@@ -1,5 +1,6 @@
 package org.xetang.root;
 
+import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;

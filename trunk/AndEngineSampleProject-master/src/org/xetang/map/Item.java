@@ -2,21 +2,16 @@ package org.xetang.map;
 
 import java.util.Random;
 
-import org.andengine.engine.handler.IUpdateHandler;
-import org.andengine.entity.IEntity;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.debug.Debug;
-import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
 import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.root.GameEntity;
 import org.xetang.tank.Tank;
-
-import android.util.Log;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -30,10 +25,11 @@ public class Item extends GameEntity implements IMapObject {
 	int type;
 	int _TimeSurvive = 0;
 	int _TimeAffect = 0;
-	
+
 	static int _TotalTimeAffect = 7;
 	static int _ToatalTimeSurvive = 10;
 	
+	float _Score = 500;
 	float _SecPerFrame = 0;
 	float _alpha = 1;
 	public static int _CellWidth = 52;
@@ -47,8 +43,8 @@ public class Item extends GameEntity implements IMapObject {
 
 	public Item(TiledTextureRegion region, Map map) {
 		_map = map;
-		_sprite = new TiledSprite(0, 11*GameManager.LARGE_CELL_HEIGHT, region,
-				GameManager.VertexBufferObject);
+		_sprite = new TiledSprite(0, 11 * GameManager.LARGE_CELL_HEIGHT,
+				region, GameManager.VertexBufferObject);
 		_sprite.setSize(_CellWidth, _CellHeight);
 		_isAlive = true;
 		this.attachChild(_sprite);
@@ -87,25 +83,25 @@ public class Item extends GameEntity implements IMapObject {
 	}
 
 	public void update(float pSecondsElapsed) {
-		
-			Animate();
-			_SecPerFrame += pSecondsElapsed;
-			if (_SecPerFrame > 1) {
-				_SecPerFrame = 0;
-				_TimeSurvive++;
-				if (_mOwner != null) {
-					_TimeAffect++;
-				}
-				// Log.i("Time Surive", String.valueOf(_TimeSurvive));
-			}
 
-			if (_TimeSurvive > _ToatalTimeSurvive && _mOwner == null){
-				DestroyHelper.add(this);
+		Animate();
+		_SecPerFrame += pSecondsElapsed;
+		if (_SecPerFrame > 1) {
+			_SecPerFrame = 0;
+			_TimeSurvive++;
+			if (_mOwner != null) {
+				_TimeAffect++;
 			}
-			if(_TimeAffect > _TotalTimeAffect){
-				DestroyAffect();
-				DestroyHelper.add(this);
-			}
+			// Log.i("Time Surive", String.valueOf(_TimeSurvive));
+		}
+
+		if (_TimeSurvive > _ToatalTimeSurvive && _mOwner == null) {
+			DestroyHelper.add(this);
+		}
+		if (_TimeAffect > _TotalTimeAffect) {
+			DestroyAffect();
+			DestroyHelper.add(this);
+		}
 	}
 
 	Boolean flag = false;
@@ -122,9 +118,10 @@ public class Item extends GameEntity implements IMapObject {
 		_sprite.setAlpha(_alpha);
 	}
 
-	public void DestroyAffect(){
-		
+	public void DestroyAffect() {
+
 	}
+
 	public MapObject clone() {
 		return null;
 	}
@@ -218,16 +215,17 @@ public class Item extends GameEntity implements IMapObject {
 	@Override
 	public void doContact(IMapObject object) {
 		// TODO Auto-generated method stub
-    	try {
-    		Debug.d("Collsion", object.getType().name());
+		try {
+			Debug.d("Collsion", object.getType().name());
 			if (object.getType() == ObjectType.PlayerTank && !_isActive) {
-				
-				_mOwner = (Tank)object;
+
+				_mOwner = (Tank) object;
 				affect();
 				_isActive = true;
 
 				_sprite.detachSelf();
-								}
+				GameManager.getMusic("bonus").play();
+			}
 		} catch (Exception e) {
 			Debug.d("Collsion", "Nothing to contact!");
 		}
@@ -239,11 +237,13 @@ public class Item extends GameEntity implements IMapObject {
 		return null;
 	}
 
-
-
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		
+
+	}
+	
+	public float GetScore (){
+		return _Score;
 	}
 }

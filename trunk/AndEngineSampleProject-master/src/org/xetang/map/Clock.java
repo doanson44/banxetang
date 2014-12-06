@@ -1,9 +1,9 @@
 package org.xetang.map;
 
 import org.andengine.opengl.texture.region.TiledTextureRegion;
-import org.andengine.util.debug.Debug;
+
 import org.xetang.manager.GameItemManager;
-import org.xetang.manager.GameManager;
+
 import org.xetang.map.MapObjectFactory.ObjectType;
 
 

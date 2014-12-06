@@ -6,6 +6,8 @@ import org.xetang.map.MapObjectFactory.TankType;
 import org.xetang.tank.BigMom;
 import org.xetang.tank.GlassCannon;
 import org.xetang.tank.Normal;
+import org.xetang.tank.Player1;
+import org.xetang.tank.Player2;
 import org.xetang.tank.Racer;
 import org.xetang.tank.Tank;
 
@@ -39,9 +41,9 @@ public class TankManager implements IUpdateHandler{
 		Tank tank = null;
 
 		if (Player == 1) {
-			tank = new Normal(Player1_PX, Player1_PY);
+			tank = new Player1(Player1_PX, Player1_PY);
 		} else
-			tank = new Normal(Player2_PX, Player2_PY);
+			tank = new Player2(Player2_PX, Player2_PY);
 		
 		tank.SetType(ObjectType.PlayerTank);
 		return tank;

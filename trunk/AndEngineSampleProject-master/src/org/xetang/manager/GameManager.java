@@ -209,6 +209,10 @@ public class GameManager {
 			m = MusicFactory.createMusicFromAsset(GameManager.MusicManager,
 					GameManager.Context, "blop.mp3");
 			Musics.put("blop", m);
+			m = MusicFactory.createMusicFromAsset(GameManager.MusicManager,
+					GameManager.Context, "bonus.ogg");
+			Musics.put("bonus", m);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
