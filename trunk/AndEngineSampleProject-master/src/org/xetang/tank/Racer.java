@@ -18,10 +18,15 @@ public class Racer extends Tank {
      */
 	 public Racer(float px, float py) {
 	    	
-	    	super(px, py, (TiledTextureRegion) MapObjectFactory2.getTexture("Player1"));
+	    	super(px, py, (TiledTextureRegion) MapObjectFactory2.getTexture("EnemyRacer"));
 	    	this.SetType(ObjectType.EnermyTank);
 	    	this.SetTankType(TankType.Racer);
 
+	    	this.speed = 3f;
+	    	_maxNumberBullet = 2; 
+	    	this.SetTankType(TankType.Normal);
+	    	this.point = 200;
+	    	this.hp = 1;
 	 }
 
 }
