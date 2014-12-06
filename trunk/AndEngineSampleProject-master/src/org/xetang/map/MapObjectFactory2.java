@@ -63,10 +63,10 @@ public class MapObjectFactory2 {
 		BitmapTextureAtlas enemyGlassCannonTExtureAtlas = new BitmapTextureAtlas(GameManager.TextureManager, 50, 50, TextureOptions.DEFAULT);
 		BitmapTextureAtlas enemyBigMomTExtureAtlas = new BitmapTextureAtlas(GameManager.TextureManager, 50, 50, TextureOptions.DEFAULT);
 
-		TiledTextureRegion enemyNormal = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(enemyNormalTExtureAtlas, context, "EnemyTanks/EnemyNormal.png", 0, 0,1,1);
-		TiledTextureRegion enemyRacer = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(enemyNormalTExtureAtlas, context, "EnemyTanks/EnemyRacer.png", 0, 0,1,1);
-		TiledTextureRegion enemyGlassCannon = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(enemyNormalTExtureAtlas, context, "EnemyTanks/EnemyGlassCannon.png", 0, 0,1,1);
-		TiledTextureRegion enemyBigMom = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(enemyNormalTExtureAtlas, context, "EnemyTanks/EnemyBigMom.png", 0, 0,1,1);
+		TiledTextureRegion enemyNormal = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(enemyNormalTExtureAtlas, context, "EnemyTanks/Normal.png", 0, 0,2,1);
+		TiledTextureRegion enemyRacer = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(enemyNormalTExtureAtlas, context, "EnemyTanks/Racer.png", 0, 0,2,1);
+		TiledTextureRegion enemyGlassCannon = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(enemyNormalTExtureAtlas, context, "EnemyTanks/GlassCannon.png", 0, 0,2,1);
+		TiledTextureRegion enemyBigMom = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(enemyNormalTExtureAtlas, context, "EnemyTanks/BigMom.png", 0, 0,2,1);
 
 		enemyRacerTExtureAtlas.load();
 		enemyGlassCannonTExtureAtlas.load();

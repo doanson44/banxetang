@@ -27,6 +27,11 @@ public class GlassCannon extends Tank {
 	    	this.SetTankType(TankType.Normal);
 	    	this.point = 300;
 	    	this.hp = 1;
+	    	
+	    	tankSprite.setCurrentTileIndex(0);
+	    	
+	    	if (isTankBonus==1) // xu ly nhap nhay
+	    		tankSprite.animate(new long[]{ 200, 200}, 0, 1, true);
 	 }
 
 }
