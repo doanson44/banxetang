@@ -31,6 +31,7 @@ import org.xetang.map.MapObject;
 import org.xetang.map.MapObjectFactory;
 import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.MapObjectFactory.TankType;
+import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.MapObjectFactory2;
 import org.xetang.root.GameEntity;
@@ -62,23 +63,21 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	boolean mIsAlive;
 	int hp; // máu của xe tăng
 	int point; // điểm đạt đc khi giết xe tank
-	int isTankBonus; // tank có rớt item hay không, rớt = 1.
+	boolean isTankBonus; // tank có rớt item hay không.
 	int mIsFreeze = 0;
-	int _SecPerFrame = 0;
+	float _SecPerFrame = 0;
 	Body _body;
 
 	Shield _shield;
-	AnimatedSprite tankSprite;
+	AnimatedSprite mSprite;
 	float speed; // tốc độ của xe tăng
 	TankType _TankType;
 	ObjectType _objecType;
 	FixtureDef _ObjectFixtureDef;
 	float _distinctMove = 10;
-	float _CellSize = GameManager.MAP_HEIGHT / 13;
-	float SaiSoX = 0, SaiSoY = 0;
-	int DistinctWithSprite = 5;
+	public static float CellSize = CalcHelper.CellSize;
 	ObjectType _typeColide;
-	
+
 	public synchronized boolean isAlive() {
 		return mIsAlive;
 	}
@@ -86,33 +85,33 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	public Tank(float px, float py, TiledTextureRegion region) {
 		// mBullet = new Bullet(this);
 		TankManager.register(this);
-		tankSprite = new AnimatedSprite(px, py, region,
+		mSprite = new AnimatedSprite(px, py, region,
 				GameManager.VertexBufferObject);
-		tankSprite.setSize(GameManager.LARGE_CELL_WIDTH - GameManager.MAP_WIDTH
+		mSprite.setSize(GameManager.LARGE_CELL_WIDTH - GameManager.MAP_WIDTH
 				/ MapObjectFactory.TINY_CELL_PER_MAP,
 				GameManager.LARGE_CELL_HEIGHT - GameManager.MAP_HEIGHT
 						/ MapObjectFactory.TINY_CELL_PER_MAP);
+		
 		mDirection = Direction.Up;
 		_ObjectFixtureDef = PhysicsFactory.createFixtureDef(0.5f, 0, 0);
 		setAlive(true);
 		CreateBody();
+		CreateShield();
 	}
 
 	protected void CreateBody() {
-		_body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld,
-				tankSprite, BodyType.DynamicBody, _ObjectFixtureDef);
+		_body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, mSprite,
+				BodyType.DynamicBody, _ObjectFixtureDef);
 		_body.setGravityScale(0);
 		_body.setFixedRotation(true);
 		_body.setUserData(this);
 		GameManager.PhysicsWorld.registerPhysicsConnector(new PhysicsConnector(
-				tankSprite, _body, true, true));
-		this.attachChild(tankSprite);
+				mSprite, _body, true, true));
+		this.attachChild(mSprite);
 	}
 
 	public void KillSelf() {
-		Vector2 centerPoint = new Vector2(tankSprite.getX()
-				+ tankSprite.getHeight() / 2, tankSprite.getY()
-				+ tankSprite.getWidth() / 2);
+		Vector2 centerPoint = GetCenterPoint();
 
 		DestroyHelper.add(this);
 		IBlowUp explosion = (IBlowUp) MapObjectFactory.createObject(
@@ -123,7 +122,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	}
 
 	public TiledSprite GetCurrentSprite() {
-		return tankSprite;
+		return mSprite;
 	}
 
 	public void loadOldData() {
@@ -136,11 +135,10 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	public void onLeft() {
 		// TODO Auto-generated method stub
 		if (mDirection == Direction.Up || mDirection == Direction.Down) {
-			SetTranform(CellInMap());
+			SetTranform(CalcHelper.CellInMap(mSprite));
 
 		}
-		SaiSoX = -DistinctWithSprite;
-		SaiSoY = _CellSize / 2;
+
 		mDirection = Direction.Left;
 
 		SetTranform(270);
@@ -152,11 +150,9 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	public void onRight() {
 		// TODO Auto-generated method stub
 		if (mDirection == Direction.Up || mDirection == Direction.Down) {
-			SetTranform(CellInMap());
+			SetTranform(CalcHelper.CellInMap(mSprite));
 		}
 
-		SaiSoX = DistinctWithSprite;
-		SaiSoY = _CellSize / 2;
 		mDirection = Direction.Right;
 
 		SetTranform(90);
@@ -170,17 +166,15 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	public void onForward() {
 		// TODO Auto-generated method stub
 		if (mDirection == Direction.Left || mDirection == Direction.Right) {
-			SetTranform(CellInMap());
+			SetTranform(CalcHelper.CellInMap(mSprite));
 
 		}
-		SaiSoX = _CellSize/2;
-		SaiSoY = -DistinctWithSprite;
+
 		mDirection = Direction.Up;
 		SetTranform(0);
 		_body.setLinearVelocity(0, -speed);
 
 	}
-
 
 	// / di chuyển xuống
 	@Override
@@ -188,11 +182,9 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 		// TODO Auto-generated method stub
 
 		if (mDirection == Direction.Left || mDirection == Direction.Right) {
-			SetTranform(CellInMap());
+			SetTranform(CalcHelper.CellInMap(mSprite));
 		}
-		
-		SaiSoX = _CellSize/2;
-		SaiSoY = DistinctWithSprite;
+
 		mDirection = Direction.Down;
 		SetTranform(180);
 		_body.setLinearVelocity(0, speed);
@@ -205,54 +197,12 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 		_body.setLinearVelocity(0, 0);
 
 	}
-/*
-	// Ham kiem tra xem cell co chua' vat can hay k
-	public ObjectType CheckCell(int x, int y) {
-		Vector2 centerPoint = new Vector2(tankSprite.getX()
-				+ tankSprite.getHeight() / 2, tankSprite.getY()
-				+ tankSprite.getWidth() / 2);
-
-		int centerX = (int) (centerPoint.x / _CellSize);
-		int centerY = (int) (centerPoint.y / _CellSize);
-		MoveCallBack callback = new MoveCallBack();
-		float Cellx = ((centerX + x) * _CellSize + SaiSoX) / PIXEL_TO_METERS_RATIO;
-
-		float Celly = ((centerY + y) * _CellSize + SaiSoY) / PIXEL_TO_METERS_RATIO;
-
-		GameManager.PhysicsWorld
-				.QueryAABB(callback, Cellx, Celly, Cellx, Celly);
-
-		IMapObject object = callback.CheckExist();
-		if (object != null && object != this)
-			return object.getType();
-		return null;
-	}*/
-
-	// Hàm trả về vị trí CELL của xe tăng trong Map 26x26
-	public Vector2 CellInMap() {
-		Vector2 centerPoint = new Vector2(tankSprite.getX()
-				+ tankSprite.getHeight() / 2, tankSprite.getY()
-				+ tankSprite.getWidth() / 2);
-
-		return new Vector2((Math.round(centerPoint.x / (_CellSize / 2)) - 1),
-				Math.round(centerPoint.y / (_CellSize / 2)) - 1);
-	}
-	
-	public Vector2 CellInMap13(){
-		Vector2 centerPoint = new Vector2(tankSprite.getX()
-				+ tankSprite.getHeight() / 2, tankSprite.getY()
-				+ tankSprite.getWidth() / 2);
-
-		int centerX = (int) (centerPoint.x / _CellSize);
-		int centerY = (int) (centerPoint.y / _CellSize);
-		return new Vector2(centerX,centerY );
-	}
 
 	// Hàm set vị trí của Xe tăng vào trọn 1 CELL trong bản đồ 26x26
 	public void SetTranform(Vector2 point) {
 		float angle = _body.getAngle();
-		float x = point.x * _CellSize / 2 + _CellSize / 2;
-		float y = point.y * _CellSize / 2 + _CellSize / 2;
+		float x = point.x * CellSize / 2 + CellSize / 2;
+		float y = point.y * CellSize / 2 + CellSize / 2;
 
 		_body.setTransform((x) / PIXEL_TO_METERS_RATIO, (y)
 				/ PIXEL_TO_METERS_RATIO, angle);
@@ -272,19 +222,28 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 			if (!bullet.isAlive())
 				mBullet.remove(bullet);
 		}
-
 		if (_shield != null && _shield.IsAlive()) {
-			_shield.GetSprite().setX(tankSprite.getX());
-			_shield.GetSprite().setY(tankSprite.getY());
+			_shield.GetSprite().setX(mSprite.getX());
+			_shield.GetSprite().setY(mSprite.getY());
 		}
-
-		if (mIsFreeze > 0) {
-			_SecPerFrame += pSecondsElapsed;
-			if (_SecPerFrame > 1) {
+		
+		_SecPerFrame += pSecondsElapsed;
+		if (_SecPerFrame > 1) {
+			_SecPerFrame = 0;
+			if (mIsFreeze > 0) {
 				mIsFreeze -= 1;
+				_body.setLinearVelocity(0, 0);
 			}
-			_body.setLinearVelocity(0, 0);
+			if (_shield != null && _shield.IsAlive()){
+				_shield.TimeSurvive++;
+				Log.i("shield",String.valueOf(_shield.TimeSurvive));
+				if (_shield.TimeSurvive == 7) {
+					DestroyShield();
+				}
+			}
+			
 		}
+		
 
 	}
 
@@ -292,22 +251,22 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	public void onFire() {
 		// TODO Auto-generated method stub
 		float distinct = 0;
-		Vector2 x = new Vector2(tankSprite.getX(), tankSprite.getY());
+		Vector2 x = new Vector2(mSprite.getX(), mSprite.getY());
 		switch (mDirection) {
 		case Down:
-			bPosX = x.x + tankSprite.getHeight() / 2 - 5;
-			bPosY = x.y + tankSprite.getHeight() + distinct;
+			bPosX = x.x + mSprite.getHeight() / 2 - 5;
+			bPosY = x.y + mSprite.getHeight() + distinct;
 			break;
 		case Left:
 			bPosX = x.x - distinct;
-			bPosY = x.y + tankSprite.getWidth() / 2 - 5;
+			bPosY = x.y + mSprite.getWidth() / 2 - 5;
 			break;
 		case Right:
-			bPosX = x.x + tankSprite.getWidth() + distinct;
-			bPosY = x.y + tankSprite.getWidth() / 2 - 5;
+			bPosX = x.x + mSprite.getWidth() + distinct;
+			bPosY = x.y + mSprite.getWidth() / 2 - 5;
 			break;
 		case Up:
-			bPosX = x.x + tankSprite.getWidth() / 2 - 5;
+			bPosX = x.x + mSprite.getWidth() / 2 - 5;
 			bPosY = x.y - distinct;
 			break;
 		default:
@@ -330,12 +289,18 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 
 	public void CreateShield() {
 		// TODO Auto-generated method stub
-		_shield = new Shield(tankSprite.getX() - 5, tankSprite.getY() - 5);
+		_shield = new Shield(mSprite.getX() -8 , mSprite.getY() - 8);
 	}
 
 	public void DestroyShield() {
 		_shield.KillSelf();
 		_shield = null;
+	}
+
+	public Vector2 GetCenterPoint() {
+		Vector2 centerPoint = new Vector2(mSprite.getX() + mSprite.getHeight()
+				/ 2, mSprite.getY() + mSprite.getWidth() / 2);
+		return centerPoint;
 	}
 
 	public void PowerUp() {
@@ -388,9 +353,21 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	}
 
 	@Override
-	public TiledSprite getSprite() {
+	public AnimatedSprite getSprite() {
 		// TODO Auto-generated method stub
-		return tankSprite;
+		return mSprite;
+	}
+
+	@Override
+	public float getX() {
+		// TODO Auto-generated method stub
+		return mSprite.getX();
+	}
+
+	@Override
+	public float getY() {
+		// TODO Auto-generated method stub
+		return mSprite.getY();
 	}
 
 	@Override
@@ -408,10 +385,9 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	@Override
 	public void doContact(IMapObject object) {
 		// TODO Auto-generated method stub
-		if(object != null && object != this){
+		if (object != null && object != this) {
 			_typeColide = object.getType();
-		}
-		else
+		} else
 			_typeColide = null;
 	}
 
@@ -421,9 +397,10 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 		return _objecType;
 	}
 
-	public ObjectType GetCollide (){
+	public ObjectType GetCollide() {
 		return _typeColide;
 	}
+
 	public void SetType(ObjectType type) {
 		_objecType = type;
 	}
@@ -436,9 +413,10 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 		return _TankType;
 	}
 
-	public void SetDirection(Direction direction){
+	public void SetDirection(Direction direction) {
 		mDirection = direction;
 	}
+
 	public Shield getShield() {
 		// TODO Auto-generated method stub
 		return _shield;

@@ -1,16 +1,15 @@
 package org.xetang.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Random;
 
-import org.andengine.engine.handler.IUpdateHandler;
 import org.xetang.manager.GameManager.Direction;
 import org.xetang.manager.GameMapManager;
 import org.xetang.map.MapObjectFactory.ObjectType;
+import org.xetang.map.helper.CalcHelper;
 import org.xetang.tank.Tank;
 
-import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -21,6 +20,8 @@ public class Bot extends Controller {
 	protected float FortressPY = 12;
 	protected Direction mDirection;
 	protected ObjectType Collide;
+	private float _SecPerFrame = 0;
+	private float _TimeToFire = 0;
 
 	public Bot() {
 
@@ -40,11 +41,12 @@ public class Bot extends Controller {
 	 * "GameManager.CurrentMapManager" để thực hiện
 	 */
 	public void Update(float pSecondsElapsed) {
-		MoveToFortress();
+		MoveToFortress(pSecondsElapsed);
+		CountTimeToFire(pSecondsElapsed);
 	}
 
-	private void MoveToFortress() {
-		Vector2 CurrentCell = mTank.CellInMap13();
+	private void MoveToFortress(float pSecondsElapsed) {
+		Vector2 CurrentCell = CalcHelper.CellInMap13(mTank.getSprite());
 		float distinctX = FortressPX - CurrentCell.x;
 		float distinctY = FortressPY - CurrentCell.y;
 
@@ -63,13 +65,16 @@ public class Bot extends Controller {
 				else
 					mDirection = Direction.Right;
 			}
+			
+			if(_TimeToFire % 4 == 0)
+				mTank.onFire();
 
 			if (CurrentCell.x == FortressPX || CurrentCell.y == FortressPY){
 				SetDirectionToFire(CurrentCell, new Vector2(FortressPX,FortressPY));
 			}
 			
 			for (int i = 0; i < playerTanks.size(); i++) {
-				Vector2 playerPoint = playerTanks.get(i).CellInMap13();
+				Vector2 playerPoint = CalcHelper.CellInMap13(playerTanks.get(i).getSprite());
 				SetDirectionToFire(CurrentCell, playerPoint);
 			}
 
@@ -137,6 +142,14 @@ public class Bot extends Controller {
 		super.onTankDie();
 
 		mTank = null;
+	}
+	
+	private void CountTimeToFire(float pSecondsElapsed){
+		_SecPerFrame  += pSecondsElapsed;
+		if (_SecPerFrame > 1) {
+			_SecPerFrame = 0;
+			_TimeToFire++;
+		}
 	}
 
 	public boolean isYourTank(Tank tank) {

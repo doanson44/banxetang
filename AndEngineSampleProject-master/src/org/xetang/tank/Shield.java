@@ -24,6 +24,8 @@ public class Shield extends GameEntity {
 
 	protected AnimatedSprite	_shield;
 	protected boolean			_isAlive = false;
+	public 	int TimeSurvive = 0;
+	
 	public Shield(float px, float py){
 		_shield = new AnimatedSprite(px, py
 				, (ITiledTextureRegion) MapObjectFactory2.getTexture("Protection"),GameManager.VertexBufferObject);

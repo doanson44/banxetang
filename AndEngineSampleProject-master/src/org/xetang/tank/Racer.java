@@ -24,14 +24,13 @@ public class Racer extends Tank {
 
 	    	this.speed = 3f;
 	    	_maxNumberBullet = 2; 
-	    	this.SetTankType(TankType.Normal);
 	    	this.point = 200;
 	    	this.hp = 1;
 	    	
-	    	tankSprite.setCurrentTileIndex(0);
+	    	mSprite.setCurrentTileIndex(0);
 	    	
-	    	if (isTankBonus==1) // xu ly nhap nhay
-	    		tankSprite.animate(new long[]{ 200, 200}, 0, 1, true);
+	    	if (isTankBonus) // xu ly nhap nhay
+	    		mSprite.animate(new long[]{ 200, 200}, 0, 1, true);
 	 }
 
 }

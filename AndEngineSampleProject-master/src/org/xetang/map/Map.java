@@ -9,20 +9,19 @@ import org.andengine.entity.IEntity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.util.debug.Debug;
+import org.xetang.controller.Bot;
 import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
 import org.xetang.map.MapObjectFactory.ObjectType;
-import org.xetang.map.helper.CalcHelper;
-import org.xetang.map.helper.ChangeWallCallBack;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.model.MapObjectBlockDTO;
 import org.xetang.map.model.StageDTO;
 import org.xetang.map.model.StageObjectDTO;
 import org.xetang.root.GameEntity;
-import org.xetang.tank.BigMom;
+import org.xetang.tank.Flicker;
 import org.xetang.tank.Tank;
 
-import com.badlogic.gdx.math.Vector2;
+
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -291,13 +290,33 @@ public class Map extends GameEntity implements IUpdateHandler {
 	public void addPlayerTank(Tank playerTank) {
 		mPlayerTanks.add(playerTank);
 		this.attachChild(playerTank);
+		
 	}
 
 	public void addEnermyTank(Tank enermyTank) {
-		mEnermyTanks.add(enermyTank);
-		this.attachChild(enermyTank);
+		AddTank(enermyTank);
+	//	mEnermyTanks.add(enermyTank);
 	}
+	
 
+
+	public void AddTank(Tank tank){
+		CreateFlicker(tank);
+	}
+	
+	public void CreateFlicker (Tank tank){
+		Flicker f = new Flicker(tank.getX(), tank.getY());
+		f.Animate();
+		f.SetTank(tank);
+		GameManager.Scene.registerUpdateHandler(f);
+		this.attachChild(f.GetSprite());
+	}
+	
+	public void AddEnermyTankToList(Tank tank){
+		mEnermyTanks.add(tank);
+		this.attachChild(tank);
+		GameManager.CurrentMapManager.AddBot(new Bot(tank));
+	}
 	public int getTotalPlayerTanks() {
 		return mPlayerTanks.size();
 	}

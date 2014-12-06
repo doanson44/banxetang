@@ -22,15 +22,14 @@ public class BigMom extends Tank {
     	this.SetType(ObjectType.EnermyTank);
     	this.SetTankType(TankType.BigMom);
     	
-    	this.speed = 2f;
+    	this.speed = 2f;	
     	_maxNumberBullet = 2; 
-    	this.SetTankType(TankType.Normal);
     	this.point = 400;
     	this.hp = 4;
-    	tankSprite.setCurrentTileIndex(0);
+    	mSprite.setCurrentTileIndex(0);
     	
-    	if (isTankBonus==1) // xu ly nhap nhay
-    		tankSprite.animate(new long[]{ 200, 200}, 0, 1, true);
+    	if (isTankBonus) // xu ly nhap nhay
+    		mSprite.animate(new long[]{ 200, 200}, 0, 1, true);
     }
 
 }
