@@ -159,7 +159,6 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 			SetTranform(CalcHelper.CellInMap(mSprite));
 		}
 
-		KillSelf();
 		if (mIsFreeze == 0) {
 			mDirection = Direction.Right;
 
