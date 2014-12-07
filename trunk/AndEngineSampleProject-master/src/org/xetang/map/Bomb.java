@@ -1,6 +1,7 @@
 package org.xetang.map;
 
 import org.andengine.opengl.texture.region.TiledTextureRegion;
+import org.xetang.manager.GameItemManager;
 import org.xetang.map.MapObjectFactory.ObjectType;
 
 
@@ -21,7 +22,7 @@ public class Bomb extends Item {
     	// TODO Auto-generated method stub
     	
     	// Ham pha huy tat ca xe tang dich 
-    	//_map.DestroyAllEnermy();
+    	GameItemManager.getInstance().DestroyAllEnermy();
     }
     
     @Override

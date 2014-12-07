@@ -43,7 +43,7 @@ public class Item extends GameEntity implements IMapObject {
 
 	public Item(TiledTextureRegion region, Map map) {
 		_map = map;
-		_sprite = new TiledSprite(0, 11 * GameManager.LARGE_CELL_HEIGHT,
+		_sprite = new TiledSprite(GetRandomPx(),GetRandomPy(),
 				region, GameManager.VertexBufferObject);
 		_sprite.setSize(_CellWidth, _CellHeight);
 		_isAlive = true;
@@ -96,7 +96,7 @@ public class Item extends GameEntity implements IMapObject {
 		}
 
 		if (_TimeSurvive > _ToatalTimeSurvive && _mOwner == null) {
-			DestroyHelper.add(this);
+			//DestroyHelper.add(this);
 		}
 		if (_TimeAffect > _TotalTimeAffect) {
 			DestroyAffect();

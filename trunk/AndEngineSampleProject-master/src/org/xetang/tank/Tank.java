@@ -17,6 +17,7 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.debug.Debug;
 import org.xetang.controller.Controller;
 import org.xetang.controller.IGameController;
+import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.GameManager.Direction;
 import org.xetang.manager.GameMapManager;
@@ -54,6 +55,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	float PIXEL_TO_METERS_RATIO = PhysicsConnector.PIXEL_TO_METER_RATIO_DEFAULT;
 
 	ArrayList<IBullet> mBullet = new ArrayList<IBullet>();
+	protected ObjectType mBulletType = ObjectType.Bullet;
 	int _maxNumberBullet = 0;
 	float bPosX = 0, bPosY = 0; // Toa do cua Dan
 
@@ -91,15 +93,16 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 				/ MapObjectFactory.TINY_CELL_PER_MAP,
 				GameManager.LARGE_CELL_HEIGHT - GameManager.MAP_HEIGHT
 						/ MapObjectFactory.TINY_CELL_PER_MAP);
-		
+
 		mDirection = Direction.Up;
 		_ObjectFixtureDef = PhysicsFactory.createFixtureDef(0.5f, 0, 0);
 		setAlive(true);
 		CreateBody();
-		CreateShield();
 	}
 
 	protected void CreateBody() {
+
+		// TODO Auto-generated method stub
 		_body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, mSprite,
 				BodyType.DynamicBody, _ObjectFixtureDef);
 		_body.setGravityScale(0);
@@ -107,6 +110,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 		_body.setUserData(this);
 		GameManager.PhysicsWorld.registerPhysicsConnector(new PhysicsConnector(
 				mSprite, _body, true, true));
+
 		this.attachChild(mSprite);
 	}
 
@@ -138,11 +142,13 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 			SetTranform(CalcHelper.CellInMap(mSprite));
 
 		}
+		if (mIsFreeze == 0) {
+			mDirection = Direction.Left;
 
-		mDirection = Direction.Left;
+			SetTranform(270);
+			_body.setLinearVelocity(-speed, 0);
 
-		SetTranform(270);
-		_body.setLinearVelocity(-speed, 0);
+		}
 	}
 
 	// di chuyển qua phải
@@ -153,12 +159,13 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 			SetTranform(CalcHelper.CellInMap(mSprite));
 		}
 
-		mDirection = Direction.Right;
+		KillSelf();
+		if (mIsFreeze == 0) {
+			mDirection = Direction.Right;
 
-		SetTranform(90);
-
-		_body.setLinearVelocity(speed, 0);
-
+			SetTranform(90);
+			_body.setLinearVelocity(speed, 0);
+		}
 	}
 
 	// // di chuyển lên
@@ -170,10 +177,11 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 
 		}
 
-		mDirection = Direction.Up;
-		SetTranform(0);
-		_body.setLinearVelocity(0, -speed);
-
+		if (mIsFreeze == 0) {
+			mDirection = Direction.Up;
+			SetTranform(0);
+			_body.setLinearVelocity(0, -speed);
+		}
 	}
 
 	// / di chuyển xuống
@@ -185,15 +193,17 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 			SetTranform(CalcHelper.CellInMap(mSprite));
 		}
 
-		mDirection = Direction.Down;
-		SetTranform(180);
-		_body.setLinearVelocity(0, speed);
-
+		if (mIsFreeze == 0) {
+			mDirection = Direction.Down;
+			SetTranform(180);
+			_body.setLinearVelocity(0, speed);
+		}
 	}
 
 	@Override
 	public void onIdle() {
 		// TODO Auto-generated method stub
+		if(_body != null)
 		_body.setLinearVelocity(0, 0);
 
 	}
@@ -218,32 +228,31 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	}
 
 	public void Update(float pSecondsElapsed) {
-		for (IBullet bullet : mBullet) {
-			if (!bullet.isAlive())
-				mBullet.remove(bullet);
+		for (int i = 0; i < mBullet.size(); i++) {
+			if (!mBullet.get(i).isAlive())
+				mBullet.remove(i);
 		}
 		if (_shield != null && _shield.IsAlive()) {
 			_shield.GetSprite().setX(mSprite.getX());
 			_shield.GetSprite().setY(mSprite.getY());
 		}
-		
+
 		_SecPerFrame += pSecondsElapsed;
 		if (_SecPerFrame > 1) {
 			_SecPerFrame = 0;
 			if (mIsFreeze > 0) {
 				mIsFreeze -= 1;
-				_body.setLinearVelocity(0, 0);
+				Log.i("mIsFreeze", String.valueOf(mIsFreeze));
 			}
-			if (_shield != null && _shield.IsAlive()){
+			if (_shield != null && _shield.IsAlive()) {
 				_shield.TimeSurvive++;
-				Log.i("shield",String.valueOf(_shield.TimeSurvive));
+
 				if (_shield.TimeSurvive == 7) {
 					DestroyShield();
 				}
 			}
-			
+
 		}
-		
 
 	}
 
@@ -274,9 +283,18 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 		}
 	}
 
+	public boolean BeFire() {
+		if (isTankBonus)
+			GameItemManager.getInstance().CreateRandomItem();
+		this.hp--;
+		if (hp == 0)
+			return true;
+		return false;
+	}
+
 	public void CreateBullet(ObjectType type, float bPosX2, float bPosY2) {
 
-		if (mBullet.size() < _maxNumberBullet) {
+		if (mBullet.size() < _maxNumberBullet && mIsFreeze == 0) {
 			IBullet bullet = (IBullet) MapObjectFactory.createObject(type,
 					bPosX2, bPosY2);
 			bullet.setTank(this);
@@ -289,7 +307,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 
 	public void CreateShield() {
 		// TODO Auto-generated method stub
-		_shield = new Shield(mSprite.getX() -8 , mSprite.getY() - 8);
+		_shield = new Shield(mSprite.getX() - 8, mSprite.getY() - 8);
 	}
 
 	public void DestroyShield() {
@@ -310,17 +328,27 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 
 	public void FreezeSelf() {
 		// TODO Auto-generated method stub
-		mIsFreeze = 3;
+		mIsFreeze = 7;
 	}
 
 	public MapObject clone() {
 		return null;
 	}
 
+	public void SetTankBonus(boolean bool) {
+		isTankBonus = bool;
+	}
+
+	public boolean GetTankBonus() {
+		return isTankBonus;
+	}
+
 	@Override
 	public void putToWorld() {
 		// TODO Auto-generated method stub
-
+		if (_body != null) {
+			CreateBody();
+		}
 	}
 
 	@Override

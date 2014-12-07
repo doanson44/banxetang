@@ -104,7 +104,6 @@ public class Bullet extends MapObject implements IBullet {
 				&& _tank.getType() == ObjectType.EnermyTank) {
 			Tank tank = (Tank) object;
 			if (tank.getShield() == null) {
-				GameMapManager._map.RemovePlayerTank(tank);
 				tank.KillSelf();
 			}
 		}
@@ -112,9 +111,12 @@ public class Bullet extends MapObject implements IBullet {
 		// tank của người chơi bắn trúng tank địch
 		if (object != null && object.getType() == ObjectType.EnermyTank
 				&& _tank.getType() == ObjectType.PlayerTank) {
+
 			Tank tank = (Tank) object;
-			GameMapManager._map.RemoveEnermyTank(tank);
-			tank.KillSelf();
+			if (tank.BeFire()) {
+				GameManager.CurrentMapManager.AddTankKill(tank);
+				tank.KillSelf();
+			}
 
 		}
 

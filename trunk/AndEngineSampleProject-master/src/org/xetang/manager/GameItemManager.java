@@ -1,6 +1,7 @@
 package org.xetang.manager;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.IEntity;
@@ -183,10 +184,11 @@ public class GameItemManager implements IUpdateHandler {
 
 	public void DestroyAllEnermy() {
 		// TODO Auto-generated method stub
-		for (Tank tank : GameManager.CurrentMap.getPlayerTanks()) {
-			tank.KillSelf();
+		for(int i =0 ; i < GameManager.CurrentMap.getEnermyTanks().size();i++)
+		{
+			GameManager.CurrentMap.getEnermyTanks().get(i).KillSelf();
 		}
-		GameManager.CurrentMap.getPlayerTanks().clear();
+		GameManager.CurrentMap.getEnermyTanks().clear();
 	}
 
 	public void FreezeTime() {
@@ -194,6 +196,48 @@ public class GameItemManager implements IUpdateHandler {
 		for (Tank tank : GameManager.CurrentMap.getEnermyTanks()) {
 			tank.FreezeSelf();
 		}
+	}
+
+	public ObjectType GetRandomType(){
+		int random = (new Random()).nextInt() % 6;
+		ObjectType type = null;
+		
+		switch (Math.abs(random)) {
+		case 0:
+			type= ObjectType.Bomb;
+			break;
+		case 1:
+			type= ObjectType.Clock;
+			break;
+		case 2:
+			type= ObjectType.Helmet;
+			break;
+		case 3:
+			type= ObjectType.Shovel;
+			break;
+		case 4:
+			type= ObjectType.TankItem;
+			break;
+		case 5:
+			type= ObjectType.Star;
+			break;
+		default:
+			break;
+		}
+		return type;
+	}
+	
+	public void CreateRandomItem() {
+		// TODO Auto-generated method stub
+		Runnable run = new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				GameManager.CurrentMap.attachChild(CreateItem(GetRandomType()));
+			}
+		};
+		GameManager.Activity.runOnUpdateThread(run);
 	}
 
 }

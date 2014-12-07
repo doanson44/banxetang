@@ -21,7 +21,6 @@ import org.xetang.root.GameEntity;
 import org.xetang.tank.Flicker;
 import org.xetang.tank.Tank;
 
-
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -72,11 +71,14 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 	public void loadMapData(StageDTO stage) {
 
-		// this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.Bomb));
-		// this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.Clock));
 		this.attachChild(GameItemManager.getInstance().CreateItem(
-				ObjectType.Shovel));
-		// this.attachChild(GameItemManager.getInstance().CreateItem(ObjectType.TankItem));
+				ObjectType.TankItem));
+		this.attachChild(GameItemManager.getInstance().CreateItem(
+				ObjectType.TankItem));
+		this.attachChild(GameItemManager.getInstance().CreateItem(
+				ObjectType.TankItem));
+		this.attachChild(GameItemManager.getInstance().CreateItem(
+				ObjectType.TankItem));
 
 		List<StageObjectDTO> objects = stage.getObjects();
 
@@ -248,11 +250,17 @@ public class Map extends GameEntity implements IUpdateHandler {
 	}
 
 	private void UpdateTank(float pSecondsElapsed) {
-		for (Tank tank : mPlayerTanks) {
-			tank.Update(pSecondsElapsed);
+		for (int i = 0; i < mPlayerTanks.size(); i++) {
+			if (!mPlayerTanks.get(i).isAlive()) {
+				mPlayerTanks.remove(i);
+			} else
+				mPlayerTanks.get(i).Update(pSecondsElapsed);
 		}
-		for (Tank tank : mEnermyTanks) {
-			tank.Update(pSecondsElapsed);
+		for (int i = 0; i < mEnermyTanks.size(); i++) {
+			if (!mEnermyTanks.get(i).isAlive())
+				mEnermyTanks.remove(i);
+			else
+				mEnermyTanks.get(i).Update(pSecondsElapsed);
 		}
 	}
 
@@ -290,33 +298,32 @@ public class Map extends GameEntity implements IUpdateHandler {
 	public void addPlayerTank(Tank playerTank) {
 		mPlayerTanks.add(playerTank);
 		this.attachChild(playerTank);
-		
+
 	}
 
 	public void addEnermyTank(Tank enermyTank) {
 		AddTank(enermyTank);
-	//	mEnermyTanks.add(enermyTank);
+		// mEnermyTanks.add(enermyTank);
 	}
-	
 
-
-	public void AddTank(Tank tank){
+	public void AddTank(Tank tank) {
 		CreateFlicker(tank);
 	}
-	
-	public void CreateFlicker (Tank tank){
+
+	public void CreateFlicker(Tank tank) {
 		Flicker f = new Flicker(tank.getX(), tank.getY());
 		f.Animate();
 		f.SetTank(tank);
 		GameManager.Scene.registerUpdateHandler(f);
 		this.attachChild(f.GetSprite());
 	}
-	
-	public void AddEnermyTankToList(Tank tank){
+
+	public void AddEnermyTankToList(Tank tank) {
 		mEnermyTanks.add(tank);
 		this.attachChild(tank);
 		GameManager.CurrentMapManager.AddBot(new Bot(tank));
 	}
+
 	public int getTotalPlayerTanks() {
 		return mPlayerTanks.size();
 	}

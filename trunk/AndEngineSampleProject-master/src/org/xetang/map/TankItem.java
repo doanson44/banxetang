@@ -1,6 +1,8 @@
 package org.xetang.map;
 
 import org.andengine.opengl.texture.region.TiledTextureRegion;
+import org.xetang.manager.GameManager;
+import org.xetang.manager.TankManager;
 
 
 
@@ -20,6 +22,7 @@ public class TankItem extends Item {
     @Override
     public void affect() {
     	// TODO Auto-generated method stub
-    	//_map.AddExtraLife();
+    	GameManager.CurrentMapManager.AddNewLifeForTank();
+    	RightMenu.UpdateText();
     }
 }

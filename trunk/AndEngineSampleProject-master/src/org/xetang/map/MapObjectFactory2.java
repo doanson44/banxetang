@@ -75,28 +75,28 @@ public class MapObjectFactory2 {
 		Textures.put("Player2", player2);
 
 		// Load Enemy Bots
-		/*
+		
 		BitmapTextureAtlas enemyNormalTExtureAtlas = new BitmapTextureAtlas(
-				GameManager.TextureManager, 50, 50, TextureOptions.DEFAULT);
+				GameManager.TextureManager, 90, 45, TextureOptions.DEFAULT);
 		BitmapTextureAtlas enemyRacerTExtureAtlas = new BitmapTextureAtlas(
-				GameManager.TextureManager, 50, 50, TextureOptions.DEFAULT);
+				GameManager.TextureManager, 90, 45, TextureOptions.DEFAULT);
 		BitmapTextureAtlas enemyGlassCannonTExtureAtlas = new BitmapTextureAtlas(
-				GameManager.TextureManager, 50, 50, TextureOptions.DEFAULT);
+				GameManager.TextureManager, 90, 45, TextureOptions.DEFAULT);
 		BitmapTextureAtlas enemyBigMomTExtureAtlas = new BitmapTextureAtlas(
-				GameManager.TextureManager, 50, 50, TextureOptions.DEFAULT);
+				GameManager.TextureManager, 180, 45, TextureOptions.DEFAULT);
 
 		TiledTextureRegion enemyNormal = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(enemyNormalTExtureAtlas, context,
 						"EnemyTanks/Normal.png", 0, 0, 2, 1);
 		TiledTextureRegion enemyRacer = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(enemyNormalTExtureAtlas, context,
+				.createTiledFromAsset(enemyRacerTExtureAtlas, context,
 						"EnemyTanks/Racer.png", 0, 0, 2, 1);
 		TiledTextureRegion enemyGlassCannon = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(enemyNormalTExtureAtlas, context,
+				.createTiledFromAsset(enemyGlassCannonTExtureAtlas, context,
 						"EnemyTanks/GlassCannon.png", 0, 0, 2, 1);
 		TiledTextureRegion enemyBigMom = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(enemyNormalTExtureAtlas, context,
-						"EnemyTanks/BigMom.png", 0, 0, 2, 1);
+				.createTiledFromAsset(enemyBigMomTExtureAtlas, context,
+						"EnemyTanks/BigMom.png", 0, 0, 4, 1);
 
 		enemyRacerTExtureAtlas.load();
 		enemyGlassCannonTExtureAtlas.load();
@@ -107,7 +107,7 @@ public class MapObjectFactory2 {
 		Textures.put("EnemyRacer", enemyRacer);
 		Textures.put("EnemyGlassCannon", enemyGlassCannon);
 		Textures.put("EnemyBigMom", enemyBigMom);
-*/
+
 		// Load Vong bao ve
 		BitmapTextureAtlas protectionTExtureAtlas = new BitmapTextureAtlas(
 				GameManager.TextureManager, 100, 50, TextureOptions.DEFAULT);
