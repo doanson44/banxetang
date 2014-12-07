@@ -10,9 +10,13 @@ import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.MapObjectFactory.TankType;
 import org.xetang.map.MapObjectFactory2;
 public class Player2 extends Player1 {
-
+	public Player2(float px, float py){
+		this(px,py,(TiledTextureRegion) MapObjectFactory2.getTexture("Player2"));
+	}
 	public Player2(float px, float py, TiledTextureRegion region) {
     	super(px, py,(TiledTextureRegion) MapObjectFactory2.getTexture("Player2"));
-    	this.tankSprite.setCurrentTileIndex(0);
+    	this.mSprite.setCurrentTileIndex(0);
 	}
+	
+	
 }
