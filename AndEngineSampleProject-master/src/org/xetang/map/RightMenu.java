@@ -12,6 +12,7 @@ public class RightMenu extends GameEntity {
 	protected Map _mMap;
 	protected ArrayList<EnermyIcon> _mEnermys = new ArrayList<EnermyIcon>();
 	protected int _TotalEnermy;
+	public static Text Player1 = null;
 	
 	public RightMenu (float px, float py, Map map, int totalEnermy){
 		
@@ -22,13 +23,14 @@ public class RightMenu extends GameEntity {
 		AddStateText();
 	}
 	
-	public void UpdateText() {
+	public static void UpdateText() {
 		// TODO Auto-generated method stub
-		
-		Text Player1 = new Text(GameManager.MAP_WIDTH + 20, GameManager.MAP_HEIGHT -200, 
-				GameManager.getFont("font2"), "P1: " + GameManager.CurrentMapManager.getTotalPlayerTank()
+		if(Player1 != null)
+			Player1.detachSelf();
+		Player1 = new Text(GameManager.MAP_WIDTH + 20, GameManager.MAP_HEIGHT -200, 
+				GameManager.getFont("font2"), "P1: " + GameManager.CurrentMapManager.GetPlayer1Life()
 				,GameManager.VertexBufferObject);
-		this.attachChild(Player1);
+		GameManager.CurrentMap.attachChild(Player1);
 	}
 	
 	public void AddStateText(){

@@ -30,17 +30,22 @@ public class Normal extends Tank {
     	this.SetTankType(TankType.Normal);
     	this.point = 100;
     	this.hp = 1;
+    	mBulletType = ObjectType.SlowBullet;
     	mSprite.setCurrentTileIndex(0);
     	
-    	if (isTankBonus) // xu ly nhap nhay
-    		mSprite.animate(new long[]{ 200, 200}, 0, 1, true);
     }
-    
+    @Override
+    public void SetTankBonus(boolean bool) {
+    	// TODO Auto-generated method stub
+    	isTankBonus = bool;
+    	if (isTankBonus) // xu ly nhap nhay
+    		mSprite.animate(new long[]{ 200, 200}, 0,1, true);
+    }
     @Override
     public void onFire() {
     	// TODO Auto-generated method stub
     	super.onFire();
-    	CreateBullet(ObjectType.Bullet, bPosX, bPosY);	
+    	CreateBullet(mBulletType, bPosX, bPosY);	
     }
   
 }
