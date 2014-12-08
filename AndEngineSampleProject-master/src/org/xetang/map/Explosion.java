@@ -14,9 +14,8 @@ public class Explosion extends BlowUp {
 	}
 
 	public Explosion(float posX, float posY) {
-		super(null, MapObjectFactory.getExplosionTextureRegion(),
-				MapObjectFactory.EXPLOSION_CELL_PER_MAP, posX, posY,
-				MapObjectFactory.Z_INDEX_EXPLOSION);
+		super(null, MapObjectFactory.getTextureRegion(ObjectType.Explosion),
+				MapObjectFactory.EXPLOSION_CELL_PER_MAP, posX, posY);
 	}
 
 	@Override

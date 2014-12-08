@@ -1,12 +1,13 @@
 package org.xetang.map;
 
+import org.andengine.entity.IEntity;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.GameManager.Direction;
-import org.xetang.manager.GameMapManager;
+import org.xetang.map.MapObjectFactory.ObjectLayer;
 import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.helper.DestroyHelper;
@@ -46,10 +47,10 @@ public class Bullet extends MapObject implements IBullet {
 	}
 
 	public Bullet(float posX, float posY) {
-		super(MapObjectFactory.getBulletFixtureDef(), MapObjectFactory
-				.getBulletTextureRegion(),
+		super(MapObjectFactory.getFixtureDef(ObjectType.Bullet),
+				MapObjectFactory.getTextureRegion(ObjectType.Bullet),
 				MapObjectFactory.BULLET_CELL_PER_MAP, posX, posY,
-				MapObjectFactory.Z_INDEX_BULLET);
+				MapObjectFactory.Z_INDEX_MOVING);
 
 		initSpecification(MapObjectFactory.NORMAL_BULLET_DAMAGE,
 				MapObjectFactory.NORMAL_BULLET_SPEED,
@@ -140,8 +141,7 @@ public class Bullet extends MapObject implements IBullet {
 		blast.setTargetObject(object);
 		blast.blowUpAtHere();
 
-		GameManager.CurrentMapManager.addBlơwUp(blast);
-
+		GameManager.CurrentMap.addObject((IEntity) blast, ObjectLayer.BlowUp);
 	}
 
 	@Override
@@ -235,6 +235,7 @@ public class Bullet extends MapObject implements IBullet {
 		// Xét vị trí xe tăng hiện tại
 		putToWorld(/* Vị trí X, Vị trí Y */);
 		_body.setLinearVelocity(speedVector);
+		//GameManager.getMusic("fire").play();
 	}
 
 	@Override

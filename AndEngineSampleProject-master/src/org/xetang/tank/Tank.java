@@ -4,37 +4,26 @@ import java.util.ArrayList;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.IEntity;
-import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.sprite.AnimatedSprite;
-import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
-import org.andengine.extension.physics.box2d.PhysicsConnectorManager;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
-import org.andengine.extension.physics.box2d.util.constants.PhysicsConstants;
-import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
-import org.andengine.util.debug.Debug;
-import org.xetang.controller.Controller;
 import org.xetang.controller.IGameController;
 import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.GameManager.Direction;
-import org.xetang.manager.GameMapManager;
 import org.xetang.manager.TankManager;
-import org.xetang.map.Bullet;
-import org.xetang.map.Explosion;
 import org.xetang.map.IBlowUp;
 import org.xetang.map.IBullet;
 import org.xetang.map.IMapObject;
-import org.xetang.map.Map;
 import org.xetang.map.MapObject;
 import org.xetang.map.MapObjectFactory;
+import org.xetang.map.MapObjectFactory.ObjectLayer;
 import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.MapObjectFactory.TankType;
 import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.helper.DestroyHelper;
-import org.xetang.map.MapObjectFactory2;
 import org.xetang.root.GameEntity;
 
 import android.util.Log;
@@ -202,8 +191,8 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	@Override
 	public void onIdle() {
 		// TODO Auto-generated method stub
-		if(_body != null)
-		_body.setLinearVelocity(0, 0);
+		if (_body != null)
+			_body.setLinearVelocity(0, 0);
 
 	}
 
@@ -297,7 +286,8 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 			IBullet bullet = (IBullet) MapObjectFactory.createObject(type,
 					bPosX2, bPosY2);
 			bullet.setTank(this);
-			GameManager.CurrentMapManager.addBullet(bullet);
+			GameManager.CurrentMap.addObject((IEntity) bullet,
+					ObjectLayer.Moving);
 			mBullet.add(bullet);
 			bullet.readyToFire(mDirection);
 			bullet.beFired();

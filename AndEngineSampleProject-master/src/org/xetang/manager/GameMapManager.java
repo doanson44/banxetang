@@ -7,12 +7,10 @@ import java.util.Queue;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.xetang.controller.Bot;
-import org.xetang.map.IBlowUp;
-import org.xetang.map.IBullet;
 import org.xetang.map.Item;
 import org.xetang.map.Map;
-import org.xetang.map.MapObjectFactory.TankType;
 import org.xetang.map.RightMenu;
+import org.xetang.map.MapObjectFactory.TankType;
 import org.xetang.map.model.StageDTO;
 import org.xetang.map.model.XMLLoader;
 import org.xetang.root.Frame;
@@ -220,13 +218,4 @@ public class GameMapManager implements IUpdateHandler {
 	public int GetPlayer1Life() {
 		return Player1Life;
 	}
-
-	public void addBullet(IBullet bullet) {
-		_map.addBullet(bullet);
-	}
-
-	public void addBlơwUp(IBlowUp blast) {
-		_map.addBlowUp(blast);
-	}
-
 }

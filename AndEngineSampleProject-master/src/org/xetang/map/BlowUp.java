@@ -14,12 +14,12 @@ public abstract class BlowUp extends MapObject implements IBlowUp {
 	protected IMapObject _ownObject;
 	protected IMapObject _targetObject;
 	protected BlastQueryCallback _inRangeBodies;
-	
+
 	public BlowUp(BlowUp blowUp) {
 		super(blowUp);
 
-		_sprite = new AnimatedSprite(blowUp.getX(), blowUp.getY(),
-				blowUp.getSprite().getTiledTextureRegion(),
+		_sprite = new AnimatedSprite(blowUp.getX(), blowUp.getY(), blowUp
+				.getSprite().getTiledTextureRegion(),
 				GameManager.Activity.getVertexBufferObjectManager());
 
 		_sprite.setSize(blowUp.getSprite().getWidth(), blowUp.getSprite()
@@ -30,8 +30,9 @@ public abstract class BlowUp extends MapObject implements IBlowUp {
 
 	public BlowUp(FixtureDef objectFixtureDef,
 			TiledTextureRegion objectTextureRegion, int piecePerMap,
-			float posX, float posY, int zIndex) {
-		super(objectFixtureDef, objectTextureRegion, piecePerMap, posX, posY, zIndex);
+			float posX, float posY) {
+		super(objectFixtureDef, objectTextureRegion, piecePerMap, posX, posY,
+				MapObjectFactory.Z_INDEX_BLOW_UP);
 		// TODO Auto-generated constructor stub
 	}
 

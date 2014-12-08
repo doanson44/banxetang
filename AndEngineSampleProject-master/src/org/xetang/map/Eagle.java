@@ -15,14 +15,14 @@ public class Eagle extends MapObject {
 				GameManager.Activity.getVertexBufferObjectManager());
 		_sprite.setSize(eagle.getSprite().getWidth(), eagle.getSprite()
 				.getHeight());
-		
+
 		attachChild(_sprite);
 	}
 
 	public Eagle(float posX, float posY) {
-		super(MapObjectFactory.getEagleFixtureDef(), MapObjectFactory
-				.getEagleTextureRegion(), MapObjectFactory.EAGLE_CELL_PER_MAP,
-				posX, posY);
+		super(MapObjectFactory.getFixtureDef(ObjectType.Eagle),
+				MapObjectFactory.getTextureRegion(ObjectType.Eagle),
+				MapObjectFactory.EAGLE_CELL_PER_MAP, posX, posY);
 	}
 
 	@Override

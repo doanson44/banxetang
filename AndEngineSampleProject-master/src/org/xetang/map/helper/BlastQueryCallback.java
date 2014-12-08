@@ -3,7 +3,6 @@ package org.xetang.map.helper;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import org.xetang.map.Bullet;
 import org.xetang.map.IBullet;
 import org.xetang.map.IMapObject;
 import org.xetang.map.MapObjectFactory.ObjectType;

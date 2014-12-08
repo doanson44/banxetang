@@ -14,14 +14,14 @@ public class Water extends MapObject {
 				GameManager.Activity.getVertexBufferObjectManager());
 		_sprite.setSize(water.getSprite().getWidth(), water.getSprite()
 				.getHeight());
-		
+
 		attachChild(_sprite);
 	}
 
 	public Water(float posX, float posY) {
-		super(MapObjectFactory.getWaterFixtureDef(), MapObjectFactory
-				.getWaterTextureRegion(), MapObjectFactory.WATER_CELL_PER_MAP,
-				posX, posY);
+		super(MapObjectFactory.getFixtureDef(ObjectType.Water),
+				MapObjectFactory.getTextureRegion(ObjectType.Water),
+				MapObjectFactory.WATER_CELL_PER_MAP, posX, posY);
 	}
 
 	@Override

@@ -87,8 +87,8 @@ public class GameManager {
 	/**********************/
 
 	public static GameMapManager CurrentMapManager;
-	public static Map		CurrentMap;
-	
+	public static Map CurrentMap;
+
 	public static boolean PlaceOnScreenControlsAtDifferentVerticalLocations = false;
 
 	public static int mStage; // Màn chơi hiện tại
@@ -139,7 +139,6 @@ public class GameManager {
 		MapObjectFactory2.InitTextures();
 
 		GameControllerManager.loadResource();
-
 
 		ListScene.put("game", new GameScene());
 
@@ -212,7 +211,11 @@ public class GameManager {
 			m = MusicFactory.createMusicFromAsset(GameManager.MusicManager,
 					GameManager.Context, "bonus.ogg");
 			Musics.put("bonus", m);
-			
+
+			m = MusicFactory.createMusicFromAsset(GameManager.MusicManager,
+					GameManager.Context, "fire.ogg");
+			Musics.put("fire", m);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -238,8 +241,6 @@ public class GameManager {
 		Fonts.put("font2", font2);
 	}
 
-
-
 	public static Music getMusic(String key) {
 		return Musics.get(key);
 	}
@@ -247,6 +248,7 @@ public class GameManager {
 	public static Font getFont(String key) {
 		return Fonts.get(key);
 	}
+
 	/**********************/
 
 	public static BaseTextureRegion getTexture(String string) {
