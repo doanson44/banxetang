@@ -35,7 +35,7 @@ public abstract class MapObject extends GameEntity implements IMapObject {
 			TiledTextureRegion objectTextureRegion, int piecePerMap,
 			float posX, float posY) {
 		this(objectFixtureDef, objectTextureRegion, piecePerMap, posX, posY,
-				MapObjectFactory.Z_INDEX_DEFAULT);
+				MapObjectFactory.Z_INDEX_CONSTRUCTION);
 	}
 
 	public MapObject(FixtureDef objectFixtureDef,

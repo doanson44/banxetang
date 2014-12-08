@@ -11,13 +11,12 @@ import org.xetang.map.Helmet;
 import org.xetang.map.IMapObject;
 import org.xetang.map.Item;
 import org.xetang.map.MapObjectFactory;
-import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.Shovel;
 import org.xetang.map.Star;
 import org.xetang.map.TankItem;
+import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.helper.ChangeWallCallBack;
-import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.model.MapObjectBlockDTO;
 import org.xetang.tank.Tank;
 

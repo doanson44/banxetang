@@ -1,28 +1,26 @@
 package org.xetang.manager;
 
-import java.util.Dictionary;
 import java.util.Hashtable;
-import java.util.Vector;
+import java.util.Map;
 
-import org.xetang.manager.GameManager.Direction;
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
-import org.andengine.opengl.texture.bitmap.BitmapTextureFormat;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.debug.Debug;
 import org.xetang.controller.IGameController;
-
-import com.badlogic.gdx.math.Vector2;
+import org.xetang.manager.GameManager.Direction;
 
 import android.graphics.Point;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class GameControllerManager {
 	static IGameController mController;
-	static Dictionary<String, TiledTextureRegion> mResources;
+	static Map<String, TiledTextureRegion> mResources;
 	static boolean bMiddleButtonPressed;
 	static TiledSprite middleSprite;
 	static Point Pivot = new Point(30, GameManager.CAMERA_HEIGHT - 200);
@@ -36,7 +34,7 @@ public class GameControllerManager {
 		// ...
 
 		// Ví dụ mẫu, load nút Fire
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("controller/");
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/controller/");
 		BitmapTextureAtlas textureAtlas = new BitmapTextureAtlas(
 				GameManager.TextureManager, 64, 64);
 		TiledTextureRegion texture = BitmapTextureAtlasTextureRegionFactory

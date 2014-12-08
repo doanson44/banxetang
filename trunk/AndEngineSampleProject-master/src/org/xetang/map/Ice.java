@@ -18,9 +18,9 @@ public class Ice extends MapObject {
 	}
 
 	public Ice(float posX, float posY) {
-		super(MapObjectFactory.getIceFixtureDef(), MapObjectFactory
-				.getIceTextureRegion(), MapObjectFactory.ICE_CELL_PER_MAP,
-				posX, posY);
+		super(MapObjectFactory.getFixtureDef(ObjectType.Ice), MapObjectFactory
+				.getTextureRegion(ObjectType.Ice),
+				MapObjectFactory.ICE_CELL_PER_MAP, posX, posY);
 	}
 
 	@Override

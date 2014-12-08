@@ -1,21 +1,16 @@
 package org.xetang.root;
 
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.sprite.batch.SpriteBatch;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.color.Color;
-import org.andengine.util.debug.Debug;
 import org.xetang.controller.Console;
 import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
-import org.xetang.manager.GameManager.Direction;
 import org.xetang.manager.GameMapManager;
-import org.xetang.map.IBullet;
-import org.xetang.map.MapObjectFactory;
-import org.xetang.map.MapObjectFactory.ObjectType;
 
 import android.hardware.SensorManager;
 
@@ -26,17 +21,18 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	GameMapManager _mapManager;
 	Console _console;
 
+	SpriteBatch testSpriteBatch;
+
 	public GameScene() {
 		GameManager.loadGameData();
 		initScene();
 
-		int iCurrentStage = GameManager.getCurrentStage();
-		_mapManager = new GameMapManager(this, iCurrentStage);
-		_console = new Console(_mapManager.getPlayerTank());
+		 int iCurrentStage = GameManager.getCurrentStage();
+		 _mapManager = new GameMapManager(this, iCurrentStage);
+		 _console = new Console(_mapManager.getPlayerTank());
 		
-	
-		registerUpdateHandler(_mapManager);
-		registerUpdateHandler(GameItemManager.getInstance());
+		 registerUpdateHandler(_mapManager);
+		 registerUpdateHandler(GameItemManager.getInstance());
 	}
 
 	private void initScene() {
@@ -87,6 +83,5 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 
 	public void onSwitched() {
 		_console = new Console(_mapManager.getPlayerTank());
-		
 	}
 }

@@ -19,8 +19,8 @@ public class SteelWall extends Wall {
 	}
 
 	public SteelWall(float posX, float posY) {
-		super(MapObjectFactory.getSteelWallFixtureDef(), MapObjectFactory
-				.getSteelWallTextureRegion(),
+		super(MapObjectFactory.getFixtureDef(ObjectType.SteelWall),
+				MapObjectFactory.getTextureRegion(ObjectType.SteelWall),
 				MapObjectFactory.STEEL_WALL_CELL_PER_MAP, posX, posY);
 	}
 
@@ -31,16 +31,16 @@ public class SteelWall extends Wall {
 
 	@Override
 	public void doContact(IMapObject object) {
-//		try {
-//			if (object.getType() == ObjectType.Bullet
-//					&& DecideHelpder.canDestroy(this, (IBullet) object)) {
-//				_sprite.setVisible(false);
-//				_body.getFixtureList().get(0).setSensor(true);
-//				// DestroyHelper.add(this);
-//			}
-//		} catch (Exception e) {
-//			Debug.d("Collsion", "Nothing to contact!");
-//		}
+		// try {
+		// if (object.getType() == ObjectType.Bullet
+		// && DecideHelpder.canDestroy(this, (IBullet) object)) {
+		// _sprite.setVisible(false);
+		// _body.getFixtureList().get(0).setSensor(true);
+		// // DestroyHelper.add(this);
+		// }
+		// } catch (Exception e) {
+		// Debug.d("Collsion", "Nothing to contact!");
+		// }
 	}
 
 	@Override

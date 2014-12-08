@@ -1,6 +1,7 @@
 ﻿package org.xetang.map;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.andengine.engine.handler.IUpdateHandler;
@@ -12,6 +13,7 @@ import org.andengine.util.debug.Debug;
 import org.xetang.controller.Bot;
 import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
+import org.xetang.map.MapObjectFactory.ObjectLayer;
 import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.model.MapObjectBlockDTO;
@@ -34,10 +36,9 @@ public class Map extends GameEntity implements IUpdateHandler {
 	List<Tank> mPlayerTanks = new ArrayList<Tank>();
 	int mICurrentStage; // Chỉ số của màn chơi
 
-	Entity _layerBase;
-	Entity _layerBullet;
-	Entity _layerBush;
-	Entity _layerBlast;
+	java.util.Map<ObjectLayer, Entity> _layerMap = new HashMap<ObjectLayer, Entity>(
+			10);
+
 	RightMenu _RightMenu;
 
 	public Map(int iCurrentStage, StageDTO stage) {
@@ -50,21 +51,26 @@ public class Map extends GameEntity implements IUpdateHandler {
 	}
 
 	private void initLayers() {
-		_layerBase = new Entity();
-		_layerBase.setZIndex(MapObjectFactory.Z_INDEX_DEFAULT);
-		attachChild(_layerBase);
 
-		_layerBullet = new Entity();
-		_layerBullet.setZIndex(MapObjectFactory.Z_INDEX_BULLET);
-		attachChild(_layerBullet);
+		Entity layer = new Entity();
+		layer.setZIndex(MapObjectFactory.Z_INDEX_CONSTRUCTION);
+		attachChild(layer);
+		_layerMap.put(ObjectLayer.Construction, layer);
 
-		_layerBush = new Entity();
-		_layerBush.setZIndex(MapObjectFactory.Z_INDEX_BUSH);
-		attachChild(_layerBush);
+		layer = new Entity();
+		layer.setZIndex(MapObjectFactory.Z_INDEX_MOVING);
+		attachChild(layer);
+		_layerMap.put(ObjectLayer.Moving, layer);
 
-		_layerBlast = new Entity();
-		_layerBlast.setZIndex(MapObjectFactory.Z_INDEX_BLAST);
-		attachChild(_layerBlast);
+		layer = new Entity();
+		layer.setZIndex(MapObjectFactory.Z_INDEX_WRAPPER);
+		attachChild(layer);
+		_layerMap.put(ObjectLayer.Wrapper, layer);
+
+		layer = new Entity();
+		layer.setZIndex(MapObjectFactory.Z_INDEX_BLOW_UP);
+		attachChild(layer);
+		_layerMap.put(ObjectLayer.BlowUp, layer);
 
 		sortChildren(true);
 	}
@@ -113,10 +119,11 @@ public class Map extends GameEntity implements IUpdateHandler {
 	}
 
 	private void attachToLayer(IMapObject object) {
+
 		if (object.getType() != ObjectType.Bush) {
-			_layerBase.attachChild((IEntity) object);
+			addObject((IEntity) object, ObjectLayer.Construction);
 		} else {
-			_layerBush.attachChild((IEntity) object);
+			addObject((IEntity) object, ObjectLayer.Wrapper);
 		}
 	}
 
@@ -297,7 +304,9 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 	public void addPlayerTank(Tank playerTank) {
 		mPlayerTanks.add(playerTank);
-		this.attachChild(playerTank);
+
+		addObject(playerTank, ObjectLayer.Moving);
+		//this.attachChild(playerTank);
 
 	}
 
@@ -315,12 +324,17 @@ public class Map extends GameEntity implements IUpdateHandler {
 		f.Animate();
 		f.SetTank(tank);
 		GameManager.Scene.registerUpdateHandler(f);
-		this.attachChild(f.GetSprite());
+
+		addObject(f.GetSprite(), ObjectLayer.Moving);
+		//this.attachChild(f.GetSprite());
 	}
 
 	public void AddEnermyTankToList(Tank tank) {
 		mEnermyTanks.add(tank);
-		this.attachChild(tank);
+
+		addObject(tank, ObjectLayer.Moving);
+		// this.attachChild(tank);
+
 		GameManager.CurrentMapManager.AddBot(new Bot(tank));
 	}
 
@@ -336,21 +350,8 @@ public class Map extends GameEntity implements IUpdateHandler {
 		return true; // dummy
 	}
 
-	// Dành cho test
-	public void addConstruction(IMapObject object) {
+	public void addObject(IEntity object, ObjectLayer layer) {
 		// TODO Auto-generated method stub
-		_layerBlast.attachChild((IEntity) object);
+		_layerMap.get(layer).attachChild(object);
 	}
-
-	// Dành cho test
-	public void addBullet(IBullet bullet) {
-		_layerBullet.attachChild((IEntity) bullet);
-	}
-
-	// Dành cho test
-	public void addBlowUp(IBlowUp blast) {
-		// TODO Auto-generated method stub
-		_layerBlast.attachChild((IEntity) blast);
-	}
-
 }

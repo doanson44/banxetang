@@ -9,19 +9,19 @@ public class Bush extends MapObject {
 	public Bush(Bush bush) {
 		super(bush);
 
-		_sprite = new TiledSprite(bush.getX(), bush.getY(), bush
-				.getSprite().getTiledTextureRegion(),
+		_sprite = new TiledSprite(bush.getX(), bush.getY(), bush.getSprite()
+				.getTiledTextureRegion(),
 				GameManager.Activity.getVertexBufferObjectManager());
 		_sprite.setSize(bush.getSprite().getWidth(), bush.getSprite()
 				.getHeight());
-		
+
 		attachChild(_sprite);
 	}
 
 	public Bush(float posX, float posY) {
-		super(null, MapObjectFactory
-				.getBushTextureRegion(), MapObjectFactory.BUSH_CELL_PER_MAP,
-				posX, posY, MapObjectFactory.Z_INDEX_BUSH);
+		super(null, MapObjectFactory.getTextureRegion(ObjectType.Bush),
+				MapObjectFactory.BUSH_CELL_PER_MAP, posX, posY,
+				MapObjectFactory.Z_INDEX_WRAPPER);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class Bush extends MapObject {
 
 	@Override
 	protected void createBody() {
-		
+
 	}
 
 	@Override

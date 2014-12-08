@@ -19,8 +19,8 @@ public class BrickWall extends Wall {
 	}
 
 	public BrickWall(float posX, float posY) {
-		super(MapObjectFactory.getBrickWallFixtureDef(), MapObjectFactory
-				.getBrickWallTextureRegion(),
+		super(MapObjectFactory.getFixtureDef(ObjectType.BrickWall),
+				MapObjectFactory.getTextureRegion(ObjectType.BrickWall),
 				MapObjectFactory.BRICK_WALL_CELL_PER_MAP, posX, posY);
 	}
 
@@ -31,15 +31,15 @@ public class BrickWall extends Wall {
 
 	@Override
 	public void doContact(IMapObject object) {
-//		try {
-//			if (object.getType() == ObjectType.Bullet) {
-//				_sprite.setVisible(false);
-//				_body.getFixtureList().get(0).setSensor(true);
-//				DestroyHelper.add(this);
-//			}
-//		} catch (Exception e) {
-//			Debug.d("Collsion", "Nothing to contact!");
-//		}
+		// try {
+		// if (object.getType() == ObjectType.Bullet) {
+		// _sprite.setVisible(false);
+		// _body.getFixtureList().get(0).setSensor(true);
+		// DestroyHelper.add(this);
+		// }
+		// } catch (Exception e) {
+		// Debug.d("Collsion", "Nothing to contact!");
+		// }
 	}
 
 	@Override

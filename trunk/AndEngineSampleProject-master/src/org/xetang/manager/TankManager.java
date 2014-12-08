@@ -1,6 +1,5 @@
 package org.xetang.manager;
 
-import java.util.List;
 import java.util.Queue;
 
 import org.andengine.engine.handler.IUpdateHandler;
@@ -13,8 +12,6 @@ import org.xetang.tank.Player1;
 import org.xetang.tank.Player2;
 import org.xetang.tank.Racer;
 import org.xetang.tank.Tank;
-
-import android.R.bool;
 
 public class TankManager implements IUpdateHandler {
 
@@ -38,12 +35,12 @@ public class TankManager implements IUpdateHandler {
 	public static float Enermy_PY_3 = 0;
 
 	/**
-	 * Tạo 1 xe tăng cho người chơi ở vị trí định sẵn
+	 * Táº¡o 1 xe tÄƒng cho ngÆ°á»�i chÆ¡i á»Ÿ vá»‹ trÃ­ Ä‘á»‹nh sáºµn
 	 * 
 	 * @param Player
-	 *            : = 1 hoặc 2, để xác định là tạo xe tăng cho người chơi 1 hay
-	 *            người chơi 2
-	 * @return xe tăng
+	 *            : = 1 hoáº·c 2, Ä‘á»ƒ xÃ¡c Ä‘á»‹nh lÃ  táº¡o xe tÄƒng cho ngÆ°á»�i chÆ¡i 1 hay
+	 *            ngÆ°á»�i chÆ¡i 2
+	 * @return xe tÄƒng
 	 */
 	public static void CreatePlayerTank(final Queue<Tank> mPlayerTanks,
 			final int Player) {
@@ -69,17 +66,17 @@ public class TankManager implements IUpdateHandler {
 	}
 
 	/**
-	 * Tạo 1 xe tăng địch ở vị trí định sẵn
+	 * Táº¡o 1 xe tÄƒng Ä‘á»‹ch á»Ÿ vá»‹ trÃ­ Ä‘á»‹nh sáºµn
 	 * 
 	 * @param type
-	 *            : loại xe tăng địch muốn tạo etc: BigMom, Racer...
+	 *            : loáº¡i xe tÄƒng Ä‘á»‹ch muá»‘n táº¡o etc: BigMom, Racer...
 	 * @param Position
-	 *            : bằng 1, 2 hay 3, là vị trí xe tăng địch xuất hiện ở góc trên
-	 *            cùng của màn hình
+	 *            : báº±ng 1, 2 hay 3, lÃ  vá»‹ trÃ­ xe tÄƒng Ä‘á»‹ch xuáº¥t hiá»‡n á»Ÿ gÃ³c trÃªn
+	 *            cÃ¹ng cá»§a mÃ n hÃ¬nh
 	 * @param isTankBonus
-	 *            : true or false, để set xe tăng nhấp nháy, khi giết được sẽ
-	 *            rớt item
-	 * @return xe tăng
+	 *            : true or false, Ä‘á»ƒ set xe tÄƒng nháº¥p nhÃ¡y, khi giáº¿t Ä‘Æ°á»£c sáº½
+	 *            rá»›t item
+	 * @return xe tÄƒng
 	 */
 	public static void CreateEnermytank(final Queue<Tank> mEnermyTanks,
 			final TankType type, final int Position, final boolean isTankBonus) {

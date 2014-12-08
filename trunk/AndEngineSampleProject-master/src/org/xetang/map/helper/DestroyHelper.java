@@ -9,8 +9,6 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.xetang.manager.GameManager;
 import org.xetang.map.IMapObject;
-import org.xetang.map.MapObjectFactory.ObjectType;
-import org.xetang.tank.Tank;
 
 public class DestroyHelper implements IUpdateHandler {
 

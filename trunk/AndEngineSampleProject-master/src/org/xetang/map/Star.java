@@ -1,7 +1,6 @@
 package org.xetang.map;
 
 import org.andengine.opengl.texture.region.TiledTextureRegion;
-
 import org.xetang.map.MapObjectFactory.ObjectType;
 
 
