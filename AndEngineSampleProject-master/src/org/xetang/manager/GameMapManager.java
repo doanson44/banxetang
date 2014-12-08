@@ -7,12 +7,12 @@ import java.util.Queue;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.xetang.controller.Bot;
-import org.xetang.map.Item;
 import org.xetang.map.Map;
 import org.xetang.map.RightMenu;
-import org.xetang.map.MapObjectFactory.TankType;
+import org.xetang.map.item.Item;
 import org.xetang.map.model.StageDTO;
 import org.xetang.map.model.XMLLoader;
+import org.xetang.map.object.MapObjectFactory.TankType;
 import org.xetang.root.Frame;
 import org.xetang.root.GameScene;
 import org.xetang.tank.Tank;

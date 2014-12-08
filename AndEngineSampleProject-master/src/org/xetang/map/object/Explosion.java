@@ -1,8 +1,8 @@
-package org.xetang.map;
+package org.xetang.map.object;
 
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
-import org.xetang.map.MapObjectFactory.ObjectType;
+import org.xetang.map.object.MapObjectFactory.ObjectType;
 
 public class Explosion extends BlowUp {
 

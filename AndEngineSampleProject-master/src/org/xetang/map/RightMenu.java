@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.andengine.entity.text.Text;
 import org.xetang.manager.GameManager;
+import org.xetang.map.item.EnermyIcon;
 import org.xetang.root.GameEntity;
 
 

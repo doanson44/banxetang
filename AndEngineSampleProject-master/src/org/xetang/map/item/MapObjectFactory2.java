@@ -1,4 +1,4 @@
-package org.xetang.map;
+package org.xetang.map.item;
 
 import java.util.Hashtable;
 

@@ -1,4 +1,4 @@
-package org.xetang.map;
+package org.xetang.map.object;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -6,19 +6,19 @@ public interface IBlowUp extends IMapObject {
 
 	/**
 	 * Gán đối tượng tác nhân gây nên BlowUp (vụ nổ). <br>
-	 * Đi chung với hàm <code>setTargetObject</code>
+	 * �?i chung với hàm <code>setTargetObject</code>
 	 * 
 	 * @param ownObject
-	 *            : Đối tượng tác nhân
+	 *            : �?ối tượng tác nhân
 	 */
 	public void setOwnObject(IMapObject ownObject);
 
 	/**
 	 * Gán đối tượng mục tiêu mà tác nhân ra tay <br>
-	 * Đi chung với hàm <code>setOwnObject</code>
+	 * �?i chung với hàm <code>setOwnObject</code>
 	 * 
 	 * @param targetObject
-	 *            : Đối tượng nạn nhân
+	 *            : �?ối tượng nạn nhân
 	 */
 	public void setTargetObject(IMapObject targetObject);
 

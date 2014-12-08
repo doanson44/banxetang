@@ -2,9 +2,9 @@ package org.xetang.tank;
 
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameItemManager;
-import org.xetang.map.MapObjectFactory2;
-import org.xetang.map.MapObjectFactory.ObjectType;
-import org.xetang.map.MapObjectFactory.TankType;
+import org.xetang.map.item.MapObjectFactory2;
+import org.xetang.map.object.MapObjectFactory.ObjectType;
+import org.xetang.map.object.MapObjectFactory.TankType;
 
 
 /**

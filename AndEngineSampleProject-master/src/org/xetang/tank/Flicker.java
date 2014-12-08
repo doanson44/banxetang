@@ -5,7 +5,7 @@ import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.xetang.manager.GameManager;
-import org.xetang.map.MapObjectFactory2;
+import org.xetang.map.item.MapObjectFactory2;
 
 public class Flicker implements IUpdateHandler, IAnimationListener {
 

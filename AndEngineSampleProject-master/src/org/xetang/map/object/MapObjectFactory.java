@@ -1,4 +1,4 @@
-package org.xetang.map;
+package org.xetang.map.object;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -334,11 +334,11 @@ public class MapObjectFactory {
 	}
 
 	/**
-	 * Tạo một đối tượng mới tại tọa độ tương ứng
+	 * Tạo một đối tượng mới tại t�?a độ tương ứng
 	 * 
 	 * @param type
 	 *            : Loại đối tượng (trong <code>GameManager.ObjectType</code>)
-	 * @return Một đối tượng mới cùng loại tại tọa độ tương ứng
+	 * @return Một đối tượng mới cùng loại tại t�?a độ tương ứng
 	 */
 	public static IMapObject createObject(ObjectType type, float posX,
 			float posY) {
@@ -353,7 +353,7 @@ public class MapObjectFactory {
 	 * @param type
 	 *            : Loại đối tượng (trong <code>GameManager.ObjectType</code>)
 	 * @param posAndSize
-	 *            : Cặp <b>tọa độ</b> và <b>vị trí</b> của khối đối tượng
+	 *            : Cặp <b>t�?a độ</b> và <b>vị trí</b> của khối đối tượng
 	 * @return Một khối đối tượng đã được khởi tạo
 	 */
 	public static MapObjectBlockDTO createObjectBlock(ObjectType type,

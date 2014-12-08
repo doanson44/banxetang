@@ -1,4 +1,4 @@
-package org.xetang.map;
+package org.xetang.map.item;
 
 import java.util.Random;
 
@@ -8,8 +8,11 @@ import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.debug.Debug;
 import org.xetang.manager.GameManager;
-import org.xetang.map.MapObjectFactory.ObjectType;
+import org.xetang.map.Map;
 import org.xetang.map.helper.DestroyHelper;
+import org.xetang.map.object.IMapObject;
+import org.xetang.map.object.MapObject;
+import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.root.GameEntity;
 import org.xetang.tank.Tank;
 
