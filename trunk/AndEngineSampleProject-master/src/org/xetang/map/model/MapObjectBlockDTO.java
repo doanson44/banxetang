@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.xetang.manager.GameManager;
-import org.xetang.map.IMapObject;
+import org.xetang.map.object.IMapObject;
 
 import android.graphics.Point;
 import android.graphics.PointF;

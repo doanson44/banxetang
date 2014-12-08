@@ -1,4 +1,4 @@
-package org.xetang.map;
+package org.xetang.map.object;
 
 import org.xetang.manager.GameManager.Direction;
 import org.xetang.tank.Tank;

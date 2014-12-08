@@ -24,9 +24,9 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.color.Color;
 import org.xetang.main.GameActivity;
 import org.xetang.map.Map;
-import org.xetang.map.MapObjectFactory;
-import org.xetang.map.MapObjectFactory2;
+import org.xetang.map.item.MapObjectFactory2;
 import org.xetang.map.model.XMLLoader;
+import org.xetang.map.object.MapObjectFactory;
 import org.xetang.root.GameScene;
 import org.xetang.root.MainMenuScene;
 

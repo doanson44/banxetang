@@ -1,8 +1,8 @@
 package org.xetang.map.helper;
 
-import org.xetang.map.IBullet;
-import org.xetang.map.IMapObject;
-import org.xetang.map.MapObjectFactory;
+import org.xetang.map.object.IBullet;
+import org.xetang.map.object.IMapObject;
+import org.xetang.map.object.MapObjectFactory;
 
 public class DecideHelpder {
 

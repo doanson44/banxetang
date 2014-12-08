@@ -2,7 +2,7 @@ package org.xetang.tank;
 
 
 
-import org.xetang.map.IMapObject;
+import org.xetang.map.object.IMapObject;
 
 import android.util.Log;
 

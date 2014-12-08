@@ -1,4 +1,4 @@
-package org.xetang.map;
+package org.xetang.map.object;
 
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 

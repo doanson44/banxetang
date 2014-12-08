@@ -6,9 +6,10 @@ import java.util.Random;
 
 import org.xetang.manager.GameManager.Direction;
 import org.xetang.manager.GameMapManager;
-import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.helper.CalcHelper;
+import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.tank.Tank;
+
 
 
 

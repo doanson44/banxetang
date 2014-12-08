@@ -1,4 +1,4 @@
-package org.xetang.map;
+package org.xetang.map.object;
 
 import org.andengine.entity.IEntity;
 import org.andengine.entity.sprite.TiledSprite;
@@ -7,10 +7,10 @@ import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.GameManager.Direction;
-import org.xetang.map.MapObjectFactory.ObjectLayer;
-import org.xetang.map.MapObjectFactory.ObjectType;
 import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.helper.DestroyHelper;
+import org.xetang.map.object.MapObjectFactory.ObjectLayer;
+import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.tank.Tank;
 
 import com.badlogic.gdx.math.Vector2;
@@ -100,7 +100,7 @@ public class Bullet extends MapObject implements IBullet {
 	@Override
 	public void doContact(IMapObject object) {
 
-		// tank địch bắn trúng tank của người chơi
+		// tank địch bắn trúng tank của ngư�?i chơi
 		if (object != null && object.getType() == ObjectType.PlayerTank
 				&& _tank.getType() == ObjectType.EnermyTank) {
 			Tank tank = (Tank) object;
@@ -109,7 +109,7 @@ public class Bullet extends MapObject implements IBullet {
 			}
 		}
 
-		// tank của người chơi bắn trúng tank địch
+		// tank của ngư�?i chơi bắn trúng tank địch
 		if (object != null && object.getType() == ObjectType.EnermyTank
 				&& _tank.getType() == ObjectType.PlayerTank) {
 

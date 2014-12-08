@@ -4,7 +4,7 @@ import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.GameManager.Direction;
-import org.xetang.map.MapObjectFactory.ObjectType;
+import org.xetang.map.object.MapObjectFactory.ObjectType;
 
 import com.badlogic.gdx.math.Vector2;
 

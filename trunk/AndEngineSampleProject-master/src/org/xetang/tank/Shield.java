@@ -3,8 +3,8 @@ package org.xetang.tank;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.xetang.manager.GameManager;
-import org.xetang.map.MapObjectFactory2;
-import org.xetang.map.MapObjectFactory.ObjectLayer;
+import org.xetang.map.item.MapObjectFactory2;
+import org.xetang.map.object.MapObjectFactory.ObjectLayer;
 import org.xetang.root.GameEntity;
 
 public class Shield extends GameEntity {

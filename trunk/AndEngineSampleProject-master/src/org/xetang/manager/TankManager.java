@@ -3,8 +3,8 @@ package org.xetang.manager;
 import java.util.Queue;
 
 import org.andengine.engine.handler.IUpdateHandler;
-import org.xetang.map.MapObjectFactory.ObjectType;
-import org.xetang.map.MapObjectFactory.TankType;
+import org.xetang.map.object.MapObjectFactory.ObjectType;
+import org.xetang.map.object.MapObjectFactory.TankType;
 import org.xetang.tank.BigMom;
 import org.xetang.tank.GlassCannon;
 import org.xetang.tank.Normal;
