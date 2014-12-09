@@ -66,7 +66,6 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	ObjectType _objecType;
 	FixtureDef _ObjectFixtureDef;
 	float _distinctMove = 10;
-	public static float CellSize = CalcHelper.CellSize;
 	ObjectType _typeColide;
 
 	public synchronized boolean isAlive() {
@@ -199,8 +198,8 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	// Hàm set vị trí của Xe tăng vào trọn 1 CELL trong bản đồ 26x26
 	public void SetTranform(Vector2 point) {
 		float angle = _body.getAngle();
-		float x = point.x * CellSize / 2 + CellSize / 2;
-		float y = point.y * CellSize / 2 + CellSize / 2;
+		float x = (point.x + 1) * GameManager.SMALL_CELL_WIDTH;
+		float y = (point.y + 1) * GameManager.SMALL_CELL_HEIGHT;
 
 		_body.setTransform((x) / PIXEL_TO_METERS_RATIO, (y)
 				/ PIXEL_TO_METERS_RATIO, angle);

@@ -18,6 +18,8 @@ public class Shield extends GameEntity {
 				(ITiledTextureRegion) MapObjectFactory2
 						.getTexture("Protection"),
 				GameManager.VertexBufferObject);
+		_shield.setSize(GameManager.LARGE_CELL_WIDTH,
+				GameManager.LARGE_CELL_HEIGHT);
 		_shield.animate(200);
 		this.attachChild(_shield);
 		GameManager.CurrentMap.addObject(this, ObjectLayer.Moving);
