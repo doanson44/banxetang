@@ -36,7 +36,7 @@ public class GameManager {
 
 	public static final String TANK_TAG = "XeTang"; // Dùng để debug
 
-	public static final int CAMERA_WIDTH = 1060;
+	public static final int CAMERA_WIDTH = 540;
 	public static final int CAMERA_HEIGHT = CAMERA_WIDTH / 10 * 6;
 
 	public static final int MAP_GRID_WIDTH = 13;
