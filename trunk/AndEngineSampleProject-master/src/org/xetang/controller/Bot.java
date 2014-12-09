@@ -1,6 +1,5 @@
 package org.xetang.controller;
 
-
 import java.util.List;
 import java.util.Random;
 
@@ -9,10 +8,6 @@ import org.xetang.manager.GameMapManager;
 import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.tank.Tank;
-
-
-
-
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -25,10 +20,6 @@ public class Bot extends Controller {
 	protected ObjectType Collide;
 	private float _SecPerFrame = 0;
 	private float _TimeToFire = 0;
-
-	public Bot() {
-
-	}
 
 	public Bot(Tank tank) {
 		mTank = tank;
@@ -68,16 +59,18 @@ public class Bot extends Controller {
 				else
 					mDirection = Direction.Right;
 			}
-			
-			if(_TimeToFire % 4 == 0)
+
+			if (_TimeToFire % 4 == 0)
 				mTank.onFire();
 
-			if (CurrentCell.x == FortressPX || CurrentCell.y == FortressPY){
-				SetDirectionToFire(CurrentCell, new Vector2(FortressPX,FortressPY));
+			if (CurrentCell.x == FortressPX || CurrentCell.y == FortressPY) {
+				SetDirectionToFire(CurrentCell, new Vector2(FortressPX,
+						FortressPY));
 			}
-			
+
 			for (int i = 0; i < playerTanks.size(); i++) {
-				Vector2 playerPoint = CalcHelper.CellInMap13(playerTanks.get(i).getSprite());
+				Vector2 playerPoint = CalcHelper.CellInMap13(playerTanks.get(i)
+						.getSprite());
 				SetDirectionToFire(CurrentCell, playerPoint);
 			}
 
@@ -120,35 +113,36 @@ public class Bot extends Controller {
 			mDirection = Direction.Right;
 	}
 
-	private void SetDirectionToFire(Vector2 CurrentCell, Vector2 playerPoint ){
+	private void SetDirectionToFire(Vector2 CurrentCell, Vector2 playerPoint) {
 		if (CurrentCell.x == playerPoint.x) {
-			if(CurrentCell.y - playerPoint.y > 0)
+			if (CurrentCell.y - playerPoint.y > 0)
 				mDirection = Direction.Up;
 			else
 				mDirection = Direction.Down;
-			
+
 			mTank.SetDirection(mDirection);
 			mTank.onFire();
 		}
 		if (CurrentCell.y == playerPoint.y) {
-			if(CurrentCell.x - playerPoint.x > 0)
+			if (CurrentCell.x - playerPoint.x > 0)
 				mDirection = Direction.Left;
 			else
 				mDirection = Direction.Right;
-			
+
 			mTank.SetDirection(mDirection);
 			mTank.onFire();
 		}
 	}
+
 	@Override
 	public void onTankDie() {
 		super.onTankDie();
 
 		mTank = null;
 	}
-	
-	private void CountTimeToFire(float pSecondsElapsed){
-		_SecPerFrame  += pSecondsElapsed;
+
+	private void CountTimeToFire(float pSecondsElapsed) {
+		_SecPerFrame += pSecondsElapsed;
 		if (_SecPerFrame > 1) {
 			_SecPerFrame = 0;
 			_TimeToFire++;

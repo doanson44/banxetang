@@ -31,12 +31,12 @@ public class Item extends GameEntity implements IMapObject {
 
 	static int _TotalTimeAffect = 7;
 	static int _ToatalTimeSurvive = 10;
-	
+
 	float _Score = 500;
 	float _SecPerFrame = 0;
 	float _alpha = 1;
-	public static int _CellWidth = 52;
-	public static int _CellHeight = 52;
+	float _CellWidth = GameManager.LARGE_CELL_WIDTH;
+	float _CellHeight = GameManager.LARGE_CELL_HEIGHT;
 	Map _map;
 	public TiledSprite _sprite = null;
 	Body _body;
@@ -46,8 +46,8 @@ public class Item extends GameEntity implements IMapObject {
 
 	public Item(TiledTextureRegion region, Map map) {
 		_map = map;
-		_sprite = new TiledSprite(GetRandomPx(),GetRandomPy(),
-				region, GameManager.VertexBufferObject);
+		_sprite = new TiledSprite(GetRandomPx(), GetRandomPy(), region,
+				GameManager.VertexBufferObject);
 		_sprite.setSize(_CellWidth, _CellHeight);
 		_isAlive = true;
 		this.attachChild(_sprite);
@@ -99,7 +99,7 @@ public class Item extends GameEntity implements IMapObject {
 		}
 
 		if (_TimeSurvive > _ToatalTimeSurvive && _mOwner == null) {
-			//DestroyHelper.add(this);
+			// DestroyHelper.add(this);
 		}
 		if (_TimeAffect > _TotalTimeAffect) {
 			DestroyAffect();
@@ -245,8 +245,8 @@ public class Item extends GameEntity implements IMapObject {
 		// TODO Auto-generated method stub
 
 	}
-	
-	public float GetScore (){
+
+	public float GetScore() {
 		return _Score;
 	}
 }

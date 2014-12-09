@@ -13,10 +13,9 @@ public class CalcHelper {
 	public static final float PI_IN_DEG = 180;
 	public static final float PI_HALF_IN_DEG = PI_IN_DEG / 2;
 	public static final float PI_TWICE_IN_DEG = PI_IN_DEG * 2;
-	public static final float CellSize = GameManager.MAP_HEIGHT/13;
+
 	/*
-	 * Ä�á»ƒ dÃ nh cáº£i tiáº¿n cho viá»‡c Ä‘á»“ng bá»™ thÃ´ng sá»‘ cell khi
-	 * táº¡o MAP
+	 * Để dành cải tiến cho việc đồng bộ thông số cell khi tạo MAP
 	 */
 	public static int getObjectsPerCell(int objectID) {
 		switch (ObjectType.values()[objectID]) {
@@ -60,17 +59,17 @@ public class CalcHelper {
 		Vector2 centerPoint = new Vector2(mSprite.getX() + mSprite.getHeight()
 				/ 2, mSprite.getY() + mSprite.getWidth() / 2);
 
-		return new Vector2((Math.round(centerPoint.x / (CellSize / 2)) - 1),
-				Math.round(centerPoint.y / (CellSize / 2)) - 1);
+		return new Vector2((Math.round(centerPoint.x
+				/ GameManager.SMALL_CELL_WIDTH) - 1), Math.round(centerPoint.y
+				/ GameManager.SMALL_CELL_HEIGHT) - 1);
 	}
 
 	public static Vector2 CellInMap13(AnimatedSprite mSprite) {
 		Vector2 centerPoint = new Vector2(mSprite.getX() + mSprite.getHeight()
 				/ 2, mSprite.getY() + mSprite.getWidth() / 2);
 
-		int centerX = (int) (centerPoint.x / CellSize);
-		int centerY = (int) (centerPoint.y / CellSize);
+		int centerX = (int) (centerPoint.x / GameManager.LARGE_CELL_WIDTH);
+		int centerY = (int) (centerPoint.y / GameManager.LARGE_CELL_HEIGHT);
 		return new Vector2(centerX, centerY);
 	}
-
 }
