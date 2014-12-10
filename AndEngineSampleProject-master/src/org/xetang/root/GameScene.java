@@ -3,7 +3,6 @@ package org.xetang.root;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
-import org.andengine.entity.sprite.batch.SpriteBatch;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.color.Color;
@@ -21,18 +20,16 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	GameMapManager _mapManager;
 	Console _console;
 
-	SpriteBatch testSpriteBatch;
-
 	public GameScene() {
 		GameManager.loadGameData();
 		initScene();
 
-		 int iCurrentStage = GameManager.getCurrentStage();
-		 _mapManager = new GameMapManager(this, iCurrentStage);
-		 _console = new Console(_mapManager.getPlayerTank());
-		
-		 registerUpdateHandler(_mapManager);
-		 registerUpdateHandler(GameItemManager.getInstance());
+		int iCurrentStage = GameManager.getCurrentStage();
+		_mapManager = new GameMapManager(this, iCurrentStage);
+		_console = new Console(_mapManager.getPlayerTank());
+
+		registerUpdateHandler(_mapManager);
+		registerUpdateHandler(GameItemManager.getInstance());
 	}
 
 	private void initScene() {

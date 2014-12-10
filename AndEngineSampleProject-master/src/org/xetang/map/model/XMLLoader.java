@@ -2,7 +2,9 @@ package org.xetang.map.model;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xetang.manager.GameManager;
+import org.xetang.map.object.MapObjectFactory.ObjectType;
 
 import android.graphics.Point;
 import android.util.Pair;
@@ -21,7 +24,8 @@ public class XMLLoader {
 	final private static String OBJECT_FILE = "data/map/objects.xml";
 
 	private static SparseArray<StageDTO> _stagesArray;
-	private static SparseArray<ObjectDTO> _objectsArray;
+	private static Map<ObjectType, ObjectDTO> _objectsArray;
+	private static SparseArray<ObjectType> _objectsID;
 
 	public static boolean loadAllParameters() {
 		return loadAllStages() && loadAllObjects();
@@ -172,11 +176,14 @@ public class XMLLoader {
 			ele.normalize(); // Chuẩn hóa!?
 
 			NodeList objectsNoteList = ele.getElementsByTagName("OBJECT");
-			_objectsArray = new SparseArray<ObjectDTO>(
+			_objectsArray = new HashMap<ObjectType, ObjectDTO>(
+					objectsNoteList.getLength());
+			_objectsID = new SparseArray<ObjectType>(
 					objectsNoteList.getLength());
 
 			Element objectNode;
 			ObjectDTO object;
+			ObjectType type;
 			for (int i = 0; i < objectsNoteList.getLength(); i++) {
 				objectNode = (Element) objectsNoteList.item(i);
 
@@ -190,7 +197,9 @@ public class XMLLoader {
 				object.setTextures(objectNode.getElementsByTagName("TEXTURE")
 						.item(0).getTextContent());
 
-				_objectsArray.put(object.getId(), object);
+				type = ObjectType.valueOf(object.getName());
+				_objectsArray.put(type, object);
+				_objectsID.put(object.getId(), type);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -206,7 +215,11 @@ public class XMLLoader {
 		return _stagesArray.get(stageID);
 	}
 
-	public static ObjectDTO getObject(int objectID) {
-		return _objectsArray.get(objectID);
+	public static ObjectDTO getObject(ObjectType type) {
+		return _objectsArray.get(type);
+	}
+
+	public static ObjectType getObjectFromID(int objectID) {
+		return _objectsID.get(objectID);
 	}
 }

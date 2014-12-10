@@ -1,21 +1,11 @@
 package org.xetang.map.object;
 
-import org.andengine.entity.sprite.TiledSprite;
-import org.xetang.manager.GameManager;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 
 public class BrickWall extends Wall {
 
 	public BrickWall(BrickWall brickWall) {
 		super(brickWall);
-
-		_sprite = new TiledSprite(brickWall.getX(), brickWall.getY(), brickWall
-				.getSprite().getTiledTextureRegion(),
-				GameManager.Activity.getVertexBufferObjectManager());
-		_sprite.setSize(brickWall.getSprite().getWidth(), brickWall.getSprite()
-				.getHeight());
-
-		attachChild(_sprite);
 	}
 
 	public BrickWall(float posX, float posY) {

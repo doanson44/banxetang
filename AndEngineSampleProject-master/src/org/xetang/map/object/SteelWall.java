@@ -1,21 +1,11 @@
 package org.xetang.map.object;
 
-import org.andengine.entity.sprite.TiledSprite;
-import org.xetang.manager.GameManager;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 
 public class SteelWall extends Wall {
 
 	public SteelWall(SteelWall steelWall) {
 		super(steelWall);
-
-		_sprite = new TiledSprite(steelWall.getX(), steelWall.getY(), steelWall
-				.getSprite().getTiledTextureRegion(),
-				GameManager.Activity.getVertexBufferObjectManager());
-		_sprite.setSize(steelWall.getSprite().getWidth(), steelWall.getSprite()
-				.getHeight());
-
-		attachChild(_sprite);
 	}
 
 	public SteelWall(float posX, float posY) {

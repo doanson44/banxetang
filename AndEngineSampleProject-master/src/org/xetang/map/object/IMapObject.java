@@ -23,7 +23,7 @@ public interface IMapObject {
 	public void putToWorld(float posX, float posY);
 
 	/**
-	 * Gán t�?a độ cho Sprite của đối tượng, phải được dùng <b>TRƯỚC</b> khi dùng
+	 * Gán tỿa độ cho Sprite của đối tượng, phải được dùng <b>TRƯỚC</b> khi dùng
 	 * hàm <code>putToWorld</code>
 	 */
 	public void setPosition(float posX, float posY);
@@ -39,7 +39,7 @@ public interface IMapObject {
 	public float getY();
 
 	/**
-	 * Tịnh tiến Sprite đối tượng theo độ d�?i tương ứng
+	 * Tịnh tiến Sprite đối tượng theo độ dỿi tương ứng
 	 */
 	public void transform(float x, float y);
 
@@ -54,7 +54,7 @@ public interface IMapObject {
 	public float getCellHeight();
 
 	/**
-	 * �?ối tượng còn sống hay không (đã bị loại kh�?i trò chơi)
+	 * Ŀối tượng còn sống hay không (đã bị loại khỿi trò chơi)
 	 */
 	public boolean isAlive();
 
@@ -76,7 +76,7 @@ public interface IMapObject {
 	 * Thực hiện hành động khi đối tượng va chạm với đối tượng khác
 	 * 
 	 * @param object
-	 *            : �?ối tượng va chạm với đối tượng này
+	 *            : Ŀối tượng va chạm với đối tượng này
 	 */
 	public abstract void doContact(IMapObject object);
 

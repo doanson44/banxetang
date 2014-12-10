@@ -18,7 +18,6 @@ import org.xetang.map.model.XMLLoader;
 
 import android.graphics.Point;
 import android.util.Pair;
-import android.util.SparseArray;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -26,7 +25,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 public class MapObjectFactory {
 
 	public enum ObjectType {
-		EAGLE, BRICK_WALL, STEEL_WALL, BUSH, WATER, ICE, BULLET, BLAST, EXPLOSION, SLOW_BULLET, FAST_BULLET, DRILL_BULLET, BLOW_BULLET, BOMB, CLOCK, HELMET, SHOVEL, STAR, TANK_ITEM, PLAYER_TANK, ENERMY_TANK
+		EAGLE, BRICK_WALL, STEEL_WALL, BUSH, WATER, ICE, BLAST, EXPLOSION, BULLET, SLOW_BULLET, FAST_BULLET, DRILL_BULLET, BLOW_BULLET, BOMB, CLOCK, HELMET, SHOVEL, STAR, TANK_ITEM, PLAYER_TANK, ENERMY_TANK
 	};
 
 	public enum ObjectLayer {
@@ -104,7 +103,7 @@ public class MapObjectFactory {
 	public static final Vector2 POWER_BULLET_BLOW_RADIUS = new Vector2(
 			NORMAL_BULLET_BLOW_RADIUS.x, NORMAL_BULLET_BLOW_RADIUS.x);
 
-	private static SparseArray<IMapObject> _objectsArray = new SparseArray<IMapObject>();
+	private static Map<ObjectType, IMapObject> _objectsArray = new HashMap<ObjectType, IMapObject>();
 
 	/**
 	 * Bitmap lưu texture của tất cả các đối tượng
@@ -134,56 +133,49 @@ public class MapObjectFactory {
 				TextureOptions.BILINEAR);
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("");
 
-		String strTexture = XMLLoader.getObject(ObjectType.EAGLE.ordinal())
-				.getTextures();
+		String strTexture = XMLLoader.getObject(ObjectType.EAGLE).getTextures();
 		_textureRegionMap.put(ObjectType.EAGLE,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, EAGLE_TEXTURE_POS.x, EAGLE_TEXTURE_POS.y,
 						2, 1));
 
-		strTexture = XMLLoader.getObject(ObjectType.BRICK_WALL.ordinal())
-				.getTextures();
+		strTexture = XMLLoader.getObject(ObjectType.BRICK_WALL).getTextures();
 		_textureRegionMap.put(ObjectType.BRICK_WALL,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, BRICKWALL_TEXTURE_POS.x,
 						BRICKWALL_TEXTURE_POS.y, 1, 1));
 
-		strTexture = XMLLoader.getObject(ObjectType.STEEL_WALL.ordinal())
-				.getTextures();
+		strTexture = XMLLoader.getObject(ObjectType.STEEL_WALL).getTextures();
 		_textureRegionMap.put(ObjectType.STEEL_WALL,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, STEELWALL_TEXTURE_POS.x,
 						STEELWALL_TEXTURE_POS.y, 1, 1));
 
-		strTexture = XMLLoader.getObject(ObjectType.BUSH.ordinal())
-				.getTextures();
+		strTexture = XMLLoader.getObject(ObjectType.BUSH).getTextures();
 		_textureRegionMap.put(ObjectType.BUSH,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, BUSH_TEXTURE_POS.x, BUSH_TEXTURE_POS.y, 1,
 						1));
 
-		strTexture = XMLLoader.getObject(ObjectType.WATER.ordinal())
-				.getTextures();
+		strTexture = XMLLoader.getObject(ObjectType.WATER).getTextures();
 		_textureRegionMap.put(ObjectType.WATER,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, WATER_TEXTURE_POS.x, WATER_TEXTURE_POS.y,
 						1, 1));
 
-		strTexture = XMLLoader.getObject(ObjectType.ICE.ordinal())
-				.getTextures();
+		strTexture = XMLLoader.getObject(ObjectType.ICE).getTextures();
 		_textureRegionMap
 				.put(ObjectType.ICE, BitmapTextureAtlasTextureRegionFactory
 						.createTiledFromAsset(_bitmapTextureAtlas,
 								GameManager.Activity.getAssets(), strTexture,
 								ICE_TEXTURE_POS.x, ICE_TEXTURE_POS.y, 1, 1));
 
-		strTexture = XMLLoader.getObject(ObjectType.BULLET.ordinal())
-				.getTextures();
+		strTexture = XMLLoader.getObject(ObjectType.BULLET).getTextures();
 		TiledTextureRegion bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(_bitmapTextureAtlas,
 						GameManager.Activity.getAssets(), strTexture,
@@ -193,16 +185,14 @@ public class MapObjectFactory {
 				* bulletTextureRegion.getHeight()
 				/ bulletTextureRegion.getWidth());
 
-		strTexture = XMLLoader.getObject(ObjectType.BLAST.ordinal())
-				.getTextures();
+		strTexture = XMLLoader.getObject(ObjectType.BLAST).getTextures();
 		_textureRegionMap.put(ObjectType.BLAST,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, BLAST_TEXTURE_POS.x, BLAST_TEXTURE_POS.y,
 						3, 4));
 
-		strTexture = XMLLoader.getObject(ObjectType.EXPLOSION.ordinal())
-				.getTextures();
+		strTexture = XMLLoader.getObject(ObjectType.EXPLOSION).getTextures();
 		_textureRegionMap.put(ObjectType.EXPLOSION,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
@@ -241,17 +231,14 @@ public class MapObjectFactory {
 	}
 
 	private static void createObjectsArray() {
-		_objectsArray.put(ObjectType.EAGLE.ordinal(), new Eagle(0f, 0f));
-		_objectsArray.put(ObjectType.BRICK_WALL.ordinal(),
-				new BrickWall(0f, 0f));
-		_objectsArray.put(ObjectType.STEEL_WALL.ordinal(),
-				new SteelWall(0f, 0f));
-		_objectsArray.put(ObjectType.BUSH.ordinal(), new Bush(0f, 0f));
-		_objectsArray.put(ObjectType.WATER.ordinal(), new Water(0f, 0f));
-		_objectsArray.put(ObjectType.ICE.ordinal(), new Ice(0f, 0f));
-		_objectsArray.put(ObjectType.BLAST.ordinal(), new Blast(0f, 0f));
-		_objectsArray
-				.put(ObjectType.EXPLOSION.ordinal(), new Explosion(0f, 0f));
+		_objectsArray.put(ObjectType.EAGLE, new Eagle(0f, 0f));
+		_objectsArray.put(ObjectType.BRICK_WALL, new BrickWall(0f, 0f));
+		_objectsArray.put(ObjectType.STEEL_WALL, new SteelWall(0f, 0f));
+		_objectsArray.put(ObjectType.BUSH, new Bush(0f, 0f));
+		_objectsArray.put(ObjectType.WATER, new Water(0f, 0f));
+		_objectsArray.put(ObjectType.ICE, new Ice(0f, 0f));
+		_objectsArray.put(ObjectType.BLAST, new Blast(0f, 0f));
+		_objectsArray.put(ObjectType.EXPLOSION, new Explosion(0f, 0f));
 
 		createAllBullets();
 	}
@@ -260,28 +247,28 @@ public class MapObjectFactory {
 	 * Khởi tạo các loại Bullet có trong trò chơi
 	 */
 	private static void createAllBullets() {
-		IBullet bullet = new Bullet();
-		_objectsArray.put(ObjectType.BULLET.ordinal(), bullet);
+		IBullet bullet = new Bullet(0f, 0f);
+		_objectsArray.put(ObjectType.BULLET, bullet);
 
-		bullet = new Bullet();
+		bullet = new Bullet(0f, 0f);
 		bullet.initSpecification(SLOW_BULLET_DAMAGE, SLOW_BULLET_SPEED,
 				NORMAL_BULLET_BLOW_RADIUS);
-		_objectsArray.put(ObjectType.SLOW_BULLET.ordinal(), bullet);
+		_objectsArray.put(ObjectType.SLOW_BULLET, bullet);
 
-		bullet = new Bullet();
+		bullet = new Bullet(0f, 0f);
 		bullet.initSpecification(FAST_BULLET_DAMAGE, FAST_BULLET_SPEED,
 				NORMAL_BULLET_BLOW_RADIUS);
-		_objectsArray.put(ObjectType.FAST_BULLET.ordinal(), bullet);
+		_objectsArray.put(ObjectType.FAST_BULLET, bullet);
 
-		bullet = new Bullet();
+		bullet = new Bullet(0f, 0f);
 		bullet.initSpecification(DRILL_BULLET_DAMAGE, FAST_BULLET_SPEED,
 				POWER_BULLET_BLOW_RADIUS);
-		_objectsArray.put(ObjectType.DRILL_BULLET.ordinal(), bullet);
+		_objectsArray.put(ObjectType.DRILL_BULLET, bullet);
 
-		bullet = new Bullet();
+		bullet = new Bullet(0f, 0f);
 		bullet.initSpecification(BLOW_BULLET_DAMAGE, FAST_BULLET_SPEED,
 				POWER_BULLET_BLOW_RADIUS);
-		_objectsArray.put(ObjectType.BLOW_BULLET.ordinal(), bullet);
+		_objectsArray.put(ObjectType.BLOW_BULLET, bullet);
 	}
 
 	private static void createObjectsListener() {
@@ -338,15 +325,15 @@ public class MapObjectFactory {
 	}
 
 	/**
-	 * Tạo một đối tượng mới tại tỿa độ tương ứng
+	 * Tạo một đối tượng mới tại tọa độ tương ứng
 	 * 
 	 * @param type
 	 *            : Loại đối tượng (trong <code>GameManager.ObjectType</code>)
-	 * @return Một đối tượng mới cùng loại tại tỿa độ tương ứng
+	 * @return Một đối tượng mới cùng loại tại tọa độ tương ứng
 	 */
 	public static IMapObject createObject(ObjectType type, float posX,
 			float posY) {
-		IMapObject object = _objectsArray.get(type.ordinal()).clone();
+		IMapObject object = _objectsArray.get(type).clone();
 		object.setPosition(posX, posY);
 		return object;
 	}
@@ -357,7 +344,7 @@ public class MapObjectFactory {
 	 * @param type
 	 *            : Loại đối tượng (trong <code>GameManager.ObjectType</code>)
 	 * @param posAndSize
-	 *            : Cặp <b>tỿa độ</b> và <b>vị trí</b> của khối đối tượng
+	 *            : Cặp <b>tọa độ</b> và <b>vị trí</b> của khối đối tượng
 	 * @return Một khối đối tượng đã được khởi tạo
 	 */
 	public static MapObjectBlockDTO createObjectBlock(ObjectType type,

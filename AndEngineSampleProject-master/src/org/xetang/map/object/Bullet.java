@@ -37,10 +37,10 @@ public class Bullet extends MapObject implements IBullet {
 		_sprite = new TiledSprite(bullet.getX(), bullet.getY(), bullet
 				.getSprite().getTiledTextureRegion(),
 				GameManager.Activity.getVertexBufferObjectManager());
-		_sprite.setScale(bullet.getSprite().getScaleX(), bullet.getSprite()
-				.getScaleY());
-		// _sprite.setSize(bullet.getSprite().getWidth(), bullet.getSprite()
-		// .getHeight());
+		_sprite.setSize(bullet.getSprite().getWidth(), bullet.getSprite()
+				.getHeight());
+		_sprite.setRotationCenter(bullet.getSprite().getRotationCenterX(),
+				bullet.getSprite().getRotationCenterY());
 
 		attachChild(_sprite);
 	}
@@ -55,6 +55,9 @@ public class Bullet extends MapObject implements IBullet {
 				posY, MapObjectFactory.getBulletSize().x, MapObjectFactory
 						.getBulletSize().y, MapObjectFactory.Z_INDEX_MOVING);
 
+		_sprite.setRotationCenter(MapObjectFactory.getBulletSize().x / 2f,
+				MapObjectFactory.getBulletSize().y / 2f);
+		
 		initSpecification(MapObjectFactory.NORMAL_BULLET_DAMAGE,
 				MapObjectFactory.NORMAL_BULLET_SPEED,
 				MapObjectFactory.NORMAL_BULLET_BLOW_RADIUS);
