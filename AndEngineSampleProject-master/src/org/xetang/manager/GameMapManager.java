@@ -95,12 +95,15 @@ public class GameMapManager implements IUpdateHandler {
 		 * 
 		 * _totalEnermyTanks.add(tank); }
 		 */
-		TankManager.CreateEnermytank(_totalEnermyTanks,TankType.BigMom, 1, true);
 
-		TankManager.CreateEnermytank(_totalEnermyTanks,TankType.BigMom, 2, true);
+		TankManager.CreateEnermytank(_totalEnermyTanks, TankType.GLASS_CANNON,
+				1, true);
 
-		TankManager.CreateEnermytank(_totalEnermyTanks,TankType.Racer, 3, true);
+		TankManager.CreateEnermytank(_totalEnermyTanks, TankType.BIG_MOM, 2,
+				true);
 
+		TankManager
+				.CreateEnermytank(_totalEnermyTanks, TankType.RACER, 3, true);
 
 	}
 
@@ -146,8 +149,6 @@ public class GameMapManager implements IUpdateHandler {
 		}
 	}
 
-
-
 	private void updateWinLose() {
 
 		if (_map.getEnermyTanks().size() <= 0 && _totalEnermyTanks.size() <= 0) {
@@ -172,12 +173,14 @@ public class GameMapManager implements IUpdateHandler {
 		_map.addEnermyTank(tank);
 
 	}
+
 	private void addPlayerTankToMap() {
 		// TODO Auto-generated method stub
 		Tank tank = _totalPlayerTanks.poll();
 		GameControllerManager.setOnController(tank);
 		_map.addPlayerTank(tank);
 	}
+
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
@@ -204,13 +207,14 @@ public class GameMapManager implements IUpdateHandler {
 		return _totalItemGet;
 	}
 
-	public void AddTankKill(Tank tank){
+	public void AddTankKill(Tank tank) {
 		_totalTankKill.add(tank);
 	}
-	
-	public List<Tank> GetTotalTankKill(){
+
+	public List<Tank> GetTotalTankKill() {
 		return _totalTankKill;
 	}
+
 	public void AddNewLifeForTank() {
 		Player1Life++;
 	}

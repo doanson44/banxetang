@@ -23,7 +23,7 @@ public class Bot extends Controller {
 
 	public Bot(Tank tank) {
 		mTank = tank;
-		mDirection = Direction.Down;
+		mDirection = Direction.DOWN;
 	}
 
 	/*
@@ -47,17 +47,17 @@ public class Bot extends Controller {
 		List<Tank> playerTanks = GameMapManager._map.getPlayerTanks();
 		if (mTank.GetCollide() == null) {
 			if (distinctY > 0)
-				mDirection = Direction.Down;
+				mDirection = Direction.DOWN;
 			else if (distinctX > 0)
-				mDirection = Direction.Right;
+				mDirection = Direction.RIGHT;
 			else if (distinctX < 0)
-				mDirection = Direction.Left;
+				mDirection = Direction.LEFT;
 
 			if (distinctX == 0) {
 				if ((new Random()).nextInt() % 2 == 0)
-					mDirection = Direction.Left;
+					mDirection = Direction.LEFT;
 				else
-					mDirection = Direction.Right;
+					mDirection = Direction.RIGHT;
 			}
 
 			if (_TimeToFire % 4 == 0)
@@ -82,16 +82,16 @@ public class Bot extends Controller {
 
 	private void Move() {
 		switch (mDirection) {
-		case Up:
+		case UP:
 			mTank.onForward();
 			break;
-		case Down:
+		case DOWN:
 			mTank.onBackward();
 			break;
-		case Left:
+		case LEFT:
 			mTank.onLeft();
 			break;
-		case Right:
+		case RIGHT:
 			mTank.onRight();
 			break;
 		default:
@@ -104,30 +104,30 @@ public class Bot extends Controller {
 		Random rd = new Random();
 		int random = rd.nextInt() % 4;
 		if (random == 0)
-			mDirection = Direction.Down;
+			mDirection = Direction.DOWN;
 		if (random == 1)
-			mDirection = Direction.Up;
+			mDirection = Direction.UP;
 		if (random == 2)
-			mDirection = Direction.Left;
+			mDirection = Direction.LEFT;
 		if (random == 3)
-			mDirection = Direction.Right;
+			mDirection = Direction.RIGHT;
 	}
 
 	private void SetDirectionToFire(Vector2 CurrentCell, Vector2 playerPoint) {
 		if (CurrentCell.x == playerPoint.x) {
 			if (CurrentCell.y - playerPoint.y > 0)
-				mDirection = Direction.Up;
+				mDirection = Direction.UP;
 			else
-				mDirection = Direction.Down;
+				mDirection = Direction.DOWN;
 
 			mTank.SetDirection(mDirection);
 			mTank.onFire();
 		}
 		if (CurrentCell.y == playerPoint.y) {
 			if (CurrentCell.x - playerPoint.x > 0)
-				mDirection = Direction.Left;
+				mDirection = Direction.LEFT;
 			else
-				mDirection = Direction.Right;
+				mDirection = Direction.RIGHT;
 
 			mTank.SetDirection(mDirection);
 			mTank.onFire();

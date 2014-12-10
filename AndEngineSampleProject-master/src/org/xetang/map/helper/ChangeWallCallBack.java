@@ -13,8 +13,8 @@ public class ChangeWallCallBack implements QueryCallback{
 		// TODO Auto-generated method stub
 		
 		IMapObject object = (IMapObject) fixture.getBody().getUserData();
-		if(object!= null && (object.getType() == ObjectType.BrickWall 
-				|| object.getType() == ObjectType.SteelWall)){
+		if(object!= null && (object.getType() == ObjectType.BRICK_WALL 
+				|| object.getType() == ObjectType.STEEL_WALL)){
 			DestroyHelper.add(object);
 		}
 		

@@ -11,8 +11,8 @@ public abstract class Wall extends MapObject {
 	}
 
 	public Wall(FixtureDef objectFixtureDef,
-			TiledTextureRegion objectTextureRegion, int piecePerMap,
-			float posX, float posY) {
-		super(objectFixtureDef, objectTextureRegion, piecePerMap, posX, posY);
+			TiledTextureRegion objectTextureRegion, float posX, float posY,
+			float width) {
+		super(objectFixtureDef, objectTextureRegion, posX, posY, width);
 	}
 }

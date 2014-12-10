@@ -4,7 +4,6 @@ import org.andengine.entity.IEntity;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
-import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.GameManager.Direction;
 import org.xetang.map.helper.CalcHelper;
@@ -21,7 +20,7 @@ public class Bullet extends MapObject implements IBullet {
 	IMapObject _tank;
 	int _damage;
 	Direction _direction;
-	Vector2 _speed;
+	float _speed;
 	Vector2 _blowRadius;
 	Vector2 _topPointUnit = new Vector2();
 
@@ -46,20 +45,19 @@ public class Bullet extends MapObject implements IBullet {
 		attachChild(_sprite);
 	}
 
+	public Bullet() {
+		this(0f, 0f);
+	}
+
 	public Bullet(float posX, float posY) {
-		super(MapObjectFactory.getFixtureDef(ObjectType.Bullet),
-				MapObjectFactory.getTextureRegion(ObjectType.Bullet),
-				MapObjectFactory.BULLET_CELL_PER_MAP, posX, posY,
-				MapObjectFactory.Z_INDEX_MOVING);
+		super(MapObjectFactory.getFixtureDef(ObjectType.BULLET),
+				MapObjectFactory.getTextureRegion(ObjectType.BULLET), posX,
+				posY, MapObjectFactory.getBulletSize().x, MapObjectFactory
+						.getBulletSize().y, MapObjectFactory.Z_INDEX_MOVING);
 
 		initSpecification(MapObjectFactory.NORMAL_BULLET_DAMAGE,
 				MapObjectFactory.NORMAL_BULLET_SPEED,
 				MapObjectFactory.NORMAL_BULLET_BLOW_RADIUS);
-
-		_cellWidth = GameManager.MAP_WIDTH
-				/ MapObjectFactory.BULLET_CELL_PER_MAP;
-		_cellHeight = (int) (_sprite.getHeight() * (_cellWidth / _sprite
-				.getWidth()));
 	}
 
 	public Bullet(Tank tank, float posX, float posY) {
@@ -71,15 +69,6 @@ public class Bullet extends MapObject implements IBullet {
 	@Override
 	public MapObject clone() {
 		return new Bullet(this);
-	}
-
-	@Override
-	protected void createSprite(TiledTextureRegion objectTextureRegion,
-			float posX, float posY) {
-
-		_sprite = new TiledSprite(posX, posY, objectTextureRegion,
-				GameManager.Activity.getVertexBufferObjectManager());
-		_sprite.setScale(_cellWidth / _sprite.getWidth());
 	}
 
 	@Override
@@ -101,8 +90,8 @@ public class Bullet extends MapObject implements IBullet {
 	public void doContact(IMapObject object) {
 
 		// tank địch bắn trúng tank của ngư�?i chơi
-		if (object != null && object.getType() == ObjectType.PlayerTank
-				&& _tank.getType() == ObjectType.EnermyTank) {
+		if (object != null && object.getType() == ObjectType.PLAYER_TANK
+				&& _tank.getType() == ObjectType.ENERMY_TANK) {
 			Tank tank = (Tank) object;
 			if (tank.getShield() == null) {
 				tank.KillSelf();
@@ -110,8 +99,8 @@ public class Bullet extends MapObject implements IBullet {
 		}
 
 		// tank của ngư�?i chơi bắn trúng tank địch
-		if (object != null && object.getType() == ObjectType.EnermyTank
-				&& _tank.getType() == ObjectType.PlayerTank) {
+		if (object != null && object.getType() == ObjectType.ENERMY_TANK
+				&& _tank.getType() == ObjectType.PLAYER_TANK) {
 
 			Tank tank = (Tank) object;
 			if (tank.BeFire()) {
@@ -136,21 +125,21 @@ public class Bullet extends MapObject implements IBullet {
 		Vector2 topPoint = getTopPoint();
 
 		IBlowUp blast = (IBlowUp) MapObjectFactory.createObject(
-				ObjectType.Blast, topPoint.x, topPoint.y);
+				ObjectType.BLAST, topPoint.x, topPoint.y);
 		blast.setOwnObject(this);
 		blast.setTargetObject(object);
 		blast.blowUpAtHere();
 
-		GameManager.CurrentMap.addObject((IEntity) blast, ObjectLayer.BlowUp);
+		GameManager.CurrentMap.addObject((IEntity) blast, ObjectLayer.BLOW_UP);
 	}
 
 	@Override
 	public ObjectType getType() {
-		return ObjectType.Bullet;
+		return ObjectType.BULLET;
 	}
 
 	@Override
-	public void initSpecification(int damage, Vector2 speed, Vector2 blowRadius) {
+	public void initSpecification(int damage, float speed, Vector2 blowRadius) {
 		_damage = damage;
 		_speed = speed;
 		_blowRadius = blowRadius;
@@ -191,11 +180,11 @@ public class Bullet extends MapObject implements IBullet {
 
 		Vector2 speedVector2;
 		if (_direction.ordinal() % 2 == 0) { // Up or Down
-			speedVector2 = new Vector2(0f, -_speed.y);
+			speedVector2 = new Vector2(0f, -_speed);
 			_topPointUnit.set(0f, -_cellHeight / 2);
 
 		} else { // Left or Right
-			speedVector2 = new Vector2(0f, -_speed.x);
+			speedVector2 = new Vector2(0f, -_speed);
 			_topPointUnit.set(0f, -_cellWidth / 2);
 		}
 
@@ -235,7 +224,7 @@ public class Bullet extends MapObject implements IBullet {
 		// Xét vị trí xe tăng hiện tại
 		putToWorld(/* Vị trí X, Vị trí Y */);
 		_body.setLinearVelocity(speedVector);
-		//GameManager.getMusic("fire").play();
+		// GameManager.getMusic("fire").play();
 	}
 
 	@Override

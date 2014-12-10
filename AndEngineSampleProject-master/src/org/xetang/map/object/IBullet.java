@@ -17,7 +17,7 @@ public interface IBullet extends IMapObject {
 	 * @param blowRadius
 	 *            : Phạm vi nổ
 	 */
-	public void initSpecification(int damage, Vector2 speed, Vector2 blowRadius);
+	public void initSpecification(int damage, float speed, Vector2 blowRadius);
 
 	/**
 	 * Gán Tank (xe tăng) bắn ra viên đạn này

@@ -27,8 +27,8 @@ public class MapObjectBlockDTO {
 				* posAndSize.second.y);
 		CellWidth = cellWidth;
 		CellHeight = cellHeight;
-		_rootPosition = new PointF(GameManager.SMALL_CELL_WIDTH
-				* posAndSize.first.x, GameManager.SMALL_CELL_HEIGHT
+		_rootPosition = new PointF(GameManager.SMALL_CELL_SIZE
+				* posAndSize.first.x, GameManager.SMALL_CELL_SIZE
 				* posAndSize.first.y);
 	}
 

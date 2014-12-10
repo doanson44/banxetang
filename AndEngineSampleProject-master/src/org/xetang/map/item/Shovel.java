@@ -33,6 +33,6 @@ public class Shovel extends Item {
     @Override
     public ObjectType getType() {
     	// TODO Auto-generated method stub
-    	return ObjectType.Shovel;
+    	return ObjectType.SHOVEL;
     }
 }

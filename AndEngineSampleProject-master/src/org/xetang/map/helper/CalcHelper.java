@@ -1,7 +1,7 @@
 package org.xetang.map.helper;
 
 import org.andengine.entity.sprite.AnimatedSprite;
-import org.andengine.extension.physics.box2d.PhysicsConnector;
+import org.andengine.extension.physics.box2d.util.constants.PhysicsConstants;
 import org.xetang.manager.GameManager;
 import org.xetang.manager.GameManager.Direction;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
@@ -19,10 +19,10 @@ public class CalcHelper {
 	 */
 	public static int getObjectsPerCell(int objectID) {
 		switch (ObjectType.values()[objectID]) {
-		case BrickWall:
+		case BRICK_WALL:
 			return 4;
 
-		case SteelWall:
+		case STEEL_WALL:
 			return 2;
 
 		default:
@@ -46,7 +46,7 @@ public class CalcHelper {
 	}
 
 	public static float pixels2Meters(float pixels) {
-		return pixels / PhysicsConnector.PIXEL_TO_METER_RATIO_DEFAULT;
+		return pixels / PhysicsConstants.PIXEL_TO_METER_RATIO_DEFAULT;
 	}
 
 	public static Vector2 pixels2Meters(Vector2 pixelsVector) {
@@ -60,16 +60,16 @@ public class CalcHelper {
 				/ 2, mSprite.getY() + mSprite.getHeight() / 2);
 
 		return new Vector2((Math.round(centerPoint.x
-				/ GameManager.SMALL_CELL_WIDTH) - 1), Math.round(centerPoint.y
-				/ GameManager.SMALL_CELL_HEIGHT) - 1);
+				/ GameManager.SMALL_CELL_SIZE) - 1), Math.round(centerPoint.y
+				/ GameManager.SMALL_CELL_SIZE) - 1);
 	}
 
 	public static Vector2 CellInMap13(AnimatedSprite mSprite) {
 		Vector2 centerPoint = new Vector2(mSprite.getX() + mSprite.getWidth()
 				/ 2, mSprite.getY() + mSprite.getHeight() / 2);
 
-		int centerX = (int) (centerPoint.x / GameManager.LARGE_CELL_WIDTH);
-		int centerY = (int) (centerPoint.y / GameManager.LARGE_CELL_HEIGHT);
+		int centerX = (int) (centerPoint.x / GameManager.LARGE_CELL_SIZE);
+		int centerY = (int) (centerPoint.y / GameManager.LARGE_CELL_SIZE);
 		return new Vector2(centerX, centerY);
 	}
 }

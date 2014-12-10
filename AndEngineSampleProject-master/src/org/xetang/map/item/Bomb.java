@@ -29,6 +29,6 @@ public class Bomb extends Item {
     @Override
     public ObjectType getType() {
     	// TODO Auto-generated method stub
-    	return ObjectType.Bomb;
+    	return ObjectType.BOMB;
     }
 }

@@ -19,9 +19,9 @@ public class BrickWall extends Wall {
 	}
 
 	public BrickWall(float posX, float posY) {
-		super(MapObjectFactory.getFixtureDef(ObjectType.BrickWall),
-				MapObjectFactory.getTextureRegion(ObjectType.BrickWall),
-				MapObjectFactory.BRICK_WALL_CELL_PER_MAP, posX, posY);
+		super(MapObjectFactory.getFixtureDef(ObjectType.BRICK_WALL),
+				MapObjectFactory.getTextureRegion(ObjectType.BRICK_WALL), posX,
+				posY, MapObjectFactory.BRICK_WALL_CELL_SIZE);
 	}
 
 	@Override
@@ -44,6 +44,6 @@ public class BrickWall extends Wall {
 
 	@Override
 	public ObjectType getType() {
-		return ObjectType.BrickWall;
+		return ObjectType.BRICK_WALL;
 	}
 }

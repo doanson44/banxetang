@@ -19,9 +19,9 @@ public class Water extends MapObject {
 	}
 
 	public Water(float posX, float posY) {
-		super(MapObjectFactory.getFixtureDef(ObjectType.Water),
-				MapObjectFactory.getTextureRegion(ObjectType.Water),
-				MapObjectFactory.WATER_CELL_PER_MAP, posX, posY);
+		super(MapObjectFactory.getFixtureDef(ObjectType.WATER),
+				MapObjectFactory.getTextureRegion(ObjectType.WATER), posX,
+				posY, MapObjectFactory.WATER_CELL_SIZE);
 	}
 
 	@Override
@@ -36,6 +36,6 @@ public class Water extends MapObject {
 
 	@Override
 	public ObjectType getType() {
-		return ObjectType.Water;
+		return ObjectType.WATER;
 	}
 }

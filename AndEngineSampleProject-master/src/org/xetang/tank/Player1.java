@@ -1,6 +1,7 @@
 package org.xetang.tank;
 
 import org.andengine.opengl.texture.region.TiledTextureRegion;
+import org.xetang.manager.TankManager;
 import org.xetang.map.item.MapObjectFactory2;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 
@@ -10,44 +11,41 @@ public class Player1 extends Tank {
 		this(px, py, (TiledTextureRegion) MapObjectFactory2
 				.getTexture("Player1"));
 	}
+
 	public Player1(float px, float py, TiledTextureRegion region) {
 		super(px, py, (TiledTextureRegion) MapObjectFactory2
 				.getTexture("Player1"));
 		// TODO Auto-generated constructor stub
 		this.mSprite.setCurrentTileIndex(0);
-		this.speed = 2f;
+
+		this.speed = TankManager.NORMAL_TANK_SPEED;
+
 		_maxNumberBullet = 1;
-		mBulletType = ObjectType.SlowBullet;
+		mBulletType = ObjectType.SLOW_BULLET;
 		this.hp = 1;
 		CreateShield();
 	}
-
-
 
 	@Override
 	public void PowerUp() {
 		if (mSprite.getCurrentTileIndex() < 3)
 			this.mSprite.setCurrentTileIndex(mSprite.getCurrentTileIndex() + 1);
-		
+
 		this.mLevel = mSprite.getCurrentTileIndex() + 1;
 		switch (mLevel) {
-		case 2:
-			this.speed = 3f;
+		case 2: //Đạn bay nhanh như đạn của GlassCannon
 			_maxNumberBullet = 1;
-			//this.hp = 2;
-			mBulletType = ObjectType.Bullet;
+			mBulletType = ObjectType.FAST_BULLET;
+			// this.hp = 2;
 			break;
 		case 3:
-			this.speed = 3.5f;
 			_maxNumberBullet = 2;
-		//	this.hp = 3;
+			// this.hp = 3;
 			break;
 		case 4:
-			this.speed = 4.5f;
-			_maxNumberBullet = 2;
-			mBulletType = ObjectType.FastBullet;
-			//this.hp = 4;
-			
+			mBulletType = ObjectType.BLOW_BULLET;
+			// this.hp = 4;
+
 			break;
 		}
 	}

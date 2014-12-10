@@ -35,7 +35,7 @@ public class Helmet extends Item {
     @Override
     public ObjectType getType() {
     	// TODO Auto-generated method stub
-    	return ObjectType.Helmet;
+    	return ObjectType.HELMET;
     }
 
 }

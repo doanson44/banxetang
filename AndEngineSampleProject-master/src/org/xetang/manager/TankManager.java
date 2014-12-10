@@ -3,6 +3,7 @@ package org.xetang.manager;
 import java.util.Queue;
 
 import org.andengine.engine.handler.IUpdateHandler;
+import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.map.object.MapObjectFactory.TankType;
 import org.xetang.tank.BigMom;
@@ -19,28 +20,34 @@ public class TankManager implements IUpdateHandler {
 
 	public static Tank Player;
 
-	public static float Player1_PX = 9 * GameManager.LARGE_CELL_WIDTH / 2 + 2;
-	public static float Player1_PY = 24 * GameManager.LARGE_CELL_HEIGHT / 2 + 3;
+	public static float Player1_PX = 9 * GameManager.LARGE_CELL_SIZE / 2 + 2;
+	public static float Player1_PY = 24 * GameManager.LARGE_CELL_SIZE / 2 + 3;
 
-	public static float Player2_PX = 15 * GameManager.LARGE_CELL_WIDTH / 2;
-	public static float Player2_PY = 24 * GameManager.LARGE_CELL_HEIGHT / 2 + 3;
+	public static float Player2_PX = 15 * GameManager.LARGE_CELL_SIZE / 2;
+	public static float Player2_PY = 24 * GameManager.LARGE_CELL_SIZE / 2 + 3;
 
 	public static float Enermy_PX_1 = 0;
 	public static float Enermy_PY_1 = 0;
 
-	public static float Enermy_PX_2 = 6 * GameManager.LARGE_CELL_WIDTH;;
+	public static float Enermy_PX_2 = 6 * GameManager.LARGE_CELL_SIZE;;
 	public static float Enermy_PY_2 = 0;
 
-	public static float Enermy_PX_3 = 12 * GameManager.LARGE_CELL_WIDTH;;
+	public static float Enermy_PX_3 = 12 * GameManager.LARGE_CELL_SIZE;;
 	public static float Enermy_PY_3 = 0;
 
+	public static final float NORMAL_TANK_TIME = 5f;
+	public static final float NORMAL_TANK_SPEED = CalcHelper
+			.pixels2Meters(GameManager.MAP_SIZE / NORMAL_TANK_TIME);
+	public static final float SLOW_TANK_SPEED = NORMAL_TANK_SPEED * 2f / 3f;
+	public static final float FAST_TANK_SPEED = NORMAL_TANK_SPEED * 2f;
+
 	/**
-	 * Táº¡o 1 xe tÄƒng cho ngÆ°á»�i chÆ¡i á»Ÿ vá»‹ trÃ­ Ä‘á»‹nh sáºµn
+	 * Tạo 1 xe tăng cho người chơi ở vị trí định sẵn
 	 * 
 	 * @param Player
-	 *            : = 1 hoáº·c 2, Ä‘á»ƒ xÃ¡c Ä‘á»‹nh lÃ  táº¡o xe tÄƒng cho ngÆ°á»�i chÆ¡i 1 hay
-	 *            ngÆ°á»�i chÆ¡i 2
-	 * @return xe tÄƒng
+	 *            : = 1 hoặc 2, để xác định là tạo xe tăng cho người chơi 1 hay
+	 *            người chơi 2
+	 * @return xe tăng
 	 */
 	public static void CreatePlayerTank(final Queue<Tank> mPlayerTanks,
 			final int Player) {
@@ -56,7 +63,7 @@ public class TankManager implements IUpdateHandler {
 				} else
 					tank = new Player2(Player2_PX, Player2_PY);
 
-				tank.SetType(ObjectType.PlayerTank);
+				tank.SetType(ObjectType.PLAYER_TANK);
 				mPlayerTanks.add(tank);
 			}
 		};
@@ -66,17 +73,17 @@ public class TankManager implements IUpdateHandler {
 	}
 
 	/**
-	 * Táº¡o 1 xe tÄƒng Ä‘á»‹ch á»Ÿ vá»‹ trÃ­ Ä‘á»‹nh sáºµn
+	 * Tạo 1 xe tăng địch ở vị trí định sẵn
 	 * 
 	 * @param type
-	 *            : loáº¡i xe tÄƒng Ä‘á»‹ch muá»‘n táº¡o etc: BigMom, Racer...
+	 *            : loại xe tăng địch muốn tạo etc: BigMom, Racer...
 	 * @param Position
-	 *            : báº±ng 1, 2 hay 3, lÃ  vá»‹ trÃ­ xe tÄƒng Ä‘á»‹ch xuáº¥t hiá»‡n á»Ÿ gÃ³c trÃªn
-	 *            cÃ¹ng cá»§a mÃ n hÃ¬nh
+	 *            : bằng 1, 2 hay 3, là vị trí xe tăng địch xuất hiện ở góc trên
+	 *            cùng của màn hình
 	 * @param isTankBonus
-	 *            : true or false, Ä‘á»ƒ set xe tÄƒng nháº¥p nhÃ¡y, khi giáº¿t Ä‘Æ°á»£c sáº½
-	 *            rá»›t item
-	 * @return xe tÄƒng
+	 *            : true or false, để set xe tăng nhấp nháy, khi giết được sẽ
+	 *            rớt item
+	 * @return xe tăng
 	 */
 	public static void CreateEnermytank(final Queue<Tank> mEnermyTanks,
 			final TankType type, final int Position, final boolean isTankBonus) {
@@ -107,23 +114,23 @@ public class TankManager implements IUpdateHandler {
 				}
 
 				switch (type) {
-				case BigMom:
+				case BIG_MOM:
 					tank = new BigMom(px, py);
 					break;
-				case GlassCannon:
+				case GLASS_CANNON:
 					tank = new GlassCannon(px, py);
 					break;
-				case Racer:
+				case RACER:
 					tank = new Racer(px, py);
 					break;
-				case Normal:
+				case NORMAL:
 					tank = new Normal(px, py);
 					break;
 				default:
 					break;
 				}
 				tank.SetTankBonus(isTankBonus);
-				tank.SetType(ObjectType.EnermyTank);
+				tank.SetType(ObjectType.ENERMY_TANK);
 				mEnermyTanks.add(tank);
 			}
 		};

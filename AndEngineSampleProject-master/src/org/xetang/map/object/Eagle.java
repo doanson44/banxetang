@@ -20,9 +20,9 @@ public class Eagle extends MapObject {
 	}
 
 	public Eagle(float posX, float posY) {
-		super(MapObjectFactory.getFixtureDef(ObjectType.Eagle),
-				MapObjectFactory.getTextureRegion(ObjectType.Eagle),
-				MapObjectFactory.EAGLE_CELL_PER_MAP, posX, posY);
+		super(MapObjectFactory.getFixtureDef(ObjectType.EAGLE),
+				MapObjectFactory.getTextureRegion(ObjectType.EAGLE), posX,
+				posY, MapObjectFactory.EAGLE_CELL_SIZE);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class Eagle extends MapObject {
 	@Override
 	public void doContact(IMapObject object) {
 		try {
-			if (object.getType() == ObjectType.Bullet) {
+			if (object.getType() == ObjectType.BULLET) {
 				TiledSprite x = (TiledSprite) _sprite;
 				x.setCurrentTileIndex(1);
 			}
@@ -44,6 +44,6 @@ public class Eagle extends MapObject {
 
 	@Override
 	public ObjectType getType() {
-		return ObjectType.Eagle;
+		return ObjectType.EAGLE;
 	}
 }
