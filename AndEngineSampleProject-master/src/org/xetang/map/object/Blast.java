@@ -91,17 +91,19 @@ public class Blast extends BlowUp {
 		case Left:
 
 			leftBound = new Vector2(targetCenter.x + targetInsideRadius.x
-					- blastRadius.y, bulletCenter.y - blastRadius.x);
+					- blastRadius.y, bulletCenter.y - blastRadius.x
+					/ GameManager.MAP_RATIO);
 			rightBound = new Vector2(targetCenter.x + targetInsideRadius.x,
-					bulletCenter.y + blastRadius.x);
+					bulletCenter.y + blastRadius.x / GameManager.MAP_RATIO);
 			break;
 
 		case Right:
 
 			leftBound = new Vector2(targetCenter.x - targetInsideRadius.x,
-					bulletCenter.y - blastRadius.x);
+					bulletCenter.y - blastRadius.x / GameManager.MAP_RATIO);
 			rightBound = new Vector2(targetCenter.x - targetInsideRadius.x
-					+ blastRadius.y, bulletCenter.y + blastRadius.x);
+					+ blastRadius.y, bulletCenter.y + blastRadius.x
+					/ GameManager.MAP_RATIO);
 			break;
 
 		default:

@@ -8,6 +8,10 @@ public class DecideHelpder {
 
 	public static boolean canDestroy(IMapObject object) {
 
+		if (object == null) {
+			return false;
+		}
+
 		switch (object.getType()) {
 		case Eagle:
 		case Water:
