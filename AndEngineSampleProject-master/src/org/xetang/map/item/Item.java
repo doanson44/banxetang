@@ -56,11 +56,11 @@ public class Item extends GameEntity implements IMapObject {
 	}
 
 	public int GetRandomPx() {
-		return new Random().nextInt(570);
+		return new Random().nextInt((int)GameManager.MAP_SIZE);
 	}
 
 	public int GetRandomPy() {
-		return new Random().nextInt(430);
+		return new Random().nextInt((int)GameManager.MAP_SIZE);
 	}
 
 	public TiledSprite GetSprite() {

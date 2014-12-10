@@ -9,7 +9,7 @@ import org.xetang.root.GameEntity;
 public class EnermyIcon extends GameEntity {
 
 	protected TiledSprite _mSprite;
-	protected static int _mSize = 35;
+	protected static int _mSize = 15;
 	
 	public EnermyIcon(float px, float py){
 		_mSprite = new TiledSprite(px, py, 

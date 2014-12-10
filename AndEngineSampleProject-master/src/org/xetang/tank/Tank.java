@@ -105,6 +105,7 @@ public abstract class Tank extends GameEntity implements IGameController,
 		Vector2 centerPoint = GetCenterPoint();
 
 		DestroyHelper.add(this);
+		DestroyShield();
 		IBlowUp explosion = (IBlowUp) MapObjectFactory.createObject(
 				ObjectType.EXPLOSION, centerPoint.x, centerPoint.y);
 
@@ -236,6 +237,7 @@ public abstract class Tank extends GameEntity implements IGameController,
 			}
 			if (_shield != null && _shield.IsAlive()) {
 				_shield.TimeSurvive++;
+				Log.i("TimeSurvive", String.valueOf(_shield.TimeSurvive));
 
 				if (_shield.TimeSurvive == 7) {
 					DestroyShield();
@@ -304,8 +306,10 @@ public abstract class Tank extends GameEntity implements IGameController,
 	}
 
 	public void DestroyShield() {
-		_shield.KillSelf();
-		_shield = null;
+		if (_shield != null) {
+			_shield.KillSelf();
+			_shield = null;
+		}
 	}
 
 	public Vector2 GetCenterPoint() {

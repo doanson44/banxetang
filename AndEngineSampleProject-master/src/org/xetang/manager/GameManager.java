@@ -231,7 +231,7 @@ public class GameManager {
 				(int) GameManager.Camera.getWidth(),
 				(int) GameManager.Camera.getHeight(),
 				TextureOptions.BILINEAR_PREMULTIPLYALPHA,
-				GameManager.AssetManager, "font2.ttf", 24f, true,
+				GameManager.AssetManager, "font2.ttf", 12f, true,
 				Color.WHITE_ABGR_PACKED_INT);
 		font2.load();
 		Fonts.put("font2", font2);

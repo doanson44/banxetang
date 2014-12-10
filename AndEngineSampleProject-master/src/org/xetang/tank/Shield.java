@@ -28,7 +28,6 @@ public class Shield extends GameEntity {
 
 	public void KillSelf() {
 		this.detachSelf();
-		this.dispose();
 		_isAlive = false;
 	}
 
