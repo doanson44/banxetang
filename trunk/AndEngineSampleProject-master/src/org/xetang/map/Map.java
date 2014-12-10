@@ -17,6 +17,7 @@ import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.model.MapObjectBlockDTO;
 import org.xetang.map.model.StageDTO;
 import org.xetang.map.model.StageObjectDTO;
+import org.xetang.map.model.XMLLoader;
 import org.xetang.map.object.IMapObject;
 import org.xetang.map.object.MapObjectFactory;
 import org.xetang.map.object.MapObjectFactory.ObjectLayer;
@@ -99,9 +100,9 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 			for (int j = 0; j < stageObject.getAreas().size(); j++) {
 
-				objectsBlock = MapObjectFactory.createObjectBlock(ObjectType
-						.values()[stageObject.getId()], stageObject.getAreas()
-						.get(j));
+				objectsBlock = MapObjectFactory.createObjectBlock(
+						XMLLoader.getObjectFromID(stageObject.getId()),
+						stageObject.getAreas().get(j));
 
 				attachBlock(objectsBlock);
 			}

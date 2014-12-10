@@ -20,20 +20,20 @@ public class TankManager implements IUpdateHandler {
 
 	public static Tank Player;
 
-	public static float Player1_PX = 9 * GameManager.LARGE_CELL_SIZE / 2 + 2;
-	public static float Player1_PY = 24 * GameManager.LARGE_CELL_SIZE / 2 + 3;
+	public static final float Player1_PX = 9 * GameManager.LARGE_CELL_SIZE / 2 + 2;
+	public static final float Player1_PY = 24 * GameManager.LARGE_CELL_SIZE / 2 + 3;
 
-	public static float Player2_PX = 15 * GameManager.LARGE_CELL_SIZE / 2;
-	public static float Player2_PY = 24 * GameManager.LARGE_CELL_SIZE / 2 + 3;
+	public static final float Player2_PX = 15 * GameManager.LARGE_CELL_SIZE / 2;
+	public static final float Player2_PY = 24 * GameManager.LARGE_CELL_SIZE / 2 + 3;
 
-	public static float Enermy_PX_1 = 0;
-	public static float Enermy_PY_1 = 0;
+	public static final float Enermy_PX_1 = 0;
+	public static final float Enermy_PY_1 = 0;
 
-	public static float Enermy_PX_2 = 6 * GameManager.LARGE_CELL_SIZE;;
-	public static float Enermy_PY_2 = 0;
+	public static final float Enermy_PX_2 = 6 * GameManager.LARGE_CELL_SIZE;;
+	public static final float Enermy_PY_2 = 0;
 
-	public static float Enermy_PX_3 = 12 * GameManager.LARGE_CELL_SIZE;;
-	public static float Enermy_PY_3 = 0;
+	public static final float Enermy_PX_3 = 12 * GameManager.LARGE_CELL_SIZE;;
+	public static final float Enermy_PY_3 = 0;
 
 	public static final float NORMAL_TANK_TIME = 5f;
 	public static final float NORMAL_TANK_SPEED = CalcHelper
