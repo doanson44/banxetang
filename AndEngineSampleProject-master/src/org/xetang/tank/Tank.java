@@ -80,6 +80,8 @@ public abstract class Tank extends GameEntity implements IGameController,
 		mSprite.setSize(GameManager.LARGE_CELL_SIZE
 				- MapObjectFactory.TINY_CELL_SIZE, GameManager.LARGE_CELL_SIZE
 				- MapObjectFactory.TINY_CELL_SIZE);
+		mSprite.setRotationCenter(mSprite.getWidth() / 2f,
+				mSprite.getHeight() / 2f);
 
 		mDirection = Direction.UP;
 		_ObjectFixtureDef = PhysicsFactory.createFixtureDef(0.5f, 0, 0);
