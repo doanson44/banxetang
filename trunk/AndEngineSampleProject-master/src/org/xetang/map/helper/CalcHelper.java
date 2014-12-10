@@ -56,8 +56,8 @@ public class CalcHelper {
 
 	// Hàm trả về vị trí CELL của xe tăng trong Map 26x26
 	public static Vector2 CellInMap(AnimatedSprite mSprite) {
-		Vector2 centerPoint = new Vector2(mSprite.getX() + mSprite.getHeight()
-				/ 2, mSprite.getY() + mSprite.getWidth() / 2);
+		Vector2 centerPoint = new Vector2(mSprite.getX() + mSprite.getWidth()
+				/ 2, mSprite.getY() + mSprite.getHeight() / 2);
 
 		return new Vector2((Math.round(centerPoint.x
 				/ GameManager.SMALL_CELL_WIDTH) - 1), Math.round(centerPoint.y
@@ -65,8 +65,8 @@ public class CalcHelper {
 	}
 
 	public static Vector2 CellInMap13(AnimatedSprite mSprite) {
-		Vector2 centerPoint = new Vector2(mSprite.getX() + mSprite.getHeight()
-				/ 2, mSprite.getY() + mSprite.getWidth() / 2);
+		Vector2 centerPoint = new Vector2(mSprite.getX() + mSprite.getWidth()
+				/ 2, mSprite.getY() + mSprite.getHeight() / 2);
 
 		int centerX = (int) (centerPoint.x / GameManager.LARGE_CELL_WIDTH);
 		int centerY = (int) (centerPoint.y / GameManager.LARGE_CELL_HEIGHT);

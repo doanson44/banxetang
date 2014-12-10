@@ -56,6 +56,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 		Entity layer = new Entity();
 		layer.setZIndex(MapObjectFactory.Z_INDEX_CONSTRUCTION);
+		layer.setChildrenIgnoreUpdate(true);
 		attachChild(layer);
 		_layerMap.put(ObjectLayer.Construction, layer);
 
@@ -66,6 +67,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 		layer = new Entity();
 		layer.setZIndex(MapObjectFactory.Z_INDEX_WRAPPER);
+		layer.setChildrenIgnoreUpdate(true);
 		attachChild(layer);
 		_layerMap.put(ObjectLayer.Wrapper, layer);
 
@@ -308,7 +310,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 		mPlayerTanks.add(playerTank);
 
 		addObject(playerTank, ObjectLayer.Moving);
-		//this.attachChild(playerTank);
+		// this.attachChild(playerTank);
 
 	}
 
@@ -328,7 +330,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 		GameManager.Scene.registerUpdateHandler(f);
 
 		addObject(f.GetSprite(), ObjectLayer.Moving);
-		//this.attachChild(f.GetSprite());
+		// this.attachChild(f.GetSprite());
 	}
 
 	public void AddEnermyTankToList(Tank tank) {

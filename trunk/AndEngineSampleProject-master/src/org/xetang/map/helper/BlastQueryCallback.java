@@ -23,7 +23,7 @@ public class BlastQueryCallback implements QueryCallback {
 				&& DecideHelpder.canDestroy(object, _ownBullet)
 				&& object.getType() != ObjectType.PlayerTank
 				&& object.getType() != ObjectType.EnermyTank) {
-			object.getSprite().setVisible(true);
+			// object.getSprite().setVisible(false);
 			_inRangeBodies.add(object);
 		}
 
