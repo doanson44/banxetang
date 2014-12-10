@@ -32,24 +32,37 @@ public abstract class MapObject extends GameEntity implements IMapObject {
 	}
 
 	public MapObject(FixtureDef objectFixtureDef,
-			TiledTextureRegion objectTextureRegion, int piecePerMap,
-			float posX, float posY) {
-		this(objectFixtureDef, objectTextureRegion, piecePerMap, posX, posY,
+			TiledTextureRegion objectTextureRegion, float posX, float posY,
+			float width) {
+		this(objectFixtureDef, objectTextureRegion, posX, posY, width, width);
+	}
+
+	public MapObject(FixtureDef objectFixtureDef,
+			TiledTextureRegion objectTextureRegion, float posX, float posY,
+			float width, float height) {
+		this(objectFixtureDef, objectTextureRegion, posX, posY, width, height,
 				MapObjectFactory.Z_INDEX_CONSTRUCTION);
 	}
 
 	public MapObject(FixtureDef objectFixtureDef,
-			TiledTextureRegion objectTextureRegion, int piecePerMap,
-			float posX, float posY, int zIndex) {
+			TiledTextureRegion objectTextureRegion, float posX, float posY,
+			float width, int zIndex) {
+		this(objectFixtureDef, objectTextureRegion, posX, posY, width, width,
+				zIndex);
+	}
+
+	public MapObject(FixtureDef objectFixtureDef,
+			TiledTextureRegion objectTextureRegion, float posX, float posY,
+			float width, float height, int zIndex) {
 
 		if (objectFixtureDef != null) {
 			_objectFixtureDef = objectFixtureDef;
 		}
-		
+
 		// setX(posX);
 		// setY(posY);
-		_cellWidth = GameManager.MAP_WIDTH / piecePerMap;
-		_cellHeight = GameManager.MAP_HEIGHT / piecePerMap;
+		_cellWidth = width;
+		_cellHeight = height;
 
 		createSprite(objectTextureRegion, posX, posY);
 		this.setZIndex(zIndex);

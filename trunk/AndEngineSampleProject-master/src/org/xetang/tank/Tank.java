@@ -9,6 +9,7 @@ import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
+import org.andengine.util.math.MathConstants;
 import org.xetang.controller.IGameController;
 import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
@@ -37,14 +38,11 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
  * 
  */
 
-public class Tank extends GameEntity implements IGameController, IMapObject,
-		IUpdateHandler {
-
-	float DEGTORAD = 0.0174532925199432957f;
-	float PIXEL_TO_METERS_RATIO = PhysicsConnector.PIXEL_TO_METER_RATIO_DEFAULT;
+public abstract class Tank extends GameEntity implements IGameController,
+		IMapObject, IUpdateHandler {
 
 	ArrayList<IBullet> mBullet = new ArrayList<IBullet>();
-	protected ObjectType mBulletType = ObjectType.Bullet;
+	protected ObjectType mBulletType = ObjectType.BULLET;
 	int _maxNumberBullet = 0;
 	float bPosX = 0, bPosY = 0; // Toa do cua Dan
 
@@ -61,7 +59,9 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 
 	Shield _shield;
 	AnimatedSprite mSprite;
-	float speed; // tốc độ của xe tăng
+
+	float speed;
+
 	TankType _TankType;
 	ObjectType _objecType;
 	FixtureDef _ObjectFixtureDef;
@@ -77,12 +77,11 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 		TankManager.register(this);
 		mSprite = new AnimatedSprite(px, py, region,
 				GameManager.VertexBufferObject);
-		mSprite.setSize(GameManager.LARGE_CELL_WIDTH - GameManager.MAP_WIDTH
-				/ MapObjectFactory.TINY_CELL_PER_MAP,
-				GameManager.LARGE_CELL_HEIGHT - GameManager.MAP_HEIGHT
-						/ MapObjectFactory.TINY_CELL_PER_MAP);
+		mSprite.setSize(GameManager.LARGE_CELL_SIZE
+				- MapObjectFactory.TINY_CELL_SIZE, GameManager.LARGE_CELL_SIZE
+				- MapObjectFactory.TINY_CELL_SIZE);
 
-		mDirection = Direction.Up;
+		mDirection = Direction.UP;
 		_ObjectFixtureDef = PhysicsFactory.createFixtureDef(0.5f, 0, 0);
 		setAlive(true);
 		CreateBody();
@@ -107,7 +106,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 
 		DestroyHelper.add(this);
 		IBlowUp explosion = (IBlowUp) MapObjectFactory.createObject(
-				ObjectType.Explosion, centerPoint.x, centerPoint.y);
+				ObjectType.EXPLOSION, centerPoint.x, centerPoint.y);
 
 		explosion.blowUpAtHere();
 		GameManager.CurrentMap.attachChild((IEntity) explosion);
@@ -126,15 +125,16 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	@Override
 	public void onLeft() {
 		// TODO Auto-generated method stub
-		if (mDirection == Direction.Up || mDirection == Direction.Down) {
+		if (mDirection == Direction.UP || mDirection == Direction.DOWN) {
 			SetTranform(CalcHelper.CellInMap(mSprite));
 
 		}
 		if (mIsFreeze == 0) {
-			mDirection = Direction.Left;
+			mDirection = Direction.LEFT;
 
 			SetTranform(270);
-			_body.setLinearVelocity(-speed, 0);
+			// _body.setLinearVelocity(-speed, 0);
+			_body.setLinearVelocity(-speed, 0f);
 
 		}
 	}
@@ -143,15 +143,16 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	@Override
 	public void onRight() {
 		// TODO Auto-generated method stub
-		if (mDirection == Direction.Up || mDirection == Direction.Down) {
+		if (mDirection == Direction.UP || mDirection == Direction.DOWN) {
 			SetTranform(CalcHelper.CellInMap(mSprite));
 		}
 
 		if (mIsFreeze == 0) {
-			mDirection = Direction.Right;
+			mDirection = Direction.RIGHT;
 
 			SetTranform(90);
-			_body.setLinearVelocity(speed, 0);
+			// _body.setLinearVelocity(speed, 0);
+			_body.setLinearVelocity(speed, 0f);
 		}
 	}
 
@@ -159,15 +160,16 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	@Override
 	public void onForward() {
 		// TODO Auto-generated method stub
-		if (mDirection == Direction.Left || mDirection == Direction.Right) {
+		if (mDirection == Direction.LEFT || mDirection == Direction.RIGHT) {
 			SetTranform(CalcHelper.CellInMap(mSprite));
 
 		}
 
 		if (mIsFreeze == 0) {
-			mDirection = Direction.Up;
+			mDirection = Direction.UP;
 			SetTranform(0);
-			_body.setLinearVelocity(0, -speed);
+			// _body.setLinearVelocity(0, -speed);
+			_body.setLinearVelocity(0f, -speed);
 		}
 	}
 
@@ -176,14 +178,15 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	public void onBackward() {
 		// TODO Auto-generated method stub
 
-		if (mDirection == Direction.Left || mDirection == Direction.Right) {
+		if (mDirection == Direction.LEFT || mDirection == Direction.RIGHT) {
 			SetTranform(CalcHelper.CellInMap(mSprite));
 		}
 
 		if (mIsFreeze == 0) {
-			mDirection = Direction.Down;
+			mDirection = Direction.DOWN;
 			SetTranform(180);
-			_body.setLinearVelocity(0, speed);
+			// _body.setLinearVelocity(0, speed);
+			_body.setLinearVelocity(0f, speed);
 		}
 	}
 
@@ -198,11 +201,11 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	// Hàm set vị trí của Xe tăng vào trọn 1 CELL trong bản đồ 26x26
 	public void SetTranform(Vector2 point) {
 		float angle = _body.getAngle();
-		float x = (point.x + 1) * GameManager.SMALL_CELL_WIDTH;
-		float y = (point.y + 1) * GameManager.SMALL_CELL_HEIGHT;
+		float x = (point.x + 1) * GameManager.SMALL_CELL_SIZE;
+		float y = (point.y + 1) * GameManager.SMALL_CELL_SIZE;
 
-		_body.setTransform((x) / PIXEL_TO_METERS_RATIO, (y)
-				/ PIXEL_TO_METERS_RATIO, angle);
+		_body.setTransform(CalcHelper.pixels2Meters(x),
+				CalcHelper.pixels2Meters(y), angle);
 
 	}
 
@@ -210,7 +213,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	public void SetTranform(float degree) {
 		_body.setTransform(_body.getTransform().getPosition(), 0);
 		_body.setTransform(_body.getTransform().getPosition(), degree
-				* DEGTORAD);
+				* MathConstants.DEG_TO_RAD);
 
 	}
 
@@ -246,24 +249,26 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 	@Override
 	public void onFire() {
 		// TODO Auto-generated method stub
-		float distinct = 0;
 		Vector2 x = new Vector2(mSprite.getX(), mSprite.getY());
+		Vector2 bulletSize = MapObjectFactory.getBulletSize();
+
 		switch (mDirection) {
-		case Down:
-			bPosX = x.x + mSprite.getHeight() / 2 - 5;
-			bPosY = x.y + mSprite.getHeight() + distinct;
+		case UP:
+			bPosX = x.x + (mSprite.getWidth() - bulletSize.x) / 2f;
+			bPosY = x.y - bulletSize.y - 1;
 			break;
-		case Left:
-			bPosX = x.x - distinct;
-			bPosY = x.y + mSprite.getWidth() / 2 - 5;
+		case DOWN:
+			bPosX = x.x + (mSprite.getWidth() - bulletSize.x) / 2f;
+			bPosY = x.y + mSprite.getHeight();
 			break;
-		case Right:
-			bPosX = x.x + mSprite.getWidth() + distinct;
-			bPosY = x.y + mSprite.getWidth() / 2 - 5;
+		case LEFT:
+			bPosX = x.x - (bulletSize.y + bulletSize.x) / 2f;
+			bPosY = x.y + (mSprite.getWidth() - bulletSize.y) / 2f;
 			break;
-		case Up:
-			bPosX = x.x + mSprite.getWidth() / 2 - 5;
-			bPosY = x.y - distinct;
+		case RIGHT:
+			bPosX = x.x + mSprite.getHeight() + (bulletSize.y - bulletSize.x)
+					/ 2f;
+			bPosY = x.y + (mSprite.getWidth() - bulletSize.y) / 2f;
 			break;
 		default:
 			break;
@@ -286,7 +291,7 @@ public class Tank extends GameEntity implements IGameController, IMapObject,
 					bPosX2, bPosY2);
 			bullet.setTank(this);
 			GameManager.CurrentMap.addObject((IEntity) bullet,
-					ObjectLayer.Moving);
+					ObjectLayer.MOVING);
 			mBullet.add(bullet);
 			bullet.readyToFire(mDirection);
 			bullet.beFired();

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
-import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
@@ -27,15 +26,15 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 public class MapObjectFactory {
 
 	public enum ObjectType {
-		Eagle, BrickWall, SteelWall, Bush, Water, Ice, Bullet, Blast, Explosion, SlowBullet, FastBullet, Bomb, Clock, Helmet, Shovel, Star, TankItem, PlayerTank, EnermyTank
+		EAGLE, BRICK_WALL, STEEL_WALL, BUSH, WATER, ICE, BULLET, BLAST, EXPLOSION, SLOW_BULLET, FAST_BULLET, DRILL_BULLET, BLOW_BULLET, BOMB, CLOCK, HELMET, SHOVEL, STAR, TANK_ITEM, PLAYER_TANK, ENERMY_TANK
 	};
 
 	public enum ObjectLayer {
-		Construction, Moving, Wrapper, BlowUp
+		CONSTRUCTION, MOVING, WRAPPER, BLOW_UP
 	};
 
 	public enum TankType {
-		BigMom, GlassCannon, Normal, Racer
+		BIG_MOM, GLASS_CANNON, NORMAL, RACER
 	}
 
 	public static final int MAX_RESOURCE_BITMAP_WIDTH = 768;
@@ -51,16 +50,16 @@ public class MapObjectFactory {
 	private static final Point BLAST_TEXTURE_POS = new Point(0, 64);
 	private static final Point EXPLOSION_TEXTURE_POS = new Point(384, 64);
 
-	public static final int EAGLE_CELL_PER_MAP = (int) (GameManager.MAP_HEIGHT / GameManager.LARGE_CELL_HEIGHT);
-	public static final int BRICK_WALL_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 4;
-	public static final int STEEL_WALL_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 2;
-	public static final int BUSH_CELL_PER_MAP = EAGLE_CELL_PER_MAP;
-	public static final int WATER_CELL_PER_MAP = EAGLE_CELL_PER_MAP;
-	public static final int ICE_CELL_PER_MAP = EAGLE_CELL_PER_MAP;
-	public static final int BULLET_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 5;
-	public static final int BLAST_CELL_PER_MAP = (int) (EAGLE_CELL_PER_MAP / 1.5f);
-	public static final int EXPLOSION_CELL_PER_MAP = EAGLE_CELL_PER_MAP / 3;
-	public static final int TINY_CELL_PER_MAP = EAGLE_CELL_PER_MAP * 8;
+	public static final float EAGLE_CELL_SIZE = GameManager.LARGE_CELL_SIZE;
+	public static final float BRICK_WALL_CELL_SIZE = EAGLE_CELL_SIZE / 4f;
+	public static final float STEEL_WALL_CELL_SIZE = EAGLE_CELL_SIZE / 2f;
+	public static final float BUSH_CELL_SIZE = EAGLE_CELL_SIZE;
+	public static final float WATER_CELL_SIZE = EAGLE_CELL_SIZE;
+	public static final float ICE_CELL_SIZE = EAGLE_CELL_SIZE;
+	public static final float BULLET_CELL_SIZE = EAGLE_CELL_SIZE / 5f;
+	public static final float BLAST_CELL_SIZE = EAGLE_CELL_SIZE * 1.5f;
+	public static final float EXPLOSION_CELL_SIZE = EAGLE_CELL_SIZE * 3f;
+	public static final float TINY_CELL_SIZE = EAGLE_CELL_SIZE / 8f;
 
 	public static final float BULLET_DENSITY = 0.5f;
 	public static final float BULLET_ELASTICITY = 0f;
@@ -77,7 +76,7 @@ public class MapObjectFactory {
 			| CATEGORYBIT_WATER | CATEGORYBIT_BULLET;
 	private static final short MASKBITS_WATER = CATEGORYBIT_DEFAULT
 			| CATEGORYBIT_WATER;
-	public static final short MASKBITS_BULLET = CATEGORYBIT_DEFAULT
+	private static final short MASKBITS_BULLET = CATEGORYBIT_DEFAULT
 			| CATEGORYBIT_BULLET;
 
 	private static final short GROUP_DEFAULT = 0;
@@ -89,29 +88,21 @@ public class MapObjectFactory {
 
 	public static final int SLOW_BULLET_DAMAGE = 1;
 	public static final int NORMAL_BULLET_DAMAGE = 1;
-	public static final int FAST_BULLET_DAMAGE = 2;
+	public static final int FAST_BULLET_DAMAGE = 1;
+	public static final int DRILL_BULLET_DAMAGE = 2;
+	public static final int BLOW_BULLET_DAMAGE = 3;
 
-	public static final Vector2 NORMAL_BULLET_SPEED = new Vector2(
-			GameManager.MAP_WIDTH
-					/ PhysicsConnector.PIXEL_TO_METER_RATIO_DEFAULT,
-			GameManager.MAP_HEIGHT
-					/ PhysicsConnector.PIXEL_TO_METER_RATIO_DEFAULT);
-	public static final Vector2 SLOW_BULLET_SPEED = NORMAL_BULLET_SPEED.cpy()
-			.div(2f);
-	public static final Vector2 FAST_BULLET_SPEED = NORMAL_BULLET_SPEED.cpy()
-			.mul(2f);
+	public static final float NORMAL_BULLET_SPEED = CalcHelper
+			.pixels2Meters(GameManager.MAP_SIZE);
+	public static final float SLOW_BULLET_SPEED = NORMAL_BULLET_SPEED / 3f * 2f;
+	public static final float FAST_BULLET_SPEED = NORMAL_BULLET_SPEED / 2f * 3f;
 
-	public static final float BLOW_RADIUS_RATIO = 2 / 8f;
+	public static final float BLOW_RADIUS_RATIO = 5 / 16f;
 	public static final Vector2 NORMAL_BULLET_BLOW_RADIUS = new Vector2(
-			CalcHelper.pixels2Meters(GameManager.LARGE_CELL_WIDTH
+			CalcHelper.pixels2Meters(GameManager.LARGE_CELL_SIZE
 					* BLOW_RADIUS_RATIO), 0f);
-	public static final Vector2 SLOW_BULLET_BLOW_RADIUS = NORMAL_BULLET_BLOW_RADIUS
-			.cpy();
-	public static final Vector2 FAST_BULLET_BLOW_RADIUS = new Vector2(
-			CalcHelper.pixels2Meters(GameManager.LARGE_CELL_WIDTH
-					* BLOW_RADIUS_RATIO),
-			CalcHelper.pixels2Meters(GameManager.LARGE_CELL_HEIGHT
-					* BLOW_RADIUS_RATIO));
+	public static final Vector2 POWER_BULLET_BLOW_RADIUS = new Vector2(
+			NORMAL_BULLET_BLOW_RADIUS.x, NORMAL_BULLET_BLOW_RADIUS.x);
 
 	private static SparseArray<IMapObject> _objectsArray = new SparseArray<IMapObject>();
 
@@ -119,12 +110,12 @@ public class MapObjectFactory {
 	 * Bitmap lưu texture của tất cả các đối tượng
 	 */
 	private static BitmapTextureAtlas _bitmapTextureAtlas;
-
 	private static Map<ObjectType, TiledTextureRegion> _textureRegionMap = new HashMap<ObjectType, TiledTextureRegion>(
 			10);
 	private static Map<ObjectType, FixtureDef> _fixtureDefMap = new HashMap<ObjectType, FixtureDef>(
 			10);
 
+	private static Vector2 _bulletSize;
 	private static IAnimationListener _blowUpListener;
 
 	public static void initAllObjects() {
@@ -143,73 +134,76 @@ public class MapObjectFactory {
 				TextureOptions.BILINEAR);
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("");
 
-		String strTexture = XMLLoader.getObject(ObjectType.Eagle.ordinal())
+		String strTexture = XMLLoader.getObject(ObjectType.EAGLE.ordinal())
 				.getTextures();
-		_textureRegionMap.put(ObjectType.Eagle,
+		_textureRegionMap.put(ObjectType.EAGLE,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, EAGLE_TEXTURE_POS.x, EAGLE_TEXTURE_POS.y,
 						2, 1));
 
-		strTexture = XMLLoader.getObject(ObjectType.BrickWall.ordinal())
+		strTexture = XMLLoader.getObject(ObjectType.BRICK_WALL.ordinal())
 				.getTextures();
-		_textureRegionMap.put(ObjectType.BrickWall,
+		_textureRegionMap.put(ObjectType.BRICK_WALL,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, BRICKWALL_TEXTURE_POS.x,
 						BRICKWALL_TEXTURE_POS.y, 1, 1));
 
-		strTexture = XMLLoader.getObject(ObjectType.SteelWall.ordinal())
+		strTexture = XMLLoader.getObject(ObjectType.STEEL_WALL.ordinal())
 				.getTextures();
-		_textureRegionMap.put(ObjectType.SteelWall,
+		_textureRegionMap.put(ObjectType.STEEL_WALL,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, STEELWALL_TEXTURE_POS.x,
 						STEELWALL_TEXTURE_POS.y, 1, 1));
 
-		strTexture = XMLLoader.getObject(ObjectType.Bush.ordinal())
+		strTexture = XMLLoader.getObject(ObjectType.BUSH.ordinal())
 				.getTextures();
-		_textureRegionMap.put(ObjectType.Bush,
+		_textureRegionMap.put(ObjectType.BUSH,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, BUSH_TEXTURE_POS.x, BUSH_TEXTURE_POS.y, 1,
 						1));
 
-		strTexture = XMLLoader.getObject(ObjectType.Water.ordinal())
+		strTexture = XMLLoader.getObject(ObjectType.WATER.ordinal())
 				.getTextures();
-		_textureRegionMap.put(ObjectType.Water,
+		_textureRegionMap.put(ObjectType.WATER,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, WATER_TEXTURE_POS.x, WATER_TEXTURE_POS.y,
 						1, 1));
 
-		strTexture = XMLLoader.getObject(ObjectType.Ice.ordinal())
+		strTexture = XMLLoader.getObject(ObjectType.ICE.ordinal())
 				.getTextures();
 		_textureRegionMap
-				.put(ObjectType.Ice, BitmapTextureAtlasTextureRegionFactory
+				.put(ObjectType.ICE, BitmapTextureAtlasTextureRegionFactory
 						.createTiledFromAsset(_bitmapTextureAtlas,
 								GameManager.Activity.getAssets(), strTexture,
 								ICE_TEXTURE_POS.x, ICE_TEXTURE_POS.y, 1, 1));
 
-		strTexture = XMLLoader.getObject(ObjectType.Bullet.ordinal())
+		strTexture = XMLLoader.getObject(ObjectType.BULLET.ordinal())
 				.getTextures();
-		_textureRegionMap.put(ObjectType.Bullet,
-				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
-						strTexture, BULLET_TEXTURE_POS.x, BULLET_TEXTURE_POS.y,
-						1, 1));
+		TiledTextureRegion bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(_bitmapTextureAtlas,
+						GameManager.Activity.getAssets(), strTexture,
+						BULLET_TEXTURE_POS.x, BULLET_TEXTURE_POS.y, 1, 1);
+		_textureRegionMap.put(ObjectType.BULLET, bulletTextureRegion);
+		_bulletSize = new Vector2(BULLET_CELL_SIZE, BULLET_CELL_SIZE
+				* bulletTextureRegion.getHeight()
+				/ bulletTextureRegion.getWidth());
 
-		strTexture = XMLLoader.getObject(ObjectType.Blast.ordinal())
+		strTexture = XMLLoader.getObject(ObjectType.BLAST.ordinal())
 				.getTextures();
-		_textureRegionMap.put(ObjectType.Blast,
+		_textureRegionMap.put(ObjectType.BLAST,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, BLAST_TEXTURE_POS.x, BLAST_TEXTURE_POS.y,
 						3, 4));
 
-		strTexture = XMLLoader.getObject(ObjectType.Explosion.ordinal())
+		strTexture = XMLLoader.getObject(ObjectType.EXPLOSION.ordinal())
 				.getTextures();
-		_textureRegionMap.put(ObjectType.Explosion,
+		_textureRegionMap.put(ObjectType.EXPLOSION,
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, EXPLOSION_TEXTURE_POS.x,
@@ -220,44 +214,44 @@ public class MapObjectFactory {
 
 	private static void initObjectsFixture() {
 
-		_fixtureDefMap.put(ObjectType.Eagle, PhysicsFactory.createFixtureDef(
+		_fixtureDefMap.put(ObjectType.EAGLE, PhysicsFactory.createFixtureDef(
 				1f, 0f, 0f, false, CATEGORYBIT_DEFAULT, MASKBITS_DEFAULT,
 				GROUP_DEFAULT));
 
-		_fixtureDefMap.put(ObjectType.BrickWall, PhysicsFactory
+		_fixtureDefMap.put(ObjectType.BRICK_WALL, PhysicsFactory
 				.createFixtureDef(1f, 0f, 0f, false, CATEGORYBIT_DEFAULT,
 						MASKBITS_DEFAULT, GROUP_DEFAULT));
 
-		_fixtureDefMap.put(ObjectType.SteelWall, PhysicsFactory
+		_fixtureDefMap.put(ObjectType.STEEL_WALL, PhysicsFactory
 				.createFixtureDef(1f, 0f, 0f, false, CATEGORYBIT_DEFAULT,
 						MASKBITS_DEFAULT, GROUP_DEFAULT));
 
 		// _bushFixtureDef = PhysicsFactory.createFixtureDef(0f, 0f, 0f, true);
 
-		_fixtureDefMap.put(ObjectType.Water, PhysicsFactory.createFixtureDef(
+		_fixtureDefMap.put(ObjectType.WATER, PhysicsFactory.createFixtureDef(
 				1f, 0f, 0f, false, CATEGORYBIT_WATER, MASKBITS_WATER,
 				GROUP_DEFAULT));
 
-		_fixtureDefMap.put(ObjectType.Ice,
+		_fixtureDefMap.put(ObjectType.ICE,
 				PhysicsFactory.createFixtureDef(0f, 0f, 0f, true));
 
-		_fixtureDefMap.put(ObjectType.Bullet, PhysicsFactory.createFixtureDef(
+		_fixtureDefMap.put(ObjectType.BULLET, PhysicsFactory.createFixtureDef(
 				BULLET_DENSITY, BULLET_ELASTICITY, BULLET_FRICTION, false,
 				CATEGORYBIT_BULLET, MASKBITS_BULLET, GROUP_DEFAULT));
 	}
 
 	private static void createObjectsArray() {
-		_objectsArray.put(ObjectType.Eagle.ordinal(), new Eagle(0f, 0f));
+		_objectsArray.put(ObjectType.EAGLE.ordinal(), new Eagle(0f, 0f));
+		_objectsArray.put(ObjectType.BRICK_WALL.ordinal(),
+				new BrickWall(0f, 0f));
+		_objectsArray.put(ObjectType.STEEL_WALL.ordinal(),
+				new SteelWall(0f, 0f));
+		_objectsArray.put(ObjectType.BUSH.ordinal(), new Bush(0f, 0f));
+		_objectsArray.put(ObjectType.WATER.ordinal(), new Water(0f, 0f));
+		_objectsArray.put(ObjectType.ICE.ordinal(), new Ice(0f, 0f));
+		_objectsArray.put(ObjectType.BLAST.ordinal(), new Blast(0f, 0f));
 		_objectsArray
-				.put(ObjectType.BrickWall.ordinal(), new BrickWall(0f, 0f));
-		_objectsArray
-				.put(ObjectType.SteelWall.ordinal(), new SteelWall(0f, 0f));
-		_objectsArray.put(ObjectType.Bush.ordinal(), new Bush(0f, 0f));
-		_objectsArray.put(ObjectType.Water.ordinal(), new Water(0f, 0f));
-		_objectsArray.put(ObjectType.Ice.ordinal(), new Ice(0f, 0f));
-		_objectsArray.put(ObjectType.Blast.ordinal(), new Blast(0f, 0f));
-		_objectsArray
-				.put(ObjectType.Explosion.ordinal(), new Explosion(0f, 0f));
+				.put(ObjectType.EXPLOSION.ordinal(), new Explosion(0f, 0f));
 
 		createAllBullets();
 	}
@@ -266,18 +260,28 @@ public class MapObjectFactory {
 	 * Khởi tạo các loại Bullet có trong trò chơi
 	 */
 	private static void createAllBullets() {
-		IBullet bullet = new Bullet(0f, 0f);
-		_objectsArray.put(ObjectType.Bullet.ordinal(), bullet);
+		IBullet bullet = new Bullet();
+		_objectsArray.put(ObjectType.BULLET.ordinal(), bullet);
 
-		bullet = new Bullet(0f, 0f);
+		bullet = new Bullet();
 		bullet.initSpecification(SLOW_BULLET_DAMAGE, SLOW_BULLET_SPEED,
-				SLOW_BULLET_BLOW_RADIUS);
-		_objectsArray.put(ObjectType.SlowBullet.ordinal(), bullet);
+				NORMAL_BULLET_BLOW_RADIUS);
+		_objectsArray.put(ObjectType.SLOW_BULLET.ordinal(), bullet);
 
-		bullet = new Bullet(0f, 0f);
+		bullet = new Bullet();
 		bullet.initSpecification(FAST_BULLET_DAMAGE, FAST_BULLET_SPEED,
-				FAST_BULLET_BLOW_RADIUS);
-		_objectsArray.put(ObjectType.FastBullet.ordinal(), bullet);
+				NORMAL_BULLET_BLOW_RADIUS);
+		_objectsArray.put(ObjectType.FAST_BULLET.ordinal(), bullet);
+
+		bullet = new Bullet();
+		bullet.initSpecification(DRILL_BULLET_DAMAGE, FAST_BULLET_SPEED,
+				POWER_BULLET_BLOW_RADIUS);
+		_objectsArray.put(ObjectType.DRILL_BULLET.ordinal(), bullet);
+
+		bullet = new Bullet();
+		bullet.initSpecification(BLOW_BULLET_DAMAGE, FAST_BULLET_SPEED,
+				POWER_BULLET_BLOW_RADIUS);
+		_objectsArray.put(ObjectType.BLOW_BULLET.ordinal(), bullet);
 	}
 
 	private static void createObjectsListener() {
@@ -387,5 +391,9 @@ public class MapObjectFactory {
 
 	public static FixtureDef getFixtureDef(ObjectType type) {
 		return _fixtureDefMap.get(type);
+	}
+
+	public static Vector2 getBulletSize() {
+		return _bulletSize;
 	}
 }

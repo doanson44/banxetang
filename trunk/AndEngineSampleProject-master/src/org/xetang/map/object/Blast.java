@@ -19,8 +19,8 @@ public class Blast extends BlowUp {
 	}
 
 	public Blast(float posX, float posY) {
-		super(null, MapObjectFactory.getTextureRegion(ObjectType.Blast),
-				MapObjectFactory.BLAST_CELL_PER_MAP, posX, posY);
+		super(null, MapObjectFactory.getTextureRegion(ObjectType.BLAST), posX,
+				posY, MapObjectFactory.BLAST_CELL_SIZE);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class Blast extends BlowUp {
 
 	@Override
 	public ObjectType getType() {
-		return ObjectType.Blast;
+		return ObjectType.BLAST;
 	}
 
 	@Override
@@ -58,13 +58,8 @@ public class Blast extends BlowUp {
 
 		Vector2 bulletCenter = bullet.getBody().getWorldCenter();
 		Vector2 targetCenter = _targetObject.getBody().getWorldCenter();
-		Vector2 targetInsideRadius = new Vector2(
-				CalcHelper.pixels2Meters(_targetObject.getCellWidth() / 2
-						- GameManager.MAP_WIDTH
-						/ MapObjectFactory.TINY_CELL_PER_MAP),
-				CalcHelper.pixels2Meters(_targetObject.getCellHeight() / 2
-						- GameManager.MAP_HEIGHT
-						/ MapObjectFactory.TINY_CELL_PER_MAP));
+		float targetInsideRadius = CalcHelper.pixels2Meters(_targetObject
+				.getCellWidth() / 2 - MapObjectFactory.TINY_CELL_SIZE);
 		Vector2 blastRadius = bullet.getBlowRadius();
 
 		Vector2 leftBound = null;
@@ -72,36 +67,36 @@ public class Blast extends BlowUp {
 
 		switch (bullet.getDirection()) {
 
-		case Up:
+		case UP:
 
 			leftBound = new Vector2(bulletCenter.x - blastRadius.x,
-					targetCenter.y + targetInsideRadius.y - blastRadius.y);
+					targetCenter.y + targetInsideRadius - blastRadius.y);
 			rightBound = new Vector2(bulletCenter.x + blastRadius.x,
-					targetCenter.y + targetInsideRadius.y);
+					targetCenter.y + targetInsideRadius);
 			break;
 
-		case Down:
+		case DOWN:
 
 			leftBound = new Vector2(bulletCenter.x - blastRadius.x,
-					targetCenter.y - targetInsideRadius.y);
+					targetCenter.y - targetInsideRadius);
 			rightBound = new Vector2(bulletCenter.x + blastRadius.x,
-					targetCenter.y - targetInsideRadius.y + blastRadius.y);
+					targetCenter.y - targetInsideRadius + blastRadius.y);
 			break;
 
-		case Left:
+		case LEFT:
 
-			leftBound = new Vector2(targetCenter.x + targetInsideRadius.x
+			leftBound = new Vector2(targetCenter.x + targetInsideRadius
 					- blastRadius.y, bulletCenter.y - blastRadius.x
 					/ GameManager.MAP_RATIO);
-			rightBound = new Vector2(targetCenter.x + targetInsideRadius.x,
+			rightBound = new Vector2(targetCenter.x + targetInsideRadius,
 					bulletCenter.y + blastRadius.x / GameManager.MAP_RATIO);
 			break;
 
-		case Right:
+		case RIGHT:
 
-			leftBound = new Vector2(targetCenter.x - targetInsideRadius.x,
+			leftBound = new Vector2(targetCenter.x - targetInsideRadius,
 					bulletCenter.y - blastRadius.x / GameManager.MAP_RATIO);
-			rightBound = new Vector2(targetCenter.x - targetInsideRadius.x
+			rightBound = new Vector2(targetCenter.x - targetInsideRadius
 					+ blastRadius.y, bulletCenter.y + blastRadius.x
 					/ GameManager.MAP_RATIO);
 			break;

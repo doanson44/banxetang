@@ -58,23 +58,23 @@ public class Map extends GameEntity implements IUpdateHandler {
 		layer.setZIndex(MapObjectFactory.Z_INDEX_CONSTRUCTION);
 		layer.setChildrenIgnoreUpdate(true);
 		attachChild(layer);
-		_layerMap.put(ObjectLayer.Construction, layer);
+		_layerMap.put(ObjectLayer.CONSTRUCTION, layer);
 
 		layer = new Entity();
 		layer.setZIndex(MapObjectFactory.Z_INDEX_MOVING);
 		attachChild(layer);
-		_layerMap.put(ObjectLayer.Moving, layer);
+		_layerMap.put(ObjectLayer.MOVING, layer);
 
 		layer = new Entity();
 		layer.setZIndex(MapObjectFactory.Z_INDEX_WRAPPER);
 		layer.setChildrenIgnoreUpdate(true);
 		attachChild(layer);
-		_layerMap.put(ObjectLayer.Wrapper, layer);
+		_layerMap.put(ObjectLayer.WRAPPER, layer);
 
 		layer = new Entity();
 		layer.setZIndex(MapObjectFactory.Z_INDEX_BLOW_UP);
 		attachChild(layer);
-		_layerMap.put(ObjectLayer.BlowUp, layer);
+		_layerMap.put(ObjectLayer.BLOW_UP, layer);
 
 		sortChildren(true);
 	}
@@ -82,13 +82,13 @@ public class Map extends GameEntity implements IUpdateHandler {
 	public void loadMapData(StageDTO stage) {
 
 		this.attachChild(GameItemManager.getInstance().CreateItem(
-				ObjectType.TankItem));
+				ObjectType.TANK_ITEM));
 		this.attachChild(GameItemManager.getInstance().CreateItem(
-				ObjectType.TankItem));
+				ObjectType.TANK_ITEM));
 		this.attachChild(GameItemManager.getInstance().CreateItem(
-				ObjectType.TankItem));
+				ObjectType.TANK_ITEM));
 		this.attachChild(GameItemManager.getInstance().CreateItem(
-				ObjectType.TankItem));
+				ObjectType.TANK_ITEM));
 
 		List<StageObjectDTO> objects = stage.getObjects();
 
@@ -124,32 +124,32 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 	private void attachToLayer(IMapObject object) {
 
-		if (object.getType() != ObjectType.Bush) {
-			addObject((IEntity) object, ObjectLayer.Construction);
+		if (object.getType() != ObjectType.BUSH) {
+			addObject((IEntity) object, ObjectLayer.CONSTRUCTION);
 		} else {
-			addObject((IEntity) object, ObjectLayer.Wrapper);
+			addObject((IEntity) object, ObjectLayer.WRAPPER);
 		}
 	}
 
 	private void createBorders() {
-		Rectangle ground = new Rectangle(-GameManager.BORDER_WIDTH,
-				GameManager.MAP_HEIGHT, GameManager.MAP_WIDTH
-						+ GameManager.BORDER_WIDTH * 2,
-				GameManager.BORDER_WIDTH,
+		Rectangle ground = new Rectangle(-GameManager.BORDER_THICK,
+				GameManager.MAP_SIZE, GameManager.MAP_SIZE
+						+ GameManager.BORDER_THICK * 2,
+				GameManager.BORDER_THICK,
 				GameManager.Activity.getVertexBufferObjectManager());
 
-		Rectangle left = new Rectangle(-GameManager.BORDER_WIDTH, 0,
-				GameManager.BORDER_WIDTH, GameManager.MAP_HEIGHT,
+		Rectangle left = new Rectangle(-GameManager.BORDER_THICK, 0,
+				GameManager.BORDER_THICK, GameManager.MAP_SIZE,
 				GameManager.Activity.getVertexBufferObjectManager());
 
-		Rectangle roof = new Rectangle(-GameManager.BORDER_WIDTH,
-				-GameManager.BORDER_WIDTH, GameManager.MAP_WIDTH
-						+ GameManager.BORDER_WIDTH * 2,
-				GameManager.BORDER_WIDTH,
+		Rectangle roof = new Rectangle(-GameManager.BORDER_THICK,
+				-GameManager.BORDER_THICK, GameManager.MAP_SIZE
+						+ GameManager.BORDER_THICK * 2,
+				GameManager.BORDER_THICK,
 				GameManager.Activity.getVertexBufferObjectManager());
 
-		Rectangle right = new Rectangle(GameManager.MAP_WIDTH, 0,
-				GameManager.BORDER_WIDTH, GameManager.MAP_HEIGHT,
+		Rectangle right = new Rectangle(GameManager.MAP_SIZE, 0,
+				GameManager.BORDER_THICK, GameManager.MAP_SIZE,
 				GameManager.Activity.getVertexBufferObjectManager());
 
 		FixtureDef borderFixtureDef = PhysicsFactory.createFixtureDef(1f, 0f,
@@ -171,7 +171,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 	}
 
 	public void InitRightMenu(int TotalEnermytank) {
-		_RightMenu = new RightMenu(GameManager.MAP_WIDTH + 20, 20, this, 10);
+		_RightMenu = new RightMenu(GameManager.MAP_SIZE + 20, 20, this, 10);
 
 		attachChild(_RightMenu);
 		_RightMenu.RemoveLastItem();
@@ -309,7 +309,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 	public void addPlayerTank(Tank playerTank) {
 		mPlayerTanks.add(playerTank);
 
-		addObject(playerTank, ObjectLayer.Moving);
+		addObject(playerTank, ObjectLayer.MOVING);
 		// this.attachChild(playerTank);
 
 	}
@@ -329,14 +329,14 @@ public class Map extends GameEntity implements IUpdateHandler {
 		f.SetTank(tank);
 		GameManager.Scene.registerUpdateHandler(f);
 
-		addObject(f.GetSprite(), ObjectLayer.Moving);
+		addObject(f.GetSprite(), ObjectLayer.MOVING);
 		// this.attachChild(f.GetSprite());
 	}
 
 	public void AddEnermyTankToList(Tank tank) {
 		mEnermyTanks.add(tank);
 
-		addObject(tank, ObjectLayer.Moving);
+		addObject(tank, ObjectLayer.MOVING);
 		// this.attachChild(tank);
 
 		GameManager.CurrentMapManager.AddBot(new Bot(tank));

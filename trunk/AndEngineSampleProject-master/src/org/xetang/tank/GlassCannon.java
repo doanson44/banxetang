@@ -1,30 +1,26 @@
 package org.xetang.tank;
 
 import org.andengine.opengl.texture.region.TiledTextureRegion;
+import org.xetang.manager.TankManager;
 import org.xetang.map.item.MapObjectFactory2;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.map.object.MapObjectFactory.TankType;
 
-/**
- * 
- */
 public class GlassCannon extends Tank {
 
-	/**
-     * 
-     */
 	public GlassCannon(float px, float py) {
 
 		super(px, py, (TiledTextureRegion) MapObjectFactory2
 				.getTexture("EnemyGlassCannon"));
-		this.SetType(ObjectType.EnermyTank);
-		this.SetTankType(TankType.GlassCannon);
+		this.SetType(ObjectType.ENERMY_TANK);
+		this.SetTankType(TankType.GLASS_CANNON);
 
-		this.speed = 2f;
+		this.speed = TankManager.NORMAL_TANK_SPEED;
+
 		_maxNumberBullet = 3;
 		this.point = 300;
 		this.hp = 1;
-		mBulletType = ObjectType.FastBullet;
+		mBulletType = ObjectType.DRILL_BULLET;
 		mSprite.setCurrentTileIndex(0);
 
 	}

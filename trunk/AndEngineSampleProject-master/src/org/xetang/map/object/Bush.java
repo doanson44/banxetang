@@ -19,8 +19,8 @@ public class Bush extends MapObject {
 	}
 
 	public Bush(float posX, float posY) {
-		super(null, MapObjectFactory.getTextureRegion(ObjectType.Bush),
-				MapObjectFactory.BUSH_CELL_PER_MAP, posX, posY,
+		super(null, MapObjectFactory.getTextureRegion(ObjectType.BUSH), posX,
+				posY, MapObjectFactory.BUSH_CELL_SIZE,
 				MapObjectFactory.Z_INDEX_WRAPPER);
 	}
 
@@ -41,6 +41,6 @@ public class Bush extends MapObject {
 
 	@Override
 	public ObjectType getType() {
-		return ObjectType.Bush;
+		return ObjectType.BUSH;
 	}
 }

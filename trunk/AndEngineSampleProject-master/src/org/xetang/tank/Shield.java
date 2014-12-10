@@ -18,16 +18,17 @@ public class Shield extends GameEntity {
 				(ITiledTextureRegion) MapObjectFactory2
 						.getTexture("Protection"),
 				GameManager.VertexBufferObject);
-		_shield.setSize(GameManager.LARGE_CELL_WIDTH,
-				GameManager.LARGE_CELL_HEIGHT);
+		_shield.setSize(GameManager.LARGE_CELL_SIZE,
+				GameManager.LARGE_CELL_SIZE);
 		_shield.animate(200);
 		this.attachChild(_shield);
-		GameManager.CurrentMap.addObject(this, ObjectLayer.Moving);
+		GameManager.CurrentMap.addObject(this, ObjectLayer.MOVING);
 		_isAlive = true;
 	}
 
 	public void KillSelf() {
-		GameManager.CurrentMap.detachChild(this);
+		this.detachSelf();
+		this.dispose();
 		_isAlive = false;
 	}
 

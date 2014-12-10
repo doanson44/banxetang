@@ -44,22 +44,22 @@ public class GameItemManager implements IUpdateHandler {
 		Item item = null;
 
 		switch (type) {
-		case Bomb:
+		case BOMB:
 			item = new Bomb(GameManager.CurrentMap);
 			break;
-		case Clock:
+		case CLOCK:
 			item = new Clock(GameManager.CurrentMap);
 			break;
-		case Helmet:
+		case HELMET:
 			item = new Helmet(GameManager.CurrentMap);
 			break;
-		case Shovel:
+		case SHOVEL:
 			item = new Shovel(GameManager.CurrentMap);
 			break;
-		case Star:
+		case STAR:
 			item = new Star(GameManager.CurrentMap);
 			break;
-		case TankItem:
+		case TANK_ITEM:
 			item = new TankItem(GameManager.CurrentMap);
 			break;
 		default:
@@ -102,14 +102,18 @@ public class GameItemManager implements IUpdateHandler {
 
 	public void RemoveWall() {
 		ChangeWallCallBack callback = new ChangeWallCallBack();
-		float HeightCell = GameManager.LARGE_CELL_HEIGHT;
-		float WidthCell = GameManager.LARGE_CELL_WIDTH;
 
-		float pLowerX = CalcHelper.pixels2Meters(5 * WidthCell + WidthCell / 2);
-		float pLowerY = CalcHelper.pixels2Meters(11 * HeightCell + HeightCell
-				/ 2);
-		float pUpperX = CalcHelper.pixels2Meters(7 * WidthCell + WidthCell / 2);
-		float pUpperY = CalcHelper.pixels2Meters(13 * HeightCell);
+		float pLowerX = CalcHelper
+				.pixels2Meters(5 * GameManager.LARGE_CELL_SIZE
+						+ GameManager.LARGE_CELL_SIZE / 2);
+		float pLowerY = CalcHelper
+				.pixels2Meters(11 * GameManager.LARGE_CELL_SIZE
+						+ GameManager.LARGE_CELL_SIZE / 2);
+		float pUpperX = CalcHelper
+				.pixels2Meters(7 * GameManager.LARGE_CELL_SIZE
+						+ GameManager.LARGE_CELL_SIZE / 2);
+		float pUpperY = CalcHelper
+				.pixels2Meters(13 * GameManager.LARGE_CELL_SIZE);
 
 		GameManager.PhysicsWorld.QueryAABB(callback, pLowerX, pLowerY, pUpperX,
 				pUpperY);
@@ -118,26 +122,33 @@ public class GameItemManager implements IUpdateHandler {
 	public void MakeSteelWallFortress() {
 		// TODO Auto-generated method stub
 		RemoveWall();
-		CreateWall(ObjectType.SteelWall);
+		CreateWall(ObjectType.STEEL_WALL);
 
 	}
 
 	public void RetrieveOldWallFortress() {
 		RemoveWall();
-		CreateWall(ObjectType.BrickWall);
+		CreateWall(ObjectType.BRICK_WALL);
 	}
 
 	public void CreateWall(ObjectType type) {
-		float HeightCell = GameManager.LARGE_CELL_HEIGHT;
-		if (type == ObjectType.SteelWall) {
-			CreateWall(type, 11 * HeightCell / 2, 23 * HeightCell / 2);
-			CreateWall(type, 11 * HeightCell / 2, 24 * HeightCell / 2);
-			CreateWall(type, 11 * HeightCell / 2, 25 * HeightCell / 2);
-			CreateWall(type, 14 * HeightCell / 2, 23 * HeightCell / 2);
-			CreateWall(type, 14 * HeightCell / 2, 24 * HeightCell / 2);
-			CreateWall(type, 14 * HeightCell / 2, 25 * HeightCell / 2);
-			CreateWall(type, 12 * HeightCell / 2, 23 * HeightCell / 2);
-			CreateWall(type, 13 * HeightCell / 2, 23 * HeightCell / 2);
+		if (type == ObjectType.STEEL_WALL) {
+			CreateWall(type, 11 * GameManager.LARGE_CELL_SIZE / 2,
+					23 * GameManager.LARGE_CELL_SIZE / 2);
+			CreateWall(type, 11 * GameManager.LARGE_CELL_SIZE / 2,
+					24 * GameManager.LARGE_CELL_SIZE / 2);
+			CreateWall(type, 11 * GameManager.LARGE_CELL_SIZE / 2,
+					25 * GameManager.LARGE_CELL_SIZE / 2);
+			CreateWall(type, 14 * GameManager.LARGE_CELL_SIZE / 2,
+					23 * GameManager.LARGE_CELL_SIZE / 2);
+			CreateWall(type, 14 * GameManager.LARGE_CELL_SIZE / 2,
+					24 * GameManager.LARGE_CELL_SIZE / 2);
+			CreateWall(type, 14 * GameManager.LARGE_CELL_SIZE / 2,
+					25 * GameManager.LARGE_CELL_SIZE / 2);
+			CreateWall(type, 12 * GameManager.LARGE_CELL_SIZE / 2,
+					23 * GameManager.LARGE_CELL_SIZE / 2);
+			CreateWall(type, 13 * GameManager.LARGE_CELL_SIZE / 2,
+					23 * GameManager.LARGE_CELL_SIZE / 2);
 		} else {
 			MapObjectBlockDTO block1 = MapObjectFactory.createObjectBlock(type,
 					new Pair<Point, Point>(new Point(12, 23), new Point(4, 2)));
@@ -183,8 +194,7 @@ public class GameItemManager implements IUpdateHandler {
 
 	public void DestroyAllEnermy() {
 		// TODO Auto-generated method stub
-		for(int i =0 ; i < GameManager.CurrentMap.getEnermyTanks().size();i++)
-		{
+		for (int i = 0; i < GameManager.CurrentMap.getEnermyTanks().size(); i++) {
 			GameManager.CurrentMap.getEnermyTanks().get(i).KillSelf();
 		}
 		GameManager.CurrentMap.getEnermyTanks().clear();
@@ -197,39 +207,39 @@ public class GameItemManager implements IUpdateHandler {
 		}
 	}
 
-	public ObjectType GetRandomType(){
+	public ObjectType GetRandomType() {
 		int random = (new Random()).nextInt() % 6;
 		ObjectType type = null;
-		
+
 		switch (Math.abs(random)) {
 		case 0:
-			type= ObjectType.Bomb;
+			type = ObjectType.BOMB;
 			break;
 		case 1:
-			type= ObjectType.Clock;
+			type = ObjectType.CLOCK;
 			break;
 		case 2:
-			type= ObjectType.Helmet;
+			type = ObjectType.HELMET;
 			break;
 		case 3:
-			type= ObjectType.Shovel;
+			type = ObjectType.SHOVEL;
 			break;
 		case 4:
-			type= ObjectType.TankItem;
+			type = ObjectType.TANK_ITEM;
 			break;
 		case 5:
-			type= ObjectType.Star;
+			type = ObjectType.STAR;
 			break;
 		default:
 			break;
 		}
 		return type;
 	}
-	
+
 	public void CreateRandomItem() {
 		// TODO Auto-generated method stub
 		Runnable run = new Runnable() {
-			
+
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub

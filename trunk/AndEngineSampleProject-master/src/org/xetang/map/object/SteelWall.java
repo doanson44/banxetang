@@ -19,9 +19,9 @@ public class SteelWall extends Wall {
 	}
 
 	public SteelWall(float posX, float posY) {
-		super(MapObjectFactory.getFixtureDef(ObjectType.SteelWall),
-				MapObjectFactory.getTextureRegion(ObjectType.SteelWall),
-				MapObjectFactory.STEEL_WALL_CELL_PER_MAP, posX, posY);
+		super(MapObjectFactory.getFixtureDef(ObjectType.STEEL_WALL),
+				MapObjectFactory.getTextureRegion(ObjectType.STEEL_WALL), posX,
+				posY, MapObjectFactory.STEEL_WALL_CELL_SIZE);
 	}
 
 	@Override
@@ -45,6 +45,6 @@ public class SteelWall extends Wall {
 
 	@Override
 	public ObjectType getType() {
-		return ObjectType.SteelWall;
+		return ObjectType.STEEL_WALL;
 	}
 }

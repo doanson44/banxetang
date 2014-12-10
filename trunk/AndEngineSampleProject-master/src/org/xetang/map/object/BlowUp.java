@@ -29,11 +29,16 @@ public abstract class BlowUp extends MapObject implements IBlowUp {
 	}
 
 	public BlowUp(FixtureDef objectFixtureDef,
-			TiledTextureRegion objectTextureRegion, int piecePerMap,
-			float posX, float posY) {
-		super(objectFixtureDef, objectTextureRegion, piecePerMap, posX, posY,
+			TiledTextureRegion objectTextureRegion, float posX, float posY,
+			float width) {
+		this(objectFixtureDef, objectTextureRegion, posX, posY, width, width);
+	}
+
+	public BlowUp(FixtureDef objectFixtureDef,
+			TiledTextureRegion objectTextureRegion, float posX, float posY,
+			float width, float height) {
+		super(objectFixtureDef, objectTextureRegion, posX, posY, width, height,
 				MapObjectFactory.Z_INDEX_BLOW_UP);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

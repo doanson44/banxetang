@@ -28,6 +28,6 @@ public class Star extends Item {
     @Override
     public ObjectType getType() {
     	// TODO Auto-generated method stub
-    	return ObjectType.Star;
+    	return ObjectType.STAR;
     }
 }

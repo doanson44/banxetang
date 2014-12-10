@@ -35,8 +35,8 @@ public class Item extends GameEntity implements IMapObject {
 	float _Score = 500;
 	float _SecPerFrame = 0;
 	float _alpha = 1;
-	float _CellWidth = GameManager.LARGE_CELL_WIDTH;
-	float _CellHeight = GameManager.LARGE_CELL_HEIGHT;
+	float _CellWidth = GameManager.LARGE_CELL_SIZE;
+	float _CellHeight = GameManager.LARGE_CELL_SIZE;
 	Map _map;
 	public TiledSprite _sprite = null;
 	Body _body;
@@ -220,7 +220,7 @@ public class Item extends GameEntity implements IMapObject {
 		// TODO Auto-generated method stub
 		try {
 			Debug.d("Collsion", object.getType().name());
-			if (object.getType() == ObjectType.PlayerTank && !_isActive) {
+			if (object.getType() == ObjectType.PLAYER_TANK && !_isActive) {
 
 				_mOwner = (Tank) object;
 				affect();

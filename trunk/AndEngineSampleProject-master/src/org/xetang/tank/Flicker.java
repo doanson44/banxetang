@@ -18,8 +18,8 @@ public class Flicker implements IUpdateHandler, IAnimationListener {
 		mSprite = new AnimatedSprite(px + 3, py + 3,
 				(ITiledTextureRegion) MapObjectFactory2.getTexture("Flicker"),
 				GameManager.VertexBufferObject);
-		mSprite.setSize(GameManager.LARGE_CELL_WIDTH - 10,
-				GameManager.LARGE_CELL_HEIGHT - 10);
+		mSprite.setSize(GameManager.LARGE_CELL_SIZE - 10,
+				GameManager.LARGE_CELL_SIZE - 10);
 	}
 
 	public void Animate() {

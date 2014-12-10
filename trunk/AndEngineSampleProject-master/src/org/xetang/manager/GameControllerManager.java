@@ -27,7 +27,7 @@ public class GameControllerManager {
 	static {
 		mResources = new Hashtable<String, TiledTextureRegion>();
 	}
-	static Direction mDirection = Direction.None;
+	static Direction mDirection = Direction.NONE;
 
 	public static void loadResource() {
 		// Tải tài nguyên của Controller ở đây, vd: ảnh rẽ trái,...
@@ -95,22 +95,22 @@ public class GameControllerManager {
 				if( System.currentTimeMillis() - prevTime >= WaitTimeMilis && mController != null){
 					prevTime = System.currentTimeMillis();
 					switch (mDirection) {
-						case Up:
+						case UP:
 							mController.onForward();
 							Debug.d(GameManager.TANK_TAG, "onForward");
 						break;
 						
-						case Down:
+						case DOWN:
 							mController.onBackward();
 							Debug.d(GameManager.TANK_TAG, "onBackward");
 						break;
 						
-						case Left:
+						case LEFT:
 							mController.onLeft();
 							Debug.d(GameManager.TANK_TAG, "onLeft");
 						break;
 						
-						case Right:
+						case RIGHT:
 							mController.onRight();
 							Debug.d(GameManager.TANK_TAG, "onRight");
 						break;
@@ -134,7 +134,7 @@ public class GameControllerManager {
 				if (isOutOfBound(realX, realY)){
 					GameControllerManager.middleSprite.setX(Pivot.x + 48);
 					GameControllerManager.middleSprite.setY(Pivot.y + 48);
-					mDirection = Direction.None;
+					mDirection = Direction.NONE;
 				}
 				return super.onSceneTouchEvent(pSceneTouchEvent);
 			}
@@ -219,7 +219,7 @@ public class GameControllerManager {
 					bMiddleButtonPressed = true;
 				else if(pSceneTouchEvent.isActionUp()){
 					bMiddleButtonPressed = false;
-					mDirection = Direction.None;
+					mDirection = Direction.NONE;
 					
 					this.setX( Pivot.x + 48);
 					this.setY( Pivot.y + 48);
@@ -231,16 +231,16 @@ public class GameControllerManager {
 					
 					float angle = vector.angle();
 					if (angle >= 45 && angle <= 135){
-						mDirection = Direction.Down;
+						mDirection = Direction.DOWN;
 					}
 					else if (angle >= 135 && angle <= 225){
-						mDirection = Direction.Left;
+						mDirection = Direction.LEFT;
 					}
 					else if (angle >= 225 && angle <= 315){				
-						mDirection = Direction.Up;
+						mDirection = Direction.UP;
 					}
 					else {
-						mDirection = Direction.Right;
+						mDirection = Direction.RIGHT;
 					}
 				}// moving
 

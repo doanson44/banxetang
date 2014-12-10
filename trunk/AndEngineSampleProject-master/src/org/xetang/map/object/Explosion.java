@@ -8,14 +8,14 @@ public class Explosion extends BlowUp {
 
 	public Explosion(Explosion explosion) {
 		super(explosion);
-		
+
 		((AnimatedSprite) _sprite).animate(MapObjectFactory.EXPLOSION_ANIMATE,
 				false, MapObjectFactory.getBlowUpListener());
 	}
 
 	public Explosion(float posX, float posY) {
-		super(null, MapObjectFactory.getTextureRegion(ObjectType.Explosion),
-				MapObjectFactory.EXPLOSION_CELL_PER_MAP, posX, posY);
+		super(null, MapObjectFactory.getTextureRegion(ObjectType.EXPLOSION),
+				posX, posY, MapObjectFactory.EXPLOSION_CELL_SIZE);
 	}
 
 	@Override
@@ -34,6 +34,6 @@ public class Explosion extends BlowUp {
 
 	@Override
 	public ObjectType getType() {
-		return ObjectType.Explosion;
+		return ObjectType.EXPLOSION;
 	}
 }

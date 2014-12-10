@@ -13,15 +13,15 @@ public class DecideHelpder {
 		}
 
 		switch (object.getType()) {
-		case Eagle:
-		case Water:
-		case Ice:
-		case Bomb:
-		case Clock:
-		case Helmet:
-		case Shovel:
-		case Star:
-		case TankItem:
+		case EAGLE:
+		case WATER:
+		case ICE:
+		case BOMB:
+		case CLOCK:
+		case HELMET:
+		case SHOVEL:
+		case STAR:
+		case TANK_ITEM:
 			return false;
 
 		default:
@@ -38,8 +38,8 @@ public class DecideHelpder {
 		}
 
 		switch (object.getType()) {
-		case SteelWall:
-			if (bullet.getDamage() != MapObjectFactory.FAST_BULLET_DAMAGE) {
+		case STEEL_WALL:
+			if (bullet.getDamage() != MapObjectFactory.BLOW_BULLET_DAMAGE) {
 				return false;
 			}
 

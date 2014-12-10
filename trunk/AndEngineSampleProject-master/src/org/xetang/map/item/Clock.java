@@ -29,7 +29,7 @@ public class Clock extends Item {
     @Override
     public ObjectType getType() {
     	// TODO Auto-generated method stub
-    	return ObjectType.Clock;
+    	return ObjectType.CLOCK;
     }
 
 }
