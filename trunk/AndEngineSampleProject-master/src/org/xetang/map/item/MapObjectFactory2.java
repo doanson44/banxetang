@@ -13,6 +13,12 @@ import android.content.Context;
 
 public class MapObjectFactory2 {
 
+	public static float BIGMOM_SPEED = 2F;
+	public static float GLASSCANNON_SPEED = 2F;
+	public static float NORMAL_SPEED = 1F;
+	public static float PLAYER_SPEED = 1.5F;
+	public static float RACER_SPEED = 3F;
+	
 	static Hashtable<String, BaseTextureRegion> Textures = new Hashtable<String, BaseTextureRegion>();
 
 	public static void InitTextures() {

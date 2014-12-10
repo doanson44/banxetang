@@ -20,7 +20,10 @@ public class Bot extends Controller {
 	protected ObjectType Collide;
 	private float _SecPerFrame = 0;
 	private float _TimeToFire = 0;
-
+	private float _TimeToTurn = 0;
+	private float _TotalTime = 0;
+	private float _TotalTimeToTurn = 5;
+	
 	public Bot(Tank tank) {
 		mTank = tank;
 		mDirection = Direction.DOWN;
@@ -75,7 +78,14 @@ public class Bot extends Controller {
 			}
 
 		} else {
-			TurnAround();
+			_SecPerFrame += pSecondsElapsed;
+			if(_TimeToTurn > _TotalTimeToTurn ){
+				TurnAround();
+				_TimeToTurn = 0;
+			}
+			if(_TotalTime > 15){
+				_TotalTimeToTurn = 3;
+			}
 		}
 		Move();
 	}
@@ -146,6 +156,8 @@ public class Bot extends Controller {
 		if (_SecPerFrame > 1) {
 			_SecPerFrame = 0;
 			_TimeToFire++;
+			_TimeToTurn++;
+			_TotalTime++;
 		}
 	}
 
