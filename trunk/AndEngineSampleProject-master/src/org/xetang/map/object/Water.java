@@ -14,8 +14,9 @@ public class Water extends MapObject {
 				GameManager.Activity.getVertexBufferObjectManager());
 		_sprite.setSize(water.getSprite().getWidth(), water.getSprite()
 				.getHeight());
+		_sprite.setUserData(this);
 
-		attachChild(_sprite);
+		// attachChild(_sprite);
 	}
 
 	public Water(float posX, float posY) {

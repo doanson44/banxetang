@@ -226,6 +226,7 @@ public class GameManager {
 				Color.WHITE_ABGR_PACKED_INT);
 		font1.load();
 		Fonts.put("font1", font1);
+
 		Font font2 = FontFactory.createFromAsset(GameManager.FontManager,
 				GameManager.TextureManager,
 				(int) GameManager.Camera.getWidth(),
@@ -235,6 +236,16 @@ public class GameManager {
 				Color.WHITE_ABGR_PACKED_INT);
 		font2.load();
 		Fonts.put("font2", font2);
+
+		Font fontInMap = FontFactory.createFromAsset(GameManager.FontManager,
+				GameManager.TextureManager,
+				(int) GameManager.Camera.getWidth(),
+				(int) GameManager.Camera.getHeight(),
+				TextureOptions.BILINEAR_PREMULTIPLYALPHA,
+				GameManager.AssetManager, "font2.ttf", LARGE_CELL_SIZE, true,
+				Color.WHITE_ABGR_PACKED_INT);
+		fontInMap.load();
+		Fonts.put("fontInMap", fontInMap);
 	}
 
 	public static Music getMusic(String key) {

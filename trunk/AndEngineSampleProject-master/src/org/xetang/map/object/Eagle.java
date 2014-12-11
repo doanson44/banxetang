@@ -15,8 +15,9 @@ public class Eagle extends MapObject {
 				GameManager.Activity.getVertexBufferObjectManager());
 		_sprite.setSize(eagle.getSprite().getWidth(), eagle.getSprite()
 				.getHeight());
+		_sprite.setUserData(this);
 
-		attachChild(_sprite);
+		// attachChild(_sprite);
 	}
 
 	public Eagle(float posX, float posY) {

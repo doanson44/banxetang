@@ -36,6 +36,9 @@ public class MapObjectFactory {
 		BIG_MOM, GLASS_CANNON, NORMAL, RACER
 	}
 
+	public static final int MAX_OBJECT_COUNT = (GameManager.MAP_GRID * 4)
+			* (GameManager.MAP_GRID * 4);
+
 	public static final int MAX_RESOURCE_BITMAP_WIDTH = 768;
 	public static final int MAX_RESOURCE_BITMAP_HEIGHT = 576;
 
@@ -301,7 +304,7 @@ public class MapObjectFactory {
 
 			@Override
 			public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-				DestroyHelper.add((IMapObject) pAnimatedSprite.getParent());
+				DestroyHelper.add((IMapObject) pAnimatedSprite.getUserData());
 			}
 		};
 	}

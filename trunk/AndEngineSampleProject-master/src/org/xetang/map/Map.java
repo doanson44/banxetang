@@ -8,6 +8,8 @@ import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.Entity;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.sprite.batch.SpriteGroup;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.util.debug.Debug;
 import org.xetang.controller.Bot;
@@ -35,11 +37,11 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 public class Map extends GameEntity implements IUpdateHandler {
 
-	List<Tank> mEnermyTanks = new ArrayList<Tank>();
+	List<Tank> mEnemyTanks = new ArrayList<Tank>();
 	List<Tank> mPlayerTanks = new ArrayList<Tank>();
 	int mICurrentStage; // Chỉ số của màn chơi
 
-	java.util.Map<ObjectLayer, Entity> _layerMap = new HashMap<ObjectLayer, Entity>(
+	java.util.Map<ObjectLayer, IEntity> _layerMap = new HashMap<ObjectLayer, IEntity>(
 			10);
 
 	RightMenu _RightMenu;
@@ -55,13 +57,9 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 	private void initLayers() {
 
-		Entity layer = new Entity();
-		layer.setZIndex(MapObjectFactory.Z_INDEX_CONSTRUCTION);
-		layer.setChildrenIgnoreUpdate(true);
-		attachChild(layer);
-		_layerMap.put(ObjectLayer.CONSTRUCTION, layer);
+		createConstructionLayer();
 
-		layer = new Entity();
+		Entity layer = new Entity();
 		layer.setZIndex(MapObjectFactory.Z_INDEX_MOVING);
 		attachChild(layer);
 		_layerMap.put(ObjectLayer.MOVING, layer);
@@ -78,6 +76,19 @@ public class Map extends GameEntity implements IUpdateHandler {
 		_layerMap.put(ObjectLayer.BLOW_UP, layer);
 
 		sortChildren(true);
+	}
+
+	private void createConstructionLayer() {
+
+		SpriteGroup spriteGroupLayer = new SpriteGroup(
+				MapObjectFactory.getBitmapTextureAtlas(),
+				MapObjectFactory.MAX_OBJECT_COUNT,
+				GameManager.Activity.getVertexBufferObjectManager());
+
+		spriteGroupLayer.setZIndex(MapObjectFactory.Z_INDEX_CONSTRUCTION);
+		spriteGroupLayer.setChildrenIgnoreUpdate(true);
+		attachChild(spriteGroupLayer);
+		_layerMap.put(ObjectLayer.CONSTRUCTION, spriteGroupLayer);
 	}
 
 	public void loadMapData(StageDTO stage) {
@@ -126,9 +137,9 @@ public class Map extends GameEntity implements IUpdateHandler {
 	private void attachToLayer(IMapObject object) {
 
 		if (object.getType() != ObjectType.BUSH) {
-			addObject((IEntity) object, ObjectLayer.CONSTRUCTION);
+			addObject(object, ObjectLayer.CONSTRUCTION);
 		} else {
-			addObject((IEntity) object, ObjectLayer.WRAPPER);
+			addObject(object, ObjectLayer.WRAPPER);
 		}
 	}
 
@@ -171,11 +182,11 @@ public class Map extends GameEntity implements IUpdateHandler {
 		attachChild(right);
 	}
 
-	public void InitRightMenu(int TotalEnermytank) {
+	public void InitRightMenu(int TotalEnemytank) {
 		_RightMenu = new RightMenu(GameManager.MAP_SIZE + 20, 20, this, 10);
 
 		attachChild(_RightMenu);
-		_RightMenu.RemoveLastItem();
+		// _RightMenu.RemoveLastItem();
 	}
 
 	private void createListeners() {
@@ -219,33 +230,11 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 			}
 
-			/*
-			 * This is called after a contact is updated. This allows you to
-			 * inspect a contact before it goes to the solver. If you are
-			 * careful, you can modify the contact manifold (e.g. disable
-			 * contact). A copy of the old manifold is provided so that you can
-			 * detect changes. Note: this is called only for awake bodies. Note:
-			 * this is called even when the number of contact points is zero.
-			 * Note: this is not called for sensors. Note: if you set the number
-			 * of contact points to zero, you will not get an EndContact
-			 * callback. However, you may get a BeginContact callback the next
-			 * step.
-			 */
-
 			@Override
 			public void preSolve(Contact contact, Manifold oldManifold) {
 				// TODO Auto-generated method stub
 
 			}
-
-			/*
-			 * This lets you inspect a contact after the solver is finished.
-			 * This is useful for inspecting impulses. Note: the contact
-			 * manifold does not include time of impact impulses, which can be
-			 * arbitrarily large if the sub-step is small. Hence the impulse is
-			 * provided explicitly in a separate data structure. Note: this is
-			 * only called for contacts that are touching, solid, and awake.
-			 */
 
 			@Override
 			public void postSolve(Contact contact, ContactImpulse impulse) {
@@ -268,11 +257,11 @@ public class Map extends GameEntity implements IUpdateHandler {
 			} else
 				mPlayerTanks.get(i).Update(pSecondsElapsed);
 		}
-		for (int i = 0; i < mEnermyTanks.size(); i++) {
-			if (!mEnermyTanks.get(i).isAlive())
-				mEnermyTanks.remove(i);
+		for (int i = 0; i < mEnemyTanks.size(); i++) {
+			if (!mEnemyTanks.get(i).isAlive())
+				mEnemyTanks.remove(i);
 			else
-				mEnermyTanks.get(i).Update(pSecondsElapsed);
+				mEnemyTanks.get(i).Update(pSecondsElapsed);
 		}
 	}
 
@@ -290,16 +279,16 @@ public class Map extends GameEntity implements IUpdateHandler {
 		return new int[] { 0, 0 };
 	}
 
-	public List<Tank> getEnermyTanks() {
-		return mEnermyTanks;
+	public List<Tank> getEnemyTanks() {
+		return mEnemyTanks;
 	}
 
 	public List<Tank> getPlayerTanks() {
 		return mPlayerTanks;
 	}
 
-	public void RemoveEnermyTank(Tank tank) {
-		mEnermyTanks.remove(tank);
+	public void RemoveEnemyTank(Tank tank) {
+		mEnemyTanks.remove(tank);
 	}
 
 	public void RemovePlayerTank(Tank tank) {
@@ -315,9 +304,9 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 	}
 
-	public void addEnermyTank(Tank enermyTank) {
-		AddTank(enermyTank);
-		// mEnermyTanks.add(enermyTank);
+	public void addEnemyTank(Tank enemyTank) {
+		AddTank(enemyTank);
+		// mEnemyTanks.add(enemyTank);
 	}
 
 	public void AddTank(Tank tank) {
@@ -334,8 +323,8 @@ public class Map extends GameEntity implements IUpdateHandler {
 		// this.attachChild(f.GetSprite());
 	}
 
-	public void AddEnermyTankToList(Tank tank) {
-		mEnermyTanks.add(tank);
+	public void AddEnemyTankToList(Tank tank) {
+		mEnemyTanks.add(tank);
 
 		addObject(tank, ObjectLayer.MOVING);
 		// this.attachChild(tank);
@@ -355,8 +344,11 @@ public class Map extends GameEntity implements IUpdateHandler {
 		return true; // dummy
 	}
 
-	public void addObject(IEntity object, ObjectLayer layer) {
-		// TODO Auto-generated method stub
-		_layerMap.get(layer).attachChild(object);
+	public void addObject(IMapObject object, ObjectLayer layer) {
+		_layerMap.get(layer).attachChild(object.getSprite());
+	}
+
+	public void addObject(Sprite sprite, ObjectLayer layer) {
+		_layerMap.get(layer).attachChild(sprite);
 	}
 }

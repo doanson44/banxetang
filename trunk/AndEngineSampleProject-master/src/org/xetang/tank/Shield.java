@@ -21,14 +21,16 @@ public class Shield extends GameEntity {
 		_shield.setSize(GameManager.LARGE_CELL_SIZE,
 				GameManager.LARGE_CELL_SIZE);
 		_shield.animate(200);
-		this.attachChild(_shield);
-		GameManager.CurrentMap.addObject(this, ObjectLayer.MOVING);
+
+		GameManager.CurrentMap.addObject(_shield, ObjectLayer.MOVING);
 		_isAlive = true;
 	}
 
 	public void KillSelf() {
-		this.detachSelf();
+		_shield.detachSelf();
 		_isAlive = false;
+
+		dispose();
 	}
 
 	public boolean IsAlive() {

@@ -65,10 +65,6 @@ public class Item extends GameEntity implements IMapObject {
 				.nextInt((int) (GameManager.MAP_SIZE - GameManager.LARGE_CELL_SIZE));
 	}
 
-	public TiledSprite GetSprite() {
-		return _sprite;
-	}
-
 	public void affect() {
 		// ....
 	}
@@ -238,8 +234,7 @@ public class Item extends GameEntity implements IMapObject {
 
 	@Override
 	public ObjectType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return ObjectType.TANK_ITEM;
 	}
 
 	@Override

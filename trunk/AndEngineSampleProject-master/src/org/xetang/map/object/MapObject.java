@@ -66,7 +66,7 @@ public abstract class MapObject extends GameEntity implements IMapObject {
 
 		createSprite(objectTextureRegion, posX, posY);
 		this.setZIndex(zIndex);
-		attachChild(_sprite);
+		// attachChild(_sprite);
 	}
 
 	public abstract IMapObject clone();
@@ -77,6 +77,8 @@ public abstract class MapObject extends GameEntity implements IMapObject {
 		_sprite = new TiledSprite(posX, posY, objectTextureRegion,
 				GameManager.Activity.getVertexBufferObjectManager());
 		_sprite.setSize(_cellWidth, _cellHeight);
+
+		_sprite.setUserData(this);
 	}
 
 	protected void createBody() {

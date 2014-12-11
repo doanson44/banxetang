@@ -14,8 +14,9 @@ public class Bush extends MapObject {
 				GameManager.Activity.getVertexBufferObjectManager());
 		_sprite.setSize(bush.getSprite().getWidth(), bush.getSprite()
 				.getHeight());
+		_sprite.setUserData(this);
 
-		attachChild(_sprite);
+		// attachChild(_sprite);
 	}
 
 	public Bush(float posX, float posY) {

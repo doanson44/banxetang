@@ -194,15 +194,15 @@ public class GameItemManager implements IUpdateHandler {
 
 	public void DestroyAllEnermy() {
 		// TODO Auto-generated method stub
-		for (int i = 0; i < GameManager.CurrentMap.getEnermyTanks().size(); i++) {
-			GameManager.CurrentMap.getEnermyTanks().get(i).KillSelf();
+		for (int i = 0; i < GameManager.CurrentMap.getEnemyTanks().size(); i++) {
+			GameManager.CurrentMap.getEnemyTanks().get(i).KillSelf();
 		}
-		GameManager.CurrentMap.getEnermyTanks().clear();
+		GameManager.CurrentMap.getEnemyTanks().clear();
 	}
 
 	public void FreezeTime() {
 		// TODO Auto-generated method stub
-		for (Tank tank : GameManager.CurrentMap.getEnermyTanks()) {
+		for (Tank tank : GameManager.CurrentMap.getEnemyTanks()) {
 			tank.FreezeSelf();
 		}
 	}
