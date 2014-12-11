@@ -17,8 +17,8 @@ public class CalcHelper {
 	/*
 	 * Để dành cải tiến cho việc đồng bộ thông số cell khi tạo MAP
 	 */
-	public static int getObjectsPerCell(int objectID) {
-		switch (ObjectType.values()[objectID]) {
+	public static int getObjectCountPerCell(ObjectType type) {
+		switch (type) {
 		case BRICK_WALL:
 			return 4;
 

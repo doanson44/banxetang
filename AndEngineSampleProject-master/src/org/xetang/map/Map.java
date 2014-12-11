@@ -13,7 +13,6 @@ import org.andengine.entity.sprite.batch.SpriteGroup;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.util.debug.Debug;
 import org.xetang.controller.Bot;
-import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.model.MapObjectBlockDTO;
