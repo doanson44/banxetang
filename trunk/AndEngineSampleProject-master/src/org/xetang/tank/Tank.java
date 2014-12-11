@@ -130,7 +130,7 @@ public abstract class Tank extends GameEntity implements IGameController,
 		if (mIsFreeze == 0) {
 			mDirection = Direction.LEFT;
 
-			SetTranform(270);
+			SetTranform(-90);
 			// _body.setLinearVelocity(-speed, 0);
 			_body.setLinearVelocity(-speed, 0f);
 
@@ -182,7 +182,7 @@ public abstract class Tank extends GameEntity implements IGameController,
 
 		if (mIsFreeze == 0) {
 			mDirection = Direction.DOWN;
-			SetTranform(180);
+			SetTranform(-180);
 			// _body.setLinearVelocity(0, speed);
 			_body.setLinearVelocity(0f, speed);
 		}

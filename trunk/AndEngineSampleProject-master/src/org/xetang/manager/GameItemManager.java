@@ -17,6 +17,7 @@ import org.xetang.map.item.TankItem;
 import org.xetang.map.model.MapObjectBlockDTO;
 import org.xetang.map.object.IMapObject;
 import org.xetang.map.object.MapObjectFactory;
+import org.xetang.map.object.MapObjectFactory.ObjectLayer;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.tank.Tank;
 
@@ -171,7 +172,7 @@ public class GameItemManager implements IUpdateHandler {
 				// TODO Auto-generated method stub
 				IMapObject wall = MapObjectFactory.createObject(type, px, py);
 				wall.putToWorld();
-				GameManager.CurrentMap.attachChild((IEntity) wall);
+				GameManager.CurrentMap.addObject(wall, ObjectLayer.CONSTRUCTION);
 			}
 		};
 		GameManager.Activity.runOnUpdateThread(runable);
@@ -185,7 +186,7 @@ public class GameItemManager implements IUpdateHandler {
 				public void run() {
 					// TODO Auto-generated method stub
 					object.putToWorld();
-					GameManager.CurrentMap.attachChild((IEntity) object);
+					GameManager.CurrentMap.addObject(object, ObjectLayer.CONSTRUCTION);
 				}
 			};
 			GameManager.Activity.runOnUpdateThread(runable);
@@ -243,7 +244,8 @@ public class GameItemManager implements IUpdateHandler {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				GameManager.CurrentMap.attachChild(CreateItem(GetRandomType()));
+				//GameManager.CurrentMap.addObject(CreateItem(GetRandomType()), ObjectLayer.CONSTRUCTION);
+				GameManager.CurrentMap.attachChild( CreateItem(GetRandomType()));
 			}
 		};
 		GameManager.Activity.runOnUpdateThread(run);
