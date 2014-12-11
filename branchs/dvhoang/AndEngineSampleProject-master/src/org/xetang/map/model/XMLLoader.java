@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xetang.manager.GameManager;
+import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 
 import android.graphics.Point;
@@ -28,7 +29,55 @@ public class XMLLoader {
 	private static SparseArray<ObjectType> _objectsID;
 
 	public static boolean loadAllParameters() {
-		return loadAllStages() && loadAllObjects();
+		return loadAllObjects() && loadAllStages();
+	}
+
+	private static boolean loadAllObjects() {
+
+		try {
+			InputStream inputStream = GameManager.AssetManager
+					.open(OBJECT_FILE);
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document doc = db.parse(inputStream);
+
+			Element ele = doc.getDocumentElement();
+			ele.normalize(); // Chuẩn hóa!?
+
+			NodeList objectsNoteList = ele.getElementsByTagName("OBJECT");
+			_objectsArray = new HashMap<ObjectType, ObjectDTO>(
+					objectsNoteList.getLength());
+			_objectsID = new SparseArray<ObjectType>(
+					objectsNoteList.getLength());
+
+			Element objectNode;
+			ObjectDTO object;
+			ObjectType type;
+			for (int i = 0; i < objectsNoteList.getLength(); i++) {
+				objectNode = (Element) objectsNoteList.item(i);
+
+				object = new ObjectDTO();
+				object.setId(Integer.parseInt(objectNode
+						.getElementsByTagName("ID").item(0).getTextContent()));
+
+				object.setName(objectNode.getElementsByTagName("NAME").item(0)
+						.getTextContent());
+
+				object.setTextures(objectNode.getElementsByTagName("TEXTURE")
+						.item(0).getTextContent());
+
+				type = ObjectType.valueOf(object.getName());
+				_objectsArray.put(type, object);
+				_objectsID.put(object.getId(), type);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+			return false;
+		}
+
+		return true;
 	}
 
 	private static boolean loadAllStages() {
@@ -119,7 +168,8 @@ public class XMLLoader {
 		/*
 		 * Để dành cải tiến cho việc đồng bộ thông số cell khi tạo MAP
 		 */
-		int objectsPerCell = 1;// = CalcHelper.getObjectsPerCell(objectID);
+		int objectsPerCell = CalcHelper.getObjectCountPerCell(_objectsID
+				.get(objectID));
 
 		try {
 			for (int i = 0; i < areasNodeList.getLength(); i++) {
@@ -129,13 +179,12 @@ public class XMLLoader {
 						.parseInt(areaNode.getElementsByTagName("X").item(0)
 								.getTextContent()), Integer.parseInt(areaNode
 						.getElementsByTagName("Y").item(0).getTextContent())),
-						new Point(Integer.parseInt(areaNode
+						new Point((int) (Float.parseFloat(areaNode
 								.getElementsByTagName("WIDTH").item(0)
-								.getTextContent())
-								* objectsPerCell, Integer.parseInt(areaNode
-								.getElementsByTagName("HEIGHT").item(0)
-								.getTextContent())
-								* objectsPerCell)));
+								.getTextContent()) * objectsPerCell),
+								(int) (Float.parseFloat(areaNode
+										.getElementsByTagName("HEIGHT").item(0)
+										.getTextContent()) * objectsPerCell))));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -161,54 +210,6 @@ public class XMLLoader {
 		}
 
 		return tanks;
-	}
-
-	private static boolean loadAllObjects() {
-
-		try {
-			InputStream inputStream = GameManager.AssetManager
-					.open(OBJECT_FILE);
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.parse(inputStream);
-
-			Element ele = doc.getDocumentElement();
-			ele.normalize(); // Chuẩn hóa!?
-
-			NodeList objectsNoteList = ele.getElementsByTagName("OBJECT");
-			_objectsArray = new HashMap<ObjectType, ObjectDTO>(
-					objectsNoteList.getLength());
-			_objectsID = new SparseArray<ObjectType>(
-					objectsNoteList.getLength());
-
-			Element objectNode;
-			ObjectDTO object;
-			ObjectType type;
-			for (int i = 0; i < objectsNoteList.getLength(); i++) {
-				objectNode = (Element) objectsNoteList.item(i);
-
-				object = new ObjectDTO();
-				object.setId(Integer.parseInt(objectNode
-						.getElementsByTagName("ID").item(0).getTextContent()));
-
-				object.setName(objectNode.getElementsByTagName("NAME").item(0)
-						.getTextContent());
-
-				object.setTextures(objectNode.getElementsByTagName("TEXTURE")
-						.item(0).getTextContent());
-
-				type = ObjectType.valueOf(object.getName());
-				_objectsArray.put(type, object);
-				_objectsID.put(object.getId(), type);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-			return false;
-		}
-
-		return true;
 	}
 
 	public static StageDTO getStage(int stageID) {

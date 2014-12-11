@@ -58,7 +58,7 @@ public class MapObjectFactory {
 	public static final float BUSH_CELL_SIZE = EAGLE_CELL_SIZE;
 	public static final float WATER_CELL_SIZE = EAGLE_CELL_SIZE;
 	public static final float ICE_CELL_SIZE = EAGLE_CELL_SIZE;
-	public static final float BULLET_CELL_SIZE = EAGLE_CELL_SIZE / 5f;
+	public static final float BULLET_CELL_SIZE = EAGLE_CELL_SIZE / 4f;
 	public static final float BLAST_CELL_SIZE = EAGLE_CELL_SIZE * 1.5f;
 	public static final float EXPLOSION_CELL_SIZE = EAGLE_CELL_SIZE * 3f;
 	public static final float TINY_CELL_SIZE = EAGLE_CELL_SIZE / 8f;
