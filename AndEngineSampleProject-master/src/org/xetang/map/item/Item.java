@@ -50,7 +50,7 @@ public class Item extends GameEntity implements IMapObject {
 				GameManager.VertexBufferObject);
 		_sprite.setSize(_CellWidth, _CellHeight);
 		_isAlive = true;
-		this.attachChild(_sprite);
+		// this.attachChild(_sprite);
 		CreateBody();
 		setAlive(true);
 	}

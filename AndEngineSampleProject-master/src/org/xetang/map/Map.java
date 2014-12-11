@@ -93,14 +93,14 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 	public void loadMapData(StageDTO stage) {
 
-		this.attachChild(GameItemManager.getInstance().CreateItem(
-				ObjectType.BOMB));
-		this.attachChild(GameItemManager.getInstance().CreateItem(
-				ObjectType.SHOVEL));
-		this.attachChild(GameItemManager.getInstance().CreateItem(
-				ObjectType.STAR));
-		this.attachChild(GameItemManager.getInstance().CreateItem(
-				ObjectType.STAR));
+		// this.attachChild(GameItemManager.getInstance().CreateItem(
+		// ObjectType.BOMB));
+		// this.attachChild(GameItemManager.getInstance().CreateItem(
+		// ObjectType.SHOVEL));
+		// this.attachChild(GameItemManager.getInstance().CreateItem(
+		// ObjectType.STAR));
+		// this.attachChild(GameItemManager.getInstance().CreateItem(
+		// ObjectType.STAR));
 
 		List<StageObjectDTO> objects = stage.getObjects();
 
