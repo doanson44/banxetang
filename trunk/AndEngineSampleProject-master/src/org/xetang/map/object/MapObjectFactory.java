@@ -94,10 +94,10 @@ public class MapObjectFactory {
 	public static final int DRILL_BULLET_DAMAGE = 2;
 	public static final int BLOW_BULLET_DAMAGE = 3;
 
-	public static final float NORMAL_BULLET_SPEED = CalcHelper
+	public static final float FAST_BULLET_SPEED = CalcHelper
 			.pixels2Meters(GameManager.MAP_SIZE);
-	public static final float SLOW_BULLET_SPEED = NORMAL_BULLET_SPEED / 3f * 2f;
-	public static final float FAST_BULLET_SPEED = NORMAL_BULLET_SPEED / 2f * 3f;
+	public static final float SLOW_BULLET_SPEED = FAST_BULLET_SPEED / 2f;
+	public static final float NORMAL_BULLET_SPEED = FAST_BULLET_SPEED / 4f * 3f;
 
 	public static final float BLOW_RADIUS_RATIO = 5 / 16f;
 	public static final Vector2 NORMAL_BULLET_BLOW_RADIUS = new Vector2(
