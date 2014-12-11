@@ -13,8 +13,9 @@ public class Ice extends MapObject {
 				.getTiledTextureRegion(),
 				GameManager.Activity.getVertexBufferObjectManager());
 		_sprite.setSize(ice.getSprite().getWidth(), ice.getSprite().getHeight());
+		_sprite.setUserData(this);
 
-		attachChild(_sprite);
+		// attachChild(_sprite);
 	}
 
 	public Ice(float posX, float posY) {

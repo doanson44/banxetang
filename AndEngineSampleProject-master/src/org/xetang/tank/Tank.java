@@ -3,7 +3,6 @@ package org.xetang.tank;
 import java.util.ArrayList;
 
 import org.andengine.engine.handler.IUpdateHandler;
-import org.andengine.entity.IEntity;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
@@ -33,10 +32,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-
-/**
- * 
- */
 
 public abstract class Tank extends GameEntity implements IGameController,
 		IMapObject, IUpdateHandler {
@@ -100,7 +95,7 @@ public abstract class Tank extends GameEntity implements IGameController,
 		GameManager.PhysicsWorld.registerPhysicsConnector(new PhysicsConnector(
 				mSprite, _body, true, true));
 
-		this.attachChild(mSprite);
+		// this.attachChild(mSprite);
 	}
 
 	public void KillSelf() {
@@ -111,8 +106,8 @@ public abstract class Tank extends GameEntity implements IGameController,
 		IBlowUp explosion = (IBlowUp) MapObjectFactory.createObject(
 				ObjectType.EXPLOSION, centerPoint.x, centerPoint.y);
 
+		GameManager.CurrentMap.addObject(explosion, ObjectLayer.BLOW_UP);
 		explosion.blowUpAtHere();
-		GameManager.CurrentMap.attachChild((IEntity) explosion);
 	}
 
 	public TiledSprite GetCurrentSprite() {
@@ -294,8 +289,7 @@ public abstract class Tank extends GameEntity implements IGameController,
 			IBullet bullet = (IBullet) MapObjectFactory.createObject(type,
 					bPosX2, bPosY2);
 			bullet.setTank(this);
-			GameManager.CurrentMap.addObject((IEntity) bullet,
-					ObjectLayer.MOVING);
+			GameManager.CurrentMap.addObject(bullet, ObjectLayer.MOVING);
 			mBullet.add(bullet);
 			bullet.readyToFire(mDirection);
 			bullet.beFired();

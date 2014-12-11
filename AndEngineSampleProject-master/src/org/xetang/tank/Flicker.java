@@ -79,7 +79,7 @@ public class Flicker implements IUpdateHandler, IAnimationListener {
 			int pRemainingLoopCount, int pInitialLoopCount) {
 		// TODO Auto-generated method stub
 		if (mTank != null && StopAnimate == 1) {
-			GameManager.CurrentMap.AddEnermyTankToList(mTank);
+			GameManager.CurrentMap.AddEnemyTankToList(mTank);
 			mTank = null;
 		}
 	}

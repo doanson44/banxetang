@@ -16,8 +16,9 @@ public abstract class Wall extends MapObject {
 				GameManager.Activity.getVertexBufferObjectManager());
 		_sprite.setSize(wall.getSprite().getWidth(), wall.getSprite()
 				.getHeight());
+		_sprite.setUserData(this);
 
-		attachChild(_sprite);
+		// attachChild(_sprite);
 	}
 
 	public Wall(FixtureDef objectFixtureDef,

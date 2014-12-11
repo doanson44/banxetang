@@ -1,6 +1,5 @@
 package org.xetang.map.object;
 
-import org.andengine.entity.IEntity;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
@@ -41,8 +40,9 @@ public class Bullet extends MapObject implements IBullet {
 				.getHeight());
 		_sprite.setRotationCenter(bullet.getSprite().getRotationCenterX(),
 				bullet.getSprite().getRotationCenterY());
-
-		attachChild(_sprite);
+		_sprite.setUserData(this);
+		
+		// attachChild(_sprite);
 	}
 
 	public Bullet() {
@@ -57,7 +57,7 @@ public class Bullet extends MapObject implements IBullet {
 
 		_sprite.setRotationCenter(MapObjectFactory.getBulletSize().x / 2f,
 				MapObjectFactory.getBulletSize().y / 2f);
-		
+
 		initSpecification(MapObjectFactory.NORMAL_BULLET_DAMAGE,
 				MapObjectFactory.NORMAL_BULLET_SPEED,
 				MapObjectFactory.NORMAL_BULLET_BLOW_RADIUS);
@@ -133,7 +133,7 @@ public class Bullet extends MapObject implements IBullet {
 		blast.setTargetObject(object);
 		blast.blowUpAtHere();
 
-		GameManager.CurrentMap.addObject((IEntity) blast, ObjectLayer.BLOW_UP);
+		GameManager.CurrentMap.addObject(blast, ObjectLayer.BLOW_UP);
 	}
 
 	@Override

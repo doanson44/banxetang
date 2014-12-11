@@ -33,7 +33,7 @@ public class Player1 extends Tank {
 
 		this.mLevel = mSprite.getCurrentTileIndex() + 1;
 		switch (mLevel) {
-		case 2: //Đạn bay nhanh như đạn của GlassCannon
+		case 2: // Đạn bay nhanh như đạn của GlassCannon
 			_maxNumberBullet = 1;
 			mBulletType = ObjectType.FAST_BULLET;
 			// this.hp = 2;

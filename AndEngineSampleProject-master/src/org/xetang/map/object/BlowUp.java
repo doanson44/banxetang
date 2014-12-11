@@ -21,11 +21,11 @@ public abstract class BlowUp extends MapObject implements IBlowUp {
 		_sprite = new AnimatedSprite(blowUp.getX(), blowUp.getY(), blowUp
 				.getSprite().getTiledTextureRegion(),
 				GameManager.Activity.getVertexBufferObjectManager());
-
 		_sprite.setSize(blowUp.getSprite().getWidth(), blowUp.getSprite()
 				.getHeight());
-
-		attachChild(_sprite);
+		_sprite.setUserData(this);
+		
+		// attachChild(_sprite);
 	}
 
 	public BlowUp(FixtureDef objectFixtureDef,

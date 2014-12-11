@@ -85,7 +85,7 @@ public class TankManager implements IUpdateHandler {
 	 *            rớt item
 	 * @return xe tăng
 	 */
-	public static void CreateEnermytank(final Queue<Tank> mEnermyTanks,
+	public static void createEnemyTank(final Queue<Tank> mEnermyTanks,
 			final TankType type, final int Position, final boolean isTankBonus) {
 
 		Runnable run = new Runnable() {
