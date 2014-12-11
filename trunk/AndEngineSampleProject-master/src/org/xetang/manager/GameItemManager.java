@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.andengine.engine.handler.IUpdateHandler;
-import org.andengine.entity.IEntity;
 import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.helper.ChangeWallCallBack;
 import org.xetang.map.item.Bomb;
@@ -172,7 +171,8 @@ public class GameItemManager implements IUpdateHandler {
 				// TODO Auto-generated method stub
 				IMapObject wall = MapObjectFactory.createObject(type, px, py);
 				wall.putToWorld();
-				GameManager.CurrentMap.addObject(wall, ObjectLayer.CONSTRUCTION);
+				GameManager.CurrentMap
+						.addObject(wall, ObjectLayer.CONSTRUCTION);
 			}
 		};
 		GameManager.Activity.runOnUpdateThread(runable);
@@ -186,7 +186,8 @@ public class GameItemManager implements IUpdateHandler {
 				public void run() {
 					// TODO Auto-generated method stub
 					object.putToWorld();
-					GameManager.CurrentMap.addObject(object, ObjectLayer.CONSTRUCTION);
+					GameManager.CurrentMap.addObject(object,
+							ObjectLayer.CONSTRUCTION);
 				}
 			};
 			GameManager.Activity.runOnUpdateThread(runable);
@@ -244,8 +245,10 @@ public class GameItemManager implements IUpdateHandler {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				//GameManager.CurrentMap.addObject(CreateItem(GetRandomType()), ObjectLayer.CONSTRUCTION);
-				GameManager.CurrentMap.attachChild( CreateItem(GetRandomType()));
+				GameManager.CurrentMap.addObject(CreateItem(GetRandomType()),
+						ObjectLayer.WRAPPER);
+				// GameManager.CurrentMap.attachChild(
+				// CreateItem(GetRandomType()));
 			}
 		};
 		GameManager.Activity.runOnUpdateThread(run);
