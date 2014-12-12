@@ -1135,6 +1135,268 @@
 			<ID>7</ID>
 			<LIVE>3</LIVE>
 			<MAX_AVAIABLE_ENERMY>4</MAX_AVAIABLE_ENERMY>
+			<MAP>
+				<OBJECT>
+					<ID>0</ID>
+					<AREA>
+						<X>12</X>
+						<Y>24</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+				</OBJECT>
+				<OBJECT>
+					<ID>1</ID>
+					<!-- Gạch xung quanh đại bàng BEGIN -->
+					<AREA>
+						<X>11</X>
+						<Y>23</Y>
+						<WIDTH>2</WIDTH>
+						<HEIGHT>0.5</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>11</X>
+						<Y>24</Y>
+						<WIDTH>0.5</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>14</X>
+						<Y>24</Y>
+						<WIDTH>0.5</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<!-- Gạch xung quanh đại bàng END -->
+				</OBJECT>
+				<OBJECT>
+					<ID>2</ID>
+					<AREA>
+						<X>14</X>
+						<Y>0</Y>
+						<WIDTH>2</WIDTH>
+						<HEIGHT>0.5</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>4</X>
+						<Y>2</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>2</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>6</X>
+						<Y>2</Y>
+						<WIDTH>3</WIDTH>
+						<HEIGHT>0.5</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>16</X>
+						<Y>4</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>0.5</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>18</X>
+						<Y>4</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>20</X>
+						<Y>2</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>3.5</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>22</X>
+						<Y>8</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>2</X>
+						<Y>6</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>2</X>
+						<Y>10</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>3</X>
+						<Y>12</Y>
+						<WIDTH>0.5</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>12</X>
+						<Y>6</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>10</X>
+						<Y>8</Y>
+						<WIDTH>2</WIDTH>
+						<HEIGHT>2</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>6</X>
+						<Y>12</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>8</X>
+						<Y>10</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>3</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>0</X>
+						<Y>14</Y>
+						<WIDTH>0.5</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>3</X>
+						<Y>16</Y>
+						<WIDTH>1.5</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>2</X>
+						<Y>18</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1.5</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>4</X>
+						<Y>20</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>0.5</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>6</X>
+						<Y>20</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>0</X>
+						<Y>25</Y>
+						<WIDTH>2</WIDTH>
+						<HEIGHT>0.5</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>12</X>
+						<Y>14</Y>
+						<WIDTH>2</WIDTH>
+						<HEIGHT>2</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>12</X>
+						<Y>18</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>16</X>
+						<Y>10</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>3</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>18</X>
+						<Y>12</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>23</X>
+						<Y>14</Y>
+						<WIDTH>0.5</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>22</X>
+						<Y>16</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>2</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>20</X>
+						<Y>18</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>18</X>
+						<Y>20</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1.5</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>22</X>
+						<Y>23</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>0.5</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>24</X>
+						<Y>22</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+				</OBJECT>
+				<OBJECT>
+					<ID>3</ID>
+					<AREA>
+						<X>12</X>
+						<Y>4</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>10</X>
+						<Y>6</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>8</X>
+						<Y>8</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>6</X>
+						<Y>10</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>16</X>
+						<Y>16</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>14</X>
+						<Y>18</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+					<AREA>
+						<X>12</X>
+						<Y>20</Y>
+						<WIDTH>1</WIDTH>
+						<HEIGHT>1</HEIGHT>
+					</AREA>
+				</OBJECT>
+			</MAP>
 			<TANKS>
 				<TANK>Normal</TANK>
 				<TANK>Normal</TANK>
@@ -1194,8 +1456,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -1638,8 +1900,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -1917,8 +2179,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -2262,8 +2524,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -2727,8 +2989,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -3006,8 +3268,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -3255,8 +3517,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -3582,8 +3844,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -3957,8 +4219,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -4290,8 +4552,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -4731,8 +4993,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -5025,8 +5287,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
@@ -5343,8 +5605,8 @@
 				<OBJECT>
 					<ID>0</ID>
 					<AREA>
-						<X>11</X>
-						<Y>23</Y>
+						<X>12</X>
+						<Y>24</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
 					</AREA>
