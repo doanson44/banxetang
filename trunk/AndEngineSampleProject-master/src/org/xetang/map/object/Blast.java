@@ -46,7 +46,9 @@ public class Blast extends BlowUp {
 	public void blowUpAt(float posX, float posY) {
 		super.blowUpAt(posX, posY);
 
-		if (_targetObject != null) {
+		if (_targetObject != null
+				&& _targetObject.getType() != ObjectType.PLAYER_TANK
+				&& _targetObject.getType() != ObjectType.ENEMY_TANK) {
 			destroySurroundingObjects();
 		}
 	}
