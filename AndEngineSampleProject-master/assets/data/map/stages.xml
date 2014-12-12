@@ -106,7 +106,7 @@
                   <X>14</X>
                   <Y>6</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
@@ -117,13 +117,13 @@
                <AREA>
                   <X>20</X>
                   <Y>6</Y>
-                  <WIDTH>2,5</WIDTH>
+                  <WIDTH>2.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>23</X>
                   <Y>8</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>2</HEIGHT>
                </AREA>
                <AREA>
@@ -136,12 +136,12 @@
                   <X>6</X>
                   <Y>15</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>0</X>
                   <Y>16</Y>
-                  <WIDTH>1,5</WIDTH>
+                  <WIDTH>1.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -153,14 +153,14 @@
                <AREA>
                   <X>11</X>
                   <Y>16</Y>
-                  <WIDTH>0,5</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <WIDTH>0.5</WIDTH>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>12</X>
                   <Y>16</Y>
                   <WIDTH>3</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
@@ -201,13 +201,13 @@
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -223,7 +223,7 @@
                   <X>20</X>
                   <Y>3</Y>
                   <WIDTH>3</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>12</X>
@@ -234,7 +234,7 @@
                <AREA>
                   <X>6</X>
                   <Y>20</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>2</HEIGHT>
                </AREA>
                <AREA>
@@ -526,13 +526,13 @@
                   <X>4</X>
                   <Y>23</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>20</X>
                   <Y>23</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>4</X>
@@ -551,18 +551,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -578,13 +578,13 @@
                <AREA>
                   <X>17</X>
                   <Y>2</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>20</X>
                   <Y>2</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -596,13 +596,13 @@
                <AREA>
                   <X>11</X>
                   <Y>4</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>4</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -614,13 +614,13 @@
                <AREA>
                   <X>5</X>
                   <Y>6</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>12</X>
                   <Y>6</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -632,13 +632,13 @@
                <AREA>
                   <X>7</X>
                   <Y>12</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
                   <Y>12</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -650,13 +650,13 @@
                <AREA>
                   <X>15</X>
                   <Y>12</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
                   <Y>12</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -680,13 +680,13 @@
                <AREA>
                   <X>7</X>
                   <Y>18</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
                   <Y>18</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -698,13 +698,13 @@
                <AREA>
                   <X>15</X>
                   <Y>18</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
                   <Y>18</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
             </OBJECT>
@@ -929,18 +929,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -960,7 +960,7 @@
                   <X>8</X>
                   <Y>3</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>12</X>
@@ -995,7 +995,7 @@
                <AREA>
                   <X>16</X>
                   <Y>6</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -1049,7 +1049,7 @@
                <AREA>
                   <X>25</X>
                   <Y>20</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -1077,18 +1077,18 @@
                   <X>24</X>
                   <Y>6</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>4</X>
                   <Y>9</Y>
                   <WIDTH>3</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
                   <Y>8</Y>
-                  <WIDTH>1,5</WIDTH>
+                  <WIDTH>1.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -1101,19 +1101,19 @@
                   <X>20</X>
                   <Y>12</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>12</X>
                   <Y>16</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>8</X>
                   <Y>20</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
             </OBJECT>
             <OBJECT>
@@ -1208,18 +1208,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -1227,13 +1227,13 @@
                   <X>8</X>
                   <Y>1</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
                   <Y>1</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>2</X>
@@ -1269,19 +1269,19 @@
                   <X>8</X>
                   <Y>6</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>6</X>
                   <Y>8</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
                   <Y>6</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
@@ -1292,14 +1292,14 @@
                <AREA>
                   <X>19</X>
                   <Y>8</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>2</X>
                   <Y>8</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>22</X>
@@ -1317,7 +1317,7 @@
                   <X>22</X>
                   <Y>13</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>0</X>
@@ -1352,7 +1352,7 @@
                <AREA>
                   <X>6</X>
                   <Y>14</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -1365,13 +1365,13 @@
                   <X>8</X>
                   <Y>17</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
                   <Y>17</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
@@ -1382,7 +1382,7 @@
                <AREA>
                   <X>19</X>
                   <Y>14</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -1401,7 +1401,7 @@
                   <X>8</X>
                   <Y>22</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
@@ -1413,7 +1413,7 @@
                   <X>16</X>
                   <Y>22</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
             </OBJECT>
             <OBJECT>
@@ -1434,37 +1434,37 @@
                   <X>12</X>
                   <Y>8</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
                   <Y>9</Y>
                   <WIDTH>3</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>22</X>
                   <Y>8</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>2</X>
                   <Y>13</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
                   <Y>14</Y>
                   <WIDTH>3</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>12</X>
                   <Y>15</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>22</X>
@@ -1553,18 +1553,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -1572,7 +1572,7 @@
                   <X>8</X>
                   <Y>3</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
@@ -1584,7 +1584,7 @@
                   <X>16</X>
                   <Y>3</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>7</X>
@@ -1661,97 +1661,97 @@
                <AREA>
                   <X>9</X>
                   <Y>16</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>16</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>13</X>
                   <Y>16</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>15</X>
                   <Y>16</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>17</X>
                   <Y>16</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>8</X>
                   <Y>18</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
                   <Y>18</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>12</X>
                   <Y>18</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>18</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
                   <Y>18</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>0</X>
                   <Y>22</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>2</X>
                   <Y>22</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>4</X>
                   <Y>22</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>21</X>
                   <Y>22</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>23</X>
                   <Y>22</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>25</X>
                   <Y>22</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
             </OBJECT>
@@ -1760,85 +1760,85 @@
                <AREA>
                   <X>1</X>
                   <Y>20</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>3</X>
                   <Y>20</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>5</X>
                   <Y>20</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>20</X>
                   <Y>20</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>22</X>
                   <Y>20</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>24</X>
                   <Y>20</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>0</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>2</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>4</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>7</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>21</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>23</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>25</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
             </OBJECT>
@@ -2018,18 +2018,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -2037,19 +2037,19 @@
                   <X>14</X>
                   <Y>7</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
                   <Y>11</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>22</X>
                   <Y>15</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>0</X>
@@ -2094,19 +2094,19 @@
                   <X>12</X>
                   <Y>5</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
                   <Y>9</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>20</X>
                   <Y>13</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>24</X>
@@ -2297,18 +2297,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -2328,7 +2328,7 @@
                   <X>8</X>
                   <Y>1</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>3,5</HEIGHT>
+                  <HEIGHT>3.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>12</X>
@@ -2352,7 +2352,7 @@
                   <X>20</X>
                   <Y>1</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>22</X>
@@ -2412,7 +2412,7 @@
                   <X>20</X>
                   <Y>21</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
@@ -2450,43 +2450,43 @@
                <AREA>
                   <X>6</X>
                   <Y>6</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>5</X>
                   <Y>10</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>22</X>
                   <Y>10</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
                   <Y>14</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
                   <Y>20</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>20</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>4</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
             </OBJECT>
@@ -2546,18 +2546,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -2873,18 +2873,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -2928,19 +2928,19 @@
                   <X>0</X>
                   <Y>7</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>4</X>
                   <Y>7</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>6</X>
                   <Y>8</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>8</X>
@@ -2964,19 +2964,19 @@
                   <X>18</X>
                   <Y>8</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>20</X>
                   <Y>7</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>24</X>
                   <Y>7</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>8</X>
@@ -2988,13 +2988,13 @@
                   <X>10</X>
                   <Y>14</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>14</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
@@ -3006,13 +3006,13 @@
                   <X>0</X>
                   <Y>19</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>4</X>
                   <Y>19</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>8</X>
@@ -3030,37 +3030,37 @@
                   <X>20</X>
                   <Y>19</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>24</X>
                   <Y>19</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>2</X>
                   <Y>20</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>2,5</HEIGHT>
+                  <HEIGHT>2.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>6</X>
                   <Y>20</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>2,5</HEIGHT>
+                  <HEIGHT>2.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
                   <Y>20</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>2,5</HEIGHT>
+                  <HEIGHT>2.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>22</X>
                   <Y>20</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>2,5</HEIGHT>
+                  <HEIGHT>2.5</HEIGHT>
                </AREA>
             </OBJECT>
             <OBJECT>
@@ -3069,49 +3069,49 @@
                   <X>2</X>
                   <Y>4</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>6</X>
                   <Y>4</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
                   <Y>4</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>4</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
                   <Y>4</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>22</X>
                   <Y>4</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>0</X>
                   <Y>10</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>4</X>
                   <Y>10</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>8</X>
@@ -3123,7 +3123,7 @@
                   <X>12</X>
                   <Y>10</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
@@ -3135,13 +3135,13 @@
                   <X>20</X>
                   <Y>10</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>24</X>
                   <Y>10</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
             </OBJECT>
             <OBJECT>
@@ -3248,18 +3248,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -3273,7 +3273,7 @@
                   <X>16</X>
                   <Y>0</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>3,5</HEIGHT>
+                  <HEIGHT>3.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>20</X>
@@ -3285,7 +3285,7 @@
                   <X>10</X>
                   <Y>5</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>20</X>
@@ -3309,7 +3309,7 @@
                   <X>14</X>
                   <Y>7</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>24</X>
@@ -3327,19 +3327,19 @@
                   <X>0</X>
                   <Y>15</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>5</X>
                   <Y>14</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>2</HEIGHT>
                </AREA>
                <AREA>
                   <X>6</X>
                   <Y>12</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
@@ -3351,13 +3351,13 @@
                   <X>10</X>
                   <Y>20</Y>
                   <WIDTH>3</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>22</X>
                   <Y>15</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>22</X>
@@ -3396,7 +3396,7 @@
                   <X>0</X>
                   <Y>6</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
@@ -3408,7 +3408,7 @@
                   <X>22</X>
                   <Y>12</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
@@ -3420,13 +3420,13 @@
                   <X>2</X>
                   <Y>19</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>6</X>
                   <Y>21</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
             </OBJECT>
             <OBJECT>
@@ -3581,18 +3581,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -4022,18 +4022,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -4068,7 +4068,7 @@
                   <X>12</X>
                   <Y>17</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>2</X>
@@ -4122,25 +4122,25 @@
                   <X>10</X>
                   <Y>14</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>14</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>8</X>
                   <Y>15</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
                   <Y>15</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>1,5</HEIGHT>
+                  <HEIGHT>1.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>6</X>
@@ -4316,18 +4316,18 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
@@ -4634,115 +4634,115 @@
                   <X>11</X>
                   <Y>23</Y>
                   <WIDTH>2</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>24</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <!-- Gạch xung quanh đại bàng END -->
                <AREA>
                   <X>12</X>
                   <Y>2</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
                   <Y>4</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>8</X>
                   <Y>7</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>6</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>12</X>
                   <Y>9</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>15</X>
                   <Y>8</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>11</X>
                   <Y>10</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
                   <Y>11</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>8</X>
                   <Y>13</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>15</X>
                   <Y>12</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
                   <Y>14</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>12</X>
                   <Y>14</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
                   <Y>16</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
                   <Y>16</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>9</X>
                   <Y>18</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>13</X>
                   <Y>20</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
             </OBJECT>
@@ -4752,30 +4752,30 @@
                   <X>0</X>
                   <Y>3</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>2</X>
                   <Y>5</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>12</X>
                   <Y>4</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>6</X>
                   <Y>6</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>16</X>
                   <Y>6</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
@@ -4788,19 +4788,19 @@
                   <X>24</X>
                   <Y>9</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>4</X>
                   <Y>10</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>6</X>
                   <Y>11</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
@@ -4812,13 +4812,13 @@
                   <X>22</X>
                   <Y>11</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>2</X>
                   <Y>12</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>10</X>
@@ -4830,7 +4830,7 @@
                   <X>18</X>
                   <Y>12</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>14</X>
@@ -4841,32 +4841,32 @@
                <AREA>
                   <X>9</X>
                   <Y>16</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>18</X>
                   <Y>17</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>20</X>
                   <Y>16</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>13</X>
                   <Y>18</Y>
-                  <WIDTH>0,5</WIDTH>
+                  <WIDTH>0.5</WIDTH>
                   <HEIGHT>1</HEIGHT>
                </AREA>
                <AREA>
                   <X>24</X>
                   <Y>20</Y>
                   <WIDTH>1</WIDTH>
-                  <HEIGHT>0,5</HEIGHT>
+                  <HEIGHT>0.5</HEIGHT>
                </AREA>
                <AREA>
                   <X>0</X>
