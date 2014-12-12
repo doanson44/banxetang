@@ -12,7 +12,7 @@ public class Racer extends Tank {
 
 		super(px, py, (TiledTextureRegion) MapObjectFactory2
 				.getTexture("EnemyRacer"));
-		this.SetType(ObjectType.ENERMY_TANK);
+		this.SetType(ObjectType.ENEMY_TANK);
 		this.SetTankType(TankType.RACER);
 
 		this.speed = TankManager.FAST_TANK_SPEED;

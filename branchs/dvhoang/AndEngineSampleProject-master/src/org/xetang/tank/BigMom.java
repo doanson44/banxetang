@@ -13,7 +13,7 @@ public class BigMom extends Tank {
 
 		super(px, py, (TiledTextureRegion) MapObjectFactory2
 				.getTexture("EnemyBigMom"));
-		this.SetType(ObjectType.ENERMY_TANK);
+		this.SetType(ObjectType.ENEMY_TANK);
 		this.SetTankType(TankType.BIG_MOM);
 
 		this.speed = TankManager.NORMAL_TANK_SPEED;

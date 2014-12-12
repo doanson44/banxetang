@@ -39,7 +39,7 @@ public class TankManager implements IUpdateHandler {
 	public static final float NORMAL_TANK_SPEED = CalcHelper
 			.pixels2Meters(GameManager.MAP_SIZE / NORMAL_TANK_TIME);
 	public static final float SLOW_TANK_SPEED = NORMAL_TANK_SPEED * 2f / 3f;
-	public static final float FAST_TANK_SPEED = NORMAL_TANK_SPEED * 2f;
+	public static final float FAST_TANK_SPEED = NORMAL_TANK_SPEED * 3f / 2f;
 
 	/**
 	 * Tạo 1 xe tăng cho người chơi ở vị trí định sẵn
@@ -130,7 +130,7 @@ public class TankManager implements IUpdateHandler {
 					break;
 				}
 				tank.SetTankBonus(isTankBonus);
-				tank.SetType(ObjectType.ENERMY_TANK);
+				tank.SetType(ObjectType.ENEMY_TANK);
 				mEnermyTanks.add(tank);
 			}
 		};

@@ -64,19 +64,16 @@ public class Player1 extends Tank {
 		this.mLevel = mSprite.getCurrentTileIndex() + 1;
 		switch (tmp) {
 		case 1:
-			this.speed = 1f;
-			_maxNumberBullet = 1;
-			this.hp = 1;
+			mBulletType = ObjectType.SLOW_BULLET;
 			break;
-		case 2:
-			this.speed = 2f;
+		case 2: // Đạn bay nhanh như đạn của GlassCannon
 			_maxNumberBullet = 1;
-			this.hp = 2;
+			mBulletType = ObjectType.FAST_BULLET;
+			// this.hp = 2;
 			break;
 		case 3:
-			this.speed = 3.5f;
 			_maxNumberBullet = 2;
-			this.hp = 3;
+			// this.hp = 3;
 			break;
 		}
 	}
