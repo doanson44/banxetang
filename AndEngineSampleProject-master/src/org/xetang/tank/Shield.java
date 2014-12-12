@@ -20,7 +20,7 @@ public class Shield extends GameEntity {
 				GameManager.VertexBufferObject);
 		_shield.setSize(GameManager.LARGE_CELL_SIZE,
 				GameManager.LARGE_CELL_SIZE);
-		_shield.animate(200);
+		_shield.animate(50);
 
 		GameManager.CurrentMap.addObject(_shield, ObjectLayer.MOVING);
 		_isAlive = true;

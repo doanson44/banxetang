@@ -221,8 +221,10 @@ public abstract class Tank extends GameEntity implements IGameController,
 				mBullet.remove(i);
 		}
 		if (_shield != null && _shield.IsAlive()) {
-			_shield.GetSprite().setX(mSprite.getX());
-			_shield.GetSprite().setY(mSprite.getY());
+			_shield.GetSprite().setX(
+					mSprite.getX() - MapObjectFactory.TINY_CELL_SIZE / 2f);
+			_shield.GetSprite().setY(
+					mSprite.getY() - MapObjectFactory.TINY_CELL_SIZE / 2f);
 		}
 
 		_SecPerFrame += pSecondsElapsed;
