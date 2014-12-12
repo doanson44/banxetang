@@ -12,7 +12,7 @@ public class GlassCannon extends Tank {
 
 		super(px, py, (TiledTextureRegion) MapObjectFactory2
 				.getTexture("EnemyGlassCannon"));
-		this.SetType(ObjectType.ENERMY_TANK);
+		this.SetType(ObjectType.ENEMY_TANK);
 		this.SetTankType(TankType.GLASS_CANNON);
 
 		this.speed = TankManager.NORMAL_TANK_SPEED;

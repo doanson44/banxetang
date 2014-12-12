@@ -92,17 +92,17 @@ public class Bullet extends MapObject implements IBullet {
 	@Override
 	public void doContact(IMapObject object) {
 
-		// tank địch bắn trúng tank của ngư�?i chơi
+		// tank địch bắn trúng tank của ngư�?i chơi
 		if (object != null && object.getType() == ObjectType.PLAYER_TANK
-				&& _tank.getType() == ObjectType.ENERMY_TANK) {
+				&& _tank.getType() == ObjectType.ENEMY_TANK) {
 			Tank tank = (Tank) object;
 			if (tank.getShield() == null) {
 				tank.KillSelf();
 			}
 		}
 
-		// tank của ngư�?i chơi bắn trúng tank địch
-		if (object != null && object.getType() == ObjectType.ENERMY_TANK
+		// tank của ngư�?i chơi bắn trúng tank địch
+		if (object != null && object.getType() == ObjectType.ENEMY_TANK
 				&& _tank.getType() == ObjectType.PLAYER_TANK) {
 
 			Tank tank = (Tank) object;
