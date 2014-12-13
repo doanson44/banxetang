@@ -1070,17 +1070,6 @@
 			<ID>5</ID>
 			<LIVE>3</LIVE>
 			<MAX_AVAIABLE_ENERMY>4</MAX_AVAIABLE_ENERMY>
-			<MAP>
-				<OBJECT>
-					<ID />
-					<AREA>
-						<X />
-						<Y />
-						<WIDTH />
-						<HEIGHT />
-					</AREA>
-				</OBJECT>
-			</MAP>
 			<TANKS>
 				<TANK>GlassCannon</TANK>
 				<TANK>GlassCannon</TANK>
@@ -1802,15 +1791,6 @@
 						<Y>20</Y>
 						<WIDTH>1</WIDTH>
 						<HEIGHT>1</HEIGHT>
-					</AREA>
-				</OBJECT>
-				<OBJECT>
-					<ID />
-					<AREA>
-						<X />
-						<Y />
-						<WIDTH />
-						<HEIGHT />
 					</AREA>
 				</OBJECT>
 			</MAP>
