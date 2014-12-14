@@ -20,7 +20,6 @@ public class Clock extends Item {
     
     @Override
     public void affect() {
-    	// TODO Auto-generated method stub
     	GameItemManager.getInstance().FreezeTime();
     }
     

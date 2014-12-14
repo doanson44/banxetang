@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.util.debug.Debug;
 import org.xetang.controller.Bot;
 import org.xetang.map.Frame;
 import org.xetang.map.Map;
@@ -32,6 +34,9 @@ public class GameMapManager implements IUpdateHandler {
 	int maxAvaiablePlayerTank = 1;
 	int Player1Life = 0;
 	List<Bot> _bots;
+	
+	RightMenu _RightMenu;
+
 
 	public GameMapManager(GameScene gameScene, int iCurrentStage) {
 		GameManager.CurrentMapManager = this; // Thiết lập toàn cục
@@ -39,12 +44,19 @@ public class GameMapManager implements IUpdateHandler {
 
 		loadMapData(iCurrentStage);
 
+		InitRightMenu(_totalEnemyTanks.size());
 		// _frame = new Frame(_map.getEnemyTanks().size());
 		// _gameScene.attachChild(_frame);
 
 		createAllBots();
 	}
+	
+	public void InitRightMenu(int TotalEnemytank) {
+		_RightMenu = new RightMenu(GameManager.MAP_SIZE + 20, 20, _map, TotalEnemytank);
 
+		_map.attachChild(_RightMenu);
+	}
+	
 	private void createAllBots() {
 		_bots = new ArrayList<Bot>(maxAvaiableEnemyTank);
 
@@ -55,14 +67,13 @@ public class GameMapManager implements IUpdateHandler {
 
 	private void loadMapData(int iCurrentStage) {
 		StageDTO stage = XMLLoader.getStage(iCurrentStage);
-		stage.setLives(maxAvaiablePlayerTank);
+		
 		_map = new Map(iCurrentStage, stage);
 
 		GameManager.CurrentMap = _map;
 		_gameScene.attachChild(_map);
 
 		loadMapTanks(stage);
-		_map.InitRightMenu(10);
 	}
 
 	private void loadMapTanks(StageDTO stage) {
@@ -72,16 +83,44 @@ public class GameMapManager implements IUpdateHandler {
 	}
 
 	private void loadPlayerTanks(int lives) {
-		Player1Life = 2;
 		_totalPlayerTanks = new LinkedList<Tank>();
+		for (int i = 0; i < lives; i++) {
+			Tank tank = TankManager.CreatePlayerTank(1);
+			
+			_totalPlayerTanks.add(tank);
+		}
+		Tank t = _totalPlayerTanks.poll();
+		t.work();
+		_gameScene.setController(t);
+		_map.addPlayerTank(t);
 
 	}
 
 	private void loadEnemyTanks(List<String> tanksNameQueue) {
 
 		Tank tank = null;
+		Random rd = new Random();
 
 		_totalEnemyTanks = new LinkedList<Tank>();
+		
+		for (int i = 0; i < tanksNameQueue.size(); i++) {
+			int Position = i%3 + 1;
+			if (tanksNameQueue.get(i).equals("Normal")) {
+				tank = TankManager.createEnemyTank(TankType.NORMAL, Position, rd.nextInt(5)==0); /* rd.nextInt(5)==0*/
+			} 
+			else if (tanksNameQueue.get(i).equals("Racer")) {
+				tank = TankManager.createEnemyTank(TankType.RACER, Position, rd.nextInt(5)==0);
+			} else if (tanksNameQueue.get(i).equals("GlassCannon")) {
+				tank = TankManager.createEnemyTank(TankType.GLASS_CANNON, Position, rd.nextInt(5)==0);
+			} else if (tanksNameQueue.get(i).equals("BigMom")) {
+				tank = TankManager.createEnemyTank(TankType.BIG_MOM, Position, rd.nextInt(5)==0);
+			}
+			
+			_totalEnemyTanks.add(tank);
+			
+		}
+		
+		/* dumy */
 		/*
 		 * for (int i = 0; i < tanksNameQueue.size(); i++) { int Position = i%3
 		 * + 1; if (tanksNameQueue.get(i).equals("Normal")) { tank =
@@ -96,22 +135,15 @@ public class GameMapManager implements IUpdateHandler {
 		 * _totalEnemyTanks.add(tank); }
 		 */
 
-		TankManager.createEnemyTank(_totalEnemyTanks, TankType.GLASS_CANNON, 1,
-				false);
-
-		TankManager
-				.createEnemyTank(_totalEnemyTanks, TankType.RACER, 2, false);
-
-		TankManager.createEnemyTank(_totalEnemyTanks, TankType.NORMAL, 3, false);
 
 	}
 
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
-
 		_map.Update(pSecondsElapsed);
-		updateTanksAndBots(pSecondsElapsed);
-		// updateWinLose();
+		
+		 updateTanksAndBots(pSecondsElapsed);
+		 updateWinLose();
 	}
 
 	private void updateTanksAndBots(float pSecondsElapsed) {
@@ -121,22 +153,19 @@ public class GameMapManager implements IUpdateHandler {
 			addEnemyTankToMap();
 		}
 
-		if (_totalPlayerTanks.size() == 0 && Player1Life > 0
-				&& _map.getPlayerTanks().size() < maxAvaiablePlayerTank) {
-			TankManager.CreatePlayerTank(_totalPlayerTanks, 1);
-			Player1Life--;
-			RightMenu.UpdateText();
-		}
+
 
 		if (_totalPlayerTanks.size() > 0
 				&& _map.getPlayerTanks().size() < maxAvaiablePlayerTank) {
 			addPlayerTankToMap();
 		}
+		/* map da kiem tra roi
 		for (int i = 0; i < tanks.size(); i++) {
 			if (!tanks.get(i).isAlive()) {
 				tanks.remove(i);
 			}
 		}
+		}*/
 
 		for (int i = 0; i < _bots.size(); i++) {
 			_bots.get(i).Update(pSecondsElapsed);
@@ -144,11 +173,15 @@ public class GameMapManager implements IUpdateHandler {
 				_bots.remove(i);
 			}
 		}
+		
+		if (_totalPlayerTanks.size() > 0 && _map.getPlayerTanks().size()==0 )
+		{
+			addPlayerTankToMap();
+		}
 	}
 
 	private void updateWinLose() {
-
-		if (_map.getEnemyTanks().size() <= 0 && _totalEnemyTanks.size() <= 0) {
+		if (_map.getEnemyTanks().size() == 0 && _totalEnemyTanks.size() == 0){
 			/*
 			 * Là thắng
 			 */
@@ -156,8 +189,9 @@ public class GameMapManager implements IUpdateHandler {
 			_gameScene.onWin();
 		}
 
-		if (Player1Life <= 0 || !_map.isEagleAlive()) {
-			/*
+		if (_map.getTotalPlayerTanks() <= 0 || !_map.isEagleAlive()) {			
+			/**
+		
 			 * Là thua
 			 */
 
@@ -167,15 +201,19 @@ public class GameMapManager implements IUpdateHandler {
 
 	private void addEnemyTankToMap() {
 		Tank tank = _totalEnemyTanks.poll();
+		Bot bot = new Bot(tank);
+		_bots.add(bot);
+		tank.work();
 		_map.addEnemyTank(tank);
 
 	}
 
 	private void addPlayerTankToMap() {
-		// TODO Auto-generated method stub
-		Tank tank = _totalPlayerTanks.poll();
-		GameControllerManager.setOnController(tank);
-		_map.addPlayerTank(tank);
+		Tank t = _totalPlayerTanks.poll();
+		t.work();
+		_gameScene.setController(t);
+		_map.addPlayerTank(t);
+		
 	}
 
 	@Override
@@ -189,7 +227,7 @@ public class GameMapManager implements IUpdateHandler {
 	}
 
 	public Tank getPlayerTank() {
-		return _totalPlayerTanks.peek();
+		return _map.getPlayerTanks().get(0);
 	}
 
 	public int getTotalPlayerTank() {
@@ -213,10 +251,44 @@ public class GameMapManager implements IUpdateHandler {
 	}
 
 	public void AddNewLifeForTank() {
-		Player1Life++;
+		_totalPlayerTanks.add(TankManager.CreatePlayerTank(1));
 	}
 
 	public int GetPlayer1Life() {
-		return Player1Life;
+		return _totalPlayerTanks.size();
 	}
+	
+	public void clear() {
+		GameManager.Context.runOnUpdateThread(new Runnable() {			
+			@Override
+			public void run() {
+				_map.detachSelf();
+				_frame.detachSelf();
+				_totalEnemyTanks.clear();
+				_totalPlayerTanks.clear();
+				GameManager.PhysicsWorld.clearForces();
+				GameManager.PhysicsWorld.clearPhysicsConnectors();
+			}
+		});
+		
+	}
+
+	public void clearMapData() {
+		GameManager.CurrentMap = null;
+		
+		GameManager.Context.runOnUpdateThread(new Runnable() {	
+			@Override
+			public void run() {
+				_gameScene.detachChild(_map);
+				Debug.d(GameManager.TANK_TAG, "detach map");
+			}
+		});
+		
+	}
+
+	public int  getTotalEnemyTanks() {
+		return _totalEnemyTanks.size();
+	}
+
+	
 }

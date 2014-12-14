@@ -6,6 +6,7 @@ import org.xetang.map.item.MapObjectFactory2;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.map.object.MapObjectFactory.TankType;
 
+
 public class Normal extends Tank {
 
 	public Normal(float px, float py) {
@@ -26,9 +27,12 @@ public class Normal extends Tank {
 
 	@Override
 	public void onFire() {
-		// TODO Auto-generated method stub
 		super.onFire();
-		CreateBullet(mBulletType, bPosX, bPosY);
+	}
+	
+	@Override
+	public int getBonusPoint() {
+		return 100;
 	}
 
 }

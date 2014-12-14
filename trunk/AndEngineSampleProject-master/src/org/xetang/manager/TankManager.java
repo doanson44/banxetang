@@ -1,6 +1,7 @@
 package org.xetang.manager;
 
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.xetang.map.helper.CalcHelper;
@@ -13,6 +14,7 @@ import org.xetang.tank.Player1;
 import org.xetang.tank.Player2;
 import org.xetang.tank.Racer;
 import org.xetang.tank.Tank;
+
 
 public class TankManager implements IUpdateHandler {
 
@@ -41,6 +43,8 @@ public class TankManager implements IUpdateHandler {
 	public static final float SLOW_TANK_SPEED = NORMAL_TANK_SPEED * 2f / 3f;
 	public static final float FAST_TANK_SPEED = NORMAL_TANK_SPEED * 3f / 2f;
 
+	static List<Tank> mDefeatedTanks = new ArrayList<Tank>();
+	
 	/**
 	 * Tạo 1 xe tăng cho người chơi ở vị trí định sẵn
 	 * 
@@ -49,8 +53,8 @@ public class TankManager implements IUpdateHandler {
 	 *            người chơi 2
 	 * @return xe tăng
 	 */
-	public static void CreatePlayerTank(final Queue<Tank> mPlayerTanks,
-			final int Player) {
+	public static Tank CreatePlayerTank(final int Player) {
+		/*
 		Runnable runnable = new Runnable() {
 
 			@Override
@@ -67,8 +71,18 @@ public class TankManager implements IUpdateHandler {
 				mPlayerTanks.add(tank);
 			}
 		};
-
 		GameManager.Activity.runOnUpdateThread(runnable);
+		*/
+		
+		Tank tank = null;
+
+		if (Player == 1) {
+			tank = new Player1(Player1_PX, Player1_PY);
+		} else
+			tank = new Player2(Player2_PX, Player2_PY);
+
+		tank.SetType(ObjectType.PLAYER_TANK);
+		return tank;
 
 	}
 
@@ -85,14 +99,13 @@ public class TankManager implements IUpdateHandler {
 	 *            rớt item
 	 * @return xe tăng
 	 */
-	public static void createEnemyTank(final Queue<Tank> mEnermyTanks,
-			final TankType type, final int Position, final boolean isTankBonus) {
+	public static Tank createEnemyTank(final TankType type, final int Position, final boolean isTankBonus) {
 
+		/*
 		Runnable run = new Runnable() {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				Tank tank = null;
 				float px = 0, py = 0;
 
@@ -135,6 +148,47 @@ public class TankManager implements IUpdateHandler {
 			}
 		};
 		GameManager.Activity.runOnUpdateThread(run);
+		*/
+		
+		Tank tank = null;
+		float px = 0, py = 0;
+
+		switch (Position) {
+		case 1:
+			px = Enermy_PX_1;
+			py = Enermy_PY_1;
+			break;
+		case 2:
+			px = Enermy_PX_2;
+			py = Enermy_PY_2;
+			break;
+		case 3:
+			px = Enermy_PX_3;
+			py = Enermy_PY_3;
+			break;
+		default:
+			break;
+		}
+
+		switch (type) {
+		case BIG_MOM:
+			tank = new BigMom(px, py);
+			break;
+		case GLASS_CANNON:
+			tank = new GlassCannon(px, py);
+			break;
+		case RACER:
+			tank = new Racer(px, py);
+			break;
+		case NORMAL:
+			tank = new Normal(px, py);
+			break;
+		default:
+			break;
+		}
+		tank.SetTankBonus(isTankBonus);
+		tank.SetType(ObjectType.ENEMY_TANK);
+		return tank;
 	}
 
 	public static TankManager getInstance() {
@@ -145,29 +199,36 @@ public class TankManager implements IUpdateHandler {
 
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
-		// TODO Auto-generated method stub
 
 	}
-
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-
+	
+	}
+	
+	public static void resetData() {
+		mDefeatedTanks.clear();
 	}
 
 	public static void register(Tank tank) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public static void loadOldData() {
-		// TODO Auto-generated method stub
 
 	}
 
 	public static void generateOpponentTank(int i) {
-		// TODO Auto-generated method stub
 
 	}
+
+	public static List<Tank> getDefeatedTank(String player2) {
+		return mDefeatedTanks;
+	}
+	
+	public static void addDefeatedTank(Tank type){
+		mDefeatedTanks.add(type);
+	}
+
 
 }

@@ -14,6 +14,7 @@ public class Racer extends Tank {
 				.getTexture("EnermyTank"));
 		this.SetType(ObjectType.ENEMY_TANK);
 		this.SetTankType(TankType.RACER);
+	 
 
 		this.speed = TankManager.FAST_TANK_SPEED;
 
@@ -30,8 +31,13 @@ public class Racer extends Tank {
 
 	@Override
 	public void onFire() {
-		// TODO Auto-generated method stub
 		super.onFire();
-		CreateBullet(mBulletType, bPosX, bPosY);
 	}
+	
+	 @Override
+	public int getBonusPoint() {
+		 return 200;
+	}
+	 
+	 
 }

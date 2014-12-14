@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import org.andengine.engine.handler.IUpdateHandler;
-import org.andengine.entity.Entity;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.xetang.manager.GameManager;
@@ -37,44 +36,42 @@ public class DestroyHelper implements IUpdateHandler {
 
 				doRemove(true);
 
-				PhysicsConnector connector;
 				while (!_destroyQueue.isEmpty()) {
 
 					final IMapObject object;
 					final Sprite sprite;
 
-					object = _destroyQueue.peek();
+					object = _destroyQueue.poll();
 
 					object.setAlive(false);
-
 					sprite = object.getSprite();
-
-					connector = GameManager.PhysicsWorld
-							.getPhysicsConnectorManager()
-							.findPhysicsConnectorByShape(sprite);
-
-					if (connector != null) {
-						GameManager.PhysicsWorld
-								.unregisterPhysicsConnector(connector);
-					}
-
-					if (object.getBody() != null) {
-						object.getBody().setActive(false);
-						GameManager.PhysicsWorld.destroyBody(object.getBody());
-					}
-
+									
 					GameManager.Activity.runOnUpdateThread(new Runnable() {
 
 						@Override
 						public void run() {
-							((Entity) object).detachSelf();
-							((Entity) object).dispose();
+							
+							sprite.setVisible(false);
 							sprite.detachSelf();
-							sprite.dispose();
+							sprite.clearUpdateHandlers();
+
+							PhysicsConnector connector = GameManager.PhysicsWorld
+									.getPhysicsConnectorManager()
+									.findPhysicsConnectorByShape(sprite);
+
+							if (connector != null) {
+								GameManager.PhysicsWorld
+										.unregisterPhysicsConnector(connector);
+							}
+
+							if (object.getBody() != null) {
+								//object.getBody().setActive(false);
+								GameManager.PhysicsWorld.destroyBody(object.getBody());
+							}
 						}
 					});
+					
 
-					_destroyQueue.poll();
 				}
 
 				doRemove(false);

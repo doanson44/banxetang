@@ -54,9 +54,9 @@ public class MainMenuScene extends Scene  {
 			InputStream input = GameManager.AssetManager.open("about.txt");
 			String txt = readStreamAsString(input);
 			String[] lines = txt.split("\n");
-			GameManager.getFont("font2").load();
+			Font f = GameManager.getFont("font2", 32f, Color.WHITE_ARGB_PACKED_INT);
 			for (int i = 0; i < lines.length; i++) {
-				Text t = new Text(0, 0, GameManager.getFont("font2"), lines[i], GameManager.VertexBufferObject);
+				Text t = new Text(0, 0, f, lines[i], GameManager.VertexBufferObject);
 				t.setPosition(GameManager.Camera.getWidth()/2 - t.getWidth()/2, GameManager.Camera.getHeight() + i * t.getHeight()*1.3f);
 				_hudAbout.attachChild(t);
 				if(lines[i].contains("["))
@@ -133,8 +133,7 @@ public class MainMenuScene extends Scene  {
 	}
 
 	private void createButtonOption() {
-		Font f = GameManager.getFont("font2");
-		f.load();
+		Font f = GameManager.getFont("font2", 32f, Color.WHITE_ARGB_PACKED_INT);
 		
 		//Background sound
 		Text t = new Text(0, 0, f, "Background", GameManager.VertexBufferObject);
@@ -147,11 +146,13 @@ public class MainMenuScene extends Scene  {
 				if(pSceneTouchEvent.isActionUp()){
 					//change
 					this.setCurrentTileIndex((this.getCurrentTileIndex()+1)%2);
+					/*
 					GameManager.IsBackgroundSound = this.getCurrentTileIndex() == 0;
 					if(GameManager.IsBackgroundSound)
 						playMusic();
 					else
 						stopMusic();
+						*/
 				}
 				return true;
 			}
@@ -185,15 +186,15 @@ public class MainMenuScene extends Scene  {
 					float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				if(pSceneTouchEvent.isActionUp()){
 					GameManager.Camera.setHUD(_hudMain);
-					GameManager.getFont("font2").load();
+					GameManager.getFont("font2", 32f, Color.WHITE_ARGB_PACKED_INT);
 					this.setColor(Color.WHITE);
 				}
 				else if(pSceneTouchEvent.isActionDown()){
-					GameManager.getFont("font2").load();
+					GameManager.getFont("font2", 32f, Color.WHITE_ARGB_PACKED_INT);
 					this.setColor(Color.RED);	
 				}
 				else{
-					GameManager.getFont("font2").load();
+					GameManager.getFont("font2", 32f, Color.WHITE_ARGB_PACKED_INT);
 					this.setColor(Color.WHITE);	
 				}
 				return true;
@@ -206,7 +207,7 @@ public class MainMenuScene extends Scene  {
 	}
 
 	private void createTitleOption() {
-		Font f = GameManager.getFont("font1");
+		Font f = GameManager.getFont("font1", 32f, Color.WHITE_ARGB_PACKED_INT);
 		f.load();
 		Text t = new Text(0, 0, f, "option", GameManager.VertexBufferObject);
 		t.setPosition(GameManager.Camera.getWidth()/2 - t.getWidth()/2, 50);
@@ -225,10 +226,14 @@ public class MainMenuScene extends Scene  {
 	}
 
 	private void playMusic( ) {
+		/*
 		if(!GameManager.IsBackgroundSound) return;
-		background = GameManager.getMusic("menu");
+		*/
+		/*
+		background = GameManager.getSound("menu");
 		background.setLooping(true);
 		background.play();
+		*/
 	
 	}
 
@@ -280,15 +285,15 @@ public class MainMenuScene extends Scene  {
 	 */
 	public void onClickItem(MenuItem menuItem) {	
 		if(GameManager.IsEffectSound){
-			GameManager.getMusic("blop").play();
-			GameManager.getMusic("blop").setVolume(2f);
+			GameManager.getSound("blop").play();
+			GameManager.getSound("blop").setVolume(2f);
 		}
 		
 		switch (menuItem.getId()) {
 		case 1: //new game	
 			stopMusic();
 			GameManager.Camera.setHUD(null);
-			GameManager.switchToScene("");
+			GameManager.switchToScene("", null);
 			
 		break;
 		
@@ -316,7 +321,7 @@ public class MainMenuScene extends Scene  {
 	}
 
 	private void stopMusic() {
-		GameManager.getMusic("menu").pause();
+		GameManager.getSound("menu").pause();
 		
 	}
 

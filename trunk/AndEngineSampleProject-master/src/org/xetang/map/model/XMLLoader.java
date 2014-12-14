@@ -94,9 +94,11 @@ public class XMLLoader {
 			/*
 			 * Gán giá trị của màn chơi hiện tại
 			 */
+			/* Deprecated
 			GameManager.mStage = Integer.parseInt(ele
 					.getElementsByTagName("CURRENT_STAGE").item(0)
 					.getTextContent());
+			*/
 
 			NodeList stagesNoteList = ele.getElementsByTagName("STAGE");
 			_stagesArray = new SparseArray<StageDTO>(stagesNoteList.getLength());
@@ -205,7 +207,6 @@ public class XMLLoader {
 				tanks.add(tankNode.getTextContent());
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

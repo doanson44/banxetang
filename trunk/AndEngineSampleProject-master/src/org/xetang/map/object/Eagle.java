@@ -37,6 +37,7 @@ public class Eagle extends MapObject {
 			if (object.getType() == ObjectType.BULLET) {
 				TiledSprite x = (TiledSprite) _sprite;
 				x.setCurrentTileIndex(1);
+				GameManager.CurrentMap.notifyEagleDie();
 			}
 		} catch (Exception e) {
 			Debug.d("Collsion", "Nothing to contact!");

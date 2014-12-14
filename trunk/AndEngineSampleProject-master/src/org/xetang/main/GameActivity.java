@@ -14,8 +14,11 @@ import org.andengine.input.touch.controller.MultiTouch;
 import org.andengine.input.touch.controller.MultiTouchController;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.xetang.manager.GameManager;
+import org.xetang.root.GameScene;
+import org.xetang.root.HighScoreScene;
 
 import android.widget.Toast;
+
 
 public class GameActivity extends SimpleBaseGameActivity implements
 		IAccelerationListener {
@@ -84,6 +87,7 @@ public class GameActivity extends SimpleBaseGameActivity implements
 		engineOptions.getAudioOptions().setNeedsMusic(true);
 		engineOptions.getAudioOptions().setNeedsSound(true);
 
+		
 		return engineOptions;
 	}
 
@@ -94,23 +98,29 @@ public class GameActivity extends SimpleBaseGameActivity implements
 		 * Gán toàn bộ những thuộc tính lên trên làm biến toàn cục Để dễ dàng
 		 * truy cập trong toàn bộ trò chơi
 		 */
+		
 		GameManager.Activity = this;
 		GameManager.Engine = this.mEngine;
 		GameManager.TextureManager = this.getTextureManager();
 		GameManager.AssetManager = this.getAssets();
 		GameManager.Context = this;
 		GameManager.VertexBufferObject = this.getVertexBufferObjectManager();
-		GameManager.VertexBufferObject = this.getVertexBufferObjectManager();
 		GameManager.FontManager = this.getFontManager();
 		GameManager.MusicManager = this.getMusicManager();
 		
+		
+		
 		GameManager.loadResource();
+		
+		
+		
+		
 	}
 
 	@Override
 	public void onDestroyResources() throws Exception {
 		GameManager.unloadResource();
-
+		GameManager.onDestroyResources();
 		super.onDestroyResources();
 	}
 
@@ -121,7 +131,7 @@ public class GameActivity extends SimpleBaseGameActivity implements
 		/*
 		 * Chuyển cảnh qua GameScene
 		 */
-		GameManager.switchToScene("game");
+		GameManager.switchToScene("round", null);
 
 		return GameManager.Scene;
 	}
@@ -144,12 +154,24 @@ public class GameActivity extends SimpleBaseGameActivity implements
 	public void onResumeGame() {
 		super.onResumeGame();
 		this.enableAccelerationSensor(this);
+		
 	}
 
 	@Override
 	public void onPauseGame() {
 		super.onPauseGame();
-
+		GameManager.clearAll();
+		GameManager.turnOnOffMusic(0f);
 		this.disableAccelerationSensor();
+		GameManager.saveData();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		if ((GameManager.Scene instanceof GameScene) || (GameManager.Scene instanceof HighScoreScene))
+			GameManager.switchToScene("round", null);
+		else {
+			super.onBackPressed();
+		}
 	}
 }
