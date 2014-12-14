@@ -8,11 +8,12 @@ public class Player2 extends Player1 {
 	private static Player2 mInstance;
 	
 	public Player2(float px, float py){
-		this(px,py,(TiledTextureRegion) MapObjectFactory2.getTexture("Player2"));
+		this(px,py,(TiledTextureRegion) MapObjectFactory2.getTexture("PlayerTank"));
 	}
 	public Player2(float px, float py, TiledTextureRegion region) {
-    	super(px, py,(TiledTextureRegion) MapObjectFactory2.getTexture("Player2"));
-    	this.mSprite.setCurrentTileIndex(0);
+    	super(px, py,(TiledTextureRegion) MapObjectFactory2.getTexture("PlayerTank"));
+    	CurrentSprite = 2;
+    	this.mSprite.setCurrentTileIndex(CurrentSprite);
 	}
 	
 	public static Player2 getInstance(){

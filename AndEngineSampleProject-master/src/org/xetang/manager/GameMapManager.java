@@ -97,12 +97,12 @@ public class GameMapManager implements IUpdateHandler {
 		 */
 
 		TankManager.createEnemyTank(_totalEnemyTanks, TankType.GLASS_CANNON, 1,
-				true);
+				false);
 
 		TankManager
-				.createEnemyTank(_totalEnemyTanks, TankType.BIG_MOM, 2, true);
+				.createEnemyTank(_totalEnemyTanks, TankType.RACER, 2, false);
 
-		TankManager.createEnemyTank(_totalEnemyTanks, TankType.RACER, 3, true);
+		TankManager.createEnemyTank(_totalEnemyTanks, TankType.NORMAL, 3, false);
 
 	}
 

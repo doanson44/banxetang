@@ -17,12 +17,12 @@ public class BigMom extends Tank {
 		this.SetTankType(TankType.BIG_MOM);
 
 		this.speed = TankManager.NORMAL_TANK_SPEED;
-
+		CurrentSprite = 0;
 		_maxNumberBullet = 2;
 		this.point = 400;
 		this.hp = 4;
 		mBulletType = ObjectType.BULLET;
-		mSprite.setCurrentTileIndex(0);
+		Animte();
 
 	}
 
@@ -30,8 +30,10 @@ public class BigMom extends Tank {
 	public void SetTankBonus(boolean bool) {
 		// TODO Auto-generated method stub
 		isTankBonus = bool;
-		if (isTankBonus) // xu ly nhap nhay
-			mSprite.animate(new long[] { 200, 200 }, 2, 3, true);
+		if (isTankBonus){ // xu ly nhap nhay
+			CurrentSprite = 7;
+			Animte();
+		}
 	}
 
 	@Override
@@ -48,12 +50,13 @@ public class BigMom extends Tank {
 			GameItemManager.getInstance().CreateRandomItem();
 			mSprite.stopAnimation();
 			isTankBonus = false;
+			CurrentSprite = 0;
 		}
 		this.hp--;
 		if (hp == 0)
 			return true;
-
-		mSprite.setCurrentTileIndex(4 - hp);
+		CurrentSprite += 2;
+		Animte();
 		return false;
 	}
 

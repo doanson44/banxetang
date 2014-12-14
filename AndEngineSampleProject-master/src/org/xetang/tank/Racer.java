@@ -11,27 +11,22 @@ public class Racer extends Tank {
 	public Racer(float px, float py) {
 
 		super(px, py, (TiledTextureRegion) MapObjectFactory2
-				.getTexture("EnemyRacer"));
+				.getTexture("EnermyTank"));
 		this.SetType(ObjectType.ENEMY_TANK);
 		this.SetTankType(TankType.RACER);
 
 		this.speed = TankManager.FAST_TANK_SPEED;
 
+		CurrentSprite = 4;
 		_maxNumberBullet = 2;
 		this.point = 200;
 		this.hp = 1;
 		mBulletType = ObjectType.BULLET;
-		mSprite.setCurrentTileIndex(0);
-
+		//mSprite.setCurrentTileIndex(CurrentSprite);
+		Animte();
+		
 	}
 
-	@Override
-	public void SetTankBonus(boolean bool) {
-		// TODO Auto-generated method stub
-		isTankBonus = bool;
-		if (isTankBonus) // xu ly nhap nhay
-			mSprite.animate(new long[] { 200, 200 }, 0, 1, true);
-	}
 
 	@Override
 	public void onFire() {
