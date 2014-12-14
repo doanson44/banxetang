@@ -13,6 +13,7 @@ import org.andengine.entity.sprite.batch.SpriteGroup;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.util.debug.Debug;
 import org.xetang.controller.Bot;
+import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.model.MapObjectBlockDTO;
@@ -92,14 +93,10 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 	public void loadMapData(StageDTO stage) {
 
-		// this.attachChild(GameItemManager.getInstance().CreateItem(
-		// ObjectType.BOMB));
-		// this.attachChild(GameItemManager.getInstance().CreateItem(
-		// ObjectType.SHOVEL));
-		// this.attachChild(GameItemManager.getInstance().CreateItem(
-		// ObjectType.STAR));
-		// this.attachChild(GameItemManager.getInstance().CreateItem(
-		// ObjectType.STAR));
+	//	addObject(GameItemManager.getInstance().CreateItem(ObjectType.STAR),ObjectLayer.WRAPPER);
+	//	addObject(GameItemManager.getInstance().CreateItem(ObjectType.STAR),ObjectLayer.WRAPPER);
+//		addObject(GameItemManager.getInstance().CreateItem(ObjectType.STAR),ObjectLayer.WRAPPER);
+
 
 		List<StageObjectDTO> objects = stage.getObjects();
 

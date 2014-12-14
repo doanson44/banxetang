@@ -10,26 +10,19 @@ public class Normal extends Tank {
 
 	public Normal(float px, float py) {
 		super(px, py, (TiledTextureRegion) MapObjectFactory2
-				.getTexture("EnemyNormal"));
+				.getTexture("EnermyTank"));
 
 		this.speed = TankManager.SLOW_TANK_SPEED;
-
+		CurrentSprite = 0;
 		_maxNumberBullet = 1;
 		this.SetTankType(TankType.NORMAL);
 		this.point = 100;
 		this.hp = 1;
 		mBulletType = ObjectType.SLOW_BULLET;
-		mSprite.setCurrentTileIndex(0);
-
+		//mSprite.setCurrentTileIndex(CurrentSprite);
+		Animte();
 	}
 
-	@Override
-	public void SetTankBonus(boolean bool) {
-		// TODO Auto-generated method stub
-		isTankBonus = bool;
-		if (isTankBonus) // xu ly nhap nhay
-			mSprite.animate(new long[] { 200, 200 }, 0, 1, true);
-	}
 
 	@Override
 	public void onFire() {

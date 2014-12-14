@@ -45,22 +45,22 @@ public class GameItemManager implements IUpdateHandler {
 
 		switch (type) {
 		case BOMB:
-			item = new Bomb(GameManager.CurrentMap);
+			item = new Bomb();
 			break;
 		case CLOCK:
-			item = new Clock(GameManager.CurrentMap);
+			item = new Clock();
 			break;
 		case HELMET:
-			item = new Helmet(GameManager.CurrentMap);
+			item = new Helmet();
 			break;
 		case SHOVEL:
-			item = new Shovel(GameManager.CurrentMap);
+			item = new Shovel();
 			break;
 		case STAR:
-			item = new Star(GameManager.CurrentMap);
+			item = new Star();
 			break;
 		case TANK_ITEM:
-			item = new TankItem(GameManager.CurrentMap);
+			item = new TankItem();
 			break;
 		default:
 			break;
@@ -197,6 +197,8 @@ public class GameItemManager implements IUpdateHandler {
 	public void DestroyAllEnermy() {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < GameManager.CurrentMap.getEnemyTanks().size(); i++) {
+			if (GameManager.CurrentMap.getEnemyTanks().get(i).GetTankBonus())
+				GameItemManager.getInstance().CreateRandomItem();
 			GameManager.CurrentMap.getEnemyTanks().get(i).KillSelf();
 		}
 		GameManager.CurrentMap.getEnemyTanks().clear();
@@ -247,8 +249,6 @@ public class GameItemManager implements IUpdateHandler {
 				// TODO Auto-generated method stub
 				GameManager.CurrentMap.addObject(CreateItem(GetRandomType()),
 						ObjectLayer.WRAPPER);
-				// GameManager.CurrentMap.attachChild(
-				// CreateItem(GetRandomType()));
 			}
 		};
 		GameManager.Activity.runOnUpdateThread(run);

@@ -11,27 +11,20 @@ public class GlassCannon extends Tank {
 	public GlassCannon(float px, float py) {
 
 		super(px, py, (TiledTextureRegion) MapObjectFactory2
-				.getTexture("EnemyGlassCannon"));
+				.getTexture("EnermyTank"));
 		this.SetType(ObjectType.ENEMY_TANK);
 		this.SetTankType(TankType.GLASS_CANNON);
 
 		this.speed = TankManager.NORMAL_TANK_SPEED;
-
+		CurrentSprite = 8;
 		_maxNumberBullet = 3;
 		this.point = 300;
 		this.hp = 1;
 		mBulletType = ObjectType.DRILL_BULLET;
-		mSprite.setCurrentTileIndex(0);
-
+		//mSprite.setCurrentTileIndex(CurrentSprite);
+		Animte();
 	}
 
-	@Override
-	public void SetTankBonus(boolean bool) {
-		// TODO Auto-generated method stub
-		isTankBonus = bool;
-		if (isTankBonus) // xu ly nhap nhay
-			mSprite.animate(new long[] { 200, 200 }, 0, 1, true);
-	}
 
 	@Override
 	public void onFire() {

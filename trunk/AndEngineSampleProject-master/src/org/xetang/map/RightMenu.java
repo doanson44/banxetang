@@ -35,7 +35,7 @@ public class RightMenu extends GameEntity {
 	}
 	
 	public void AddStateText(){
-		Text State = new Text(-70,0, 
+		Text State = new Text(-200,0, 
 				GameManager.getFont("font2"), "STATE " + GameManager.getCurrentStage()
 				,GameManager.VertexBufferObject);
 		this.attachChild(State);

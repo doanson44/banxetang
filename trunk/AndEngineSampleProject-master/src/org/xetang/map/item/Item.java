@@ -5,10 +5,9 @@ import java.util.Random;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
-import org.andengine.opengl.texture.region.TiledTextureRegion;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.util.debug.Debug;
 import org.xetang.manager.GameManager;
-import org.xetang.map.Map;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.object.IMapObject;
 import org.xetang.map.object.MapObject;
@@ -37,16 +36,15 @@ public class Item extends GameEntity implements IMapObject {
 	float _alpha = 1;
 	float _CellWidth = GameManager.LARGE_CELL_SIZE;
 	float _CellHeight = GameManager.LARGE_CELL_SIZE;
-	Map _map;
 	public TiledSprite _sprite = null;
 	Body _body;
 	boolean _isAlive = false;
 	boolean _isActive = false;
 	FixtureDef _fixtureDef;
 
-	public Item(TiledTextureRegion region, Map map) {
-		_map = map;
-		_sprite = new TiledSprite(GetRandomPx(), GetRandomPy(), region,
+	public Item() {
+		_sprite = new TiledSprite(GetRandomPx(), GetRandomPy(),
+				(ITiledTextureRegion) MapObjectFactory2.getTexture("Items"),
 				GameManager.VertexBufferObject);
 		_sprite.setSize(_CellWidth, _CellHeight);
 		_isAlive = true;
@@ -97,7 +95,7 @@ public class Item extends GameEntity implements IMapObject {
 		}
 
 		if (_TimeSurvive > _ToatalTimeSurvive && _mOwner == null) {
-			// DestroyHelper.add(this);
+			 DestroyHelper.add(this);
 		}
 		if (_TimeAffect > _TotalTimeAffect) {
 			DestroyAffect();
