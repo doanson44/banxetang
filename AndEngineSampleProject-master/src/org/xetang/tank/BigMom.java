@@ -22,7 +22,7 @@ public class BigMom extends Tank {
 		this.point = 400;
 		this.hp = 4;
 		mBulletType = ObjectType.BULLET;
-		Animte();
+		Animate();
 
 	}
 
@@ -32,7 +32,7 @@ public class BigMom extends Tank {
 		isTankBonus = bool;
 		if (isTankBonus){ // xu ly nhap nhay
 			CurrentSprite = 7;
-			Animte();
+			Animate();
 		}
 	}
 
@@ -54,7 +54,7 @@ public class BigMom extends Tank {
 		if (hp == 0)
 			return true;
 		CurrentSprite += 2;
-		Animte();
+		Animate();
 		return false;
 	}
 

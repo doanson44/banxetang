@@ -3,7 +3,6 @@ package org.xetang.map.object;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameManager;
-import org.xetang.map.helper.BlastQueryCallback;
 import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 
@@ -54,7 +53,6 @@ public class Blast extends BlowUp {
 	}
 
 	private void destroySurroundingObjects() {
-		_inRangeBodies = new BlastQueryCallback();
 
 		IBullet bullet = (IBullet) _ownObject;
 

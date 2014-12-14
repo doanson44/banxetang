@@ -25,6 +25,9 @@ import android.util.Pair;
 
 public class GameItemManager implements IUpdateHandler {
 
+	public static final short CATEGORYBITS_ITEM = MapObjectFactory.CATEGORYBITS_BULLET * 2;
+	public static final short MASKBITS_ITEM = MapObjectFactory.CATEGORYBITS_DEFAULT;
+
 	private static GameItemManager mInstance;
 	public ArrayList<Item> mItems = new ArrayList<Item>();
 	public ArrayList<Item> mItemRemove = new ArrayList<Item>();
@@ -202,12 +205,7 @@ public class GameItemManager implements IUpdateHandler {
 			GameManager.CurrentMap.getEnemyTanks().get(i).KillSelf();
 		}
 		GameManager.CurrentMap.getEnemyTanks().clear();
-			GameManager.CurrentMap.destroyAllEnemyTanks();
-
-
-
-
-
+		GameManager.CurrentMap.destroyAllEnemyTanks();
 
 	}
 
@@ -263,8 +261,7 @@ public class GameItemManager implements IUpdateHandler {
 		GameManager.Activity.runOnUpdateThread(run);
 	}
 
-	public int getTotalPickupItems()
-	{
+	public int getTotalPickupItems() {
 		return mPickupItems.size();
 	}
 
@@ -275,8 +272,8 @@ public class GameItemManager implements IUpdateHandler {
 	public void pickupItem(Item item) {
 		mPickupItems.add(item);
 	}
-	
-	public void resetData(){
+
+	public void resetData() {
 		mPickupItems.clear();
 		mItems.clear();
 	}

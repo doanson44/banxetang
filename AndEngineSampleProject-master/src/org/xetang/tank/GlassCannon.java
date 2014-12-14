@@ -22,7 +22,7 @@ public class GlassCannon extends Tank {
 		this.hp = 1;
 		mBulletType = ObjectType.DRILL_BULLET;
 		//mSprite.setCurrentTileIndex(CurrentSprite);
-		Animte();
+		Animate();
 	}
 
 

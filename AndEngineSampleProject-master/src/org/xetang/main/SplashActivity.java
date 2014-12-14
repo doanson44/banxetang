@@ -1,12 +1,7 @@
 package org.xetang.main;
 
-
-import org.andengine.audio.music.MusicManager;
-import org.andengine.opengl.font.FontManager;
-import org.andengine.opengl.texture.TextureManager;
-import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.nhom7.battlecity.R;
-import org.xetang.manager.GameManager;
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
@@ -17,16 +12,17 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.VideoView;
 
-public class SplashActivity extends GameActivity implements OnCompletionListener {
+public class SplashActivity extends GameActivity implements
+		OnCompletionListener {
 	LoadResouceTask task;
 	Thread thread;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -50,12 +46,12 @@ public class SplashActivity extends GameActivity implements OnCompletionListener
 
 		view.setOnCompletionListener(this);
 		view.start();
-		
+
 		task = new LoadResouceTask();
-		
+
 		thread = new Thread(task);
 		thread.start();
-		
+
 	}
 
 	@Override
@@ -66,31 +62,32 @@ public class SplashActivity extends GameActivity implements OnCompletionListener
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		this.finish();
 		overridePendingTransition(0, 0);
 		Intent i = new Intent(this, RoundActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		startActivity(i);
 	}
-	
-	class LoadResouceTask implements Runnable{
+
+	class LoadResouceTask implements Runnable {
 		boolean mIsCompleted = false;
+
 		@Override
-		public void run() {	
-			GameManager.Context = SplashActivity.this;
-			GameManager.TextureManager = new TextureManager();
-			GameManager.AssetManager = SplashActivity.this.getAssets();
-			GameManager.VertexBufferObject = new VertexBufferObjectManager();
-			GameManager.FontManager = new FontManager();
-			GameManager.MusicManager = new MusicManager();
-			GameManager.loadResource();
-			
+		public void run() {
+			// GameManager.Activity = SplashActivity.this;
+			// GameManager.Context = SplashActivity.this;
+			// GameManager.TextureManager = new TextureManager();
+			// GameManager.AssetManager = SplashActivity.this.getAssets();
+			// GameManager.VertexBufferObject = new VertexBufferObjectManager();
+			// GameManager.FontManager = new FontManager();
+			// GameManager.MusicManager = new MusicManager();
+			// GameManager.loadResource();
+
 			mIsCompleted = true;
 		}
-		
-		public boolean isCompleted(){
+
+		public boolean isCompleted() {
 			return mIsCompleted;
 		}
 	}

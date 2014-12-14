@@ -24,6 +24,8 @@ public interface IBullet extends IMapObject {
 	 */
 	public void setTank(Tank tank);
 
+	public IMapObject getTank();
+
 	public int getDamage();
 
 	public Direction getDirection();
@@ -36,7 +38,7 @@ public interface IBullet extends IMapObject {
 	public void readyToFire(Direction direction);
 
 	/**
-	 * Bắn đạn 
+	 * Bắn đạn
 	 */
 	public void beFired();
 

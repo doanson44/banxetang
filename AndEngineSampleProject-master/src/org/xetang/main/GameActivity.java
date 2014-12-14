@@ -19,7 +19,6 @@ import org.xetang.root.HighScoreScene;
 
 import android.widget.Toast;
 
-
 public class GameActivity extends SimpleBaseGameActivity implements
 		IAccelerationListener {
 
@@ -82,23 +81,17 @@ public class GameActivity extends SimpleBaseGameActivity implements
 		EngineOptions engineOptions = new EngineOptions(true,
 				ScreenOrientation.LANDSCAPE_FIXED, new FillResolutionPolicy(),
 				GameManager.Camera);
-		//**********
+		// **********
 
 		engineOptions.getAudioOptions().setNeedsMusic(true);
 		engineOptions.getAudioOptions().setNeedsSound(true);
 
-		
 		return engineOptions;
 	}
 
 	@Override
 	public void onCreateResources() {
-		
-		/*
-		 * Gán toàn bộ những thuộc tính lên trên làm biến toàn cục Để dễ dàng
-		 * truy cập trong toàn bộ trò chơi
-		 */
-		
+
 		GameManager.Activity = this;
 		GameManager.Engine = this.mEngine;
 		GameManager.TextureManager = this.getTextureManager();
@@ -107,19 +100,13 @@ public class GameActivity extends SimpleBaseGameActivity implements
 		GameManager.VertexBufferObject = this.getVertexBufferObjectManager();
 		GameManager.FontManager = this.getFontManager();
 		GameManager.MusicManager = this.getMusicManager();
-		
-		
-		
+
 		GameManager.loadResource();
-		
-		
-		
-		
 	}
 
 	@Override
 	public void onDestroyResources() throws Exception {
-		GameManager.unloadResource();
+		GameManager.unloadResources();
 		GameManager.onDestroyResources();
 		super.onDestroyResources();
 	}
@@ -154,7 +141,7 @@ public class GameActivity extends SimpleBaseGameActivity implements
 	public void onResumeGame() {
 		super.onResumeGame();
 		this.enableAccelerationSensor(this);
-		
+
 	}
 
 	@Override
@@ -165,10 +152,11 @@ public class GameActivity extends SimpleBaseGameActivity implements
 		this.disableAccelerationSensor();
 		GameManager.saveData();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
-		if ((GameManager.Scene instanceof GameScene) || (GameManager.Scene instanceof HighScoreScene))
+		if ((GameManager.Scene instanceof GameScene)
+				|| (GameManager.Scene instanceof HighScoreScene))
 			GameManager.switchToScene("round", null);
 		else {
 			super.onBackPressed();

@@ -68,20 +68,19 @@ public class MapObjectFactory {
 	public static final float BULLET_FRICTION = 1f;
 
 	public static final int BLAST_ANIMATE = 45;
-	public static final int EXPLOSION_ANIMATE = 70;
+	public static final int EXPLOSION_ANIMATE = 25;
 
-	private static final short CATEGORYBIT_DEFAULT = 1;
-	private static final short CATEGORYBIT_WATER = 2;
-	private static final short CATEGORYBIT_BULLET = 4;
+	public static final short CATEGORYBITS_DEFAULT = 1;
+	public static final short CATEGORYBITS_WATER = 2;
+	public static final short CATEGORYBITS_BULLET = 4;
 
-	private static final short MASKBITS_DEFAULT = CATEGORYBIT_DEFAULT
-			| CATEGORYBIT_WATER | CATEGORYBIT_BULLET;
-	private static final short MASKBITS_WATER = CATEGORYBIT_DEFAULT
-			| CATEGORYBIT_WATER;
-	private static final short MASKBITS_BULLET = CATEGORYBIT_DEFAULT
-			| CATEGORYBIT_BULLET;
+	public static final short MASKBITS_DEFAULT = (short) 0xFFFF;
+	public static final short MASKBITS_WATER = CATEGORYBITS_DEFAULT
+			| CATEGORYBITS_WATER;
+	public static final short MASKBITS_BULLET = CATEGORYBITS_DEFAULT
+			| CATEGORYBITS_BULLET;
 
-	private static final short GROUP_DEFAULT = 0;
+	public static final short GROUP_DEFAULT = 0;
 
 	public static final int Z_INDEX_CONSTRUCTION = 0;
 	public static final int Z_INDEX_WRAPPER = 10;
@@ -208,29 +207,30 @@ public class MapObjectFactory {
 	private static void initObjectsFixture() {
 
 		_fixtureDefMap.put(ObjectType.EAGLE, PhysicsFactory.createFixtureDef(
-				1f, 0f, 0f, false, CATEGORYBIT_DEFAULT, MASKBITS_DEFAULT,
+				1f, 0f, 0f, false, CATEGORYBITS_DEFAULT, MASKBITS_DEFAULT,
 				GROUP_DEFAULT));
 
 		_fixtureDefMap.put(ObjectType.BRICK_WALL, PhysicsFactory
-				.createFixtureDef(1f, 0f, 0f, false, CATEGORYBIT_DEFAULT,
+				.createFixtureDef(1f, 0f, 0f, false, CATEGORYBITS_DEFAULT,
 						MASKBITS_DEFAULT, GROUP_DEFAULT));
 
 		_fixtureDefMap.put(ObjectType.STEEL_WALL, PhysicsFactory
-				.createFixtureDef(1f, 0f, 0f, false, CATEGORYBIT_DEFAULT,
+				.createFixtureDef(1f, 0f, 0f, false, CATEGORYBITS_DEFAULT,
 						MASKBITS_DEFAULT, GROUP_DEFAULT));
 
 		// _bushFixtureDef = PhysicsFactory.createFixtureDef(0f, 0f, 0f, true);
 
 		_fixtureDefMap.put(ObjectType.WATER, PhysicsFactory.createFixtureDef(
-				1f, 0f, 0f, false, CATEGORYBIT_WATER, MASKBITS_WATER,
+				1f, 0f, 0f, false, CATEGORYBITS_WATER, MASKBITS_WATER,
 				GROUP_DEFAULT));
 
-		_fixtureDefMap.put(ObjectType.ICE,
-				PhysicsFactory.createFixtureDef(0f, 0f, 0f, true));
+		_fixtureDefMap.put(ObjectType.ICE, PhysicsFactory
+				.createFixtureDef(1f, 0f, 0f, true, CATEGORYBITS_WATER,
+						MASKBITS_WATER, GROUP_DEFAULT));
 
 		_fixtureDefMap.put(ObjectType.BULLET, PhysicsFactory.createFixtureDef(
 				BULLET_DENSITY, BULLET_ELASTICITY, BULLET_FRICTION, true,
-				CATEGORYBIT_BULLET, MASKBITS_BULLET, GROUP_DEFAULT));
+				CATEGORYBITS_BULLET, MASKBITS_BULLET, GROUP_DEFAULT));
 	}
 
 	private static void createObjectsArray() {

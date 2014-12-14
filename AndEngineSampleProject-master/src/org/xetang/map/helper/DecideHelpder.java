@@ -39,7 +39,7 @@ public class DecideHelpder {
 
 		switch (object.getType()) {
 		case STEEL_WALL:
-			if (bullet.getDamage() != MapObjectFactory.BLOW_BULLET_DAMAGE) {
+			if (bullet.getDamage() < MapObjectFactory.BLOW_BULLET_DAMAGE) {
 				return false;
 			}
 

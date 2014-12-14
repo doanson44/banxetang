@@ -24,7 +24,7 @@ public class Racer extends Tank {
 		this.hp = 1;
 		mBulletType = ObjectType.BULLET;
 		//mSprite.setCurrentTileIndex(CurrentSprite);
-		Animte();
+		Animate();
 		
 	}
 
