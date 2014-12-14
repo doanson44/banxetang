@@ -41,7 +41,7 @@ public class Bullet extends MapObject implements IBullet {
 		_sprite.setRotationCenter(bullet.getSprite().getRotationCenterX(),
 				bullet.getSprite().getRotationCenterY());
 		_sprite.setUserData(this);
-		
+
 		// attachChild(_sprite);
 	}
 
@@ -92,59 +92,55 @@ public class Bullet extends MapObject implements IBullet {
 	@Override
 	public void doContact(IMapObject object) {
 
-		// tank địch bắn trúng tank của ngư�?i chơi
-		if (object != null && object.getType() == ObjectType.PLAYER_TANK
-				&& _tank.getType() == ObjectType.ENEMY_TANK) {
-			Tank tank = (Tank) object;
-			if (tank.getShield() == null) {
-				tank.KillSelf();
-			}
-			
-			//sound 
-			GameManager.getSound("explosion").play();
-		}
+		if (object != null) {
 
-		
-		//tank nguoi choi ban trung tank dich
-		if (object != null && object.getType() == ObjectType.ENEMY_TANK
-				&& _tank.getType() == ObjectType.PLAYER_TANK) {
-			Tank tank = (Tank) object;
-			if (tank.BeFire()) {
-				GameManager.CurrentMapManager.AddTankKill(tank);
-				tank.KillSelf();
-			}
+			// tank địch bắn trúng tank của ngư�?i chơi
+			if (object.getType() == ObjectType.PLAYER_TANK
+					&& _tank.getType() == ObjectType.ENEMY_TANK) {
+				Tank tank = (Tank) object;
+				if (tank.getShield() == null) {
+					tank.KillSelf();
+				}
 
-			//sound
-			if ( tank.getHP() > 0)
-				GameManager.getSound("steel").play();
-			else
+				// sound
 				GameManager.getSound("explosion").play();
-		}
-		
-		if (object != null && _tank.getType() == ObjectType.PLAYER_TANK && object.getType() == ObjectType.BRICK_WALL)
-			GameManager.getSound("brick").play();
-		
-		if (object != null && _tank.getType() == ObjectType.PLAYER_TANK && object.getType() == ObjectType.STEEL_WALL)
-			GameManager.getSound("steel").play();
-		
-		if (object != null && object.getType() == ObjectType.EAGLE)
-			GameManager.getSound("explosion").play();
-		
-		
+			}
 
-		/** tăng độ kho của game
-		if (object == _tank
-				|| (object != null && object.getObjectFixtureDef().isSensor)) {
-			return;
+			// tank nguoi choi ban trung tank dich
+			if (object.getType() == ObjectType.ENEMY_TANK
+					&& _tank.getType() == ObjectType.PLAYER_TANK) {
+				Tank tank = (Tank) object;
+				if (tank.BeFire()) {
+					GameManager.CurrentMapManager.AddTankKill(tank);
+					tank.KillSelf();
+				}
+
+				// sound
+				if (tank.getHP() > 0)
+					GameManager.getSound("steel").play();
+				else
+					GameManager.getSound("explosion").play();
+			}
+
+			// if (_tank.getType() == ObjectType.PLAYER_TANK
+			// && object.getType() == ObjectType.BRICK_WALL)
+			// GameManager.getSound("brick").play();
+
+			// if (_tank.getType() == ObjectType.PLAYER_TANK
+			// && object.getType() == ObjectType.STEEL_WALL)
+			// GameManager.getSound("steel").play();
+
+			/**
+			 * tăng độ kho của game if (object == _tank || (object != null &&
+			 * object.getObjectFixtureDef().isSensor)) { return; }
+			 */
+
+			if (object == _tank
+					|| (object.getType() == ObjectType.ENEMY_TANK && _tank
+							.getType() == ObjectType.ENEMY_TANK)) {
+				return;
+			}
 		}
-		*/ 
-		if (object == _tank || 
-				(object != null && object.getType() == ObjectType.ENEMY_TANK && _tank.getType() == ObjectType.ENEMY_TANK)) {
-			return;
-		}
-		
-		if (object != null && object.getType() == ObjectType.TANK_ITEM)
-			return;
 
 		doBlast(object);
 		_sprite.setVisible(false);
@@ -180,7 +176,7 @@ public class Bullet extends MapObject implements IBullet {
 		_tank = tank;
 	}
 
-	public IMapObject GetTank() {
+	public IMapObject getTank() {
 		return _tank;
 	}
 

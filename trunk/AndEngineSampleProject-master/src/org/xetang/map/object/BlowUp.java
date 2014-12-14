@@ -13,7 +13,7 @@ public abstract class BlowUp extends MapObject implements IBlowUp {
 
 	protected IMapObject _ownObject;
 	protected IMapObject _targetObject;
-	protected BlastQueryCallback _inRangeBodies;
+	protected BlastQueryCallback _inRangeBodies = new BlastQueryCallback();;
 
 	public BlowUp(BlowUp blowUp) {
 		super(blowUp);
@@ -24,7 +24,7 @@ public abstract class BlowUp extends MapObject implements IBlowUp {
 		_sprite.setSize(blowUp.getSprite().getWidth(), blowUp.getSprite()
 				.getHeight());
 		_sprite.setUserData(this);
-		
+
 		// attachChild(_sprite);
 	}
 

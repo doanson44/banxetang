@@ -10,6 +10,8 @@ import org.xetang.map.item.EnermyIcon;
 import org.xetang.map.object.MapObjectFactory;
 import org.xetang.root.GameEntity;
 
+import android.graphics.Color;
+
 public class Frame extends GameEntity {
 
 	public static final float FRAME_X = GameManager.MAP_SIZE
@@ -19,6 +21,9 @@ public class Frame extends GameEntity {
 	public static final String STAGE_TEXT = "STAGE ";
 	public static final String PLAYER_1_TEXT = "P1: ";
 	public static final String PLAYER_2_TEXT = "P2: ";
+
+	protected static final Font _font = GameManager.getFont("font2",
+			GameManager.LARGE_CELL_SIZE, Color.WHITE);
 
 	protected Stack<EnermyIcon> _enemies = new Stack<EnermyIcon>();
 	protected int _enemyLeft;
@@ -40,14 +45,13 @@ public class Frame extends GameEntity {
 
 	private void createStageName() {
 
-		Font font = GameManager.getFont("fontInMap");
 		String stageName = STAGE_TEXT
 				+ String.format("%2d", GameManager.getCurrentStage());
-		float textLength = FontUtils.measureText(font, stageName);
+		float textLength = FontUtils.measureText(_font, stageName);
 
 		Text stageNameText = new Text(
 				-(textLength + GameManager.SMALL_CELL_SIZE),
-				GameManager.SMALL_CELL_SIZE, font, stageName,
+				GameManager.SMALL_CELL_SIZE, _font, stageName,
 				GameManager.VertexBufferObject);
 
 		this.attachChild(stageNameText);
@@ -80,13 +84,12 @@ public class Frame extends GameEntity {
 
 	private void createPlayerInfo(int player1Life, int player2Life) {
 
-		Font font = GameManager.getFont("fontInMap");
 		String lifeText = PLAYER_1_TEXT + String.format("%2d", player1Life);
-		float textLength = FontUtils.measureText(font, lifeText);
+		float textLength = FontUtils.measureText(_font, lifeText);
 
 		_player1Text = new Text(-(textLength + GameManager.SMALL_CELL_SIZE),
 				GameManager.LARGE_CELL_SIZE + GameManager.SMALL_CELL_SIZE,
-				font, lifeText, GameManager.VertexBufferObject);
+				_font, lifeText, GameManager.VertexBufferObject);
 		this.attachChild(_player1Text);
 
 		if (player2Life < 0) {
@@ -94,10 +97,10 @@ public class Frame extends GameEntity {
 		}
 
 		lifeText = PLAYER_2_TEXT + String.format("%2d", player2Life);
-		textLength = FontUtils.measureText(font, lifeText);
+		textLength = FontUtils.measureText(_font, lifeText);
 
 		_player2Text = new Text(-(textLength + GameManager.SMALL_CELL_SIZE),
-				GameManager.LARGE_CELL_SIZE * 3, font, lifeText,
+				GameManager.LARGE_CELL_SIZE * 3, _font, lifeText,
 				GameManager.VertexBufferObject);
 		this.attachChild(_player2Text);
 	}

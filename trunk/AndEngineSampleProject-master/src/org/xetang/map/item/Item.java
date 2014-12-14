@@ -6,14 +6,13 @@ import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
-import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.debug.Debug;
 import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
-import org.xetang.map.Map;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.object.IMapObject;
 import org.xetang.map.object.MapObject;
+import org.xetang.map.object.MapObjectFactory;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.root.GameEntity;
 import org.xetang.tank.Tank;
@@ -71,7 +70,10 @@ public class Item extends GameEntity implements IMapObject {
 	}
 
 	protected void CreateBody() {
-		_fixtureDef = PhysicsFactory.createFixtureDef(0, 0, 0, true);
+		_fixtureDef = PhysicsFactory.createFixtureDef(0, 0, 0, true,
+				GameItemManager.CATEGORYBITS_ITEM,
+				GameItemManager.MASKBITS_ITEM, MapObjectFactory.GROUP_DEFAULT);
+		;
 		_body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, _sprite,
 				BodyType.StaticBody, _fixtureDef);
 		_body.setUserData(this);
@@ -100,9 +102,7 @@ public class Item extends GameEntity implements IMapObject {
 		}
 
 		if (_TimeSurvive > _ToatalTimeSurvive && _mOwner == null) {
-			// DestroyHelper.add(this);
 			DestroyHelper.add(this);
-
 		}
 		if (_TimeAffect > _TotalTimeAffect) {
 			DestroyAffect();
@@ -231,7 +231,7 @@ public class Item extends GameEntity implements IMapObject {
 				GameItemManager.getInstance().pickupItem(this);
 
 				_sprite.detachSelf();
-				GameManager.getMusic("bonus").play();
+				// GameManager.getMusic("bonus").play();
 				DestroyHelper.add(this);
 				GameManager.getSound("bonus").play();
 			}

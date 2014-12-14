@@ -1,5 +1,7 @@
 package org.xetang.map.object;
 
+import org.andengine.util.debug.Debug;
+import org.xetang.manager.GameManager;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 
 public class SteelWall extends Wall {
@@ -21,16 +23,16 @@ public class SteelWall extends Wall {
 
 	@Override
 	public void doContact(IMapObject object) {
-		// try {
-		// if (object.getType() == ObjectType.Bullet
-		// && DecideHelpder.canDestroy(this, (IBullet) object)) {
-		// _sprite.setVisible(false);
-		// _body.getFixtureList().get(0).setSensor(true);
-		// // DestroyHelper.add(this);
-		// }
-		// } catch (Exception e) {
-		// Debug.d("Collsion", "Nothing to contact!");
-		// }
+		try {
+			if (object.getType() == ObjectType.BULLET) {
+
+				if (((IBullet) object).getTank().getType() == ObjectType.PLAYER_TANK
+						&& object.getType() == ObjectType.STEEL_WALL)
+					GameManager.getSound("steel").play();
+			}
+		} catch (Exception e) {
+			Debug.d("Collsion", "Nothing to contact!");
+		}
 	}
 
 	@Override

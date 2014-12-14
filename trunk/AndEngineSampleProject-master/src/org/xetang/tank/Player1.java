@@ -11,6 +11,7 @@ public class Player1 extends Tank {
 		this(px, py, (TiledTextureRegion) MapObjectFactory2
 				.getTexture("PlayerTank"));
 		CurrentSprite = 0;
+		Animate();
 	}
 
 	public Player1(float px, float py, TiledTextureRegion region) {

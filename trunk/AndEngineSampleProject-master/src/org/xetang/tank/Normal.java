@@ -21,7 +21,7 @@ public class Normal extends Tank {
 		this.hp = 1;
 		mBulletType = ObjectType.SLOW_BULLET;
 		//mSprite.setCurrentTileIndex(CurrentSprite);
-		Animte();
+		Animate();
 	}
 
 

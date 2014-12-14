@@ -1,6 +1,5 @@
 package org.xetang.root;
 
-
 import org.andengine.audio.music.Music;
 import org.andengine.audio.sound.Sound;
 import org.andengine.entity.scene.IOnSceneTouchListener;
@@ -31,40 +30,39 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	Console _console;
 	Handler handler = new Handler(Looper.getMainLooper());;
 	Text gameOrver;
-	boolean mIsWin; //Thắng hay thua 
-	
+	boolean mIsWin; // Thắng hay thua
+
 	boolean mIsBackgroundPlaying = true;
 	Music mStartGameMusic;
 	Sound mBackgroundSound;
-	
+
 	public GameScene() {
-		
-		
+
 		/* choi nhac */
 		mBackgroundSound = GameManager.getSound("background");
 		mBackgroundSound.setLooping(true);
 		mStartGameMusic = GameManager.getMusic("gamestart");
-		mStartGameMusic.setOnCompletionListener(new OnCompletionListener() {			
+		mStartGameMusic.setOnCompletionListener(new OnCompletionListener() {
 			@Override
 			public void onCompletion(MediaPlayer mp) {
-				if (!mBackgroundSound.isReleased() && mBackgroundSound.isLoaded())
+				if (!mBackgroundSound.isReleased()
+						&& mBackgroundSound.isLoaded())
 					mBackgroundSound.play();
 			}
 		});
 
 	}
-	
-	public void loadScene()
-	{
+
+	public void loadScene() {
 		initScene();
-		bFinish =  false;
-		
+		bFinish = false;
+
 		mStartGameMusic.play();
-		
+
 		int iCurrentStage = GameManager.getCurrentStage();
 		_console = new Console(null);
 		_mapManager = new GameMapManager(this, iCurrentStage);
-		
+
 		registerUpdateHandler(_mapManager);
 		registerUpdateHandler(GameItemManager.getInstance());
 	}
@@ -89,15 +87,17 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	}
 
 	boolean bFinish = false;
+
 	/*
 	 * ĂN ĐI KU Xử lý thông báo thắng cho người chơi
 	 */
 	public void onWin() {
-		if (bFinish) return;
+		if (bFinish)
+			return;
 		bFinish = true;
 		mIsWin = true;
 		handler.postDelayed(new SwitchingHighScoreScene(), 2000);
-		//sound
+		// sound
 		mBackgroundSound.stop();
 	}
 
@@ -105,14 +105,15 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	 * ĂN ĐI KU Xử lý thông báo thua cho người chơi
 	 */
 	public void onLose() {
-		if (bFinish) return;
+		if (bFinish)
+			return;
 		bFinish = true;
 		mIsWin = false;
-		//sound
+		// sound
 		GameManager.getMusic("gameover").play();
 
 		_console.turnOffHandle();
-		
+
 		showNotification();
 		handler.postDelayed(new SwitchingHighScoreScene(), 5000);
 
@@ -121,11 +122,17 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	private void showNotification() {
 		Font f = GameManager.getFont("font2", 48f, Color.RED_ARGB_PACKED_INT);
 		f.load();
-		gameOrver = new Text(0, 0, f, "Game Over", GameManager.VertexBufferObject) ;
-		gameOrver.setPosition(GameManager.CAMERA_HEIGHT/2 - gameOrver.getWidth()/2 - GameManager.CAMERA_X, GameManager.CAMERA_HEIGHT - gameOrver.getHeight());
-		//Body body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, t, BodyType.KinematicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
-		//GameManager.PhysicsWorld.registerPhysicsConnector(new PhysicsConnector(t, body, true, false));
-		//body.setLinearVelocity(new Vector2(0,-2));
+		gameOrver = new Text(0, 0, f, "Game Over",
+				GameManager.VertexBufferObject);
+		gameOrver.setPosition(
+				GameManager.CAMERA_HEIGHT / 2 - gameOrver.getWidth() / 2
+						- GameManager.CAMERA_X, GameManager.CAMERA_HEIGHT
+						- gameOrver.getHeight());
+		// Body body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, t,
+		// BodyType.KinematicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
+		// GameManager.PhysicsWorld.registerPhysicsConnector(new
+		// PhysicsConnector(t, body, true, false));
+		// body.setLinearVelocity(new Vector2(0,-2));
 		GameManager.Camera.getHUD().attachChild(gameOrver);
 		gameOrver.setZIndex(50);
 	}
@@ -142,22 +149,20 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	}
 
 	public void onSwitched(String action) {
-		if (action == GameManager.ACTION_SCENE_OPEN){
+		if (action == GameManager.ACTION_SCENE_OPEN) {
 			loadScene();
-		}
-		else
-		{
+		} else {
 			cleanScene();
 		}
 
 	}
-	
+
 	private void cleanScene() {
 		if (_mapManager != null)
 			_mapManager.clearMapData();
 		clearUpdateHandlers();
-		
-		if (mStartGameMusic.isPlaying()){
+
+		if (mStartGameMusic.isPlaying()) {
 			mStartGameMusic.pause();
 			mStartGameMusic.seekTo(0);
 		}
@@ -166,17 +171,17 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	}
 
 	int count2;
+
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
 		super.onManagedUpdate(pSecondsElapsed);
 
-				
 		if (gameOrver != null)
 			gameOrver.setY(gameOrver.getY() - 2);
-		
+
 	}
-	
-	class SwitchingHighScoreScene implements Runnable{
+
+	class SwitchingHighScoreScene implements Runnable {
 		@Override
 		public void run() {
 			handler.sendEmptyMessage(1);
@@ -185,16 +190,12 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 			mStartGameMusic.pause();
 			mStartGameMusic.seekTo(0);
 		}
-		
+
 	}
 
 	public void setController(Tank t) {
 		_console.setOnController(t);
-		
+
 	}
 
-
-	
-	
-	
 }

@@ -35,9 +35,10 @@ public class Eagle extends MapObject {
 	public void doContact(IMapObject object) {
 		try {
 			if (object.getType() == ObjectType.BULLET) {
-				TiledSprite x = (TiledSprite) _sprite;
-				x.setCurrentTileIndex(1);
+
+				_sprite.setCurrentTileIndex(1);
 				GameManager.CurrentMap.notifyEagleDie();
+				GameManager.getSound("explosion").play();
 			}
 		} catch (Exception e) {
 			Debug.d("Collsion", "Nothing to contact!");
