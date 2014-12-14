@@ -229,7 +229,7 @@ public class MapObjectFactory {
 				PhysicsFactory.createFixtureDef(0f, 0f, 0f, true));
 
 		_fixtureDefMap.put(ObjectType.BULLET, PhysicsFactory.createFixtureDef(
-				BULLET_DENSITY, BULLET_ELASTICITY, BULLET_FRICTION, false,
+				BULLET_DENSITY, BULLET_ELASTICITY, BULLET_FRICTION, true,
 				CATEGORYBIT_BULLET, MASKBITS_BULLET, GROUP_DEFAULT));
 	}
 

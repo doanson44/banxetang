@@ -242,9 +242,7 @@ public abstract class Tank extends GameEntity implements IGameController,
 					DestroyShield();
 				}
 			}
-
 		}
-
 	}
 
 	@Override
@@ -256,19 +254,18 @@ public abstract class Tank extends GameEntity implements IGameController,
 		switch (mDirection) {
 		case UP:
 			bPosX = x.x + (mSprite.getWidth() - bulletSize.x) / 2f;
-			bPosY = x.y - bulletSize.y - 1;
+			bPosY = x.y;
 			break;
 		case DOWN:
 			bPosX = x.x + (mSprite.getWidth() - bulletSize.x) / 2f;
-			bPosY = x.y + mSprite.getHeight();
+			bPosY = x.y + mSprite.getHeight() - bulletSize.y;
 			break;
 		case LEFT:
-			bPosX = x.x - (bulletSize.y + bulletSize.x) / 2f;
+			bPosX = x.x;
 			bPosY = x.y + (mSprite.getWidth() - bulletSize.y) / 2f;
 			break;
 		case RIGHT:
-			bPosX = x.x + mSprite.getHeight() + (bulletSize.y - bulletSize.x)
-					/ 2f;
+			bPosX = x.x + mSprite.getHeight() - bulletSize.y;
 			bPosY = x.y + (mSprite.getWidth() - bulletSize.y) / 2f;
 			break;
 		default:
