@@ -12,9 +12,8 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.batch.SpriteGroup;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.util.debug.Debug;
-import org.xetang.controller.Bot;
-import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
+import org.xetang.manager.TankManager;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.model.MapObjectBlockDTO;
 import org.xetang.map.model.StageDTO;
@@ -25,7 +24,6 @@ import org.xetang.map.object.MapObjectFactory;
 import org.xetang.map.object.MapObjectFactory.ObjectLayer;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.root.GameEntity;
-import org.xetang.tank.Flicker;
 import org.xetang.tank.Tank;
 
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -40,11 +38,10 @@ public class Map extends GameEntity implements IUpdateHandler {
 	List<Tank> mEnemyTanks = new ArrayList<Tank>();
 	List<Tank> mPlayerTanks = new ArrayList<Tank>();
 	int mICurrentStage; // Chỉ số của màn chơi
+	boolean mIsEagleAlive = true;
+	
+	java.util.Map<ObjectLayer, IEntity> _layerMap = new HashMap<ObjectLayer, IEntity>();
 
-	java.util.Map<ObjectLayer, IEntity> _layerMap = new HashMap<ObjectLayer, IEntity>(
-			10);
-
-	RightMenu _RightMenu;
 
 	public Map(int iCurrentStage, StageDTO stage) {
 		mICurrentStage = iCurrentStage;
@@ -178,12 +175,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 		attachChild(right);
 	}
 
-	public void InitRightMenu(int TotalEnemytank) {
-		_RightMenu = new RightMenu(GameManager.MAP_SIZE + 20, 20, this, 10);
 
-		attachChild(_RightMenu);
-		// _RightMenu.RemoveLastItem();
-	}
 
 	private void createListeners() {
 
@@ -240,6 +232,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 		};
 
 		GameManager.PhysicsWorld.setContactListener(contactListener);
+		
 	}
 
 	public void Update(float pSecondsElapsed) {
@@ -249,13 +242,13 @@ public class Map extends GameEntity implements IUpdateHandler {
 	private void UpdateTank(float pSecondsElapsed) {
 		for (int i = 0; i < mPlayerTanks.size(); i++) {
 			if (!mPlayerTanks.get(i).isAlive()) {
-				mPlayerTanks.remove(i);
+				removePlayerTank(i);
 			} else
 				mPlayerTanks.get(i).Update(pSecondsElapsed);
 		}
 		for (int i = 0; i < mEnemyTanks.size(); i++) {
 			if (!mEnemyTanks.get(i).isAlive())
-				mEnemyTanks.remove(i);
+				removeEnemyTank(i);
 			else
 				mEnemyTanks.get(i).Update(pSecondsElapsed);
 		}
@@ -283,50 +276,30 @@ public class Map extends GameEntity implements IUpdateHandler {
 		return mPlayerTanks;
 	}
 
-	public void RemoveEnemyTank(Tank tank) {
-		mEnemyTanks.remove(tank);
+	private void removeEnemyTank(int i) {
+		TankManager.addDefeatedTank(mEnemyTanks.get(i));
+		mEnemyTanks.remove(i);
 	}
 
-	public void RemovePlayerTank(Tank tank) {
-		// TODO Auto-generated method stub
-		mPlayerTanks.remove(tank);
+	private void removePlayerTank(int i) {
+		mPlayerTanks.remove(i);
 	}
 
 	public void addPlayerTank(Tank playerTank) {
 		mPlayerTanks.add(playerTank);
-
+		
+		addObject(playerTank.getAppearingSprite(), ObjectLayer.MOVING);
 		addObject(playerTank, ObjectLayer.MOVING);
-		// this.attachChild(playerTank);
 
 	}
 
 	public void addEnemyTank(Tank enemyTank) {
-		AddTank(enemyTank);
-		// mEnemyTanks.add(enemyTank);
+		mEnemyTanks.add(enemyTank);
+
+		addObject(enemyTank.getAppearingSprite(), ObjectLayer.MOVING);
+		addObject(enemyTank, ObjectLayer.MOVING);
 	}
 
-	public void AddTank(Tank tank) {
-		CreateFlicker(tank);
-	}
-
-	public void CreateFlicker(Tank tank) {
-		Flicker f = new Flicker(tank.getX(), tank.getY());
-		f.Animate();
-		f.SetTank(tank);
-		GameManager.Scene.registerUpdateHandler(f);
-
-		addObject(f.GetSprite(), ObjectLayer.MOVING);
-		// this.attachChild(f.GetSprite());
-	}
-
-	public void AddEnemyTankToList(Tank tank) {
-		mEnemyTanks.add(tank);
-
-		addObject(tank, ObjectLayer.MOVING);
-		// this.attachChild(tank);
-
-		GameManager.CurrentMapManager.AddBot(new Bot(tank));
-	}
 
 	public int getTotalPlayerTanks() {
 		return mPlayerTanks.size();
@@ -337,7 +310,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 		 * Kiểm tra Đại bàng còn sống không ?
 		 */
 
-		return true; // dummy
+		return mIsEagleAlive;
 	}
 
 	public void addObject(IMapObject object, ObjectLayer layer) {
@@ -346,5 +319,18 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 	public void addObject(Sprite sprite, ObjectLayer layer) {
 		_layerMap.get(layer).attachChild(sprite);
+	}
+
+	public void notifyEagleDie() {
+		mIsEagleAlive = false;
+	}
+
+	public void destroyAllEnemyTanks() {
+		for (int i = 0; i < mEnemyTanks.size(); i++) {
+			mEnemyTanks.get(i).KillSelf();
+			TankManager.addDefeatedTank(mEnemyTanks.get(i));
+		}
+		
+		mEnemyTanks.clear();
 	}
 }

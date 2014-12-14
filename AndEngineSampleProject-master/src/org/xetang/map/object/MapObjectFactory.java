@@ -36,8 +36,8 @@ public class MapObjectFactory {
 		BIG_MOM, GLASS_CANNON, NORMAL, RACER
 	}
 
-	public static final int MAX_OBJECT_COUNT = (GameManager.MAP_GRID * 4)
-			* (GameManager.MAP_GRID * 4);
+	public static final int MAX_OBJECT_COUNT = (GameManager.MAP_GRID * 10)
+			* (GameManager.MAP_GRID * 10);
 
 	public static final int MAX_RESOURCE_BITMAP_WIDTH = 640;
 	public static final int MAX_RESOURCE_BITMAP_HEIGHT = 576;

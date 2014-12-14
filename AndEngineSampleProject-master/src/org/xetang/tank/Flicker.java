@@ -13,81 +13,92 @@ public class Flicker implements IUpdateHandler, IAnimationListener {
 	protected float SecPerFrame = 0;
 	protected Tank mTank;
 	protected int StopAnimate = 0;
-
+	
 	public Flicker(float px, float py) {
 		mSprite = new AnimatedSprite(px + 3, py + 3,
 				(ITiledTextureRegion) MapObjectFactory2.getTexture("Flicker"),
 				GameManager.VertexBufferObject);
-		mSprite.setSize(GameManager.LARGE_CELL_SIZE - 10,
-				GameManager.LARGE_CELL_SIZE - 10);
+		mSprite.setSize(GameManager.LARGE_CELL_SIZE - 10,GameManager.LARGE_CELL_SIZE - 10);
+		mSprite.setVisible(false);
 	}
-
-	public void Animate() {
-		mSprite.animate(new long[] { 150, 150, 150, 150 }, 0, 3, true, this);
-
+	
+	
+	public void Animate(){
+		mSprite.animate(new long[]{150,150,150,150}, 0, 3, 3, this);
+	
 	}
-
-	public void SetTank(Tank tank) {
+	
+	public void SetTank (Tank tank){
 		mTank = tank;
 	}
-
-	public AnimatedSprite GetSprite() {
+	public AnimatedSprite GetSprite(){
 		return mSprite;
 	}
 
-	public boolean IsStopAnimation() {
+	public boolean IsStopAnimation(){
 		return !mSprite.isAnimationRunning();
 	}
 
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
-		// TODO Auto-generated method stub
 		SecPerFrame += pSecondsElapsed;
-		if (SecPerFrame > 1) {
+		if(SecPerFrame > 1){
 			SecPerFrame = 0;
 			StopAnimate++;
-			if (StopAnimate == 2) {
+			if(StopAnimate == 2){
 				mSprite.stopAnimation();
-				mSprite.detachSelf();
+				mSprite.setVisible(false);
+				mTank.setAppearingDone();
 			}
 		}
 
 	}
 
+
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-
+		
 	}
+
 
 	@Override
 	public void onAnimationStarted(AnimatedSprite pAnimatedSprite,
 			int pInitialLoopCount) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
+
 	@Override
-	public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite,
+	public void onAnimationFrameChanged(final AnimatedSprite pAnimatedSprite,
 			int pOldFrameIndex, int pNewFrameIndex) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
+
 	@Override
-	public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
+	public void onAnimationLoopFinished(final AnimatedSprite pAnimatedSprite,
 			int pRemainingLoopCount, int pInitialLoopCount) {
-		// TODO Auto-generated method stub
-		if (mTank != null && StopAnimate == 1) {
-			GameManager.CurrentMap.AddEnemyTankToList(mTank);
-			mTank = null;
-		}
+		
 	}
+
 
 	@Override
-	public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-		// TODO Auto-generated method stub
-
+	public void onAnimationFinished(final AnimatedSprite pAnimatedSprite) {
+		mTank.setAppearingDone();
+		
+		GameManager.Engine.runOnUpdateThread(new Runnable() {	
+			@Override
+			public void run() {
+				pAnimatedSprite.detachSelf();				
+			}
+		});
+		
 	}
 
+
+	public void setAppearing() {
+		mSprite.setVisible(true);
+	}
+	
+	
 }

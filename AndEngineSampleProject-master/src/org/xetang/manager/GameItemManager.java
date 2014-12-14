@@ -28,6 +28,7 @@ public class GameItemManager implements IUpdateHandler {
 	private static GameItemManager mInstance;
 	public ArrayList<Item> mItems = new ArrayList<Item>();
 	public ArrayList<Item> mItemRemove = new ArrayList<Item>();
+	private ArrayList<Item> mPickupItems = new ArrayList<Item>();
 
 	private GameItemManager() {
 
@@ -92,9 +93,10 @@ public class GameItemManager implements IUpdateHandler {
 				item.update(pSecondsElapsed);
 			else {
 				mItemRemove.add(item);
+				mPickupItems.add(item);
 			}
 		}
-		for (Item item : mItemRemove) {
+		for (Item item : mPickupItems) {
 			mItems.remove(item);
 		}
 		mItemRemove.clear();
@@ -197,11 +199,16 @@ public class GameItemManager implements IUpdateHandler {
 	public void DestroyAllEnermy() {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < GameManager.CurrentMap.getEnemyTanks().size(); i++) {
-			if (GameManager.CurrentMap.getEnemyTanks().get(i).GetTankBonus())
-				GameItemManager.getInstance().CreateRandomItem();
 			GameManager.CurrentMap.getEnemyTanks().get(i).KillSelf();
 		}
 		GameManager.CurrentMap.getEnemyTanks().clear();
+			GameManager.CurrentMap.destroyAllEnemyTanks();
+
+
+
+
+
+
 	}
 
 	public void FreezeTime() {
@@ -249,9 +256,28 @@ public class GameItemManager implements IUpdateHandler {
 				// TODO Auto-generated method stub
 				GameManager.CurrentMap.addObject(CreateItem(GetRandomType()),
 						ObjectLayer.WRAPPER);
+				// GameManager.CurrentMap.attachChild(
+				// CreateItem(GetRandomType()));
 			}
 		};
 		GameManager.Activity.runOnUpdateThread(run);
 	}
 
+	public int getTotalPickupItems()
+	{
+		return mPickupItems.size();
+	}
+
+	public Object getPickUpItem(String player) {
+		return mPickupItems;
+	}
+
+	public void pickupItem(Item item) {
+		mPickupItems.add(item);
+	}
+	
+	public void resetData(){
+		mPickupItems.clear();
+		mItems.clear();
+	}
 }

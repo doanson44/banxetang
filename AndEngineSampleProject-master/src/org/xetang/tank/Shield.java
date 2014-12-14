@@ -27,14 +27,19 @@ public class Shield extends GameEntity {
 	}
 
 	public void KillSelf() {
-		_shield.detachSelf();
 		_isAlive = false;
-
-		dispose();
+		GameManager.Context.runOnUpdateThread(new Runnable() {
+			@Override
+			public void run() {
+				_shield.setVisible(false);
+				_shield.detachSelf();
+				_shield.dispose();
+			}
+		});
+		
 	}
 
 	public boolean IsAlive() {
-		// TODO Auto-generated method stub
 		return _isAlive;
 	}
 

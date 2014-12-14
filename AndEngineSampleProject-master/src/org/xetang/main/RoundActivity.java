@@ -45,7 +45,7 @@ public class RoundActivity extends Activity implements OnClickListener {
 
 	final String DEFAUILT_IMAGE = "default.jpg";
 
-	final int NUM_COLUMN = 3;
+	final int NUM_COLUMN = 1;
 	final int NUM_ROW = 1;
 
 	int titleHeight;
@@ -117,8 +117,8 @@ public class RoundActivity extends Activity implements OnClickListener {
 		getWindowManager().getDefaultDisplay().getMetrics(display);
 
 		this.titleHeight = display.heightPixels / 100 * 20;
-		this.paddingWidth = display.widthPixels / 100 * 10;
-		this.paddingHeight = display.heightPixels / 100 * 30;
+		this.paddingWidth = display.widthPixels / 100 * 30;
+		this.paddingHeight = display.heightPixels / 100 * 10;
 		this.frameWidth = (display.widthPixels - (NUM_COLUMN + 1)
 				* this.paddingWidth)
 				/ NUM_COLUMN;
@@ -192,9 +192,9 @@ public class RoundActivity extends Activity implements OnClickListener {
 				if (!name.contains("default")) {
 					int idx = Integer.parseInt(getNamePart(name));
 					rounds.add(new Round(
-							GameManager.mReachedStage >= idx ? "gfx/round/"
+							GameManager.getReachedStage() >= idx ? "gfx/round/"
 									+ name : "gfx/round/" + DEFAUILT_IMAGE,
-							idx, GameManager.mReachedStage >= idx));
+							idx, GameManager.getReachedStage() >= idx));
 				}
 			}
 
@@ -215,7 +215,7 @@ public class RoundActivity extends Activity implements OnClickListener {
 	public void onClick(View view) {
 		if (view.getTag() instanceof Round) {
 			Round round = (Round) view.getTag();
-			if (round.Index > GameManager.mReachedStage)
+			if (round.Index > GameManager.getReachedStage())
 				return;
 			Intent i = new Intent(this, GameActivity.class);
 

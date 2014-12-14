@@ -1,11 +1,8 @@
 package org.xetang.controller;
 
-import java.util.List;
 import java.util.Random;
 
 import org.xetang.manager.GameManager.Direction;
-import org.xetang.manager.GameMapManager;
-import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.tank.Tank;
 
@@ -18,15 +15,17 @@ public class Bot extends Controller {
 	protected float FortressPY = 12;
 	protected Direction mDirection;
 	protected ObjectType Collide;
-	private float _SecPerFrame = 0;
-	private float _TimeToFire = 0;
-	private float _TimeToTurn = 0;
-	private float _TotalTime = 0;
-	private float _TotalTimeToTurn = 5;
+
+	Random rd;
 	
+	long preTime = 0;
+	Vector2 prePos = new Vector2();
+	Vector2 curPos;
 	public Bot(Tank tank) {
 		mTank = tank;
+		tank.setController(this);
 		mDirection = Direction.DOWN;
+		rd = new Random(System.currentTimeMillis());
 	}
 
 	/*
@@ -38,57 +37,22 @@ public class Bot extends Controller {
 	 * "GameManager.CurrentMapManager" để thực hiện
 	 */
 	public void Update(float pSecondsElapsed) {
-		MoveToFortress(pSecondsElapsed);
-		CountTimeToFire(pSecondsElapsed);
-	}
-
-	private void MoveToFortress(float pSecondsElapsed) {
-		Vector2 CurrentCell = CalcHelper.CellInMap13(mTank.getSprite());
-		float distinctX = FortressPX - CurrentCell.x;
-		float distinctY = FortressPY - CurrentCell.y;
-
-		List<Tank> playerTanks = GameMapManager._map.getPlayerTanks();
-		if (mTank.GetCollide() == null) {
-			if (distinctY > 0)
-				mDirection = Direction.DOWN;
-			else if (distinctX > 0)
-				mDirection = Direction.RIGHT;
-			else if (distinctX < 0)
-				mDirection = Direction.LEFT;
-
-			if (distinctX == 0) {
-				if ((new Random()).nextInt() % 2 == 0)
-					mDirection = Direction.LEFT;
-				else
-					mDirection = Direction.RIGHT;
-			}
-
-			if (_TimeToFire % 4 == 0)
-				mTank.onFire();
-
-			if (CurrentCell.x == FortressPX || CurrentCell.y == FortressPY) {
-				SetDirectionToFire(CurrentCell, new Vector2(FortressPX,
-						FortressPY));
-			}
-
-			for (int i = 0; i < playerTanks.size(); i++) {
-				Vector2 playerPoint = CalcHelper.CellInMap13(playerTanks.get(i)
-						.getSprite());
-				SetDirectionToFire(CurrentCell, playerPoint);
-			}
-
-		} else {
-			_SecPerFrame += pSecondsElapsed;
-			if(_TimeToTurn > _TotalTimeToTurn ){
-				TurnAround();
-				_TimeToTurn = 0;
-			}
-			if(_TotalTime > 15){
-				_TotalTimeToTurn = 3;
-			}
+		randomFire();
+		curPos = new Vector2(mTank.getX(), mTank.getY());
+		//Debug.d(GameManager.TANK_TAG, String.valueOf(curPos.dst(prePos)));
+		if (System.currentTimeMillis() - preTime > 1000 && curPos.dst(prePos) < 0.05f){
+			preTime = System.currentTimeMillis();
+			TurnAround();
 		}
+		prePos = curPos;
 		Move();
 	}
+
+	private void randomFire() {
+		if (rd.nextFloat() < 0.005f)
+			mTank.onFire();
+	}
+
 
 	private void Move() {
 		switch (mDirection) {
@@ -105,44 +69,21 @@ public class Bot extends Controller {
 			mTank.onRight();
 			break;
 		default:
+			TurnAround();
 			break;
 		}
 
 	}
 
-	private void TurnAround() {
-		Random rd = new Random();
-		int random = rd.nextInt() % 4;
-		if (random == 0)
-			mDirection = Direction.DOWN;
-		if (random == 1)
-			mDirection = Direction.UP;
-		if (random == 2)
-			mDirection = Direction.LEFT;
-		if (random == 3)
-			mDirection = Direction.RIGHT;
+	private synchronized void TurnAround() {
+		int random = 0;
+		while (random == mDirection.ordinal())
+			random = rd.nextInt(4);
+		
+		mDirection = Direction.values()[random];
 	}
 
-	private void SetDirectionToFire(Vector2 CurrentCell, Vector2 playerPoint) {
-		if (CurrentCell.x == playerPoint.x) {
-			if (CurrentCell.y - playerPoint.y > 0)
-				mDirection = Direction.UP;
-			else
-				mDirection = Direction.DOWN;
 
-			mTank.SetDirection(mDirection);
-			mTank.onFire();
-		}
-		if (CurrentCell.y == playerPoint.y) {
-			if (CurrentCell.x - playerPoint.x > 0)
-				mDirection = Direction.LEFT;
-			else
-				mDirection = Direction.RIGHT;
-
-			mTank.SetDirection(mDirection);
-			mTank.onFire();
-		}
-	}
 
 	@Override
 	public void onTankDie() {
@@ -150,16 +91,25 @@ public class Bot extends Controller {
 
 		mTank = null;
 	}
-
-	private void CountTimeToFire(float pSecondsElapsed) {
-		_SecPerFrame += pSecondsElapsed;
-		if (_SecPerFrame > 1) {
-			_SecPerFrame = 0;
-			_TimeToFire++;
-			_TimeToTurn++;
-			_TotalTime++;
+	
+	long preCollideTime = 0;
+	@Override
+	public synchronized void onCollide(ObjectType type) {
+		if (System.currentTimeMillis() - preCollideTime < 300)
+		{
+			preCollideTime = System.currentTimeMillis();
+			return;
+		}
+		if (type == null || 
+				type == ObjectType.BRICK_WALL || 
+				type == ObjectType.STEEL_WALL || 
+				type == ObjectType.ENEMY_TANK ||
+				type == ObjectType.PLAYER_TANK ) {
+			TurnAround();
+			//Debug.d(GameManager.TANK_TAG, String.format("%s -> %s", String.valueOf(type), String.valueOf(mDirection)) );
 		}
 	}
+
 
 	public boolean isYourTank(Tank tank) {
 		return tank == mTank;

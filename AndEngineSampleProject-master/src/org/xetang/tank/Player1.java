@@ -20,12 +20,12 @@ public class Player1 extends Tank {
 		this.mSprite.setCurrentTileIndex(0);
 
 		this.speed = TankManager.NORMAL_TANK_SPEED;
+
 		
 		
 		_maxNumberBullet = 1;
 		mBulletType = ObjectType.SLOW_BULLET;
 		this.hp = 1;
-		CreateShield();
 	}
 
 	@Override
@@ -38,14 +38,18 @@ public class Player1 extends Tank {
 		case 2: // Đạn bay nhanh như đạn của GlassCannon
 			_maxNumberBullet = 1;
 			mBulletType = ObjectType.FAST_BULLET;
+			// this.hp = 2;
 			CurrentSprite += 4;
 			break;
 		case 3:
 			_maxNumberBullet = 2;
+			// this.hp = 3;
 			CurrentSprite += 4;
 			break;
 		case 4:
 			mBulletType = ObjectType.BLOW_BULLET;
+			// this.hp = 4;
+
 			CurrentSprite += 4;
 			break;
 		}
@@ -85,6 +89,12 @@ public class Player1 extends Tank {
 		super.onFire();
 		CreateBullet(mBulletType, bPosX, bPosY);
 
+	}
+	
+	@Override
+	public void work() {
+		super.work();
+		CreateShield();
 	}
 
 }

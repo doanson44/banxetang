@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.sprite.AnimatedSprite;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.math.MathConstants;
+import org.xetang.controller.Controller;
 import org.xetang.controller.IGameController;
 import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
@@ -41,6 +43,7 @@ public abstract class Tank extends GameEntity implements IGameController,
 	int _maxNumberBullet = 0;
 	float bPosX = 0, bPosY = 0; // Toa do cua Dan
 
+	int CurrentSprite = 0;
 	boolean mIsFiring; // Xe tăng có đang bắn đạn hay không?
 	Direction mDirection; // Hướng của xe tăng
 	int mLevel; // Cấp độ của xe tăng
@@ -52,7 +55,8 @@ public abstract class Tank extends GameEntity implements IGameController,
 	float _SecPerFrame = 0;
 	Body _body;
 
-	int CurrentSprite;
+	Controller mController;
+
 	Shield _shield;
 	AnimatedSprite mSprite;
 
@@ -63,6 +67,9 @@ public abstract class Tank extends GameEntity implements IGameController,
 	FixtureDef _ObjectFixtureDef;
 	float _distinctMove = 10;
 	ObjectType _typeColide;
+
+	Flicker mFlicker;
+	boolean mIsAppearing = true; // xe tăng đang xuát hiện?
 
 	public synchronized boolean isAlive() {
 		return mIsAlive;
@@ -79,15 +86,39 @@ public abstract class Tank extends GameEntity implements IGameController,
 		mSprite.setRotationCenter(mSprite.getWidth() / 2f,
 				mSprite.getHeight() / 2f);
 
+		mSprite.setVisible(false);
 		mDirection = Direction.UP;
 		_ObjectFixtureDef = PhysicsFactory.createFixtureDef(0.5f, 0, 0);
 		setAlive(true);
-		CreateBody();
+
+		createFlicker();
+	}
+
+	private void createFlicker() {
+		mFlicker = new Flicker(this.getX(), this.getY());
+		mFlicker.Animate();
+		mFlicker.SetTank(this);
+		mIsAppearing = true;
 	}
 
 	protected void CreateBody() {
+		/*
+		GameManager.Context.runOnUpdateThread(new Runnable() {
+			@Override
+			public void run() {
+				_body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, mSprite,
+						BodyType.DynamicBody, _ObjectFixtureDef);
+				_body.setGravityScale(0);
+				_body.setFixedRotation(true);
+				_body.setUserData(this);
+				GameManager.PhysicsWorld.registerPhysicsConnector(new PhysicsConnector(
+						mSprite, _body, true, true));
 
-		// TODO Auto-generated method stub
+				// this.attachChild(mSprite);
+				mSprite.setVisible(true);
+			}
+		});
+		*/
 		_body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, mSprite,
 				BodyType.DynamicBody, _ObjectFixtureDef);
 		_body.setGravityScale(0);
@@ -96,6 +127,9 @@ public abstract class Tank extends GameEntity implements IGameController,
 		GameManager.PhysicsWorld.registerPhysicsConnector(new PhysicsConnector(
 				mSprite, _body, true, true));
 
+		// this.attachChild(mSprite);
+		mSprite.setVisible(true);
+		
 	}
 
 	public void KillSelf() {
@@ -123,6 +157,12 @@ public abstract class Tank extends GameEntity implements IGameController,
 	@Override
 	public void onLeft() {
 		// TODO Auto-generated method stub
+		if (!isReady() || mIsFreeze > 0) {
+			if (_body != null)
+				_body.setLinearVelocity(0f, 0f);
+			return;
+		}
+
 		if (mDirection == Direction.UP || mDirection == Direction.DOWN) {
 			SetTranform(CalcHelper.CellInMap(mSprite));
 
@@ -132,10 +172,10 @@ public abstract class Tank extends GameEntity implements IGameController,
 
 			SetTranform(-90);
 			_body.setLinearVelocity(-speed, 0f);
-
 			if (getType() == ObjectType.PLAYER_TANK)
 				mSprite.animate(new long[] { 100, 100 }, CurrentSprite,
 						CurrentSprite + 1, true);
+
 		}
 	}
 
@@ -143,6 +183,12 @@ public abstract class Tank extends GameEntity implements IGameController,
 	@Override
 	public void onRight() {
 		// TODO Auto-generated method stub
+		if (!isReady() || mIsFreeze > 0) {
+			if (_body != null)
+				_body.setLinearVelocity(0f, 0f);
+			return;
+		}
+
 		if (mDirection == Direction.UP || mDirection == Direction.DOWN) {
 			SetTranform(CalcHelper.CellInMap(mSprite));
 		}
@@ -162,6 +208,12 @@ public abstract class Tank extends GameEntity implements IGameController,
 	@Override
 	public void onForward() {
 		// TODO Auto-generated method stub
+		if (!isReady() || mIsFreeze > 0) {
+			if (_body != null)
+				_body.setLinearVelocity(0f, 0f);
+			return;
+		}
+
 		if (mDirection == Direction.LEFT || mDirection == Direction.RIGHT) {
 			SetTranform(CalcHelper.CellInMap(mSprite));
 
@@ -182,6 +234,12 @@ public abstract class Tank extends GameEntity implements IGameController,
 	public void onBackward() {
 		// TODO Auto-generated method stub
 
+		if (!isReady() || mIsFreeze > 0) {
+			if (_body != null)
+				_body.setLinearVelocity(0f, 0f);
+			return;
+		}
+
 		if (mDirection == Direction.LEFT || mDirection == Direction.RIGHT) {
 			SetTranform(CalcHelper.CellInMap(mSprite));
 		}
@@ -199,8 +257,8 @@ public abstract class Tank extends GameEntity implements IGameController,
 	@Override
 	public void onIdle() {
 		// TODO Auto-generated method stub
-		_body.setLinearVelocity(0, 0);
-		mSprite.stopAnimation();
+		if (_body != null)
+			_body.setLinearVelocity(0, 0);
 
 	}
 
@@ -223,6 +281,9 @@ public abstract class Tank extends GameEntity implements IGameController,
 
 	}
 
+	long preTime = 0;
+	long miliTimeElapsed = 0;
+
 	public void Update(float pSecondsElapsed) {
 		for (int i = 0; i < mBullet.size(); i++) {
 			if (!mBullet.get(i).isAlive())
@@ -235,7 +296,12 @@ public abstract class Tank extends GameEntity implements IGameController,
 					mSprite.getY() - MapObjectFactory.TINY_CELL_SIZE / 2f);
 		}
 
+		miliTimeElapsed += System.currentTimeMillis() - preTime;
+		preTime = System.currentTimeMillis();
+
 		_SecPerFrame += pSecondsElapsed;
+		_SecPerFrame += miliTimeElapsed / 1000;
+		miliTimeElapsed %= 1000;
 		if (_SecPerFrame > 1) {
 			_SecPerFrame = 0;
 			if (mIsFreeze > 0) {
@@ -250,35 +316,44 @@ public abstract class Tank extends GameEntity implements IGameController,
 					DestroyShield();
 				}
 			}
+
 		}
+
 	}
 
 	@Override
 	public void onFire() {
 		// TODO Auto-generated method stub
+		if (!isReady() || mIsFreeze > 0) {
+
+			return;
+		}
+
 		Vector2 x = new Vector2(mSprite.getX(), mSprite.getY());
 		Vector2 bulletSize = MapObjectFactory.getBulletSize();
 
 		switch (mDirection) {
 		case UP:
 			bPosX = x.x + (mSprite.getWidth() - bulletSize.x) / 2f;
-			bPosY = x.y;
+			bPosY = x.y - bulletSize.y - 1;
 			break;
 		case DOWN:
 			bPosX = x.x + (mSprite.getWidth() - bulletSize.x) / 2f;
-			bPosY = x.y + mSprite.getHeight() - bulletSize.y;
+			bPosY = x.y + mSprite.getHeight();
 			break;
 		case LEFT:
-			bPosX = x.x;
+			bPosX = x.x - (bulletSize.y + bulletSize.x) / 2f;
 			bPosY = x.y + (mSprite.getWidth() - bulletSize.y) / 2f;
 			break;
 		case RIGHT:
-			bPosX = x.x + mSprite.getHeight() - bulletSize.y;
+			bPosX = x.x + mSprite.getHeight() + (bulletSize.y - bulletSize.x)
+					/ 2f;
 			bPosY = x.y + (mSprite.getWidth() - bulletSize.y) / 2f;
 			break;
 		default:
 			break;
 		}
+		CreateBullet(mBulletType, bPosX, bPosY);
 	}
 
 	public boolean BeFire() {
@@ -300,6 +375,9 @@ public abstract class Tank extends GameEntity implements IGameController,
 			mBullet.add(bullet);
 			bullet.readyToFire(mDirection);
 			bullet.beFired();
+
+			if (getType() == ObjectType.PLAYER_TANK)
+				GameManager.getSound("fire").play();
 		}
 	}
 
@@ -331,17 +409,18 @@ public abstract class Tank extends GameEntity implements IGameController,
 		mIsFreeze = 7;
 	}
 
+	public void Animte() {
+		if (mSprite.isAnimationRunning())
+			mSprite.stopAnimation();
+
+		mSprite.animate(new long[] { 100, 100 }, CurrentSprite,
+				CurrentSprite + 1, true);
+	}
+
 	public MapObject clone() {
 		return null;
 	}
 
-	public void Animte (){
-		if(mSprite.isAnimationRunning())
-			mSprite.stopAnimation();
-		
-		mSprite.animate(new long[] { 100, 100 }, CurrentSprite,
-				CurrentSprite + 1, true);
-	}
 	public void SetTankBonus(boolean bool) {
 		isTankBonus = bool;
 		if (isTankBonus) {// xu ly nhap nhay
@@ -349,7 +428,6 @@ public abstract class Tank extends GameEntity implements IGameController,
 			Animte();
 		}
 	}
-
 	public boolean GetTankBonus() {
 		return isTankBonus;
 	}
@@ -387,7 +465,7 @@ public abstract class Tank extends GameEntity implements IGameController,
 	}
 
 	@Override
-	public synchronized void setAlive(boolean alive) {
+	public void setAlive(boolean alive) {
 		mIsAlive = alive;
 	}
 
@@ -428,6 +506,13 @@ public abstract class Tank extends GameEntity implements IGameController,
 			_typeColide = object.getType();
 		} else
 			_typeColide = null;
+
+		if (mController != null)
+			if (object == null)
+				mController.onCollide(null);
+			else
+				mController.onCollide(object.getType());
+
 	}
 
 	@Override
@@ -448,7 +533,7 @@ public abstract class Tank extends GameEntity implements IGameController,
 		_TankType = type;
 	}
 
-	public TankType GetTankType() {
+	public TankType getTankType() {
 		return _TankType;
 	}
 
@@ -459,6 +544,49 @@ public abstract class Tank extends GameEntity implements IGameController,
 	public Shield getShield() {
 		// TODO Auto-generated method stub
 		return _shield;
+	}
+
+	public int getBonusPoint() {
+		return 0;
+	}
+
+	/**
+	 * Ra lệnh cho xe tank làm việc đi
+	 */
+	public void work() {
+		/*
+		 * Runnable run = new Runnable() {
+		 * 
+		 * @Override public void run() { CreateBody(); } };
+		 * 
+		 * GameManager.Context.runOnUpdateThread(run);
+		 */
+		mIsAppearing = true;
+		mFlicker.setAppearing();
+		
+	}
+
+	public void setAppearingDone() {
+		mIsAppearing = false;
+		CreateBody();
+
+	}
+
+	@Override
+	public boolean isReady() {
+		return !mIsAppearing;
+	}
+
+	public void setController(Controller controller) {
+		mController = controller;
+	}
+
+	public Sprite getAppearingSprite() {
+		return mFlicker.GetSprite();
+	}
+
+	public int getHP() {
+		return hp;
 	}
 
 }

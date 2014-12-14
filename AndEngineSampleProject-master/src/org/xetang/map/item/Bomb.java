@@ -1,6 +1,8 @@
 package org.xetang.map.item;
 
+import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.xetang.manager.GameItemManager;
+import org.xetang.map.Map;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 
 

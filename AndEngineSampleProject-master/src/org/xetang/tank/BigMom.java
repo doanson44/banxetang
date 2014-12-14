@@ -38,9 +38,7 @@ public class BigMom extends Tank {
 
 	@Override
 	public void onFire() {
-		// TODO Auto-generated method stub
 		super.onFire();
-		CreateBullet(mBulletType, bPosX, bPosY);
 	}
 
 	@Override
@@ -60,4 +58,8 @@ public class BigMom extends Tank {
 		return false;
 	}
 
+	@Override
+	public int getBonusPoint() {
+		return 400;
+	}
 }

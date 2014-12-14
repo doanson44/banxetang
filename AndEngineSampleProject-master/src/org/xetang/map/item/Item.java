@@ -6,8 +6,11 @@ import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
+import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.debug.Debug;
+import org.xetang.manager.GameItemManager;
 import org.xetang.manager.GameManager;
+import org.xetang.map.Map;
 import org.xetang.map.helper.DestroyHelper;
 import org.xetang.map.object.IMapObject;
 import org.xetang.map.object.MapObject;
@@ -81,6 +84,8 @@ public class Item extends GameEntity implements IMapObject {
 		_mOwner = tank;
 	}
 
+	long preTime;
+
 	public void update(float pSecondsElapsed) {
 
 		Animate();
@@ -95,7 +100,9 @@ public class Item extends GameEntity implements IMapObject {
 		}
 
 		if (_TimeSurvive > _ToatalTimeSurvive && _mOwner == null) {
-			 DestroyHelper.add(this);
+			// DestroyHelper.add(this);
+			DestroyHelper.add(this);
+
 		}
 		if (_TimeAffect > _TotalTimeAffect) {
 			DestroyAffect();
@@ -221,9 +228,12 @@ public class Item extends GameEntity implements IMapObject {
 				_mOwner = (Tank) object;
 				affect();
 				_isActive = true;
+				GameItemManager.getInstance().pickupItem(this);
 
 				_sprite.detachSelf();
 				GameManager.getMusic("bonus").play();
+				DestroyHelper.add(this);
+				GameManager.getSound("bonus").play();
 			}
 		} catch (Exception e) {
 			Debug.d("Collsion", "Nothing to contact!");
@@ -243,5 +253,9 @@ public class Item extends GameEntity implements IMapObject {
 
 	public float GetScore() {
 		return _Score;
+	}
+
+	public int getBonusPoint() {
+		return 100;
 	}
 }
