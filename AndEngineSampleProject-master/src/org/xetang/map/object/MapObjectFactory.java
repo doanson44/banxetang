@@ -39,7 +39,7 @@ public class MapObjectFactory {
 	public static final int MAX_OBJECT_COUNT = (GameManager.MAP_GRID * 4)
 			* (GameManager.MAP_GRID * 4);
 
-	public static final int MAX_RESOURCE_BITMAP_WIDTH = 768;
+	public static final int MAX_RESOURCE_BITMAP_WIDTH = 640;
 	public static final int MAX_RESOURCE_BITMAP_HEIGHT = 576;
 
 	private static final Point EAGLE_TEXTURE_POS = new Point(0, 0);
@@ -200,7 +200,7 @@ public class MapObjectFactory {
 				BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						_bitmapTextureAtlas, GameManager.Activity.getAssets(),
 						strTexture, EXPLOSION_TEXTURE_POS.x,
-						EXPLOSION_TEXTURE_POS.y, 3, 4));
+						EXPLOSION_TEXTURE_POS.y, 4, 4));
 
 		_bitmapTextureAtlas.load();
 	}

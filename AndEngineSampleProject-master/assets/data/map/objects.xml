@@ -38,7 +38,7 @@
     <OBJECT>
         <ID>7</ID>
         <NAME>EXPLOSION</NAME>
-        <TEXTURE>gfx/map/object/blast.png</TEXTURE>
+        <TEXTURE>gfx/map/object/explosion.png</TEXTURE>
     </OBJECT>
     <OBJECT>
         <ID>8</ID>
