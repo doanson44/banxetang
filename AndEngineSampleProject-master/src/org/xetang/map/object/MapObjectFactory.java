@@ -68,7 +68,7 @@ public class MapObjectFactory {
 	public static final float BULLET_FRICTION = 1f;
 
 	public static final int BLAST_ANIMATE = 45;
-	public static final int EXPLOSION_ANIMATE = 85;
+	public static final int EXPLOSION_ANIMATE = 70;
 
 	private static final short CATEGORYBIT_DEFAULT = 1;
 	private static final short CATEGORYBIT_WATER = 2;
