@@ -21,22 +21,22 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.debug.Debug;
 import org.xetang.manager.GameManager;
 
+import com.badlogic.gdx.math.Vector2;
+
 import android.content.Context;
 import android.graphics.Color;
 
-import com.badlogic.gdx.math.Vector2;
-
 public class RoundScene extends Scene {
 	/************************************************************/
-	/* Constant */
+	/*							Constant						*/
 	/************************************************************/
 	final String DEFAUILT_IMAGE = "default.png";
-	final int IMAGE_SIZE = 500;
+	final int IMAGE_SIZE = 400;
 	final int NUM_COLUMN = 1;
 	final int NUM_ROW = 1;
 
 	/************************************************************/
-	/* Members */
+	/*							Members							*/
 	/************************************************************/
 	private Map<String, BaseTextureRegion> mResouces;
 	private List<Round> mRounds;
@@ -50,13 +50,13 @@ public class RoundScene extends Scene {
 	int frameHeight;
 	int frameStartX;
 	int frameStartY;
-
+	
 	/************************************************************/
-	/* Constructor */
+	/*							Constructor						*/
 	/************************************************************/
 	public RoundScene(Context context) {
 		mContext = context;
-
+		
 		initData();
 		loadResource();
 		calcFrameSize();
@@ -65,8 +65,10 @@ public class RoundScene extends Scene {
 
 	}
 
+
+
 	/************************************************************/
-	/* Methods */
+	/*							Methods							*/
 	/************************************************************/
 	private void initData() {
 		mResouces = new HashMap<String, BaseTextureRegion>();
@@ -74,109 +76,122 @@ public class RoundScene extends Scene {
 		mRoundSprites = new ArrayList<IEntity>();
 	}
 
+	
 	private void loadResource() {
 		try {
-			BitmapTextureAtlasTextureRegionFactory
-					.setAssetBasePath("gfx/round/");
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/round/");
 			TiledTextureRegion texture;
-			BitmapTextureAtlas atlas = new BitmapTextureAtlas(
-					GameManager.TextureManager, IMAGE_SIZE, IMAGE_SIZE);
+			BitmapTextureAtlas 	atlas = new BitmapTextureAtlas(GameManager.TextureManager, IMAGE_SIZE, IMAGE_SIZE);
 			String[] names = mContext.getAssets().list("gfx/round");
 
 			for (int i = 0; i < names.length; i++) {
-				atlas = new BitmapTextureAtlas(GameManager.TextureManager,
-						IMAGE_SIZE, IMAGE_SIZE);
-				texture = BitmapTextureAtlasTextureRegionFactory
-						.createTiledFromAsset(atlas, GameManager.AssetManager,
-								names[i], 0, 0, 1, 1);
-				atlas.load();
+				atlas = new BitmapTextureAtlas(GameManager.TextureManager, IMAGE_SIZE, IMAGE_SIZE);
+				texture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+						atlas, 
+						GameManager.AssetManager,
+						names[i], 
+						0,
+						0, 
+						1, 
+						1); 
 				mResouces.put(getNamePart(names[i]), texture);
+				atlas.load();
 			}
-			atlas = new BitmapTextureAtlas(GameManager.TextureManager,
-					IMAGE_SIZE, IMAGE_SIZE);
-			texture = BitmapTextureAtlasTextureRegionFactory
-					.createTiledFromAsset(atlas, GameManager.AssetManager,
-							DEFAUILT_IMAGE, 0, 0, 1, 1);
-			atlas.load();
+			atlas = new BitmapTextureAtlas(GameManager.TextureManager, IMAGE_SIZE, IMAGE_SIZE);
+			texture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+					atlas, 
+					GameManager.AssetManager,
+					DEFAUILT_IMAGE, 
+					0,
+					0, 
+					1, 
+					1); 
 			mResouces.put("default", texture);
-
+			
+			atlas.load();
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
-
+		
 	}
-
+	
 	private void loadRoundSprites() {
 		TiledSprite sprite;
 		Text text;
 		Font font = GameManager.getFont("font2", 36f, Color.WHITE);
-
+		
 		for (int i = 0; i < mRounds.size(); i++) {
 			sprite = new TiledSprite(
-					0,
-					0,
-					(TiledTextureRegion) mResouces.get(mRounds.get(i).ImageAssert),
-					GameManager.VertexBufferObject) {
+					0, 
+					0, 
+					(TiledTextureRegion)mResouces.get(mRounds.get(i).ImageAssert), 
+					GameManager.VertexBufferObject){
 				boolean bSelected = false;
-
 				@Override
-				public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
-						float pTouchAreaLocalX, float pTouchAreaLocalY) {
-					if (pSceneTouchEvent.isActionDown()) {
+				public boolean onAreaTouched(TouchEvent pSceneTouchEvent,float pTouchAreaLocalX, float pTouchAreaLocalY) {
+					if (pSceneTouchEvent.isActionDown()){
 						this.setColor(0.3f, 0.2f, 0.4f, 1f);
 						bSelected = true;
-					} else if (pSceneTouchEvent.isActionUp()) {
+					}
+					else if (pSceneTouchEvent.isActionUp()){
 						this.setColor(1, 1, 1, 1f);
 						if (bSelected)
-							onSelectedStage((Round) this.getUserData());
-					} else {
+							onSelectedStage((Round)this.getUserData());
+					}
+					else{
 						this.setColor(1, 1, 1, 1f);
 						bSelected = false;
 					}
-
+					
 					return true;
 				}
-
+				
 			};
 			sprite.setSize(frameWidth, frameHeight);
-			sprite.setPosition(frameStartX + i * frameWidth + (i + 1)
-					* paddingWidth, frameStartY + paddingHeight + titleHeight);
+			sprite.setPosition(frameStartX + i*frameWidth + (i+1)*paddingWidth, frameStartY + paddingHeight + titleHeight);
 			sprite.setUserData(mRounds.get(i));
-			text = new Text(0, 0, font, String.format("Stage %d", i + 1),
+			text = new Text(
+					0, 
+					0, 
+					font, 
+					String.format("Stage %d", i+1), 
 					GameManager.VertexBufferObject);
-			text.setX(sprite.getX() + sprite.getWidth() / 2 - text.getWidth()
-					/ 2);
-			text.setY(sprite.getY() + sprite.getHeight() / 2 - text.getHeight()
-					/ 2);
-
+			text.setX(sprite.getX() + sprite.getWidth()/2 - text.getWidth()/2);
+			text.setY(sprite.getY() + sprite.getHeight()/2 - text.getHeight()/2);
+			
+			
 			this.attachChild(sprite);
-			this.attachChild(text);
+			this.attachChild(text);			
 			mRoundSprites.add(sprite);
 			mRoundSprites.add(text);
-
+			
 			this.registerTouchArea(sprite);
 
 		}
-
+		
 	}
 
+
 	protected void onSelectedStage(Round selectedRound) {
-		if (selectedRound.IsUnlock) {
+		if (selectedRound.IsUnlock){
 			restoreCamera();
 			GameManager.seekStage(selectedRound.Index);
 			GameManager.switchToScene("game", null);
 		}
 	}
 
+
 	private void drawTitle() {
 		Font font = GameManager.getFont("font1", 64f, Color.WHITE);
-		Text text = new Text(0, 0, font, "select stage",
+		Text text = new Text(
+				0, 
+				0, 
+				font, 
+				"select stage", 
 				GameManager.VertexBufferObject);
-		text.setPosition(GameManager.CAMERA_WIDTH / 2 - text.getWidth() / 2,
-				titleHeight / 2 - text.getHeight() / 2);
+		text.setPosition(GameManager.CAMERA_WIDTH / 2 - text.getWidth()/2, titleHeight / 2 - text.getHeight()/2);
 		this.attachChild(text);
 	}
-
+	
 	private void calcFrameSize() {
 		this.titleHeight = GameManager.CAMERA_HEIGHT / 100 * 20;
 		this.paddingWidth = GameManager.CAMERA_WIDTH / 100 * 30;
@@ -191,7 +206,6 @@ public class RoundScene extends Scene {
 		this.frameStartY = 0;
 
 	}
-
 	private void loadRounds() {
 		try {
 			String[] names = mContext.getAssets().list("gfx/round");
@@ -200,9 +214,8 @@ public class RoundScene extends Scene {
 				if (!name.contains("default")) {
 					int idx = Integer.parseInt(getNamePart(name));
 					mRounds.add(new Round(
-							GameManager.getReachedStage() >= idx ? getNamePart(name)
-									: getNamePart(DEFAUILT_IMAGE), idx,
-							GameManager.getReachedStage() >= idx));
+							GameManager.getReachedStage() >= idx ? getNamePart(name) : getNamePart(DEFAUILT_IMAGE),
+							idx, GameManager.getReachedStage() >= idx));
 				}
 			}
 
@@ -210,7 +223,7 @@ public class RoundScene extends Scene {
 			e.printStackTrace();
 		}
 	}
-
+	
 	private String getNamePart(String name) {
 		int start = name.lastIndexOf(File.separator);
 		start = start == -1 ? 0 : start;
@@ -218,23 +231,26 @@ public class RoundScene extends Scene {
 		end = end == -1 ? name.length() : end;
 		return name.substring(start, end);
 	}
+	
 
 	HUD backupHUD;
-
 	private void backupCamera() {
 		backupHUD = GameManager.Camera.getHUD();
 	}
+	
+
 
 	private void restoreCamera() {
-		GameManager.Camera.set(GameManager.CAMERA_X, GameManager.CAMERA_Y,
-				GameManager.CAMERA_WIDTH + GameManager.CAMERA_X,
-				GameManager.CAMERA_HEIGHT + GameManager.CAMERA_Y);
+		GameManager.Camera.set(GameManager.CAMERA_X, GameManager.CAMERA_Y, GameManager.CAMERA_WIDTH + GameManager.CAMERA_X, GameManager.CAMERA_HEIGHT + GameManager.CAMERA_Y);
 		GameManager.Camera.setHUD(backupHUD);
 	}
 
+
+
+
+
 	private void setNewCamera() {
-		GameManager.Camera.set(0, 0, GameManager.CAMERA_WIDTH,
-				GameManager.CAMERA_HEIGHT);
+		GameManager.Camera.set(0, 0, GameManager.CAMERA_WIDTH, GameManager.CAMERA_HEIGHT);	
 		GameManager.Camera.setHUD(null);
 	}
 
@@ -249,22 +265,25 @@ public class RoundScene extends Scene {
 	}
 
 	Vector2 transformVector = Vector2.Zero;
-
 	private void transformInertial(Vector2 vector) {
 		transformVector = vector;
 	}
-
+	
 	public void onSwitched(String actionSceneClose) {
-		if (actionSceneClose == GameManager.ACTION_SCENE_OPEN) {
+		if (actionSceneClose == GameManager.ACTION_SCENE_OPEN){
 			backupCamera();
 			setNewCamera();
 			loadRounds();
 			loadRoundSprites();
-		} else {
+		}
+		else
+		{
 			restoreCamera();
 			clearRoundSprites();
 		}
 	}
+
+
 
 	private void clearRoundSprites() {
 		for (int i = 0; i < mRoundSprites.size(); i++) {
@@ -273,58 +292,57 @@ public class RoundScene extends Scene {
 		this.clearTouchAreas();
 	}
 
+
 	/************************************************************/
-	/* Override Method */
+	/*						Override Method						*/
 	/************************************************************/
 	Vector2 prePos = new Vector2();
 	Vector2 originPos = new Vector2();
-
+	
 	@Override
 	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
 		Debug.d(GameManager.TANK_TAG, "Scene touch");
-		if (pSceneTouchEvent.isActionMove()) {
+		if (pSceneTouchEvent.isActionMove()){
 			transformSprite(pSceneTouchEvent.getX() - prePos.x, 0);
 			prePos.x = pSceneTouchEvent.getX();
 			prePos.y = pSceneTouchEvent.getY();
-
-		} else if (pSceneTouchEvent.isActionDown()) {
+			
+		}
+		else if (pSceneTouchEvent.isActionDown())
+		{
 			originPos.x = prePos.x = pSceneTouchEvent.getX();
 			originPos.y = prePos.y = pSceneTouchEvent.getY();
-		} else if (pSceneTouchEvent.isActionUp()) {
-			transformInertial(new Vector2(
-					pSceneTouchEvent.getX() - originPos.x, 0));
+		}
+		else if (pSceneTouchEvent.isActionUp())
+		{
+			transformInertial(new Vector2(pSceneTouchEvent.getX() - originPos.x, 0));
 		}
 		return super.onSceneTouchEvent(pSceneTouchEvent);
 	}
+	
 
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
 		super.onManagedUpdate(pSecondsElapsed);
-
-		if (transformVector.dst(0, 0) > 0.001
-				&& mRoundSprites.get(0).getX() < frameStartX + paddingWidth
-				&& mRoundSprites.get(mRoundSprites.size() - 2).getX() > frameStartX
-						+ paddingWidth) {
-			transformSprite(transformVector.x / 3, 0);
+		
+		if (transformVector.dst(0, 0) > 0.001 && mRoundSprites.get(0).getX() < frameStartX + paddingWidth
+				&& mRoundSprites.get(mRoundSprites.size()-2).getX() > frameStartX + paddingWidth ){
+			transformSprite(transformVector.x/3 , 0);
 			transformVector.x /= 1.15f;
 			Debug.d(GameManager.TANK_TAG, String.valueOf(transformVector.x));
-		} else if (mRoundSprites.get(0).getX() >= frameStartX + paddingWidth) {
-			transformSprite(frameStartX + paddingWidth
-					- mRoundSprites.get(0).getX(), 0);
+		}
+		else if (mRoundSprites.get(0).getX() >= frameStartX + paddingWidth){
+			transformSprite(frameStartX + paddingWidth - mRoundSprites.get(0).getX(), 0);
 			transformVector = Vector2.Zero;
-		} else if (mRoundSprites.get(mRoundSprites.size() - 2).getX() <= frameStartX
-				+ paddingWidth) {
-			transformSprite(
-					frameStartX
-							+ paddingWidth
-							- mRoundSprites.get(mRoundSprites.size() - 2)
-									.getX(), 0);
+		}
+		else if (mRoundSprites.get(mRoundSprites.size()-2).getX() <= frameStartX + paddingWidth ){
+			transformSprite(frameStartX + paddingWidth - mRoundSprites.get(mRoundSprites.size()-2).getX(), 0);
 			transformVector = Vector2.Zero;
 		}
 	}
 
 	/************************************************************/
-	/* Internal Class */
+	/*						Internal Class						*/
 	/************************************************************/
 	class Round {
 		public String ImageAssert;
@@ -337,5 +355,6 @@ public class RoundScene extends Scene {
 			IsUnlock = isUnlock;
 		}
 	}
+
 
 }

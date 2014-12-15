@@ -39,9 +39,8 @@ public class Map extends GameEntity implements IUpdateHandler {
 	List<Tank> mPlayerTanks = new ArrayList<Tank>();
 	int mICurrentStage; // Chỉ số của màn chơi
 	boolean mIsEagleAlive = true;
-	
-	java.util.Map<ObjectLayer, IEntity> _layerMap = new HashMap<ObjectLayer, IEntity>();
 
+	java.util.Map<ObjectLayer, IEntity> _layerMap = new HashMap<ObjectLayer, IEntity>();
 
 	public Map(int iCurrentStage, StageDTO stage) {
 		mICurrentStage = iCurrentStage;
@@ -80,20 +79,32 @@ public class Map extends GameEntity implements IUpdateHandler {
 		SpriteGroup spriteGroupLayer = new SpriteGroup(
 				MapObjectFactory.getBitmapTextureAtlas(),
 				MapObjectFactory.MAX_OBJECT_COUNT,
-				GameManager.Activity.getVertexBufferObjectManager());
+				GameManager.Activity.getVertexBufferObjectManager()) {
+
+			@Override
+			protected boolean onUpdateSpriteBatch() {
+				return false;
+			}
+
+			@Override
+			protected void onManagedUpdate(float pSecondsElapsed) {
+				super.onManagedUpdate(pSecondsElapsed);
+				if (super.onUpdateSpriteBatch()) {
+					submit();
+				}
+			};
+		};
 
 		spriteGroupLayer.setZIndex(MapObjectFactory.Z_INDEX_CONSTRUCTION);
-		spriteGroupLayer.setChildrenIgnoreUpdate(true);
 		attachChild(spriteGroupLayer);
 		_layerMap.put(ObjectLayer.CONSTRUCTION, spriteGroupLayer);
 	}
 
 	public void loadMapData(StageDTO stage) {
 
-	//	addObject(GameItemManager.getInstance().CreateItem(ObjectType.STAR),ObjectLayer.WRAPPER);
-	//	addObject(GameItemManager.getInstance().CreateItem(ObjectType.STAR),ObjectLayer.WRAPPER);
-//		addObject(GameItemManager.getInstance().CreateItem(ObjectType.STAR),ObjectLayer.WRAPPER);
-
+		// addObject(GameItemManager.getInstance().CreateItem(ObjectType.STAR),ObjectLayer.WRAPPER);
+		// addObject(GameItemManager.getInstance().CreateItem(ObjectType.STAR),ObjectLayer.WRAPPER);
+		// addObject(GameItemManager.getInstance().CreateItem(ObjectType.STAR),ObjectLayer.WRAPPER);
 
 		List<StageObjectDTO> objects = stage.getObjects();
 
@@ -175,8 +186,6 @@ public class Map extends GameEntity implements IUpdateHandler {
 		attachChild(right);
 	}
 
-
-
 	private void createListeners() {
 
 		GameManager.Engine.registerUpdateHandler(DestroyHelper.getInstance());
@@ -232,7 +241,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 		};
 
 		GameManager.PhysicsWorld.setContactListener(contactListener);
-		
+
 	}
 
 	public void Update(float pSecondsElapsed) {
@@ -287,7 +296,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 
 	public void addPlayerTank(Tank playerTank) {
 		mPlayerTanks.add(playerTank);
-		
+
 		addObject(playerTank.getAppearingSprite(), ObjectLayer.MOVING);
 		addObject(playerTank, ObjectLayer.MOVING);
 
@@ -299,7 +308,6 @@ public class Map extends GameEntity implements IUpdateHandler {
 		addObject(enemyTank.getAppearingSprite(), ObjectLayer.MOVING);
 		addObject(enemyTank, ObjectLayer.MOVING);
 	}
-
 
 	public int getTotalPlayerTanks() {
 		return mPlayerTanks.size();
@@ -314,7 +322,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 	}
 
 	public void addObject(IMapObject object, ObjectLayer layer) {
-		_layerMap.get(layer).attachChild(object.getSprite());
+		addObject(object.getSprite(), layer);
 	}
 
 	public void addObject(Sprite sprite, ObjectLayer layer) {
@@ -330,7 +338,7 @@ public class Map extends GameEntity implements IUpdateHandler {
 			mEnemyTanks.get(i).KillSelf();
 			TankManager.addDefeatedTank(mEnemyTanks.get(i));
 		}
-		
+
 		mEnemyTanks.clear();
 	}
 }
