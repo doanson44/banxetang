@@ -46,7 +46,7 @@ public abstract class Tank extends GameEntity implements IGameController,
 	int CurrentSprite = 0;
 	boolean mIsFiring; // Xe tăng có đang bắn đạn hay không?
 	Direction mDirection; // Hướng của xe tăng
-	int mLevel; // Cấp độ của xe tăng
+	int mLevel = 1; // Cấp độ của xe tăng
 	boolean mIsAlive;
 	int hp; // máu của xe tăng
 	int point; // điểm đạt đc khi giết xe tank

@@ -6,6 +6,7 @@ import java.util.Queue;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
+import org.andengine.util.debug.Debug;
 import org.xetang.manager.GameManager;
 import org.xetang.map.object.IMapObject;
 
@@ -45,12 +46,12 @@ public class DestroyHelper implements IUpdateHandler {
 
 					object.setAlive(false);
 					sprite = object.getSprite();
-									
+
 					GameManager.Activity.runOnUpdateThread(new Runnable() {
 
 						@Override
 						public void run() {
-							
+
 							sprite.setVisible(false);
 							sprite.detachSelf();
 							sprite.clearUpdateHandlers();
@@ -64,13 +65,17 @@ public class DestroyHelper implements IUpdateHandler {
 										.unregisterPhysicsConnector(connector);
 							}
 
-							if (object.getBody() != null) {
-								//object.getBody().setActive(false);
-								GameManager.PhysicsWorld.destroyBody(object.getBody());
+							try {
+								if (object.getBody() != null) {
+									object.getBody().setActive(false);
+									GameManager.PhysicsWorld.destroyBody(object
+											.getBody());
+								}
+							} catch (Exception e) {
+								Debug.d(GameManager.TANK_TAG, e.getMessage());
 							}
 						}
 					});
-					
 
 				}
 

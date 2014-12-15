@@ -94,6 +94,12 @@ public class Bullet extends MapObject implements IBullet {
 
 		if (object != null) {
 
+			if (object == _tank
+					|| (object.getType() == ObjectType.ENEMY_TANK && _tank
+							.getType() == ObjectType.ENEMY_TANK)) {
+				return;
+			}
+
 			// tank địch bắn trúng tank của ngư�?i chơi
 			if (object.getType() == ObjectType.PLAYER_TANK
 					&& _tank.getType() == ObjectType.ENEMY_TANK) {
@@ -105,9 +111,8 @@ public class Bullet extends MapObject implements IBullet {
 				// sound
 				GameManager.getSound("explosion").play();
 			}
-
 			// tank nguoi choi ban trung tank dich
-			if (object.getType() == ObjectType.ENEMY_TANK
+			else if (object.getType() == ObjectType.ENEMY_TANK
 					&& _tank.getType() == ObjectType.PLAYER_TANK) {
 				Tank tank = (Tank) object;
 				if (tank.BeFire()) {
@@ -121,30 +126,11 @@ public class Bullet extends MapObject implements IBullet {
 				else
 					GameManager.getSound("explosion").play();
 			}
-
-			// if (_tank.getType() == ObjectType.PLAYER_TANK
-			// && object.getType() == ObjectType.BRICK_WALL)
-			// GameManager.getSound("brick").play();
-
-			// if (_tank.getType() == ObjectType.PLAYER_TANK
-			// && object.getType() == ObjectType.STEEL_WALL)
-			// GameManager.getSound("steel").play();
-
-			/**
-			 * tăng độ kho của game if (object == _tank || (object != null &&
-			 * object.getObjectFixtureDef().isSensor)) { return; }
-			 */
-
-			if (object == _tank
-					|| (object.getType() == ObjectType.ENEMY_TANK && _tank
-							.getType() == ObjectType.ENEMY_TANK)) {
-				return;
-			}
 		}
 
+		_body.setLinearVelocity(0f, 0f);
 		doBlast(object);
 		_sprite.setVisible(false);
-		_body.setLinearVelocity(0f, 0f);
 		DestroyHelper.add(this);
 	}
 
