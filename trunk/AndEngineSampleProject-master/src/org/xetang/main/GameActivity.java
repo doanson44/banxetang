@@ -23,6 +23,8 @@ import android.widget.Toast;
 public class GameActivity extends SimpleBaseGameActivity implements
 		IAccelerationListener {
 
+	
+	
 	@Override
 	public Engine onCreateEngine(EngineOptions pEngineOptions) {
 
@@ -113,14 +115,13 @@ public class GameActivity extends SimpleBaseGameActivity implements
 		GameManager.loadResource();
 		
 		
-		
-		
+		GameManager.loadGameData();
 	}
 
 	@Override
 	public void onDestroyResources() throws Exception {
-		GameManager.unloadResource();
-		GameManager.onDestroyResources();
+		//GameManager.unloadResource();
+		//GameManager.onDestroyResources();
 		super.onDestroyResources();
 	}
 
@@ -173,5 +174,11 @@ public class GameActivity extends SimpleBaseGameActivity implements
 		else {
 			super.onBackPressed();
 		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		GameManager.saveData();
 	}
 }

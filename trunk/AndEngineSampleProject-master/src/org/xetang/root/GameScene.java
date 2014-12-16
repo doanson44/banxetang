@@ -99,6 +99,8 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 		handler.postDelayed(new SwitchingHighScoreScene(), 2000);
 		//sound
 		mBackgroundSound.stop();
+		
+		GameManager.saveCurrentTankLevel( GameManager.CurrentMap.getPlayerTanks().get(0).getLevel() );
 	}
 
 	/*
@@ -116,11 +118,12 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 		showNotification();
 		handler.postDelayed(new SwitchingHighScoreScene(), 5000);
 
+		GameManager.resetTankLevel();
+		GameManager.resetCurrentTankLife();
 	}
 
 	private void showNotification() {
 		Font f = GameManager.getFont("font2", 48f, Color.RED_ARGB_PACKED_INT);
-		f.load();
 		gameOrver = new Text(0, 0, f, "Game Over", GameManager.VertexBufferObject) ;
 		gameOrver.setPosition(GameManager.CAMERA_HEIGHT/2 - gameOrver.getWidth()/2 - GameManager.CAMERA_X, GameManager.CAMERA_HEIGHT - gameOrver.getHeight());
 		//Body body = PhysicsFactory.createBoxBody(GameManager.PhysicsWorld, t, BodyType.KinematicBody, PhysicsFactory.createFixtureDef(0, 0, 0));
@@ -142,7 +145,8 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 	}
 
 	public void onSwitched(String action) {
-		if (action == GameManager.ACTION_SCENE_OPEN){
+		if (action == GameManager.ACTION_SCENE_OPEN)
+		{
 			loadScene();
 		}
 		else
@@ -165,7 +169,6 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 			mBackgroundSound.stop();
 	}
 
-	int count2;
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
 		super.onManagedUpdate(pSecondsElapsed);

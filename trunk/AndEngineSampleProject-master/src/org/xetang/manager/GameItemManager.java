@@ -46,7 +46,7 @@ public class GameItemManager implements IUpdateHandler {
 
 	public Item CreateItem(ObjectType type) {
 		Item item = null;
-
+		
 		switch (type) {
 		case BOMB:
 			item = new Bomb();
@@ -92,14 +92,13 @@ public class GameItemManager implements IUpdateHandler {
 
 	private void UpdateItem(float pSecondsElapsed) {
 		for (Item item : mItems) {
-			if (item.isAlive())
+			if (!item.isOutOfDate())
 				item.update(pSecondsElapsed);
 			else {
 				mItemRemove.add(item);
-				mPickupItems.add(item);
 			}
 		}
-		for (Item item : mPickupItems) {
+		for (Item item : mItemRemove) {
 			mItems.remove(item);
 		}
 		mItemRemove.clear();
@@ -252,8 +251,8 @@ public class GameItemManager implements IUpdateHandler {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				GameManager.CurrentMap.addObject(CreateItem(GetRandomType()),
-						ObjectLayer.WRAPPER);
+				Item i = CreateItem(GetRandomType());
+				GameManager.CurrentMap.addObject(i,ObjectLayer.WRAPPER);
 				// GameManager.CurrentMap.attachChild(
 				// CreateItem(GetRandomType()));
 			}

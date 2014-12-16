@@ -78,7 +78,7 @@ public class GameMapManager implements IUpdateHandler {
 
 	private void loadMapTanks(StageDTO stage) {
 
-		loadPlayerTanks(stage.getLives());
+		loadPlayerTanks(GameManager.getCurrentTankLifes());
 		loadEnemyTanks(stage.getTanksNameQueue());
 	}
 
@@ -90,6 +90,7 @@ public class GameMapManager implements IUpdateHandler {
 			_totalPlayerTanks.add(tank);
 		}
 		Tank t = _totalPlayerTanks.poll();
+		t.setLevel(GameManager.getCurrentTankLevel());
 		t.work();
 		_gameScene.setController(t);
 		_map.addPlayerTank(t);
@@ -252,6 +253,7 @@ public class GameMapManager implements IUpdateHandler {
 
 	public void AddNewLifeForTank() {
 		_totalPlayerTanks.add(TankManager.CreatePlayerTank(1));
+		GameManager.addNewLifeForTank();
 	}
 
 	public int GetPlayer1Life() {

@@ -356,8 +356,12 @@ public abstract class Tank extends GameEntity implements IGameController,
 		if (isTankBonus)
 			GameItemManager.getInstance().CreateRandomItem();
 		this.hp--;
-		if (hp == 0)
+		if (hp == 0){
+			GameManager.getSound("explosion").play();
 			return true;
+		}
+		
+		GameManager.getSound("steel").play();
 		return false;
 	}
 
@@ -378,8 +382,11 @@ public abstract class Tank extends GameEntity implements IGameController,
 	}
 
 	public void CreateShield() {
-		// TODO Auto-generated method stub
-		_shield = new Shield(mSprite.getX() - 8, mSprite.getY() - 8);
+		if(_shield != null)
+			_shield.TimeSurvive = 0;
+		else
+			_shield = new Shield(mSprite.getX() - 8, mSprite.getY() - 8);
+	
 	}
 
 	public void DestroyShield() {
@@ -499,7 +506,6 @@ public abstract class Tank extends GameEntity implements IGameController,
 
 	@Override
 	public void doContact(IMapObject object) {
-		// TODO Auto-generated method stub
 		if (object != null && object != this) {
 			_typeColide = object.getType();
 		} else
@@ -510,6 +516,9 @@ public abstract class Tank extends GameEntity implements IGameController,
 				mController.onCollide(null);
 			else
 				mController.onCollide(object.getType());
+		
+
+
 
 	}
 
@@ -585,6 +594,36 @@ public abstract class Tank extends GameEntity implements IGameController,
 
 	public int getHP() {
 		return hp;
+	}
+
+	public int getLevel() {
+		return mLevel;
+	}
+
+	public void setLevel(int currentTankLevel) {
+		mLevel = currentTankLevel;
+		CurrentSprite = (mLevel - 1) * 4;
+		
+		switch (mLevel) {
+		case 2: // Đạn bay nhanh như đạn của GlassCannon
+			_maxNumberBullet = 1;
+			mBulletType = ObjectType.FAST_BULLET;
+			// this.hp = 2;
+			break;
+		case 3:
+			_maxNumberBullet = 2;
+			// this.hp = 3;
+			break;
+		case 4:
+			mBulletType = ObjectType.BLOW_BULLET;
+			// this.hp = 4;
+			break;
+		}
+
+		if (mSprite.isAnimationRunning()) {
+			mSprite.animate(new long[] { 100, 100 }, CurrentSprite,
+					CurrentSprite + 1, true);
+		}
 	}
 
 }

@@ -68,7 +68,6 @@ public class RoundScene extends Scene {
 
 
 	/************************************************************/
-	/*							Methods							*/
 	/************************************************************/
 	private void initData() {
 		mResouces = new HashMap<String, BaseTextureRegion>();
@@ -137,10 +136,13 @@ public class RoundScene extends Scene {
 						if (bSelected)
 							onSelectedStage((Round)this.getUserData());
 					}
-					else{
-						this.setColor(1, 1, 1, 1f);
-						bSelected = false;
+					else if (pSceneTouchEvent.isActionMove()){
+						if (prePos.dst(originPos) > 20){
+							this.setColor(1, 1, 1, 1f);
+							bSelected = false;
+						}
 					}
+
 					
 					return true;
 				}
@@ -298,24 +300,28 @@ public class RoundScene extends Scene {
 	/************************************************************/
 	Vector2 prePos = new Vector2();
 	Vector2 originPos = new Vector2();
+	long preTime;
+	long delayTime = 350;
 	
 	@Override
 	public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
-		Debug.d(GameManager.TANK_TAG, "Scene touch");
+		//Debug.d(GameManager.TANK_TAG, "Scene touch");
 		if (pSceneTouchEvent.isActionMove()){
 			transformSprite(pSceneTouchEvent.getX() - prePos.x, 0);
 			prePos.x = pSceneTouchEvent.getX();
 			prePos.y = pSceneTouchEvent.getY();
-			
 		}
 		else if (pSceneTouchEvent.isActionDown())
 		{
 			originPos.x = prePos.x = pSceneTouchEvent.getX();
 			originPos.y = prePos.y = pSceneTouchEvent.getY();
+			preTime = System.currentTimeMillis();
+
 		}
 		else if (pSceneTouchEvent.isActionUp())
 		{
-			transformInertial(new Vector2(pSceneTouchEvent.getX() - originPos.x, 0));
+			if (System.currentTimeMillis() - preTime < delayTime )
+				transformInertial(new Vector2(pSceneTouchEvent.getX() - originPos.x, 0));
 		}
 		return super.onSceneTouchEvent(pSceneTouchEvent);
 	}
@@ -329,7 +335,7 @@ public class RoundScene extends Scene {
 				&& mRoundSprites.get(mRoundSprites.size()-2).getX() > frameStartX + paddingWidth ){
 			transformSprite(transformVector.x/3 , 0);
 			transformVector.x /= 1.15f;
-			Debug.d(GameManager.TANK_TAG, String.valueOf(transformVector.x));
+			//Debug.d(GameManager.TANK_TAG, String.valueOf(transformVector.x));
 		}
 		else if (mRoundSprites.get(0).getX() >= frameStartX + paddingWidth){
 			transformSprite(frameStartX + paddingWidth - mRoundSprites.get(0).getX(), 0);

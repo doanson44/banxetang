@@ -103,12 +103,17 @@ public class GameManager {
 	private static int mStage; // Màn chơi hiện tại
 	private static int mHighestScore; // Số điểm cao nhất đạt được
 	private static int mReachedStage;
+	private static float mCurrentVolumn;
 
+	private static int mCurrentTankLifes;
+	private static int mCurrentTankLevel;
 
 	static {
-		mStage = 7;
+		mStage = 1;
 		mReachedStage = 2;
 		mHighestScore = 0;
+		mCurrentTankLifes = 3;
+		mCurrentTankLevel = 1;
 	}
 
 	/**
@@ -117,10 +122,16 @@ public class GameManager {
 	public static void loadGameData() {
 		// Load thông tin màn chơi hiện tại
 		// ...
-		SharedPreferences preferences = Context.getPreferences(android.content.Context.MODE_PRIVATE);
-		mStage = preferences.getInt("current stage", 1);
-		mReachedStage = preferences.getInt("reached stage", 4);
-		mHighestScore = preferences.getInt("high score", 0);
+		try {
+			SharedPreferences preferences = Context.getPreferences(android.content.Context.MODE_PRIVATE);
+			mStage = preferences.getInt("current stage", 1);
+			mReachedStage = preferences.getInt("reached stage", 3);
+			mHighestScore = preferences.getInt("high score", 0);
+			mCurrentVolumn = preferences.getFloat("volumn", 1f);
+			turnOnOffMusic(mCurrentVolumn);
+		} catch (Exception e) {
+		}
+
 		
 	}
 
@@ -197,8 +208,10 @@ public class GameManager {
 			
 			if (name == "game")
 				SampleScene.put(name, new GameScene());
+			/*
 			else if (name == "highscore")
 				SampleScene.put(name, new HighScoreScene());
+				*/
 			
 			//setup new Scene
 			GameManager.Engine.setScene(SampleScene.get(name));
@@ -381,6 +394,8 @@ public class GameManager {
 	 * @param pVolumn : âm lượng muốn mở từ 0.0 -> 1.0
 	 */
 	public static void turnOnOffMusic(float pVolumn){
+		mCurrentVolumn = pVolumn;
+		
 		Enumeration<String> keys = Sounds.keys();
 		while (keys.hasMoreElements()) {
 			String key = (String) keys.nextElement();
@@ -430,11 +445,16 @@ public class GameManager {
 	 * Lưu dữ liệu trước khi thoát game
 	 */
 	public static void saveData() {
-		Editor editor = GameManager.Context.getPreferences(android.content.Context.MODE_PRIVATE).edit();
-		editor.putInt("current stage", mStage);
-		editor.putInt("reached stage", mReachedStage);
-		editor.putInt("high score", mHighestScore);
-		editor.commit();		
+		try {
+			Editor editor = GameManager.Context.getPreferences(android.content.Context.MODE_PRIVATE).edit();
+			editor.putInt("current stage", mStage);
+			editor.putInt("reached stage", mReachedStage);
+			editor.putInt("high score", mHighestScore);
+			editor.putFloat("volumn", mCurrentVolumn);
+			editor.commit();
+		} catch (Exception e) {
+		}
+		
 	}
 
 	/**
@@ -456,6 +476,34 @@ public class GameManager {
 	public static void newHighScore(int curHighScore) {
 		if (curHighScore > mHighestScore)
 			mHighestScore = curHighScore;
+	}
+
+	public static int getCurrentTankLifes() {
+		return mCurrentTankLifes;
+	}
+
+	public static void addNewLifeForTank() {
+		mCurrentTankLifes++;		
+	}
+
+	public static void saveCurrentTankLevel(int level) {
+		mCurrentTankLevel = level;
+	}
+
+	public static void resetTankLevel() {
+		mCurrentTankLevel  = 1;
+	}
+
+	public static void resetCurrentTankLife() {
+		mCurrentTankLifes = 3;
+	}
+
+	public static int getCurrentTankLevel() {
+		return mCurrentTankLevel;
+	}
+
+	public static float getCurrentVolumn() {
+		return mCurrentVolumn;
 	}
 
 	

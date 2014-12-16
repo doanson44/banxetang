@@ -7,7 +7,8 @@ import org.xetang.map.object.MapObjectFactory;
 public class DecideHelpder {
 
 	public static boolean canDestroy(IMapObject object) {
-
+		if (object.getType() == null) return true;
+		
 		if (object == null) {
 			return false;
 		}
@@ -36,7 +37,9 @@ public class DecideHelpder {
 		if (!canDestroy(object)) {
 			return false;
 		}
-
+		if (object.getType() == null)
+			return true;
+		
 		switch (object.getType()) {
 		case STEEL_WALL:
 			if (bullet.getDamage() < MapObjectFactory.BLOW_BULLET_DAMAGE) {

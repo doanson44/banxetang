@@ -17,6 +17,8 @@ import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.root.GameEntity;
 import org.xetang.tank.Tank;
 
+import android.util.Log;
+
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -30,8 +32,9 @@ public class Item extends GameEntity implements IMapObject {
 	int _TimeSurvive = 0;
 	int _TimeAffect = 0;
 
-	static int _TotalTimeAffect = 7;
-	static int _ToatalTimeSurvive = 10;
+	static int _TotalTimeAffect = 10;
+	static int _TotalTimeSurvive = 10;
+	boolean mIsOutOfDate = false; 
 
 	float _Score = 500;
 	float _SecPerFrame = 0;
@@ -87,6 +90,7 @@ public class Item extends GameEntity implements IMapObject {
 	}
 
 	long preTime;
+	
 
 	public void update(float pSecondsElapsed) {
 
@@ -97,17 +101,21 @@ public class Item extends GameEntity implements IMapObject {
 			_TimeSurvive++;
 			if (_mOwner != null) {
 				_TimeAffect++;
+				//Log.i(GameManager.TANK_TAG, "Time Affect: " + String.valueOf(_TimeAffect));
+
 			}
-			// Log.i("Time Surive", String.valueOf(_TimeSurvive));
+			//Log.i(GameManager.TANK_TAG, "Time Affect: " + String.valueOf(_mOwner));
+			if (_TimeSurvive > _TotalTimeSurvive && _mOwner == null) {
+				DestroyHelper.add(this);
+				mIsOutOfDate = true;
+			}
+			if (_TimeAffect > _TotalTimeAffect) {
+				DestroyAffect();
+				mIsOutOfDate = true;
+			}	
 		}
 
-		if (_TimeSurvive > _ToatalTimeSurvive && _mOwner == null) {
-			DestroyHelper.add(this);
-		}
-		if (_TimeAffect > _TotalTimeAffect) {
-			DestroyAffect();
-			DestroyHelper.add(this);
-		}
+		
 	}
 
 	Boolean flag = false;
@@ -230,10 +238,9 @@ public class Item extends GameEntity implements IMapObject {
 				_isActive = true;
 				GameItemManager.getInstance().pickupItem(this);
 
-				_sprite.detachSelf();
-				// GameManager.getMusic("bonus").play();
 				DestroyHelper.add(this);
 				GameManager.getSound("bonus").play();
+				//Log.i(GameManager.TANK_TAG, "isOutOfDate: " +  String.valueOf(mIsOutOfDate));
 			}
 		} catch (Exception e) {
 			Debug.d("Collsion", "Nothing to contact!");
@@ -257,5 +264,9 @@ public class Item extends GameEntity implements IMapObject {
 
 	public int getBonusPoint() {
 		return 100;
+	}
+
+	public boolean isOutOfDate() {
+		return mIsOutOfDate;
 	}
 }
