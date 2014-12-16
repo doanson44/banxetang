@@ -23,16 +23,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.xetang.main.SplashActivity" 
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.NoBackground"
-            >
-        </activity>
-        <activity
-            android:name="org.xetang.main.RoundActivity"
-            android:label="@string/title_activity_round" >
-        </activity>
+
+
+
+
+
+
+
+
+
+
+
     </application>
 
 </manifest>

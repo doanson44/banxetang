@@ -74,6 +74,7 @@ public class HighScoreScene extends Scene {
 	protected void onManagedUpdate(float pSecondsElapsed) {
 		super.onManagedUpdate(pSecondsElapsed);
 		
+		if (!mIsShowed) return;
 		
 		if (System.currentTimeMillis() - mPrevTime > mDurationMilis)
 		{
@@ -138,11 +139,14 @@ public class HighScoreScene extends Scene {
 									0 : (Integer)mValues.get(String.format("%s tank %s", tank, player));
 		iCur = mValues.get(String.format("cur %s tank %s", tank, player))==null? 
 								0 : (Integer)mValues.get(String.format("cur %s tank %s", tank, player));
+		//he so
+		int ICOR = tank == "normal" ? 100 : tank == "racer" ? 200 : tank == "cannon" ? 300 : 400;
+		
 		if (iTotal > iCur)
 		{
 			iCur++;
 			mValues.put(String.format("cur %s tank %s", tank, player), iCur);
-			t.setText(String.format("%d PTS     % 2d", 100 * iCur, iCur));
+			t.setText(String.format("%d PTS     % 2d", ICOR * iCur, iCur));
 			t.setPosition(pivot.getX() - t.getWidth() - 10, pivot.getY() + pivot.getHeight()/2 - t.getHeight()/2);
 			bNext = true;
 		}
@@ -271,9 +275,6 @@ public class HighScoreScene extends Scene {
 	 * Chơi lại màn đã thua
 	 */
 	protected void replayRound() {
-		GameManager.getMusic("amazing_score").stop();
-		TankManager.resetData();
-		GameItemManager.getInstance().resetData();
 		GameManager.switchToScene("game", null);
 	}
 
@@ -281,10 +282,7 @@ public class HighScoreScene extends Scene {
 	 * Qua man ke tiep
 	 */
 	protected void nextRound() {
-		GameManager.getMusic("amazing_score").stop();
 		GameManager.nextStage();
-		TankManager.resetData();
-		GameItemManager.getInstance().resetData();
 		GameManager.switchToScene("game", null);
 	}
 
@@ -406,15 +404,44 @@ public class HighScoreScene extends Scene {
 		if (action == GameManager.ACTION_SCENE_OPEN){
 			backupCamera();
 			setupNewCamera();
-			mIsShowed = true;
 			mIsWin = data != null ? (Boolean)data : false;
+			mIsUpdateScoreDone = false;
 			drawDecorations();
 			calcScorePlayer("player1");
 			drawScorePlayer("player1");
+			
+			mIsShowed = true;
+			mFlag = true;
 
 		}
 		else if (action == GameManager.ACTION_SCENE_CLOSE)
+		{
 			restoreCamera();
+			
+			GameManager.getMusic("amazing_score").pause();
+			GameManager.getMusic("amazing_score").seekTo(0);
+			TankManager.resetData();
+			GameItemManager.getInstance().resetData();
+			GameManager.saveData();
+			
+			int curHighScore = mValues.get("total score player1" )!=null ? (Integer)mValues.get("total score player1") : 0 ;
+			GameManager.newHighScore(curHighScore);
+
+			mIsShowed = false;
+			cleanAllText();
+			cleanAllTouchHandler();
+		}
+		
+	}
+
+	private void cleanAllTouchHandler() {
+		this.clearTouchAreas();
+		this.clearUpdateHandlers();
+	}
+
+	private void cleanAllText() {
+		this.mChildren.clear();
+		mEntities.clear();
 	}
 	
 }

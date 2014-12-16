@@ -34,7 +34,7 @@ public class Eagle extends MapObject {
 	@Override
 	public void doContact(IMapObject object) {
 		try {
-			if (object.getType() == ObjectType.BULLET) {
+			if (object instanceof Bullet) {
 
 				_sprite.setCurrentTileIndex(1);
 				GameManager.CurrentMap.notifyEagleDie();

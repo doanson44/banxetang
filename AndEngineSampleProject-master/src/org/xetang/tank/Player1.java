@@ -29,9 +29,10 @@ public class Player1 extends Tank {
 
 	@Override
 	public void PowerUp() {
-
+		if (mLevel >= 4) return;
+		
 		++this.mLevel;
-		CurrentSprite += 4;
+		CurrentSprite = (mLevel - 1) * 4 ;
 
 		switch (mLevel) {
 		case 2: // Đạn bay nhanh như đạn của GlassCannon

@@ -51,29 +51,30 @@ public class DestroyHelper implements IUpdateHandler {
 
 						@Override
 						public void run() {
+							try
+							{
+								sprite.setVisible(false);
+								sprite.detachSelf();
+								sprite.clearUpdateHandlers();
 
-							sprite.setVisible(false);
-							sprite.detachSelf();
-							sprite.clearUpdateHandlers();
+								PhysicsConnector connector = GameManager.PhysicsWorld
+										.getPhysicsConnectorManager()
+										.findPhysicsConnectorByShape(sprite);
 
-							PhysicsConnector connector = GameManager.PhysicsWorld
-									.getPhysicsConnectorManager()
-									.findPhysicsConnectorByShape(sprite);
+								if (connector != null) {
+									GameManager.PhysicsWorld
+											.unregisterPhysicsConnector(connector);
+								}
 
-							if (connector != null) {
-								GameManager.PhysicsWorld
-										.unregisterPhysicsConnector(connector);
-							}
-
-							try {
 								if (object.getBody() != null) {
 									object.getBody().setActive(false);
-									GameManager.PhysicsWorld.destroyBody(object
-											.getBody());
+									GameManager.PhysicsWorld.destroyBody(object.getBody());
 								}
-							} catch (Exception e) {
-								Debug.d(GameManager.TANK_TAG, e.getMessage());
 							}
+							catch(Exception e){
+								
+							}
+							
 						}
 					});
 

@@ -7,6 +7,7 @@ import org.xetang.manager.GameManager;
 import org.xetang.manager.GameManager.Direction;
 import org.xetang.map.helper.CalcHelper;
 import org.xetang.map.helper.DestroyHelper;
+import org.xetang.map.item.Item;
 import org.xetang.map.object.MapObjectFactory.ObjectLayer;
 import org.xetang.map.object.MapObjectFactory.ObjectType;
 import org.xetang.tank.Tank;
@@ -92,45 +93,43 @@ public class Bullet extends MapObject implements IBullet {
 	@Override
 	public void doContact(IMapObject object) {
 
-		if (object != null) {
 
-			if (object == _tank
-					|| (object.getType() == ObjectType.ENEMY_TANK && _tank
-							.getType() == ObjectType.ENEMY_TANK)) {
-				return;
+		// tank địch bắn trúng tank của ngư�?i chơi
+		if (object != null && object.getType() == ObjectType.PLAYER_TANK
+				&& _tank.getType() == ObjectType.ENEMY_TANK) {
+			Tank tank = (Tank) object;
+			if (tank.getShield() == null) {
+				tank.KillSelf();
 			}
 
-			// tank địch bắn trúng tank của ngư�?i chơi
-			if (object.getType() == ObjectType.PLAYER_TANK
-					&& _tank.getType() == ObjectType.ENEMY_TANK) {
-				Tank tank = (Tank) object;
-				if (tank.getShield() == null) {
-					tank.KillSelf();
-				}
-
-				// sound
-				GameManager.getSound("explosion").play();
-			}
-			// tank nguoi choi ban trung tank dich
-			else if (object.getType() == ObjectType.ENEMY_TANK
-					&& _tank.getType() == ObjectType.PLAYER_TANK) {
-				Tank tank = (Tank) object;
-				if (tank.BeFire()) {
-					GameManager.CurrentMapManager.AddTankKill(tank);
-					tank.KillSelf();
-				}
-
-				// sound
-				if (tank.getHP() > 0)
-					GameManager.getSound("steel").play();
-				else
-					GameManager.getSound("explosion").play();
-			}
 		}
 
-		_body.setLinearVelocity(0f, 0f);
+		
+		//tank nguoi choi ban trung tank dich
+		if (object != null && object.getType() == ObjectType.ENEMY_TANK
+				&& _tank.getType() == ObjectType.PLAYER_TANK) {
+			Tank tank = (Tank) object;
+			if (tank.BeFire()) {
+				tank.KillSelf();
+			}
+
+
+		}
+		
+		
+		if (object == _tank || 
+				(object != null && 
+				object.getType() == ObjectType.ENEMY_TANK && 
+				_tank.getType() == ObjectType.ENEMY_TANK)) {
+			return;
+		}
+		
+		if (object != null && object instanceof Item)
+			return;
+
 		doBlast(object);
 		_sprite.setVisible(false);
+		_body.setLinearVelocity(0f, 0f);
 		DestroyHelper.add(this);
 	}
 

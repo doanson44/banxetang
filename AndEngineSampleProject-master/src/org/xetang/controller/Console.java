@@ -316,6 +316,7 @@ public class Console extends Controller {
 				return true;
 			}
 		};
+		soundSprite.setCurrentTileIndex(GameManager.getCurrentVolumn() > 0f ? 0 : 1 );
 		soundSprite.setPosition(Math.abs(GameManager.CAMERA_X) / 2 - soundSprite.getWidth() / 2,
 				GameManager.CAMERA_HEIGHT / 100 * 99 - soundSprite.getHeight());
 		hud.attachChild(soundSprite);
